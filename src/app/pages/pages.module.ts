@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module';
+import { NewAttestationModule } from './new-attestation/new-attestation.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { PagesComponent } from './pages.component';
 
 @NgModule({
   declarations: [
-    
-  
-    AdminDashboardComponent
+    PagesComponent,
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    DashboardModule,
+    AdminDashboardModule,
+    NewAttestationModule,
   ]
 })
 export class PagesModule { }

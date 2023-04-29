@@ -12,6 +12,7 @@ export class LoginComponent {
   // loginForm = FormGroup;
   loginForm: FormGroup; 
   submitted = false;
+  token: any;
   constructor(
     private route: ActivatedRoute,
     private auth : AuthService,
@@ -34,19 +35,25 @@ export class LoginComponent {
   }
   onSubmit() {
     this.submitted = true;
-    this.auth.login('shubhamr@edulab.in','123456')
-        .subscribe({
-            next: () => {
-                // get return url from query parameters or default to home page
-                const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-                this.router.navigateByUrl('pages/dashboard');
-            },
-            error: error => {
-                // this.alertService.error(error);
-                // this.loading = false;
-            }
-        });
-}
+    this.auth.login(this.loginForm.controls).subscribe({
+      next: () => {
+        // get return url from query parameters or default to home page
+        this.token = JSON.parse(localStorage.getItem('user')!);
+        if(this.token.data.user_type == 'student')
+        {
+          this.router.navigateByUrl('pages/dashboard'); 
+        }else{
+          this.router.navigateByUrl('pages/admin-dashboard');
+        }
+       
+        
+    },
+    error: error => {
+        // this.alertService.error(error);
+        // this.loading = false;
+    }
+    });
+  }
   clear()
   {
     this.loginForm.patchValue({

@@ -27,7 +27,12 @@ export class AuthService {
         return this.userSubject.value;
     }
 
-    login(email: string, password: string) {
+    login(data:any) {
+        console.log("data====",data);
+        var email = data.userName.value;
+        console.log("email====",email);
+        var password = data.passWord.value; 
+        console.log("password====",password);
         return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password })
             .pipe(map(user => {
                 console.log('useruseruser' , user) 

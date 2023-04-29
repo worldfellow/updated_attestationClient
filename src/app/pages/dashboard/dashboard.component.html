@@ -1,1 +1,134 @@
-<p>dashboard works!</p>
+<!-- applied first time -->
+<div>
+    <marquee style="color:red ; font-size: 19px">Kindly refer to the chat-bot available at the bottom right of the page for quick assistance.</marquee>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Welcome to University of Mumbai!</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Hi {{user_name}}!</h5>
+                    <p class="card-text">Welcome to eTranscript, a one stop contactless, faceless and paperless solution for
+                        attesting your Mumbai University Transcripts. We are here to provide online attestation services and
+                        ensure that the foreign universities / employers get genuine , verified and digitally attested
+                        documents. click on the "GO" button on the right to either start a new application, if it's your first
+                        time on this website or to continue your existing one.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Attestation Application</h3>
+                </div>
+                <div class="card-body">
+                    <button (click)="dashboardRoutes('attestation_page')" mat-raised-button color="primary">GO</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <br>
+    <div class="card text-center">
+        <div class="card-header">
+            <h3>Application Progress Bar</h3>
+        </div>
+        <div class="card-body">
+            <div style="margin-left:2%;"><b>Pre-Application</b></div>
+                <div>
+                    <mat-horizontal-stepper headerPosition="bottom" #stepper>
+                        <mat-step>
+                            <ng-template matStepLabel>Attestation For</ng-template>
+                        </mat-step>
+                        <mat-step>
+                            <ng-template matStepLabel>Educational Information</ng-template>
+                        </mat-step>
+                        <mat-step>
+                            <ng-template matStepLabel>Upload Marksheet</ng-template>
+                        </mat-step>
+                        <mat-step>
+                            <ng-template matStepLabel>Upload Transcript</ng-template>
+                        </mat-step>
+                        <mat-step>
+                            <ng-template matStepLabel>Purpose</ng-template>
+                        </mat-step>
+                        <mat-step>
+                            <ng-template matStepLabel>Payment</ng-template>
+                            You are now done.
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                </div>
+            </div>
+        <div class="card-footer text-muted">
+            You could share this exciting news with your friends and family to make them aware of our steps towards
+            digitalisation!
+        </div>
+    </div>
+</div>
+
+<!-- after payment -->
+<div>
+    <marquee style="color:red ; font-size: 19px">Kindly refer to the chat-bot available at the bottom right of the page for quick assistance.</marquee>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Welcome to Customer Support!</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Hi {{user_name}}!</h5>
+                    <p class="card-text">Welcome to eTranscript, a one stop contactless, faceless and paperless solution for attesting your Mumbai University Transcripts. 
+                        We are here to provide online attestation services and ensure that the foreign universities / employers get genuine , verified and digitally attested documents.
+                        click on the "GO" button on the right to either start a new application, if it's your first time on this website or to continue your existing one.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Attestation Application</h3>
+                </div>
+                <div class="card-body">
+                    <button (click)="dashboardRoutes('attestation_page')" mat-raised-button color="primary">Apply Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="card text-center">
+        <div class="card-header">
+            <h3>Application Progress Bar</h3>
+        </div>
+        <div class="card-body">
+            <div style="margin-left:2%;"><b>Post-Application</b></div>
+            <div>
+                <mat-horizontal-stepper headerPosition="bottom" #stepper>
+                    <mat-step>
+                        <ng-template matStepLabel>Applied</ng-template>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Verified</ng-template>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Signed</ng-template>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Sent<br/> to<br/>recipient</ng-template>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Sent<br/> to<br/>WES</ng-template>
+                        You are now done.
+                    </mat-step>
+                </mat-horizontal-stepper>
+                <span style="font-weight: bold; font-size: 18px; color : red" >Remarks :</span>
+                <span style="font-weight: bold; font-size: 16px;"></span>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            You could share this exciting news with your friends and family to make them aware of our steps towards
+            digitalisation!
+        </div>
+    </div>
+</div>
