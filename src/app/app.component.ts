@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms'
+import { Component, OnInit } from '@angular/core';
 
+interface SideNavToggle{
+  screenWidth: number;
+  collapsed: boolean;
+} 
 
 @Component({
   selector: 'app-root',
@@ -10,4 +12,15 @@ import { ReactiveFormsModule } from '@angular/forms'
 })
 export class AppComponent {
   title = 'attestation';
+  isSideNavCollapsed = false;
+  screenWidth = 0;
+
+  constructor() { }
+
+  ngOnInit(): void {}
+
+  onToggleSideNav(data: SideNavToggle){
+    this.isSideNavCollapsed = data.collapsed;
+    this.screenWidth = data.screenWidth;
+  }
 }

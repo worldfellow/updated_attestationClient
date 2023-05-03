@@ -8,21 +8,16 @@ import { takeUntil, takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pages',
-  // templateUrl: './pages.component.html',
+  templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.css'],
-  template: `
-  <mat-drawer-container class="example-container">
-  <mat-drawer-content>
-    <button mat-raised-button >Toggle drawer</button>
-    <button mat-raised-button >Toggle drawer</button>
-    <button mat-raised-button >Toggle drawer</button>
-    <button mat-raised-button >Toggle drawer</button>
-    <button mat-raised-button >Toggle drawer</button>
-    <button mat-raised-button >Toggle drawer</button>
-  </mat-drawer-content>
-  </mat-drawer-container>
-    <router-outlet></router-outlet>
-`,
+//   template: `
+//   <mat-drawer-container class="example-container">
+//   <mat-drawer-content>
+//     <button mat-raised-button >Toggle drawer</button>
+//   </mat-drawer-content>
+//   </mat-drawer-container>
+//     <router-outlet></router-outlet>
+// `,
 })
 export class PagesComponent implements OnInit {
   token: any;

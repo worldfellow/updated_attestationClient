@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewAttestationComponent } from './new-attestation/new-attestation.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from '../auth.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 console.log("inside pages routing");
 
@@ -12,10 +13,6 @@ const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
-    {
-      path : 'dashboard/attestation_page',
-      component : NewAttestationComponent
-    },
     {
       path : 'dashboard',
       component : DashboardComponent,
@@ -25,6 +22,14 @@ const routes: Routes = [{
       path : 'admin-dashboard',
       component : AdminDashboardComponent,
       canActivate: [AuthGuard],
+    },
+    {
+      path : 'dashboard/attestation_page',
+      component : NewAttestationComponent
+    },
+    {
+      path : 'profile',
+      component : ProfileComponent
     },
   ]
 }];

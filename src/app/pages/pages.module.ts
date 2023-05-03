@@ -9,10 +9,16 @@ import { NavbarModule } from './navbar/navbar.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { PagesMenu } from './pages-menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { ProfileComponent } from './profile/profile.component';
+import { PaymentIssueComponent } from './payment-issue/payment-issue.component';
+import { HelpsComponent } from './helps/helps.component';
 
 @NgModule({
   declarations: [
     PagesComponent,
+    ProfileComponent,
+    PaymentIssueComponent,
+    HelpsComponent,
   ],
   imports: [
     CommonModule,
