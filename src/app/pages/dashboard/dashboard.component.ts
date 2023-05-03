@@ -30,17 +30,17 @@ export class DashboardComponent implements OnInit {
     this.token = JSON.parse(localStorage.getItem('user')!)
     this.user_name = this.token.data.user_name;
 
-    this.api.getpreAppldetails().subscribe((response)=>{
-      // if(response['status'] == 200)
-      // {
-      //   this.paymentFlag  = response['paymentFlag'];
-      //   this.purposeFlag  = response['purposeFlag'];
-      //   this.marksheetsFlag  = response['marksheetsFlag'];
-      //   this.educationFlag = response['educationFlag'];
-      //   this.transcriptFlag = response['transcriptFlag'];
-      //   this.collegeFlag = response['collegeFlag'];
-      // }
-    })
+    // this.api.getpreAppldetails().subscribe((response)=>{
+    //   // if(response['status'] == 200)
+    //   // {
+    //   //   this.paymentFlag  = response['paymentFlag'];
+    //   //   this.purposeFlag  = response['purposeFlag'];
+    //   //   this.marksheetsFlag  = response['marksheetsFlag'];
+    //   //   this.educationFlag = response['educationFlag'];
+    //   //   this.transcriptFlag = response['transcriptFlag'];
+    //   //   this.collegeFlag = response['collegeFlag'];
+    //   // }
+    // })
   }
 
   // click button GO or Apply Again navigate to attestation_page  

@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { User } from './user';
 
-console.log('Aith Servoce')
 @Injectable({ providedIn: 'root' })
 
 export class AuthService {
@@ -17,25 +16,19 @@ export class AuthService {
         private router: Router,
         private http: HttpClient
     ) {
-        console.log('constructor')
         this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
         this.user = this.userSubject.asObservable();
     }
 
     public get userValue() {
-        console.log('uservalue')
         return this.userSubject.value;
     }
 
     login(data:any) {
-        console.log("data====",data);
         var email = data.userName.value;
-        console.log("email====",email);
         var password = data.passWord.value; 
-        console.log("password====",password);
         return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password })
             .pipe(map(user => {
-                console.log('useruseruser' , user) 
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
                 this.userSubject.next(user);

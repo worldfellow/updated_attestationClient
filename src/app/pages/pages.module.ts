@@ -5,6 +5,10 @@ import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module';
 import { NewAttestationModule } from './new-attestation/new-attestation.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesComponent } from './pages.component';
+import { NavbarModule } from './navbar/navbar.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { PagesMenu } from './pages-menu';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -12,10 +16,14 @@ import { PagesComponent } from './pages.component';
   ],
   imports: [
     CommonModule,
+    MatSidenavModule,
     PagesRoutingModule,
     DashboardModule,
     AdminDashboardModule,
     NewAttestationModule,
-  ]
+    NavbarModule,
+    MatMenuModule
+  ],
+  providers:[PagesMenu]
 })
 export class PagesModule { }

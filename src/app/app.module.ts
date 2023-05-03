@@ -8,12 +8,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { PagesModule } from './pages/pages.module';
+import { OneColumnModule } from './one-column/one-column.module';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    MatMenuModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
@@ -22,6 +25,7 @@ import { PagesModule } from './pages/pages.module';
     MatDividerModule,
     BrowserAnimationsModule,
     PagesModule,
+    OneColumnModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

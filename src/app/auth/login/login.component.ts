@@ -18,11 +18,9 @@ export class LoginComponent {
     private auth : AuthService,
     private fb:FormBuilder,
     private router:Router,){
-
     }
   ngOnInit(): void
   {
-    console.log('dddddddddddddddddd')
     this.loginForm = this.fb.group({
       userName:['',[Validators.required,Validators.email]],
       passWord:['',[Validators.required,Validators.pattern(
@@ -37,6 +35,7 @@ export class LoginComponent {
     this.submitted = true;
     this.auth.login(this.loginForm.controls).subscribe({
       next: () => {
+        // this.router.navigate(['pages']);
         // get return url from query parameters or default to home page
         this.token = JSON.parse(localStorage.getItem('user')!);
         if(this.token.data.user_type == 'student')
@@ -45,8 +44,6 @@ export class LoginComponent {
         }else{
           this.router.navigateByUrl('pages/admin-dashboard');
         }
-       
-        
     },
     error: error => {
         // this.alertService.error(error);

@@ -2,81 +2,90 @@
   <h3 class="card-header">Educational Details</h3>
   <div class="card-body">
     <div class="row">
-      <div class="col-md-7">
-          <section class="example-section">
-              <span class="example-list-section">
-                <mat-checkbox class="example-margin">
-                  Educational Details (select this option for attestation of marksheets, transcripts & Convocation Certificate)
-                </mat-checkbox>
-              </span>
-          </section>
+      <div class="col-md-1">
+        <mat-vertical-stepper headerPosition="bottom" #stepper>
+          <mat-step>
+            <ng-template matStepLabel>Applied</ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Verified</ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Signed</ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Sent<br /> to<br />recipient</ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Sent<br /> to<br />WES</ng-template>
+          </mat-step>
+        </mat-vertical-stepper>
       </div>
-  </div>
-  <div class="row">
-      <div class="col-md-7">
-          <section class="example-section">
-              <span class="example-list-section">
-                <mat-checkbox class="example-margin">
-                  Medium of Instruction (In case you want letter(language) of medium of instructions eg: English,Hindi etc)
-                </mat-checkbox>
-              </span>
-          </section>
+      <div class="col-md-11">
+        <section class="example-section">
+          <span class="example-list-section">
+            <mat-checkbox class="example-margin">
+              Educational Details (select this option for attestation of marksheets, transcripts & Convocation
+              Certificate)
+            </mat-checkbox>
+          </span>
+        </section>
+
+        <section class="example-section">
+          <span class="example-list-section">
+            <mat-checkbox class="example-margin">
+              Medium of Instruction (In case you want letter(language) of medium of instructions eg: English,Hindi etc)
+            </mat-checkbox>
+          </span>
+        </section>
+
+        <section class="example-section">
+          <span class="example-list-section">
+            <mat-checkbox class="example-margin">
+              Curriculum (Incase you want the subjects to be attested. Curriculum is issued by the college)
+            </mat-checkbox>
+          </span>
+        </section>
+
+        <section class="example-section">
+          <span class="example-list-section">
+            <mat-checkbox class="example-margin">
+              Grade to Percentage Letter
+            </mat-checkbox>
+          </span>
+        </section>
+
+        <section class="example-section">
+          <span class="example-list-section">
+            <mat-checkbox class="example-margin">
+              Affiliation Letter
+            </mat-checkbox>
+          </span>
+        </section>
+
+        <section class="example-section">
+          <span class="example-list-section">
+            <mat-checkbox class="example-margin">
+              Certificate of Competency letter (For Master of Foreign-Going Ship Examination ONLY)
+            </mat-checkbox>
+          </span>
+        </section>
+
+        <section class="example-section">
+          <span class="example-list-section">
+            <mat-checkbox class="example-margin">
+              Letter For Name Change (A Letter stating mothers name on marksheet and not on passport.)
+            </mat-checkbox>
+          </span>
+        </section>
+        <br>
+        <section>
+          <div class="example-button-row">
+            <button mat-raised-button color="primary">PREV</button>
+            <button mat-raised-button color="primary">NEXT</button>
+          </div>
+        </section>
       </div>
-  </div>
-  <div class="row">
-      <div class="col-md-7">
-          <section class="example-section">
-              <span class="example-list-section">
-                <mat-checkbox class="example-margin">
-                  Curriculum (Incase you want the subjects to be attested. Curriculum is issued by the college)
-                </mat-checkbox>
-              </span>
-          </section>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-7">
-          <section class="example-section">
-              <span class="example-list-section">
-                <mat-checkbox class="example-margin">
-                  Grade to Percentage Letter
-                </mat-checkbox>
-              </span>
-          </section>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-7">
-          <section class="example-section">
-              <span class="example-list-section">
-                <mat-checkbox class="example-margin">
-                  Affiliation Letter
-                </mat-checkbox>
-              </span>
-          </section>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-7">
-          <section class="example-section">
-              <span class="example-list-section">
-                <mat-checkbox class="example-margin">
-                  Certificate of Competency letter (For Master of Foreign-Going Ship Examination ONLY)
-                </mat-checkbox>
-              </span>
-          </section>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-7">
-          <section class="example-section">
-              <span class="example-list-section">
-                <mat-checkbox class="example-margin">
-                  Letter For Name Change (A Letter stating mothers name on marksheet and not on passport.)
-                </mat-checkbox>
-              </span>
-          </section>
-      </div>
-  </div>
+    </div>
   </div>
 </div>
