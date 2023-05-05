@@ -38,7 +38,7 @@ export class LoginComponent {
         // this.router.navigate(['pages']);
         // get return url from query parameters or default to home page
         this.token = JSON.parse(localStorage.getItem('user')!);
-        if(this.token.data.user_type == 'student')
+        if(this.token.data.user.user_type == 'student')
         {
           this.router.navigateByUrl('pages/dashboard'); 
         }else{
