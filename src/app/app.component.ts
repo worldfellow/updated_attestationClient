@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-interface SideNavToggle{
-  screenWidth: number;
-  collapsed: boolean;
-} 
+// interface SideNavToggle{
+//   screenWidth: number;
+//   collapsed: boolean;
+// } 
 
 @Component({
   selector: 'app-root',
@@ -12,15 +12,15 @@ interface SideNavToggle{
 })
 export class AppComponent {
   title = 'attestation';
-  isSideNavCollapsed = false;
-  screenWidth = 0;
+  // isSideNavCollapsed = false;
+  // screenWidth = 0;
 
   constructor() { }
 
   ngOnInit(): void {}
 
-  onToggleSideNav(data: SideNavToggle){
-    this.isSideNavCollapsed = data.collapsed;
-    this.screenWidth = data.screenWidth;
-  }
+  // onToggleSideNav(data: SideNavToggle){
+  //   this.isSideNavCollapsed = data.collapsed;
+  //   this.screenWidth = data.screenWidth;
+  // }
 }

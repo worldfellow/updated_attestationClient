@@ -96,3 +96,15 @@
     background-color: #fff;
     color: #000;
 }
+
+/* .active{
+    background-color: #fff;
+} */
+
+/* .active .sidenav-link-icon,.sidenav-link-text{
+    color: #000;
+} */
+
+.nav-link{
+    color: #fff;
+}

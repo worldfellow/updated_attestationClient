@@ -6,6 +6,8 @@ import { NewAttestationComponent } from './new-attestation/new-attestation.compo
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from '../auth.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { PaymentIssueComponent } from './payment-issue/payment-issue.component';
+import { HelpsComponent } from './helps/helps.component';
 
 console.log("inside pages routing");
 
@@ -19,6 +21,11 @@ const routes: Routes = [{
       canActivate: [AuthGuard],
     },
     {
+      path : '',
+      component : DashboardComponent,
+      canActivate: [AuthGuard],
+    },
+    {
       path : 'admin-dashboard',
       component : AdminDashboardComponent,
       canActivate: [AuthGuard],
@@ -28,10 +35,23 @@ const routes: Routes = [{
       component : NewAttestationComponent
     },
     {
-      path : 'profile',
-      component : ProfileComponent
+      path : 'payment-issue',
+      component : PaymentIssueComponent,
+      canActivate: [AuthGuard],
     },
-  ]
+    {
+      path : 'profile',
+      component : ProfileComponent,
+      canActivate: [AuthGuard],
+    },
+    {
+      path : 'helps',
+      component : HelpsComponent,
+      canActivate: [AuthGuard], 
+    },
+  ],
+  providers:[AuthGuard]
+
 }];
 
 @NgModule({

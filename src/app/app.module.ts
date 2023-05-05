@@ -10,14 +10,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagesModule } from './pages/pages.module';
 import { OneColumnModule } from './one-column/one-column.module';
 import { MatMenuModule } from '@angular/material/menu';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { BodyComponent } from './body/body.component';
+// import { SidenavComponent } from './pages/sidenav/sidenav.component';
+// import { BodyComponent } from './pages/body/body.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidenavComponent,
-    BodyComponent,
+    // SidenavComponent,
+    // BodyComponent,
   ],
   imports: [
     MatMenuModule,
