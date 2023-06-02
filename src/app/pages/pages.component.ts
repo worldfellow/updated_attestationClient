@@ -33,11 +33,10 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = JSON.parse(localStorage.getItem('user')!);
-<<<<<<< HEAD
+
     console.log("his.token.data.user_type",this.token.data.user.user_type );
     
-=======
->>>>>>> 0c93655516ce73b830df1d5ec64f120e07a6758b
+
     this.role = this.token.data.user.user_type;
     console.log("this.role", this.role);
 
