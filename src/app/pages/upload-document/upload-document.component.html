@@ -1,0 +1,592 @@
+<p-card class="card">
+  <mat-tab-group class="mat-tab-group-custom">
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="title">Instructional Details</div>
+      </ng-template>
+      <div class="tab-content">
+        <div class="Instructional">
+          <h4 class="innerHeader">Instructional Details</h4>
+        </div>
+        <mat-card>
+
+          <mat-card-header>
+            <h4 style="font-weight: bold;">Form</h4>
+          </mat-card-header>
+          <form [formGroup]="Instructional">
+            <div class="form" formArrayName="formsInstructional">
+              <ng-container *ngFor="let form of instructionalArray.controls; let i = index">
+                <h4>Form {{ i + 1 }}</h4>
+                <div class="row" [formGroupName]="i">
+                  <div class="form">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <label>Name</label><br>
+                        <input pInputText class="p-inputtext-sm" placeholder="First Name"
+                          formControlName="instructionalName" />
+                      </div>
+                      <div class="col-md-4">
+                        <label>Select College</label><br>
+                        <p-dropdown [options]="collegeList" class="p-inputtext-sm" (onChange)="onCollegeChange($event)"
+                          formControlName="instructionalCollege" [virtualScroll]="true" [virtualScrollItemSize]="38"
+                          optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                          placeholder="Select a CollegeName">
+                        </p-dropdown>
+                      </div>
+
+                      <div class="col-md-4" style="padding-left: 70px;">
+                        <label>Course</label><br>
+                        <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
+                          formControlName="instructionalCourse" (onChange)="onCollegeChange($event)"
+                          [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="faculty" [showClear]="true"
+                          placeholder="Select a Course">
+                        </p-dropdown>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <label>Specialization</label><br>
+                        <input pInputText class="p-inputtext-sm" placeholder="Specialization"
+                          formControlName="instructionalSpecialization" />
+                      </div>
+                      <div class="col-md-4">
+                        <label>Division/class</label><br>
+                        <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
+                          formControlName="instructionalDivision" [virtualScroll]="true" [virtualScrollItemSize]="30"
+                          optionLabel="name" [showClear]="true" placeholder="Select a Division">
+                        </p-dropdown>
+                      </div>
+
+                      <div class="col-md-4" style="padding-left: 70px;">
+                        <label>Duration of Course</label><br>
+                        <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"
+                          formControlName="instructionalDuration" />
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Year of Passing</label><br>
+                        <input pInputText placeholder="Year" class="p-inputtext-sm"
+                          formControlName="instructionalYearOfPassing" />
+                      </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <p-button label="Save" styleClass="p-button-raised p-button-success"></p-button>
+                    <p-button label="Update" styleClass="p-button-raised p-button-success"></p-button>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </form>
+          <!-- <div class="card-body">
+            <div class="row">
+              <div class="col-md-4"><b>Student Name</b></div>
+              <div class="col-md-8"><b>name</b></div>
+            </div>
+            <br/>
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Sr. No.</th>
+                    <th>Course</th>
+                    <th>Specialization</th>
+                    <th>College</th>
+                    <th>Duration</th>
+                    <th>Year of Passing</th>
+                    <th>Result</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr  >
+                    <td> tytrh</td>
+                    <td> tyhrtth</td>
+                    <td> tht</td>
+                    <td> htutuh </td>
+                    <td> th</td>
+                    <td>thugfhgf </td>
+                    <td> hgfhfghf </td>
+                    <td>
+                      <a class="hoverIcon"  >
+                        <i class="fa fa-edit" style="color: #007bff;"></i>
+                      </a>
+                      <a class="hoverIcon"  >
+                        <i class="ion ion-ios-trash" style="color: #007bff; padding-left: 8px;"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div> -->
+
+        </mat-card>
+
+      </div>
+    </mat-tab>
+
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="title">Affiliation Letter Details</div>
+      </ng-template>
+      <div class="tab-content">
+        <div class="Instructional">
+          <h4 class="innerHeader">Affiliation Details</h4>
+        </div>
+        <mat-card>
+          <mat-card-header>
+            <h4 style="font-weight: bold;">Form</h4>
+          </mat-card-header>
+          <form [formGroup]="Affiliation">
+            <div class="form" formArrayName="formsAffiliation">
+              <ng-container *ngFor="let form of affiliationArray.controls; let i = index">
+                <h4>Form {{ i + 1 }}</h4>
+                <div class="row" [formGroupName]="i">
+                  <div class="form">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <label>Name</label><br>
+                        <input pInputText class="p-inputtext-sm" placeholder="First Name" formControlName="name" />
+                      </div>
+                      <div class="col-md-4">
+                        <label>Select College</label><br>
+                        <p-dropdown [options]="collegeList" class="p-inputtext-sm" (onChange)="onCollegeChange($event)"
+                          formControlName="college" [virtualScroll]="true" [virtualScrollItemSize]="38"
+                          optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                          placeholder="Select a CollegeName">
+                        </p-dropdown>
+                      </div>
+
+                      <div class="col-md-4" style="padding-left: 70px;">
+                        <label>Course</label><br>
+                        <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
+                          formControlName="course" (onChange)="onCollegeChange($event)" [virtualScroll]="true"
+                          [virtualScrollItemSize]="38" optionLabel="faculty" [filter]="true" filterBy="name"
+                          [showClear]="true" placeholder="Select a Course">
+                        </p-dropdown>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <label>Specialization</label><br>
+                        <input pInputText class="p-inputtext-sm" placeholder="Specialization"
+                          formControlName="specialization" />
+                      </div>
+                      <div class="col-md-4">
+                        <label>Division/class</label><br>
+                        <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
+                          formControlName="division" [virtualScroll]="true" [virtualScrollItemSize]="30"
+                          optionLabel="name" [showClear]="true" placeholder="Select a Division">
+                        </p-dropdown>
+                      </div>
+
+                      <div class="col-md-4" style="padding-left: 70px;">
+                        <label>Duration of Course</label><br>
+                        <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"
+                          formControlName="duration" />
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Year of Passing</label><br>
+                        <input pInputText placeholder="Year" class="p-inputtext-sm" formControlName="yearOfPassing" />
+                      </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <p-button label="Save" styleClass="p-button-raised p-button-success"></p-button>
+                    <p-button label="Update" styleClass="p-button-raised p-button-success"></p-button>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </form>
+        </mat-card>
+
+      </div>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="title">Upload Transcripts</div>
+      </ng-template>
+      <div class="tab-content">Content 4</div>
+    </mat-tab>
+
+    <mat-tab *ngIf="activeTab1 == true">
+      <br>
+      <ng-template mat-tab-label>
+        <div class="title"> Upload Marksheets</div>
+      </ng-template>
+      <div class="tab-content">
+        <mat-card>
+          <div class="instruction">
+            <h4 class="innerHeader">Upload Marksheet Files</h4>
+            <h4>Instructions</h4>
+            <span>
+              1. File size should not exceed 5MB (per document) and accepted formats are jpg, jpeg, png or pdf.
+            </span><br>
+            <span>
+              2. Multiple degree marksheet attestation can also be requested (It shall be considered as a single
+              application only)
+            </span><br>
+            <span>
+              3. Upload digital copies or legible scanned copies (CamScanner documents will not be accepted)
+            </span><br>
+            <span>
+              4. Do not merge marksheets otherwise application will be rejected
+            </span><br>
+            <span style="color :red">
+              5. Incorrect selection of college name will lead to rejection of application
+            </span><br>
+            <span style="color :red">
+              6.ATKT /Fail marksheet should be uploaded in Add More section
+            </span><br><span style="color :red; font-size : 16px;">
+              7. For (10+3) Diploma holders, No need to upload first year / first two semesters documents.</span>
+            <br>
+            <span style="color :red; font-size : 16px;">
+              8.For Currently studying students, No need to upload last year / last two semesters documents.</span>
+            <br>
+            <span style="color :red; font-size : 16px;">
+              9. If you select NameChangeLetter option,kindly upload the latest marksheet.</span>
+            <br>
+            <br>
+          </div>
+          <mat-card class="innercard">
+            <mat-card-header style="font-size: 20px;">
+              Upload your marksheet's
+            </mat-card-header>
+            <br><br>
+            <mat-card-content>
+
+              <div class="card flex justify-content-center">
+                <p-toast></p-toast>
+                <!-- <p-fileUpload name="file" url="{{markListUploadUrl}}?user_id={{user_id}}" (click)="onUpload($event)"
+                  [multiple]="true" accept="image/*" [maxFileSize]="5000000">
+                  <ng-template pTemplate="content">
+                    <div class="table" *ngIf="uploadedFiles.length">
+                      <p-table [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>Code</th>
+                            <th>Actions</th>
+                          </tr>
+                          <tr class="tablecontent" *ngFor="let file of uploadedFiles">
+                            <td>{{ file.name }}</td>
+                            <td> <i class="pi pi-eye" (click)="imageView()"
+                                style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i> <i
+                                class="pi pi-trash" style="font-size: 1.5rem"></i></td>
+
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </ng-template>
+                </p-fileUpload> -->
+
+                <head>
+                  <!-- v2 -->
+                  <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+                  <!-- v1 -->
+                  <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script>
+                </head>
+
+                <div class="row" *ngIf="base64Image">
+                  <div class="text-center col-md-6">
+                    <h4 class="cropPreview">Crop</h4>
+                    <div class="row" style="margin-top: 15px;">
+                      <div class="text-center col-md-8" *ngIf="imageChangedEvent">
+                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+                          [resizeToWidth]="256" format="png" (imageCropped)="imageCropped($event)">
+                        </image-cropper>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center col-md-6">
+                    <h4 style="padding-top: 5px;padding-right: 25%;">Preview</h4>
+                    <img [src]="croppedImage" />
+                    <button style="margin-right: 5px;margin-left: 5px;" *ngIf="!isScanning" class="btn btn-primary"
+                      type="submit" (click)="scanOCR()">Scan</button>
+                    <button *ngIf="!isScanning" class="btn btn-primary" type="submit"
+                      (click)="scanOCRtest(croppedImage)">OCR</button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p-toast></p-toast>
+                  <form class="needs-validation" [formGroup]="uploadForm" novalidate> 
+                    <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
+                      (change)="handleFileInput($event)"> 
+                    <p-button  (click)="uploadDetails()" label="Upload"></p-button> 
+                    <br><br> 
+                    <div class="table">
+                      <p-table [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>File Name</th>
+                            <th>Name of the College</th>
+                            <th>Actions</th>
+                          </tr>
+                          <tr class="tablecontent">
+                            <td>filename </td>
+                            <td>college name </td>
+                            <td> <i class="pi pi-eye" (click)="imageView()"
+                                style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i> 
+                                <i class="pi pi-trash" style="font-size: 1.5rem"></i></td>
+
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </form>
+                  <!-- {{ocrResult}} -->
+                </div>
+
+
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <mat-tab *ngIf="activeTab2 == true">
+      <ng-template mat-tab-label>
+        <div class="title">Upload Transcripts</div> 
+      </ng-template>
+      
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="title"> Upload Curriculum</div>
+      </ng-template>
+      <div class="tab-content">
+        <p-card>
+          <div class="curriculum">
+            <h4 class="innerHeader">Upload Curriculum</h4>
+            <span>
+              1. Curriculum to be uploaded in jpg, jpeg, png and pdf format only.
+            </span><br>
+            <span>
+              2. File size not exceeding 5MB.
+            </span><br>
+            <span>
+              3. Curriculum to be issued by the college only.
+            </span><br>
+            <span>
+              4. Curriculum issued date not older than 1 year.
+            </span><br>
+            <span>
+              5. File should be upload in A4 size paper.
+
+            </span><br><br>
+          </div>
+          <p-table [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>File Name</th>
+                <th>Name of the College</th>
+                <th>Action</th>
+              </tr>
+              <tr>
+                <td style="padding-left: 20px;padding-bottom: 17%">Upload Curriculum </td>
+                <td style="padding-left: 20px;padding-bottom: 17%;padding-top:4px; ">
+                  <p-dropdown *ngIf="curr_filename?.fileName==undefined || curr_filename?.lock_transcript == true"
+                    [options]="collegeList" (onChange)="onCollegeChange($event)" [virtualScroll]="true"
+                    [virtualScrollItemSize]="30" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                    placeholder="Select a CollegeName">
+                  </p-dropdown>
+                  <p *ngIf="curr_filename?.fileName!=undefined">{{curr_filename?.collegeName}}</p>
+                </td>
+                <td style="padding-bottom: 17%">
+                  <p-toast></p-toast>
+                  <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
+                  <p-fileUpload *ngIf="curr_filename?.fileName==undefined || curr_filename?.lock_transcript == true"
+                    mode="basic" name="file" (onUpload)="onUpload($event)" [disabled]="validateUploadOne"
+                    url="{{curriculumUploadUrl}}?user_id={{ user_id }}&transcript_name=Curriculum&collegeId={{selectedCollege}}&doc_id={{curr_filename?.curriculumId}}"
+                    accept="image/*" [maxFileSize]="1000000" [auto]="true" chooseLabel="Upload"></p-fileUpload>
+                  <div *ngIf="curr_filename?.fileName!=undefined">
+                    <i class="pi pi-eye" (click)="imageView()"
+                      style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i> <i class="pi pi-trash"
+                      (click)="deleteDocument(curr_filename?.curriculumId,'curriculum')" style="font-size: 1.5rem"></i>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-card>
+      </div>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="title">Upload Grade to Percentage Letter</div>
+      </ng-template>
+      <div class="tab-content">Content 4</div>
+    </mat-tab>
+
+    <mat-tab *ngIf="activeTab3 == true">
+      <ng-template mat-tab-label>
+        <div class="title"> Letter For Mother Name on Marksheet</div>
+      </ng-template>
+      <div class="tab-content">
+        <mat-card>
+          <div class="letterchange">
+            <h4 class="innerHeader">Letter For Name Change</h4>
+            <span style="color :red; font-size : 16px;">
+              1.Kindly upload the first page of the passport.</span>
+            <br>
+            <span style="color :red; font-size : 16px;">
+              2.Document to be uploaded in jpg, jpeg, png and pdf format only.</span>
+            <br>
+
+            <span style="color :red; font-size : 16px;">
+              3.File size not exceeding 5MB..</span>
+            <br>
+          </div>
+          <mat-card>
+            <div class="form">
+              <form class="innerForm" [formGroup]="LetterforNameChangeform">
+                <div class="row">
+                  <div class="col-md-3 ">First Name as per marksheet</div>
+                  <div class="col-md-3">
+                    <input pInputText id="username" placeholder="First Name as per marksheet"
+                      formControlName="firstNameMarksheetCtrl" />
+                  </div>
+                  <div class="col-md-3">Fathers Name as per marksheet</div>
+                  <div class="col-md-3">
+                    <input pInputText id="username" placeholder="Fathers Name"
+                      formControlName="fatherNameMarksheetCtrl" />
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-3">Mothers Name as per marksheet</div>
+                  <div class="col-md-3">
+                    <input pInputText id="username" placeholder="Mothers Name"
+                      formControlName="motherNameMarksheetCtrl" />
+                  </div>
+                  <div class="col-md-3">Last Name as per marksheet</div>
+                  <div class="col-md-3">
+                    <input pInputText id="username" placeholder="Last Name" formControlName="lastNameMarksheetCtrl" />
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-3">First Name as per Passport</div>
+                  <div class="col-md-3">
+                    <input pInputText id="username" placeholder="First Name" formControlName="firstNamePassportCtrl" />
+                  </div>
+                  <div class="col-md-3">Fathers Name as per Passport</div>
+                  <div class="col-md-3">
+                    <input pInputText id="username" placeholder="Fathers Name"
+                      formControlName="fatherNamePassportCtrl" />
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-3">Last Name as per Passport</div>
+                  <div class="col-md-3">
+                    <input pInputText id="username" placeholder="Last Name as per Passport"
+                      formControlName="lastNamePassportCtrl" />
+                  </div>
+                  <div class="col-md-3">Upload Passport</div>
+                  <div class="col-md-3">
+                    <div>
+                      <p-toast></p-toast>
+                      <p-fileUpload mode="basic" name="file"
+                        url="{{NameChangeLetterUrl}}?user_id={{user_id}}&app_id_namechange={{app_id_namechange}}"
+                        accept="image/*" [maxFileSize]="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true"
+                        chooseLabel="Upload"></p-fileUpload>
+                    </div>
+                    <div> <i class="pi pi-eye" (click)="imageView()"
+                        style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i>
+                      <i class="pi pi-trash" style="font-size: 1.5rem"></i>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <p-toast></p-toast>
+                <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
+                <p-button label="Save" *ngIf="namechangeletterdetails == undefined || namechangeletterdetails == null"
+                  (click)="saveLetter()" styleClass="p-button-raised p-button-success"></p-button>
+                <div *ngIf="namechangeletterdetails != undefined || namechangeletterdetails != null"> <i
+                    class="pi pi-file-edit" (click)="editLetter()"
+                    style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i>
+                  <i class="pi pi-trash" (click)="deleteInfo(user_id,'NameChangeletter')" style="font-size: 1.5rem"></i>
+                </div>
+                <p-button label="Update"
+                  *ngIf="((namechangeletterdetails != undefined || namechangeletterdetails != null) && updateButton == true)"
+                  (click)="saveLetter()" styleClass="p-button-raised p-button-success"></p-button>
+              </form>
+            </div>
+          </mat-card>
+        </mat-card>
+
+
+      </div>
+    </mat-tab>
+    <mat-tab *ngIf="activeTab4 == true">
+      <ng-template mat-tab-label>
+        <div class="title">Name Change Proof</div>
+      </ng-template>
+      <div class="tab-content">
+
+        <mat-card>
+          <div class="nameChange">
+            <h4 class="innerHeader">Upload Name Change Proof</h4>
+            <span>
+              1. Document to be uploaded in jpg, jpeg, png and pdf format only.
+            </span><br>
+            <span>
+              2. File size not exceeding 5MB.
+            </span><br>
+            <span>
+              3. File should be upload in A4 size paper.
+            </span><br>
+            <span>4. You can only upload gazette Certificate, Marriage Certificate or and Affidavit as a Name Change
+              Proof.</span>
+            <br><br>
+          </div>
+        </mat-card>
+        <mat-card class="innercard">
+          <mat-card-content>
+            <div class="content">
+              <p-toast></p-toast>
+              <div class="col-md-6">
+                <p-fileUpload mode="basic" name="file"
+                  url="{{transUploadUrl}}?user_id={{user_id}}&&transcript_name=document 1&&hiddentype=extraDocument"
+                  accept="image/*" [maxFileSize]="1000000" [auto]="true" chooseLabel="Upload"></p-fileUpload>
+              </div>
+              <br>
+              <div class="table">
+                <p-table [tableStyle]="{ 'min-width': '50rem' }">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>abc</th>
+                      <th>abc</th>
+                    </tr>
+                    <tr>
+                      <td>hello</td>
+                      <td>hello</td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</p-card>

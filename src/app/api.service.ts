@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http'; 
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/toPromise';
 import { Observable, Subscriber} from 'rxjs';
@@ -68,4 +68,49 @@ export class ApiService {
     getpreAppldetails(){
       return this.httpClient.get(`${this.baseUrl}/api/dashboard/getpreAppldetails`);
     }
+    
+    saveNameChangedata(data:any,user_id:any){ 
+      console.log("iiiiidddddddddddd",user_id);
+      console.log("data",data);
+      
+        return this.httpClient.post(`${this.baseUrl}/api/attestation/saveLetterNameChangeData`,{"data":data,"user_id":user_id}); 
+    }
+    getNameChangeData(user_id:any){ 
+        return  this.httpClient.get(`${this.baseUrl}/api/attestation/getNameChangeData?user_id=`+user_id); 
+    }
+    deleteInfo(id:any,type:any){
+      return this.httpClient.delete(`${this.baseUrl}/api/attestation/deleteInfo?id=${id}&type=${type}`);
+    }
+
+
+    getCollegeList(){
+      return this.httpClient.get(`${this.baseUrl}/api/getCollegeList`);
+    }
+
+    getuploadedCurriculum(user_id:any){
+      return this.httpClient.get(`${this.baseUrl}/api/dashboard/getuploadedCurriculum?user_id=`+user_id,);
+    }
+
+    deleteDocument(id:any,type:any,user_id:any){ 
+          return this.httpClient.delete(`${this.baseUrl}/api/attestation/deleteDocument?id=${id}&type=${type}&user_id=${user_id}`); 
+    } 
+    getFacultyLists(){ 
+        return this.httpClient.get(`${this.baseUrl}/api/getFacultyLists`);
+      }
+       
+      saveUserMarkList(formData:any){ 
+        console.log("formData",formData);
+        formData.forEach((value:any, key:any) => {
+          console.log("hello",key, value);
+        });
+        
+        return this.httpClient.post(`${this.baseUrl}/api/attestation/saveUserMarkList`,formData)  
+      }
+
+      test(userid:any){
+        console.log("aakak");
+        
+        return this.httpClient.post(`${this.baseUrl}/api/attestation/test`,userid)  
+      }
+
   }    

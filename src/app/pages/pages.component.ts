@@ -33,12 +33,17 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = JSON.parse(localStorage.getItem('user')!);
-    this.role = this.token.data.user_type;
+    console.log("his.token.data.user_type",this.token.data.user.user_type );
+    
+    this.role = this.token.data.user.user_type;
     console.log("this.role", this.role);
 
     if (this.role == 'student') {
+      console.log("student");
+      
       this.router.navigate(['pages/dashboard']);
     } else if (this.role == 'admin' || this.role == 'sub-admin') {
+      console.log("admin");
       this.router.navigate(['pages/admin-dashboard']);
     } else {
       this.router.navigate(['auth/login']);

@@ -3,4 +3,62 @@
     max-width: 600px;
   }
 
-  
+  /* Styles for the button */
+.next-custom-button {
+  background-color: #007bff; /* Set the background color */
+  color: #fff; /* Set the text color */
+  border-radius: 4px; /* Set the border radius */
+  padding: 8px 16px; /* Set the padding */
+  font-size: 16px; /* Set the font size */
+  cursor: pointer; /* Set the cursor */
+  transition: all 0.3s ease; /* Add a transition effect */
+}
+
+.next-custom-button:hover {
+  background-color: #0069d9; /* Change the background color on hover */
+}
+
+
+.previous-custom-button {
+  background-color: #2e7baf; /* Set the background color */
+  color: #fff; /* Set the text color */
+  border-radius: 4px; /* Set the border radius */
+  padding: 8px 16px; /* Set the padding */
+  font-size: 16px; /* Set the font size */
+  cursor: pointer; /* Set the cursor */
+  transition: all 0.3s ease; /* Add a transition effect */
+}
+
+.previous-custom-button:hover {
+  background-color: #2e9feb; /* Change the background color on hover */
+}
+ 
+ 
+.parent {
+  display: flex;
+  align-items: center;
+}
+.card{
+  margin-top: 20px;
+  box-shadow: 0.063rem 0 1.25rem #8690a3;
+}
+
+
+/* .help{
+  padding-left : 70%;
+} */
+.hello, .hii {
+  display: inline-block;
+  width: 50%; /* adjust as needed */
+}
+.step, .help {
+  display: inline-block;
+  width: 50%; /* adjust as needed */
+}
+.help{   
+    position: relative;
+    top: -180px; /* adjust as needed */
+    left: 220px; /* adjust as needed */  
+}
+
+ 

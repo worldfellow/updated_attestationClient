@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
@@ -43,13 +43,15 @@
             </div>
         </div>
     </nav>
-</div>
+</div> -->
 
 
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
-        <button class="logo" (click)="toggleCollapse()">A</button>
-        <div class="logo-text" *ngIf="collapsed">Angular</div>
+        <button class="logo" (click)="toggleCollapse()">
+            <img src="https://img.icons8.com/ios/30/null/menu-squared-2.png"/>
+        </button>
+        <div class="logo-text" *ngIf="collapsed">Attestation</div>
         <!-- <button class="btn-close" *ngIf="collapsed"  (click)="closeSidenav()">
             <i class="fal fa-times close-icon"></i>
         </button> -->

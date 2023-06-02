@@ -1,0 +1,19 @@
+.navbar {
+     height: 65px;
+    top:0;
+    position: relative;
+
+  }
+
+
+  .headerimages{
+    padding-left: 68px;
+    height: 48px;
+    width: 280px;
+  } 
+  
+  .headerimages2{
+  padding-left: 10px;
+    height: 85px;
+    width: 150px;
+  } 

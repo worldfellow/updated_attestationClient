@@ -1,0 +1,40 @@
+.heart-icon { 
+  padding-top: 7px;
+  font-size: 20px;
+    color: red;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .social-icons a {
+    display: inline-block;
+    margin: 0 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .social-icons a:hover {
+    transform: scale(1.2);
+  }
+
+  .created-by {
+    font-weight: bold; 
+  }
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  a:hover{
+    color: rgb(9, 153, 237)
+  }
+  .copyright{ 
+    margin-top: -15px;
+  }
+
+  
+   

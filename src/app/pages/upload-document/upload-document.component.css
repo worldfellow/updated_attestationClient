@@ -1,0 +1,119 @@
+
+ .instruction{
+    padding-left: 20px;
+ }
+ .nameChange{
+  padding-left:20px;
+ }
+ .letterchange{
+  padding-left:20px;
+ }
+ .curriculum{
+  padding-left:20px;
+ }
+ .Instructional{
+  padding-left:20px;
+ }
+
+ .title{
+    font-weight: bold; 
+    font-size: 15px;  
+ }
+
+ .title:hover{
+    transform: scale(1.2);
+     color:#0a95f8
+
+ }
+ 
+  .title-active{
+    color: red;
+  }
+
+  .innercard{
+    background-color:#fff; 
+  }
+  .card{ 
+   box-shadow: 0.063rem 0 1.25rem #8690a3;
+   width: 100%; 
+   margin-top: 20px;
+  }
+
+
+  .tablecontent{
+   margin-left: 20px;
+  }
+
+
+  .pi.pi-eye:hover {
+   font-size: 2.5rem; 
+   color: #0a95f8;
+ }
+
+ .pi.pi-trash:hover {
+   font-size: 2.5rem;
+   color: hsl(14, 100%, 50%);
+ }
+  .pi.pi-file-edit:hover{
+     font-size: 2.5rem;
+     color :cyan
+  }
+
+ .innerHeader{
+  font-family: var(--font-family);
+  font-weight: bold;
+  font-size: 25px;  
+ }
+ .content{
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px; 
+ }
+ .tab-content{
+  padding-top: 15px;
+ }
+ 
+.form{
+  padding:10px 20px 10px 20px ;
+}
+ 
+.innerForm{
+  padding:5px 20px 5px 40px;
+}
+  
+td{
+  height: 50%;
+}
+
+:host ::ng-deep .p-dropdown {
+  width: 22rem; 
+}
+
+/* :host ::ng-deep .p-button {
+ 
+} */
+input.ng-invalid.ng-touched{
+  border-color: red;
+}
+
+
+/* .file-upload{
+  
+} */
+
+input::file-selector-button {
+  font-weight: bold; 
+  color: rgb(246, 248, 250);
+  background-color:dodgerblue;
+  padding: 0.5em;
+  border: thin solid grey;
+  border-radius: 6px;
+  height: 45px; 
+}
+
+ 
+
+.cropPreview{
+  padding-top: 5px; 
+  padding-right: 35%;
+}

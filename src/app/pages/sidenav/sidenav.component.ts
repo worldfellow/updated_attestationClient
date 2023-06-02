@@ -38,7 +38,7 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = JSON.parse(localStorage.getItem('user')!)
-    this.user_name = this.token.data.user_name;
+    this.user_name = this.token.data.user.user_name;
     
     console.log("---------->", this.navData);
 
