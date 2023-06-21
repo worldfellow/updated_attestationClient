@@ -1,0 +1,145 @@
+<div class="card text-center">
+    <div class="card-header">
+        <h2>Admin Management</h2>
+    </div>
+    <div class="card-body">
+        <mat-tab-group>
+            <mat-tab label="College Management">
+                <br>
+                <div class="row">
+                    <div class="col-md-8">
+                        <mat-form-field class="example-full-width">
+                            <input matInput type="text" [(ngModel)]="filterText" placeholder="Search"
+                                (input)="filterTableCollege()" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-fab color="primary" (click)="addCollegeFaculty('College','add')">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <div class="row" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                    <h2>Filtered college count : {{collegeLength}}</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p-table [value]="collegeData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true"
+                            [rows]="10" [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [rowsPerPageOptions]="[10, 25, 50]">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Sr.No.</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>View</th>
+                                    <th>Delete</th>
+                                    <th>Send Email</th>
+                                    <th>Pending Application List</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-college>
+                                <tr [pSelectableRow]="college">
+                                    <td>{{college.id}}</td>
+                                    <td>{{college.name}}</td>
+                                    <td>
+                                        <mat-slide-toggle class="example-margin" [color]="color"
+                                            [checked]="college.status == 'active'" [disabled]="disabled"
+                                            (change)="toggleChanged($event.checked,college)">
+                                        </mat-slide-toggle>
+                                    </td>
+                                    <td>
+                                        <a class="hoverIcon">
+                                            <i class="fa fa-building"
+                                                (click)="viewCollegeFaculty(college,'College')"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="hoverIcon">
+                                            <i class="fa fa-trash" style="color: red;"
+                                                (click)="deleteCollegeFaculty('College',college)"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="hoverIcon">
+                                            <i class="fa fa-envelope" (click)="sendEmail(college)"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <p-button icon="fa fa-download"></p-button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Field of Study">
+                <br>
+                <div class="row">
+                    <div class="col-md-8">
+                        <mat-form-field class="example-full-width">
+                            <input matInput type="text" [(ngModel)]="filterText" placeholder="Search"
+                                (input)="filterTableFaculty()" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-fab color="primary" (click)="addCollegeFaculty('Faculty','add')">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <br>
+                    <div class="row" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                        <h2>Filtered college count : {{facultyLength}}</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p-table [value]="facultyData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true"
+                                [rows]="10" [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                [rowsPerPageOptions]="[10, 25, 50]">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Sr.No.</th>
+                                        <th>Degree</th>
+                                        <th>Faculty</th>
+                                        <th>Year</th>
+                                        <th>View</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-faculty>
+                                    <tr [pSelectableRow]="faculty">
+                                        <td>{{faculty.id}}</td>
+                                        <td>{{faculty.degree}}</td>
+                                        <td>{{faculty.faculty}}</td>
+                                        <td>{{faculty.year}}</td>
+                                        <td>
+                                            <a class="hoverIcon">
+                                                <i class="fa fa-building"
+                                                    (click)="viewCollegeFaculty(faculty,'Faculty')"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="hoverIcon">
+                                                <i class="fa fa-trash" style="color: red;"
+                                                    (click)="deleteCollegeFaculty('faculty',faculty)"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <div class="card-footer text-muted">
+        2 days ago
+    </div>
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
+</div>

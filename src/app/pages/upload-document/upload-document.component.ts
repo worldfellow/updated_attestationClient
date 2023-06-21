@@ -143,7 +143,7 @@ export class UploadDocumentComponent implements OnInit {
       { name: 'Third Class' }
     ];
 
-    this.api.getCollegeList().subscribe((data: any) => {
+    this.api.getCollegeList('').subscribe((data: any) => {
       if (data && data.data !== undefined) {
         const dataArray: any[] = data.data;
         dataArray.forEach((element: any) => {

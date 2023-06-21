@@ -62,3 +62,7 @@
 }
 
  
+  .card-header
+  {
+      background-color: rgb(64,220,126) !important;
+  }

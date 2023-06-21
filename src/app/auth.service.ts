@@ -11,10 +11,11 @@ import { User } from './user';
 export class AuthService {
     private userSubject: BehaviorSubject<User | null>;
     public user: Observable<User | null>;
+    // isUserLoggedIn = new BehaviorSubject<boolean>(false);
 
     constructor(
         private router: Router,
-        private http: HttpClient
+        private http: HttpClient,
     ) {
         this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
         this.user = this.userSubject.asObservable();
@@ -24,16 +25,22 @@ export class AuthService {
         return this.userSubject.value;
     }
 
-    login(data:any) {
+    login(data: any) {
         var email = data.userName.value;
-        var password = data.passWord.value; 
-        return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password })
+        var password = data.passWord.value;
+
+        return this.http.post<User>(`${environment.apiUrl}/student/login`, { email, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
                 this.userSubject.next(user);
+                // this.isUserLoggedIn.next(true);
                 return user;
             }));
+    }
+
+    verifyOtp(user_id: any, otp: string) {
+        return this.http.post<User>(`${environment.apiUrl}/admin/verifyOtp`, { user_id, otp }).pipe(map(user => { }))
     }
 
     logout() {

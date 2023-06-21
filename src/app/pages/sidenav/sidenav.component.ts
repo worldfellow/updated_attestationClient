@@ -2,7 +2,6 @@ import { Component, HostListener, OnInit, Output } from '@angular/core';
 import { navbarData } from './nav-data';
 import { EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-// import { MatIconModule } from '@angular/material/icon';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -19,12 +18,14 @@ export class SidenavComponent implements OnInit {
 
   collapsed = false;
   screenWidth = 0;
-  navData = navbarData;
+  navData: any[] = [];
   token: any;
   user_name: any;
+  user_type: any;
+  user_roles: any;
 
   constructor(
-    private router:Router,
+    private router: Router,
   ) { }
 
   @HostListener('window: resize', ['$event'])
@@ -41,6 +42,16 @@ export class SidenavComponent implements OnInit {
     this.user_name = this.token.data.user.user_name;
     
     console.log("---------->", this.navData);
+    this.user_type = this.token.data.user.user_type;
+    this.user_roles = this.token.data.user.roles;    
+
+    if(this.user_type == 'student'){
+      this.navData = navbarData.studentMenu;
+      console.log('this.navData11111',this.navData);
+    }else{
+      this.navData = navbarData.adminMenu;
+      console.log('this.navData22222',this.navData);
+    }
 
     this.screenWidth = window.innerWidth;
   }
@@ -51,13 +62,11 @@ export class SidenavComponent implements OnInit {
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth })
   }
 
-  // closeSidenav() {
-  //   this.collapsed = false;
-  //   this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth })
-  // }
-
   helpBtn(){
-    console.log("vsjajhdvddvdv");
     this.router.navigate(['pages/helps']);
+  }
+
+  viewCart(){
+    this.router.navigate(['pages/dashboard/cart']);
   }
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { PagesRoutingModule } from './pages-routing.module';
-import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module'; 
+// import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module'; 
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesComponent } from './pages.component'; 
 import { MatMenuModule } from '@angular/material/menu';
@@ -11,27 +11,27 @@ import { PaymentIssueComponent } from './payment-issue/payment-issue.component';
 import { HelpsComponent } from './helps/helps.component';
 import { BodyComponent } from './body/body.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { NewAttestationComponent } from './new-attestation/new-attestation.component';
+// import { NewAttestationComponent } from './new-attestation/new-attestation.component';
 import { AuthGuard } from '../auth.guard';
-import { MatIconModule } from '@angular/material/icon'; 
+// import { MatIconModule } from '@angular/material/icon'; 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { MatStepperModule } from '@angular/material/stepper';
+// import { MatStepperModule } from '@angular/material/stepper';
 import {MatChipsModule} from '@angular/material/chips';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+// import {MatCheckboxModule} from '@angular/material/checkbox';
 import { UploadDocumentComponent } from './upload-document/upload-document.component';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatCardModule} from '@angular/material/card'; 
-import { ButtonModule } from 'primeng/button'; 
+// import {MatTabsModule} from '@angular/material/tabs';
+// import {MatCardModule} from '@angular/material/card'; 
+// import { ButtonModule } from 'primeng/button'; 
 import { FileUploadModule } from 'primeng/fileupload';
 import { CdkStepperModule } from '@angular/cdk/stepper';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import{ToastModule} from 'primeng/toast';
+// import { ConfirmDialogModule } from 'primeng/confirmdialog';
+// import{ToastModule} from 'primeng/toast';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { TableModule } from 'primeng/table';
+// import { TableModule } from 'primeng/table';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ImageViewComponent } from './dailog/image-view/image-view.component';
-import { ReactiveFormsModule } from '@angular/forms';
+// import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { DropdownModule } from 'primeng/dropdown';
@@ -39,6 +39,51 @@ import { CardModule } from 'primeng/card';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { CollegeDetailsComponent } from './college-details/college-details.component';
 
+import { MatIconModule } from '@angular/material/icon';
+import { UploadMarksheetsComponent } from './upload-marksheets/upload-marksheets.component';
+import { NewAttestationComponent } from './new-attestation/new-attestation.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { PurposeComponent } from './purpose/purpose.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { AddInstitutionDialogComponent } from './dialog/add-institution-dialog/add-institution-dialog.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { AddHrdDialogComponent } from './dialog/add-hrd-dialog/add-hrd-dialog.component';
+import { CartComponent } from './cart/cart.component';
+import { TableModule } from 'primeng/table';
+import { PreviewApplicationComponent } from './preview-application/preview-application.component';
+import { OpenImgPdfDialogComponent } from './dialog/open-img-pdf-dialog/open-img-pdf-dialog.component';
+import { DividerModule } from 'primeng/divider';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ButtonModule } from 'primeng/button';
+import { MyApplicationsComponent } from './my-applications/my-applications.component';
+import { StudentManagementComponent } from './student-management/student-management.component';
+import { RoleManagementComponent } from './role-management/role-management.component';
+import { AdminManagementComponent } from './admin-management/admin-management.component';
+import { TotalApplicationsComponent } from './total-applications/total-applications.component';
+import { PendingApplicationsComponent } from './pending-applications/pending-applications.component';
+import { VerifiedApplicationsComponent } from './verified-applications/verified-applications.component';
+import { SignedApplicationsComponent } from './signed-applications/signed-applications.component';
+import { WesApplicationsComponent } from './wes-applications/wes-applications.component';
+import { EmailedApplicationsComponent } from './emailed-applications/emailed-applications.component';
+import { PaymentsComponent } from './payments/payments.component';
+import { EmailTrackerComponent } from './email-tracker/email-tracker.component';
+import { ReportsComponent } from './reports/reports.component';
+import { StudentFeedbackComponent } from './student-feedback/student-feedback.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { DialogModule } from 'primeng/dialog';
+import { AdminManagementDialogComponent } from './dialog/admin-management-dialog/admin-management-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { AdminCollegeFacultyPreviewComponent } from './dialog/admin-college-faculty-preview/admin-college-faculty-preview.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +98,37 @@ import { CollegeDetailsComponent } from './college-details/college-details.compo
     NewAttestationComponent,
     UploadDocumentComponent,
     ImageViewComponent,
-    CollegeDetailsComponent
+    CollegeDetailsComponent,
+    UploadMarksheetsComponent,
+    PurposeComponent,
+    AddInstitutionDialogComponent,
+    AddHrdDialogComponent,
+    CartComponent,
+    PreviewApplicationComponent,
+    OpenImgPdfDialogComponent,
+    AdminDashboardComponent,
+    MyApplicationsComponent,
+    StudentManagementComponent,
+    RoleManagementComponent,
+    AdminManagementComponent,
+    TotalApplicationsComponent,
+    PendingApplicationsComponent,
+    VerifiedApplicationsComponent,
+    SignedApplicationsComponent,
+    WesApplicationsComponent,
+    EmailedApplicationsComponent,
+    PaymentsComponent,
+    EmailTrackerComponent,
+    ReportsComponent,
+    StudentFeedbackComponent,
+    AdminManagementDialogComponent,
+    AdminCollegeFacultyPreviewComponent,
+    ActivityTrackerComponent,
+  ],
+  entryComponents: [
+    AddInstitutionDialogComponent,
+    AddHrdDialogComponent,
+    OpenImgPdfDialogComponent,
   ],
   imports: [
     CommonModule, 
@@ -67,7 +142,6 @@ import { CollegeDetailsComponent } from './college-details/college-details.compo
     DashboardModule,
     DropdownModule,
     MatCardModule,
-    AdminDashboardModule,  
     FileUploadModule,
     MatMenuModule,
     ButtonModule,
@@ -82,6 +156,38 @@ import { CollegeDetailsComponent } from './college-details/college-details.compo
     DynamicDialogModule,
     ReactiveFormsModule,
     InputTextModule,
+    MatMenuModule,
+    ButtonModule,
+    MatTabsModule,
+    MatIconModule,  
+    MatStepperModule,
+    MatCheckboxModule,
+    ConfirmDialogModule,
+    ToastModule,
+    TableModule,
+    MatButtonToggleModule,
+    DynamicDialogModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatCardModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatAutocompleteModule,
+    ConfirmDialogModule,
+    ToastModule,  
+    TableModule,
+    DividerModule,
+    ButtonModule,
+    MatTabsModule,
+    DialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
   ],
   providers:[AuthGuard]
 })

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <mat-card >
         <div>
         <mat-stepper   orientation="horizontal" #stepper>
@@ -92,3 +93,108 @@
         </mat-stepper>
       </div>
     </mat-card>     
+=======
+<div>
+  <mat-horizontal-stepper labelPosition="bottom" (click)="checktabs(stepper.selectedIndex)" linear #stepper>
+    <mat-step label="1st Step" [stepControl]="firstForm" [completed]="true">
+      <div class="card">
+        <h3 class="card-header">Educational Details</h3>
+        <div class="card-body">
+          <form [formGroup]="firstForm">
+            <section class="example-section">
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" formControlName="educationalDetails" [checked]="educationalDetails == true" (change)="onChange()">
+                  Educational Details (select this option for attestation of marksheets, transcripts & Convocation
+                  Certificate)
+                </mat-checkbox>
+              </span>
+            </section>
+  
+            <section class="example-section">
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" formControlName="instructionalDetails" [checked]="instructionalDetails == true" (change)="onChange()">
+                  Medium of Instruction (In case you want letter(language) of medium of instructions eg: English,Hindi
+                  etc)
+                </mat-checkbox>
+              </span>
+            </section>
+  
+            <section class="example-section">
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" formControlName="curriculumDetails" [checked]="curriculumDetails == true" (change)="onChange()">
+                  Curriculum (Incase you want the subjects to be attested. Curriculum is issued by the college)
+                </mat-checkbox>
+              </span>
+            </section>
+  
+            <section class="example-section">
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" formControlName="gradToPer" [checked]="gradToPer == true" (change)="onChange()">
+                  Grade to Percentage Letter
+                </mat-checkbox>
+              </span>
+            </section>
+  
+            <section class="example-section">
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" formControlName="affiliation" [checked]="affiliation == true" (change)="onChange()">
+                  Affiliation Letter
+                </mat-checkbox>
+              </span>
+            </section>
+  
+            <section class="example-section">
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" formControlName="CompetencyLetter" [checked]="CompetencyLetter == true" (change)="onChange()">
+                  Certificate of Competency letter (For Master of Foreign-Going Ship Examination ONLY)
+                </mat-checkbox>
+              </span>
+            </section>
+  
+            <section class="example-section">
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" formControlName="LetterforNameChange" [checked]="LetterforNameChange == true" (change)="onChange()">
+                  Letter For Name Change (A Letter stating mothers name on marksheet and not on passport.)
+                </mat-checkbox>
+              </span>
+            </section>
+            <br>
+            <section>
+              <div class="example-button-row">
+                <button mat-raised-button matStepperNext color="primary" *ngIf="showButton" (click)="eduDetails();nextStep()">NEXT</button>
+              </div>
+            </section>
+          </form>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="2nd Step" [completed]="true">
+      <app-upload-marksheets></app-upload-marksheets>
+      <div class="example-button-row">
+        <button mat-raised-button matStepperPrevious color="primary">PREV</button>
+        <button mat-raised-button matStepperNext color="primary" (click)="nextStep()">NEXT</button>
+      </div>
+    </mat-step>
+    <mat-step label="3rd Step">
+      <div>
+      <app-purpose></app-purpose>
+      </div>
+      <div>
+        <button mat-raised-button matStepperPrevious color="primary">PREV</button>
+        <!-- <button mat-raised-button matStepperNext color="primary" (click)="nextStep()">NEXT</button> -->
+      </div>
+    </mat-step>
+    <!-- <mat-step label="4th Step">
+      <div class="example-button-row">
+        <button mat-raised-button matStepperPrevious color="primary">PREV</button>
+        <button mat-raised-button matStepperNext color="primary" (click)="nextStep()">NEXT</button>
+      </div>
+    </mat-step>
+    <mat-step label="5th Step">
+      <div class="example-button-row">
+        <button mat-raised-button matStepperPrevious color="primary">PREV</button>
+      </div>
+    </mat-step> -->
+  </mat-horizontal-stepper>
+</div>
+>>>>>>> Stashed changes

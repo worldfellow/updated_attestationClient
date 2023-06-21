@@ -1,64 +1,13 @@
-<!-- <div>
-    <nav class="navbar navbar-expand-lg bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link">
-                            <img src="https://img.icons8.com/ios-glyphs/30/null/filled-appointment-reminders.png"/>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" (click)="helpBtn()">
-                            <img src="https://img.icons8.com/ios-glyphs/30/null/filled-message.png"/>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            {{user_name}}
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item">Action</a></li>
-                            <li><a class="dropdown-item">Another action</a></li>
-                            <li><a class="dropdown-item">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li  class="nav-item">
-                        <a class="nav-link">
-                            <img src="https://img.icons8.com/ios-glyphs/30/null/favorite-cart.png"/>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div> -->
-
-
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
         <button class="logo" (click)="toggleCollapse()">
             <img src="https://img.icons8.com/ios/30/null/menu-squared-2.png"/>
         </button>
         <div class="logo-text" *ngIf="collapsed">Attestation</div>
-        <!-- <button class="btn-close" *ngIf="collapsed"  (click)="closeSidenav()">
-            <i class="fal fa-times close-icon"></i>
-        </button> -->
     </div>
     <ul class="sidenav-nav">
         <li class="sidenav-nav-item" *ngFor="let data of navData">
-            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
+            <a *ngIf="user_roles.includes(data.routeLink)" class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
                 <i class="sidenav-link-icon" [class]="data.icon"></i>
                 <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>

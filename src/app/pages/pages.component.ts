@@ -37,6 +37,8 @@ export class PagesComponent implements OnInit {
     console.log("his.token.data.user_type",this.token.data.user.user_type );
     
 
+    console.log("this.token",this.token);
+    
     this.role = this.token.data.user.user_type;
     console.log("this.role", this.role);
 
@@ -47,6 +49,7 @@ export class PagesComponent implements OnInit {
     } else if (this.role == 'admin' || this.role == 'sub-admin') {
       console.log("admin");
       this.router.navigate(['pages/admin-dashboard']);
+      this.router.navigate(['pages/adminDashboard']);
     } else {
       this.router.navigate(['auth/login']);
     }

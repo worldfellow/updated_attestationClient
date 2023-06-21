@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     
     this.token = JSON.parse(localStorage.getItem('user')!)
-    this.user_name = this.token.data.user_name;
+    this.user_name = this.token.data.user.user_name;
 
     // this.api.getpreAppldetails().subscribe((response)=>{
     //   // if(response['status'] == 200)

@@ -1,0 +1,55 @@
+<div>
+    <div class="card">
+        <div class="card-header"
+            style="display: flex; justify-content: center; background-color: rgb(64,220,126) !important;">
+            <h2 style="font-weight: 700;">My Cart</h2>
+        </div>
+        <div class="card-body">
+            <span style="color: red;float: left; font-weight: 600; font-size: 15px;">University is not responsible for
+                incorrect reference number/ Email ID.<br>University is not responsible about the document requirement of
+                the concerned agencies.</span>
+            <br>
+            <br>
+            <div>
+                <p-table [value]="cartData" selectionMode="single" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Purpose</th>
+                            <th>Email</th>
+                            <th>Reference No.</th>
+                            <th>Remove</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-cart>
+                        <tr [pSelectableRow]="cart">
+                            <td>{{cart.type}}</td>
+                            <td>{{cart.email}}{{cart.other_email}}{{cart.emailAsWes}}</td>
+                            <td>{{cart.reference_no}}</td>
+                            <td>
+                                
+                                <a class="hoverIcon">
+                                    <i class="fa fa-trash" style="color: red;"
+                                        (click)="deleteCartValue(cart.id,cart.type)"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr style="display: flex; justify-content: flex-start;">
+                            <td colspan="4">
+                                <h5 style="text-align: left;">Total: {{total_amount}}</h5>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="card-footer text-muted" style="display: flex; justify-content: center;">
+            <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="previewApplication()">PREVIEW</button>
+            <button mat-raised-button color="primary">PROCEED FOR PAYMENT</button>
+        </div>
+    </div>
+</div>
+
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
