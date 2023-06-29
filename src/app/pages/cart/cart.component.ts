@@ -47,7 +47,7 @@ export class CartComponent {
     })
 
     //get all hrd purpose data to display on page
-    this.api.getHrdData(this.user_id, '', '').subscribe((data: any) => {
+    this.api.getHrdData(this.user_id, '', '','').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.hrdData = data['data'];
         console.log('this.hrdData---------->', this.hrdData);

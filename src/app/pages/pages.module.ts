@@ -88,6 +88,10 @@ import { MatInputModule } from '@angular/material/input';
 import { AdminCollegeFacultyPreviewComponent } from './dialog/admin-college-faculty-preview/admin-college-faculty-preview.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.component';
+import { ViewMoreComponent } from './view-more/view-more.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AddDocumentByAdminComponent } from './dialog/add-document-by-admin/add-document-by-admin.component';
+import { UpdateInstructionalAffiliationComponent } from './dialog/update-instructional-affiliation/update-instructional-affiliation.component';
 
 @NgModule({
   declarations: [
@@ -140,8 +144,10 @@ import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.co
     StudentFeedbackComponent,
     AdminManagementDialogComponent,
     AdminCollegeFacultyPreviewComponent,
-    ActivityTrackerComponent
-    
+    ActivityTrackerComponent,
+    ViewMoreComponent,
+    AddDocumentByAdminComponent,
+    UpdateInstructionalAffiliationComponent,
   ],
   imports: [
     CommonModule, 
@@ -171,7 +177,7 @@ import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.co
     InputTextModule,
     AccordionModule,
     TabViewModule,
-    PdfViewerModule ,
+    PdfViewerModule,
     ButtonModule,
     MatTabsModule,
     MatIconModule,  
@@ -203,6 +209,7 @@ import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.co
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
+    MatExpansionModule,
   ],
   providers:[AuthGuard]
 })

@@ -28,7 +28,7 @@
     "ng2-pdf-viewer": "^9.1.5",
     "ngx-image-cropper": "^7.0.1",
     "primeicons": "^6.0.1",
-    "primeng": "^15.4.5-lts",
+    "primeng": "^15.4.1",
     "rxjs": "~7.5.0",
     "tesseract.js": "^4.0.6",
     "tslib": "^2.3.0",

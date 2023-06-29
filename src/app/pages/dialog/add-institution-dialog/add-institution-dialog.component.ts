@@ -7,11 +7,13 @@ import { Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
 export interface DialogData {
-  institute: any,
-  purpose_id: any,
+  institute: any;
+  purpose_id: any;
   institute_id: any;
-  purpose_name: any,
-  function_type: any,
+  purpose_name: any;
+  function_type: any;
+  student_id: any;
+  student_app_id: any;
 }
 
 @Component({
@@ -21,7 +23,7 @@ export interface DialogData {
   <div>
   <div class="card text-center">
       <div class="card-header" style="background-color: rgb(64,220,126) !important;">
-          <h3>{{purpose_name}}</h3>
+          <h1>{{purpose_name}}</h1>
           <div class="right" (click)="dismiss()">
             <i title="Back" class="fas fa-arrow-left fa-pull-right fa-border"></i>
           </div>
@@ -162,6 +164,8 @@ export class AddInstitutionDialogComponent {
   purpose_name: any;
   function_type: any;
   institute_id: any;
+  student_id: any;
+  student_app_id: any;
 
   //manage fields database wise
   refno: any;
@@ -201,6 +205,8 @@ export class AddInstitutionDialogComponent {
   allContactPersonName: FormControl;
   allContactNo: FormControl;
   allEmail: FormControl;
+  user_email: any;
+  formData: any;
 
   constructor(
     protected api: ApiService,
@@ -231,6 +237,7 @@ export class AddInstitutionDialogComponent {
     this.token = JSON.parse(localStorage.getItem('user')!);
     this.user_id = this.token.data.user.user_id;
     this.user_type = this.token.data.user.user_type;
+    this.user_email = this.token.data.user.user_email;
 
     //get data from purpose component stores in another variables
     this.institute = this.data.institute;
@@ -238,6 +245,8 @@ export class AddInstitutionDialogComponent {
     this.purpose_name = this.data.purpose_name;
     this.institute_id = this.data.institute_id;
     this.function_type = this.data.function_type;
+    this.student_id = this.data.student_id;
+    this.student_app_id = this.data.student_app_id;
 
     //view input fields as per database values
     this.api.getPurposeList('', this.purpose_name).subscribe((data: any) => {
@@ -261,25 +270,55 @@ export class AddInstitutionDialogComponent {
     });
 
     //storing patchvalues while editing
-    this.api.getInstituteData(this.app_id, this.purpose_name, this.user_type, this.user_id, this.institute_id).subscribe((data: any) => {
-      if (data['status'] == 200) {
-        this.instituteData = data['data'][0];
-        console.log("this.instituteData--*****->", this.instituteData);
+    if (this.user_type == 'student') {
+      if (this.function_type == 'edit') {
+        this.api.getInstituteData(this.app_id, this.purpose_name, this.user_id, this.institute_id).subscribe((data: any) => {
+          if (data['status'] == 200) {
+            this.instituteData = data['data'][0];
+            console.log("this.instituteData--*****->", this.instituteData);
 
-        this.ref_numbers = this.instituteData.reference_no.split('MU-').pop();
-        this.wes_name = this.instituteData.nameaswes;
-        this.wes_surname = this.instituteData.lastnameaswes;
-        this.wes_email = this.instituteData.emailAsWes;
-        this.university_compony_name = this.instituteData.university_name;
-        this.names = this.instituteData.name;
-        this.country_names = parseInt(this.instituteData.country_name, 10);
-        this.contact_person_names = this.instituteData.contact_person;
-        this.contact_numbers = this.instituteData.contact_number;
-        this.email_ids = this.instituteData.email;
-      } else if (data['status'] == 400) {
-        console.log('Data not found!');
+            this.ref_numbers = this.instituteData.reference_no.split('MU-').pop();
+            this.wes_name = this.instituteData.nameaswes;
+            this.wes_surname = this.instituteData.lastnameaswes;
+            this.wes_email = this.instituteData.emailAsWes;
+            this.university_compony_name = this.instituteData.university_name;
+            this.names = this.instituteData.name;
+            this.country_names = parseInt(this.instituteData.country_name, 10);
+            this.contact_person_names = this.instituteData.contact_person;
+            this.contact_numbers = this.instituteData.contact_number;
+            this.email_ids = this.instituteData.email;
+          } else if (data['status'] == 400) {
+            console.log('Data not found!');
+          }
+        });
+      } else {
+        console.log('Failed to get function_type == edit');
       }
-    });
+    } else {
+      if (this.function_type == 'edit') {
+        this.api.getInstituteData(this.student_app_id, this.purpose_name, this.student_id, this.institute_id).subscribe((data: any) => {
+          if (data['status'] == 200) {
+            this.instituteData = data['data'][0];
+            console.log("this.instituteData--*****->", this.instituteData);
+
+            this.ref_numbers = this.instituteData.reference_no.split('MU-').pop();
+            this.wes_name = this.instituteData.nameaswes;
+            this.wes_surname = this.instituteData.lastnameaswes;
+            this.wes_email = this.instituteData.emailAsWes;
+            this.university_compony_name = this.instituteData.university_name;
+            this.names = this.instituteData.name;
+            this.country_names = parseInt(this.instituteData.country_name, 10);
+            this.contact_person_names = this.instituteData.contact_person;
+            this.contact_numbers = this.instituteData.contact_number;
+            this.email_ids = this.instituteData.email;
+          } else if (data['status'] == 400) {
+            console.log('Data not found!');
+          }
+        });
+      } else {
+        console.log('Failed to get function_type == edit');
+      }
+    }
 
     //save form controls values using form builder
     if (this.purpose_name) {
@@ -343,79 +382,43 @@ export class AddInstitutionDialogComponent {
     }
 
     //create and update purpose data
-    if (this.function_type) {
-      if (this.purpose_name == "Educational credential evaluators WES") {
-        var wesEmailValue = this.institutionForm.controls['wesEmail'].value;
-        if (this.institutionForm.controls['wesEmail'].value == 'submit@wes.org' || this.institutionForm.controls['wesEmail'].value == 'contactca@wes.org' || wesEmailValue.includes("@wes.org")) {
+    this.formData = this.institutionForm.value;
+    console.log('===========', this.formData);
 
-        }
-        else {
-          var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-          this.api.updateAllInstitute(this.purpose_name, ref_no, this.institutionForm.controls['wesEmail'].value, this.institutionForm.controls['wesName'].value, this.institutionForm.controls['wesSurname'].value, '', '', '', '', '', '', this.user_type, this.user_id, this.app_id, this.institute_id, this.function_type).subscribe((data: any) => {
-            if (data['status'] == 200) {
+    if (this.user_type == 'student') {
+      var wesEmailValue = this.institutionForm.controls['wesEmail'].value;
+      if (this.institutionForm.controls['wesEmail'].value == 'submit@wes.org' || this.institutionForm.controls['wesEmail'].value == 'contactca@wes.org' || wesEmailValue.includes("@wes.org")) {
 
-              this.dismiss();
-
-              this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-            }
-            else if (data['status'] == 400) {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-            }
-          });
-        }
       }
-      else if (this.purpose_name == "Further study" || this.purpose_name == "Employment") {
+      else {
         var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-        this.api.updateAllInstitute(this.purpose_name, ref_no, '', '', '', this.institutionForm.controls['allUniversityCompanyName'].value, '', this.institutionForm.controls['allCountryName'].value, this.institutionForm.controls['allContactPersonName'].value, this.institutionForm.controls['allContactNo'].value, this.institutionForm.controls['allEmail'].value, this.user_type, this.user_id, this.app_id, this.institute_id, this.function_type).subscribe(async (data: any) => {
+        this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.user_id, this.app_id, this.institute_id, this.function_type, '', '', '').subscribe((data: any) => {
           if (data['status'] == 200) {
 
             this.dismiss();
 
-            // Wait for the dialog to close before displaying the toast
-            await Promise.resolve();
-
-            // Display the toast message
-            // await this.displayToast('success', 'Success', 'Toast message');
-
-
-
-          }
-          else if (data['status'] == 400) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-          }
-          // this.dismiss();
-
-        });
-      }
-      else if (this.purpose_name == "Visa" || this.purpose_name == "Others") {
-        var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-        this.api.updateAllInstitute(this.purpose_name, ref_no, '', '', '', '', this.institutionForm.controls['allName'].value, this.institutionForm.controls['allCountryName'].value, this.institutionForm.controls['allContactPersonName'].value, this.institutionForm.controls['allContactNo'].value, this.institutionForm.controls['allEmail'].value, this.user_type, this.user_id, this.app_id, this.institute_id, this.function_type).subscribe((data: any) => {
-          if (data['status'] == 200) {
-            let toast = this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-            console.log('toast', toast);
-
-            this.dismiss();
-
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
           }
           else if (data['status'] == 400) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
           }
         });
       }
-      else if (this.purpose_name == "ICAS" || this.purpose_name == "IQAS" || this.purpose_name == "CES" || this.purpose_name == "MYIEE" || this.purpose_name == "ICES" || this.purpose_name == "NASBA" || this.purpose_name == "NCEES" || this.purpose_name == "UK NARIC / UK ENIC / ECCTIS" || this.purpose_name == "National Committee on Accreditation") {
-        var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-        this.api.updateAllInstitute(this.purpose_name, ref_no, '', '', '', '', '', '', '', '', this.institutionForm.controls['allEmail'].value, this.user_type, this.user_id, this.app_id, this.institute_id, this.function_type).subscribe((data: any) => {
-          console.log('00000000000', data.message);
+    } else {
+      var wesEmailValue = this.institutionForm.controls['wesEmail'].value;
+      if (this.institutionForm.controls['wesEmail'].value == 'submit@wes.org' || this.institutionForm.controls['wesEmail'].value == 'contactca@wes.org' || wesEmailValue.includes("@wes.org")) {
 
+      }
+      else {
+        var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+        this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.student_id, this.student_app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
           if (data['status'] == 200) {
-            this.dialogRef.afterClosed().subscribe((data: any) => {
-              if (data !== undefined) {
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-              } else {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-              }
-            });
-          } else {
+
+            this.dismiss();
+
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
+          }
+          else if (data['status'] == 400) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
           }
         });

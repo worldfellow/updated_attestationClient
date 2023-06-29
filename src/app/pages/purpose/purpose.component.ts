@@ -57,7 +57,7 @@ export class PurposeComponent {
     });
 
     //get all institute purpose data to display on page
-    this.api.getInstituteData(this.app_id, '', this.user_type, this.user_id, '').subscribe((data: any) => {
+    this.api.getInstituteData(this.app_id, '', this.user_id, '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.instituteData = data['data'];
       } else if (data['status'] == 400) {
@@ -65,7 +65,7 @@ export class PurposeComponent {
     });
 
     //get all hrd purpose data to display on page
-    this.api.getHrdData(this.user_id, '', '').subscribe((data: any) => {
+    this.api.getHrdData(this.user_id, '', '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.hrdData = data['data'];
       }
@@ -159,7 +159,7 @@ export class PurposeComponent {
   //using this we can open AddHrdDialogComponent dialog box and send data using his type add and edit & display form
   addHrd(type: any, purpose: any, degree: any, faculty: any, hrd_id: any) {
     if (type == 'add') {
-      this.api.getHrdInfo(this.user_id, degree, '').subscribe((data: any) => {
+      this.api.getHrdInfo(this.user_id, degree, '', '').subscribe((data: any) => {
         if (data['status'] == 200) {
           this.hrdInfo = data['data'];
           console.log('this,hrdInfo------------------------------->', this.hrdInfo);

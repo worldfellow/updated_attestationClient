@@ -1,0 +1,28 @@
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.table th,
+.table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+.table th {
+    font-size: 16px;
+    width: 30%;
+}
+.custom-img {
+    height: 100%;
+    width: auto;
+    max-height: 150px;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-form-field {
+    width: 100%;
+}

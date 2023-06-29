@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http'; 
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/toPromise';
 import { Observable, Subscriber } from 'rxjs';
@@ -91,32 +91,12 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/student/getPurposeList?purposeList=${purposeList}&purpose_name=${purpose_name}`);
   }
 
-  updateAllInstitute(type: any, refNo: any, wesEmail: any, wesName: any, wesSurname: any, universityCompanyName: any, name: any, countryName: any, contactPersonName: any, contactNo: any, emails: any, user_type: any, user_id: any, app_id: any, institute_id: any, function_type: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllInstitute`, { "type": type, "refNo": refNo, "wesEmail": wesEmail, "wesName": wesName, "wesSurname": wesSurname, "universityCompanyName": universityCompanyName, "name": name, "countryName": countryName, "contactPersonName": contactPersonName, "contactNo": contactNo, "emails": emails, "user_type": user_type, "user_id": user_id, "app_id": app_id, "institute_id": institute_id, "function_type": function_type });
-  }
-
   deleteInstituteHrd(institute_id: any, purpose_name: any, user_id: any) {
     return this.httpClient.post(`${this.baseUrl}/api/student/deleteInstituteHrd`, { "institute_id": institute_id, "purpose_name": purpose_name, "user_id": user_id });
   }
 
-  getInstituteData(app_id: any, purpose_name: any, user_type: any, user_id: any, institute_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getInstituteData?app_id=${app_id}&purpose_name=${purpose_name}&user_type=${user_type}&user_id=${user_id}&institute_id=${institute_id}`);
-  }
-
   getAppliedDetails(app_id: any, user_type: any, user_id: any) {
     return this.httpClient.get(`${this.baseUrl}/api/student/getAppliedDetails?app_id=${app_id}&user_type=${user_type}&user_id=${user_id}`);
-  }
-
-  getHrdInfo(user_id: any, degree_type: any, faculty_type:any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getHrdInfo?user_id=${user_id}&degree_type=${degree_type}&faculty_type=${faculty_type}`);
-  }
-
-  updateAllHrd(formData: any, user_id: any, function_type: any, degree_type: any, secondlastSem: any, lastSem: any, purpose_name: any, hrd_id:any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllHrd`, { "formData": formData, "user_id": user_id, "function_type": function_type, "degree_type": degree_type, "secondlastSem": secondlastSem, "lastSem": lastSem, "purpose_name": purpose_name, "hrd_id": hrd_id });
-  }
-
-  getHrdData(user_id: any, hrd_id: any, purpose_name:any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getHrdData?user_id=${user_id}&hrd_id=${hrd_id}&purpose_name=${purpose_name}`);
   }
 
   getCartDetails(user_id: any) {
@@ -129,11 +109,11 @@ export class ApiService {
 
   //admin
   updateOtp(user_id: any, otp: string) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/updateOtp`,{ "user_id": user_id, "otp": otp});
+    return this.httpClient.post(`${this.baseUrl}/api/admin/updateOtp`, { "user_id": user_id, "otp": otp });
   }
 
   updateCollegeFaculty(purpose: any, type: any, function_type: any, formData: any, id: any, user_id: any, user_name: any, app_id: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/updateCollegeFaculty`,{ "purpose": purpose, "type": type, "function_type": function_type, "formData": formData, "id": id, "user_id": user_id, "user_name": user_name, "app_id": app_id});
+    return this.httpClient.post(`${this.baseUrl}/api/admin/updateCollegeFaculty`, { "purpose": purpose, "type": type, "function_type": function_type, "formData": formData, "id": id, "user_id": user_id, "user_name": user_name, "app_id": app_id });
   }
 
   getCollegeList(id: any) {
@@ -145,73 +125,129 @@ export class ApiService {
   }
 
   deleteCollegeFaculty(purpose: any, dataCollegeFaculty: any, user_id: any, user_name: any, app_id: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/deleteCollegeFaculty`,{ "purpose": purpose, "dataCollegeFaculty": dataCollegeFaculty, "user_id": user_id, "user_name": user_name, "app_id": app_id});
+    return this.httpClient.post(`${this.baseUrl}/api/admin/deleteCollegeFaculty`, { "purpose": purpose, "dataCollegeFaculty": dataCollegeFaculty, "user_id": user_id, "user_name": user_name, "app_id": app_id });
   }
 
   activeinactiveCollege(event: any, dataCollegeFaculty: any, user_id: any, user_name: any, app_id: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/activeinactiveCollege`,{ "event": event, "dataCollegeFaculty": dataCollegeFaculty, "user_id": user_id, "user_name": user_name, "app_id": app_id});
+    return this.httpClient.post(`${this.baseUrl}/api/admin/activeinactiveCollege`, { "event": event, "dataCollegeFaculty": dataCollegeFaculty, "user_id": user_id, "user_name": user_name, "app_id": app_id });
   }
 
-  getActivityTrackerList() {
-    return this.httpClient.get(`${this.baseUrl}/api/admin/getActivityTrackerList`);
+  saveNameChangedata(data: any, user_id: any) {
+    console.log("iiiiidddddddddddd", user_id);
+    console.log("data", data);
+
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveLetterNameChangeData`, { "data": data, "user_id": user_id });
+  }
+  getNameChangeData(user_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getNameChangeData?user_id=` + user_id);
+  }
+  deleteInfo(id: number, type: string) {
+    return this.httpClient.delete(`${this.baseUrl}/api/student/deleteInfo?id=${id}&type=${type}`);
   }
 
-    
-    saveNameChangedata(data:any,user_id:any){ 
-      console.log("iiiiidddddddddddd",user_id);
-      console.log("data",data);
-      
-        return this.httpClient.post(`${this.baseUrl}/api/student/saveLetterNameChangeData`,{"data":data,"user_id":user_id}); 
-    }
-    getNameChangeData(user_id:any){ 
-        return  this.httpClient.get(`${this.baseUrl}/api/student/getNameChangeData?user_id=`+user_id); 
-    }
-    deleteInfo(id:number,type:string){
-      return this.httpClient.delete(`${this.baseUrl}/api/student/deleteInfo?id=${id}&type=${type}`);
-    }
+
+  getCollegeLists() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getCollegeList`);
+  }
+
+  getuploadedCurriculum(user_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getuploadedCurriculum?user_id=` + user_id,);
+  }
+
+  deleteDocument(id: number, type: string, user_id: number) {
+    return this.httpClient.delete(`${this.baseUrl}/api/student/deleteDocument?id=${id}&type=${type}&user_id=${user_id}`);
+  }
+  getFacultyLists() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getFacultyLists`);
+  }
+
+  saveUserMarkList(formData: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`, formData)
+  }
+
+  getExtraDocuments(user_id: number) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getExtraDocuments?user_id=${user_id}`);
+  }
+
+  saveInstructionalData(formData: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveInstructionalData`, formData)
+  }
+
+  saveAffiliationData(formData: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveAffiliationData`, formData)
+  }
+
+  getletterDetails(user_id: number, degrees: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getletterDetails?user_id=${user_id}&degrees=${degrees}`);
+  }
+
+  getInstructionalForms(user_id: number) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getInstructionalForms?user_id=${user_id}`);
+  }
+
+  getAppliedUserDetail(user_id: number) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getAppliedUserDetail?user_id=${user_id}`);
+  }
+
+  updateAllInstitute(type: any, refNo: any, formData: any, user_id: any, app_id: any, institute_id: any, function_type: any, admin_id: any, admin_email: any, user_type: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllInstitute`, { "type": type, "refNo": refNo, "formData": formData, "user_id": user_id, "app_id": app_id, "institute_id": institute_id, "function_type": function_type, "admin_id": admin_id, "admin_email": admin_email, "user_type": user_type });
+  }
 
 
-    getCollegeLists(){
-      return this.httpClient.get(`${this.baseUrl}/api/student/getCollegeList`);
-    }
+  getInstituteData(app_id: any, purpose_name: any, user_id: any, institute_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getInstituteData?app_id=${app_id}&purpose_name=${purpose_name}&user_id=${user_id}&institute_id=${institute_id}`);
+  }
 
-    getuploadedCurriculum(user_id:any){
-      return this.httpClient.get(`${this.baseUrl}/api/student/getuploadedCurriculum?user_id=`+user_id,);
-    }
+  getHrdInfo(user_id: any, degree_type: any, faculty_type: any, app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getHrdInfo?user_id=${user_id}&degree_type=${degree_type}&faculty_type=${faculty_type}&app_id=${app_id}`);
+  }
 
-    deleteDocument(id:number,type:string,user_id:number){ 
-          return this.httpClient.delete(`${this.baseUrl}/api/student/deleteDocument?id=${id}&type=${type}&user_id=${user_id}`); 
-    } 
-    getFacultyLists(){ 
-        return this.httpClient.get(`${this.baseUrl}/api/student/getFacultyLists`);
-      }
-       
-      saveUserMarkList(formData:any){  
-        return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`,formData)  
-      }
+  updateAllHrd(formData: any, user_id: any, function_type: any, degree_type: any, secondlastSem: any, lastSem: any, purpose_name: any, hrd_id: any, app_id: any, admin_id: any, admin_email: any, user_type: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllHrd`, { "formData": formData, "user_id": user_id, "function_type": function_type, "degree_type": degree_type, "secondlastSem": secondlastSem, "lastSem": lastSem, "purpose_name": purpose_name, "hrd_id": hrd_id, "app_id": app_id, "admin_id": admin_id, "admin_email": admin_email, "user_type": user_type });
+  }
 
-      getExtraDocuments(user_id:number){ 
-          return  this.httpClient.get(`${this.baseUrl}/api/student/getExtraDocuments?user_id=${user_id}`); 
-      }
+  getHrdData(user_id: any, hrd_id: any, purpose_name: any, app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getHrdData?user_id=${user_id}&hrd_id=${hrd_id}&purpose_name=${purpose_name}&app_id=${app_id}`);
+  }
 
-      saveInstructionalData(formData:any){
-        return this.httpClient.post(`${this.baseUrl}/api/student/saveInstructionalData`,formData)
-      } 
+  getActivityTrackerList(student_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getActivityTrackerList?student_id=${student_id}`);
+  }
 
-      saveAffiliationData(formData:any){
-        return this.httpClient.post(`${this.baseUrl}/api/student/saveAffiliationData`,formData)
-      } 
+  getStudentList(id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getStudentList?id=${id}`);
+  }
 
-      getletterDetails(user_id:number,degrees:any){  
-        return  this.httpClient.get(`${this.baseUrl}/api/student/getletterDetails?user_id=${user_id}&degrees=${degrees}`); 
-      } 
+  activeinactiveStudent(event: any, studentData: any, user_id: any, user_name: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/activeinactiveUser`, { "event": event, "studentData": studentData, "user_id": user_id, "user_name": user_name });
+  }
 
-      getInstructionalForms(user_id:number){ 
-        return  this.httpClient.get(`${this.baseUrl}/api/student/getInstructionalForms?user_id=${user_id}`); 
-      }  
+  resetPasswordByAdmin(studentData: any, user_id: any, user_name: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/resetPasswordByAdmin`, { "studentData": studentData, "user_id": user_id, "user_name": user_name });
+  }
 
-      getAppliedUserDetail(user_id:number){  
-        return  this.httpClient.get(`${this.baseUrl}/api/student/getAppliedUserDetail?user_id=${user_id}`); 
-      } 
- 
+  resetDocumentByAdmin(studentData: any, user_id: any, user_name: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/resetDocumentByAdmin`, { "studentData": studentData, "user_id": user_id, "user_name": user_name });
+  }
+
+  changeNameByAdmin(firstname: any, lastname: any, student_id: any, student_app_id: any, user_id: any, user_name: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/changeNameByAdmin`, { "firstname": firstname, "lastname": lastname, "student_id": student_id, "student_app_id": student_app_id, "user_id": user_id, "user_name": user_name });
+  }
+
+  changeLocationByAdmin(studentData: any, location: any, user_id: any, user_name: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/changeLocationByAdmin`, { "studentData": studentData, "location": location, "user_id": user_id, "user_name": user_name });
+  }
+
+  getDocumentsData(student_id: any, student_app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getDocumentsData?student_id=${student_id}&student_app_id=${student_app_id}`);
+  }
+
+  deleteDocumentByAdmin(documentData: any, user_id: any, user_name: any, app_id: any, type: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/deleteDocumentByAdmin`, { "documentData": documentData, "user_id": user_id, "user_name": user_name, "app_id": app_id, "type": type });
+  }
+
+  updateInstructionalAffiliation(formData: any, user_id: any, user_email: any, purpose: any, type: any, id: any, student_id: any, student_app_id: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/updateInstructionalAffiliation`, { "formData": formData, "user_id": user_id, "user_email": user_email, "purpose": purpose, "type": type, "id": id, "student_id": student_id, "student_app_id": student_app_id });
+  }
+
 }    

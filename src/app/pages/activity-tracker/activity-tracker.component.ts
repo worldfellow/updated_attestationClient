@@ -16,7 +16,7 @@ export class ActivityTrackerComponent {
   ) { }
 
   ngOnInit(): void {
-    this.api.getActivityTrackerList().subscribe((data: any) => {
+    this.api.getActivityTrackerList('').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.trackerData = data['data'];
         console.log('this.trackerData***********', this.trackerData.length);

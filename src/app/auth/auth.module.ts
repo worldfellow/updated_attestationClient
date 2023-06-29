@@ -8,6 +8,7 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ToastModule } from 'primeng/toast';
     MatDialogModule,
     ButtonModule,
     ToastModule,
+    DialogModule,
   ],
   exports : [
   ],

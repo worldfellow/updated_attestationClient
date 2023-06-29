@@ -1,1 +1,75 @@
-<p>student-management works!</p>
+<div class="card text-center">
+    <div class="card-header">
+        <h2>Student Management</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-5">
+                <mat-form-field class="example-full-width">
+                    <input matInput type="text" [(ngModel)]="filterText" placeholder="Name"
+                        (input)="filterTableName()" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-5">
+                <mat-form-field class="example-full-width">
+                    <input matInput type="text" [(ngModel)]="filterText" placeholder="Email"
+                        (input)="filterTableEmail()" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <p-button label="SEARCH" styleClass="p-button-secondary"></p-button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field class="example-full-width">
+                    <input matInput type="text" [(ngModel)]="filterText" placeholder="Search" (input)="filterTable()" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <p-table [value]="studentsData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10, 25, 50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Sr.No.</th>
+                        <th>Full Name</th>
+                        <th>Email Address</th>
+                        <th>Applying For</th>
+                        <th>Current Location</th>
+                        <th>Registered Date</th>
+                        <th>View</th>
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-student>
+                    <tr [pSelectableRow]="student">
+                        <td>{{student.id}}</td>
+                        <td>{{student.name}} {{student.surname}}</td>
+                        <td>{{student.email}}</td>
+                        <td>{{student.applied_for}}</td>
+                        <td>{{student.current_location}}</td>
+                        <td>{{student.created_at}}</td>
+                        <td>
+                            <a class="hoverIcon">
+                                <i class="fa fa-user" (click)="viewMore(student)"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <mat-slide-toggle class="example-margin" [color]="color"
+                            [checked]="student.user_status == 'active'" [disabled]="disabled"
+                            (change)="toggleChanged($event.checked,student)">
+                        </mat-slide-toggle>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <p-toast></p-toast>
+    <div class="card-footer text-muted">
+        2 days ago
+    </div>
+</div>

@@ -26,6 +26,7 @@ import { TotalApplicationsComponent } from './total-applications/total-applicati
 import { AdminManagementComponent } from './admin-management/admin-management.component';
 import { RoleManagementComponent } from './role-management/role-management.component';
 import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.component';
+import { ViewMoreComponent } from './view-more/view-more.component';
 
 console.log("inside pages routing");
 
@@ -181,6 +182,12 @@ const routes: Routes = [{
       component : StudentFeedbackComponent,
       canActivate: [AuthGuard],
       data: {type: ['studentFeedback']}
+    },
+    {
+      path : 'studentManagement/viewMore',
+      component : ViewMoreComponent,
+      // canActivate: [AuthGuard],
+      // data: {type: ['studentFeedback']}
     },
   ],
   providers:[AuthGuard]
