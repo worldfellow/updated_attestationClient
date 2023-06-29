@@ -14,6 +14,12 @@
  .Instructional{
   padding-left:20px;
  }
+ .gradToPer{
+  padding-left:20px;
+ }
+ .transcript{
+  padding-left:20px; 
+ }
 
  .title{
     font-weight: bold; 
@@ -97,9 +103,7 @@ input.ng-invalid.ng-touched{
 }
 
 
-/* .file-upload{
-  
-} */
+ 
 
 input::file-selector-button {
   font-weight: bold; 
@@ -110,10 +114,14 @@ input::file-selector-button {
   border-radius: 6px;
   height: 45px; 
 }
-
- 
-
+  
 .cropPreview{
   padding-top: 5px; 
   padding-right: 35%;
 }
+
+p-table td {
+  /* Add your desired styles for <td> here */
+  padding-left: 15px;
+}
+

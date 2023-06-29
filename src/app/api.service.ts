@@ -161,44 +161,57 @@ export class ApiService {
       console.log("iiiiidddddddddddd",user_id);
       console.log("data",data);
       
-        return this.httpClient.post(`${this.baseUrl}/api/attestation/saveLetterNameChangeData`,{"data":data,"user_id":user_id}); 
+        return this.httpClient.post(`${this.baseUrl}/api/student/saveLetterNameChangeData`,{"data":data,"user_id":user_id}); 
     }
     getNameChangeData(user_id:any){ 
-        return  this.httpClient.get(`${this.baseUrl}/api/attestation/getNameChangeData?user_id=`+user_id); 
+        return  this.httpClient.get(`${this.baseUrl}/api/student/getNameChangeData?user_id=`+user_id); 
     }
-    deleteInfo(id:any,type:any){
-      return this.httpClient.delete(`${this.baseUrl}/api/attestation/deleteInfo?id=${id}&type=${type}`);
+    deleteInfo(id:number,type:string){
+      return this.httpClient.delete(`${this.baseUrl}/api/student/deleteInfo?id=${id}&type=${type}`);
     }
 
 
-    // getCollegeList(){
-    //   return this.httpClient.get(`${this.baseUrl}/api/getCollegeList`);
-    // }
+    getCollegeList(){
+      return this.httpClient.get(`${this.baseUrl}/api/student/getCollegeList`);
+    }
 
     getuploadedCurriculum(user_id:any){
-      return this.httpClient.get(`${this.baseUrl}/api/dashboard/getuploadedCurriculum?user_id=`+user_id,);
+      return this.httpClient.get(`${this.baseUrl}/api/student/getuploadedCurriculum?user_id=`+user_id,);
     }
 
-    deleteDocument(id:any,type:any,user_id:any){ 
-          return this.httpClient.delete(`${this.baseUrl}/api/attestation/deleteDocument?id=${id}&type=${type}&user_id=${user_id}`); 
+    deleteDocument(id:number,type:string,user_id:number){ 
+          return this.httpClient.delete(`${this.baseUrl}/api/student/deleteDocument?id=${id}&type=${type}&user_id=${user_id}`); 
     } 
     getFacultyLists(){ 
-        return this.httpClient.get(`${this.baseUrl}/api/getFacultyLists`);
+        return this.httpClient.get(`${this.baseUrl}/api/student/getFacultyLists`);
       }
        
-      saveUserMarkList(formData:any){ 
-        console.log("formData",formData);
-        formData.forEach((value:any, key:any) => {
-          console.log("hello",key, value);
-        });
-        
-        return this.httpClient.post(`${this.baseUrl}/api/attestation/saveUserMarkList`,formData)  
+      saveUserMarkList(formData:any){  
+        return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`,formData)  
       }
 
-      test(userid:any){
-        console.log("aakak");
-        
-        return this.httpClient.post(`${this.baseUrl}/api/attestation/test`,userid)  
+      getExtraDocuments(user_id:number){ 
+          return  this.httpClient.get(`${this.baseUrl}/api/student/getExtraDocuments?user_id=${user_id}`); 
       }
 
+      saveInstructionalData(formData:any){
+        return this.httpClient.post(`${this.baseUrl}/api/student/saveInstructionalData`,formData)
+      } 
+
+      saveAffiliationData(formData:any){
+        return this.httpClient.post(`${this.baseUrl}/api/student/saveAffiliationData`,formData)
+      } 
+
+      getletterDetails(user_id:number,degrees:any){  
+        return  this.httpClient.get(`${this.baseUrl}/api/student/getletterDetails?user_id=${user_id}&degrees=${degrees}`); 
+      } 
+
+      getInstructionalForms(user_id:number){ 
+        return  this.httpClient.get(`${this.baseUrl}/api/student/getInstructionalForms?user_id=${user_id}`); 
+      }  
+
+      getAppliedUserDetail(user_id:number){  
+        return  this.httpClient.get(`${this.baseUrl}/api/student/getAppliedUserDetail?user_id=${user_id}`); 
+      } 
+ 
 }    

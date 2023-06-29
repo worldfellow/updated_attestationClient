@@ -30,15 +30,19 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import { TableModule } from 'primeng/table';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { ImageViewComponent } from './dailog/image-view/image-view.component';
+import { ImageViewComponent } from './dailogComponents/image-view.component';
 // import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { CollegeDetailsComponent } from './college-details/college-details.component';
-
+import { CollegeDetailsComponent } from './dailogComponents/college-details.component';
+import { AccordionModule } from 'primeng/accordion';
+import { CompetencyDailogComponent } from './dailogComponents/competency-dailog.component';
+import { TabViewModule } from 'primeng/tabview';
+import { TranscriptDailogComponent } from './dailogComponents/transcript-dailog.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { MatIconModule } from '@angular/material/icon';
 import { UploadMarksheetsComponent } from './upload-marksheets/upload-marksheets.component';
 import { NewAttestationComponent } from './new-attestation/new-attestation.component';
@@ -98,37 +102,7 @@ import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.co
     NewAttestationComponent,
     UploadDocumentComponent,
     ImageViewComponent,
-    CollegeDetailsComponent,
-    UploadMarksheetsComponent,
-    PurposeComponent,
-    AddInstitutionDialogComponent,
-    AddHrdDialogComponent,
-    CartComponent,
-    PreviewApplicationComponent,
-    OpenImgPdfDialogComponent,
-    AdminDashboardComponent,
-    MyApplicationsComponent,
-    StudentManagementComponent,
-    RoleManagementComponent,
-    AdminManagementComponent,
-    TotalApplicationsComponent,
-    PendingApplicationsComponent,
-    VerifiedApplicationsComponent,
-    SignedApplicationsComponent,
-    WesApplicationsComponent,
-    EmailedApplicationsComponent,
-    PaymentsComponent,
-    EmailTrackerComponent,
-    ReportsComponent,
-    StudentFeedbackComponent,
-    AdminManagementDialogComponent,
-    AdminCollegeFacultyPreviewComponent,
-    ActivityTrackerComponent,
-  ],
-  entryComponents: [
-    AddInstitutionDialogComponent,
-    AddHrdDialogComponent,
-    OpenImgPdfDialogComponent,
+    
   ],
   imports: [
     CommonModule, 
@@ -156,6 +130,9 @@ import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.co
     DynamicDialogModule,
     ReactiveFormsModule,
     InputTextModule,
+    AccordionModule,
+    TabViewModule,
+    PdfViewerModule
     MatMenuModule,
     ButtonModule,
     MatTabsModule,
