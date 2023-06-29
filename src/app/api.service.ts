@@ -171,7 +171,7 @@ export class ApiService {
     }
 
 
-    getCollegeList(){
+    getCollegeLists(){
       return this.httpClient.get(`${this.baseUrl}/api/student/getCollegeList`);
     }
 
