@@ -160,11 +160,9 @@ export class ApiService {
   getFacultyLists() {
     return this.httpClient.get(`${this.baseUrl}/api/student/getFacultyLists`);
   }
-
-  saveUserMarkList(formData: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`, formData)
+  saveUserMarkList(documentid : any ,app_id : number , user_id : number ,value : string,data:any){ 
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`,{"documentid":documentid,"app_id":app_id,"user_id" : user_id , "value" :value ,"data" : data});
   }
-
   getExtraDocuments(user_id: number) {
     return this.httpClient.get(`${this.baseUrl}/api/student/getExtraDocuments?user_id=${user_id}`);
   }
@@ -250,4 +248,12 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/admin/updateInstructionalAffiliation`, { "formData": formData, "user_id": user_id, "user_email": user_email, "purpose": purpose, "type": type, "id": id, "student_id": student_id, "student_app_id": student_app_id });
   }
 
+  ScanData(collegeid: any,education_type: any,patteren: any,faculty : any ,app_id : number , user_id : number ,value : string ,formData:any){ 
+    return this.httpClient.post(`${this.baseUrl}/api/student/ScanData?value=${value}&user_id=${user_id}&app_id=${app_id}&collegeid=${collegeid}&education_type=${education_type}&patteren=${patteren}&faculty=${faculty}`,formData);
+  }
+
+  getUploadedDocuments(user_id:any , app_id : any){
+    return this.httpClient.get(`${this.baseUrl}/api/student/getUploadeddocument_student?user_id=${user_id}&app_id=${app_id}`);
+  }
+  
 }    
