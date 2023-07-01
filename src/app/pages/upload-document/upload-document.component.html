@@ -1,218 +1,6 @@
 <p-card class="card">
   <mat-tab-group class="mat-tab-group-custom">
 
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <div class="title">Instructional Details</div>
-      </ng-template>
-      <div class="tab-content">
-        <div class="Instructional">
-          <h4 class="innerHeader">Instructional Details</h4>
-        </div>
-        <mat-card>
-
-          <mat-card-header>
-            <h4 style="font-weight: bold;">Form</h4>
-          </mat-card-header>
-          <form [formGroup]="Instructional">
-            <div class="form" formArrayName="formsInstructional">
-              <ng-container *ngFor="let form of instructionalArray.controls; let i = index">
-                <h4>Form {{ i + 1 }}</h4>
-                <div class="row" [formGroupName]="i">
-                  <div class="form">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <label>Name</label><br>
-                        <input pInputText class="p-inputtext-sm" placeholder="First Name"
-                          formControlName="instructionalName" />
-                      </div>
-                      <div class="col-md-4">
-                        <label>Select College</label><br>
-                        <p-dropdown [options]="collegeList" class="p-inputtext-sm" (onChange)="onCollegeChange($event)"
-                          formControlName="instructionalCollege" [virtualScroll]="true" [virtualScrollItemSize]="38"
-                          optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
-                          placeholder="Select a CollegeName">
-                        </p-dropdown>
-                      </div>
-
-                      <div class="col-md-4" style="padding-left: 70px;">
-                        <label>Course</label><br>
-                        <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
-                          formControlName="instructionalCourse" (onChange)="onCollegeChange($event)"
-                          [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="faculty" [showClear]="true"
-                          placeholder="Select a Course">
-                        </p-dropdown>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <label>Specialization</label><br>
-                        <input pInputText class="p-inputtext-sm" placeholder="Specialization"
-                          formControlName="instructionalSpecialization" />
-                      </div>
-                      <div class="col-md-4">
-                        <label>Division/class</label><br>
-                        <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
-                          formControlName="instructionalDivision" [virtualScroll]="true" [virtualScrollItemSize]="30"
-                          optionLabel="name" [showClear]="true" placeholder="Select a Division">
-                        </p-dropdown>
-                      </div>
-
-                      <div class="col-md-4" style="padding-left: 70px;">
-                        <label>Duration of Course</label><br>
-                        <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"
-                          formControlName="instructionalDuration" />
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label>Year of Passing</label><br>
-                        <input pInputText placeholder="Year" class="p-inputtext-sm"
-                          formControlName="instructionalYearOfPassing" />
-                      </div>
-                    </div>
-                    <br>
-                    <br>
-                    <br>
-                    <p-button label="Save" styleClass="p-button-raised p-button-success"></p-button>
-                    <p-button label="Update" styleClass="p-button-raised p-button-success"></p-button>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
-          </form>
-          <!-- <div class="card-body">
-            <div class="row">
-              <div class="col-md-4"><b>Student Name</b></div>
-              <div class="col-md-8"><b>name</b></div>
-            </div>
-            <br/>
-            <div class="table-container">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Sr. No.</th>
-                    <th>Course</th>
-                    <th>Specialization</th>
-                    <th>College</th>
-                    <th>Duration</th>
-                    <th>Year of Passing</th>
-                    <th>Result</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr  >
-                    <td> tytrh</td>
-                    <td> tyhrtth</td>
-                    <td> tht</td>
-                    <td> htutuh </td>
-                    <td> th</td>
-                    <td>thugfhgf </td>
-                    <td> hgfhfghf </td>
-                    <td>
-                      <a class="hoverIcon"  >
-                        <i class="fa fa-edit" style="color: #007bff;"></i>
-                      </a>
-                      <a class="hoverIcon"  >
-                        <i class="ion ion-ios-trash" style="color: #007bff; padding-left: 8px;"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div> -->
-
-        </mat-card>
-
-      </div>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <div class="title">Affiliation Letter Details</div>
-      </ng-template>
-      <div class="tab-content">
-        <div class="Instructional">
-          <h4 class="innerHeader">Affiliation Details</h4>
-        </div>
-        <mat-card>
-          <mat-card-header>
-            <h4 style="font-weight: bold;">Form</h4>
-          </mat-card-header>
-          <form [formGroup]="Affiliation">
-            <div class="form" formArrayName="formsAffiliation">
-              <ng-container *ngFor="let form of affiliationArray.controls; let i = index">
-                <h4>Form {{ i + 1 }}</h4>
-                <div class="row" [formGroupName]="i">
-                  <div class="form">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <label>Name</label><br>
-                        <input pInputText class="p-inputtext-sm" placeholder="First Name" formControlName="name" />
-                      </div>
-                      <div class="col-md-4">
-                        <label>Select College</label><br>
-                        <p-dropdown [options]="collegeList" class="p-inputtext-sm" (onChange)="onCollegeChange($event)"
-                          formControlName="college" [virtualScroll]="true" [virtualScrollItemSize]="38"
-                          optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
-                          placeholder="Select a CollegeName">
-                        </p-dropdown>
-                      </div>
-
-                      <div class="col-md-4" style="padding-left: 70px;">
-                        <label>Course</label><br>
-                        <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
-                          formControlName="course" (onChange)="onCollegeChange($event)" [virtualScroll]="true"
-                          [virtualScrollItemSize]="38" optionLabel="faculty" [filter]="true" filterBy="name"
-                          [showClear]="true" placeholder="Select a Course">
-                        </p-dropdown>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <label>Specialization</label><br>
-                        <input pInputText class="p-inputtext-sm" placeholder="Specialization"
-                          formControlName="specialization" />
-                      </div>
-                      <div class="col-md-4">
-                        <label>Division/class</label><br>
-                        <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
-                          formControlName="division" [virtualScroll]="true" [virtualScrollItemSize]="30"
-                          optionLabel="name" [showClear]="true" placeholder="Select a Division">
-                        </p-dropdown>
-                      </div>
-
-                      <div class="col-md-4" style="padding-left: 70px;">
-                        <label>Duration of Course</label><br>
-                        <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"
-                          formControlName="duration" />
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label>Year of Passing</label><br>
-                        <input pInputText placeholder="Year" class="p-inputtext-sm" formControlName="yearOfPassing" />
-                      </div>
-                    </div>
-                    <br>
-                    <br>
-                    <br>
-                    <p-button label="Save" styleClass="p-button-raised p-button-success"></p-button>
-                    <p-button label="Update" styleClass="p-button-raised p-button-success"></p-button>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
-          </form>
-        </mat-card>
-
-      </div>
-    </mat-tab>
     <mat-tab *ngIf="activeTab1 == true">
       <br>
       <ng-template mat-tab-label>
@@ -314,6 +102,517 @@
             </mat-card-content>
           </mat-card>
         </mat-card>
+      </div>
+    </mat-tab>
+    <!-- Instructional Details -->
+    <mat-tab   >
+      <ng-template mat-tab-label>
+        <div class="title">Instructional Details</div>
+      </ng-template>
+      <div class="tab-content">
+        <div class="Instructional">
+          <h4 class="innerHeader">Instructional Details</h4>
+        </div>
+        <mat-card>
+
+          <mat-card-header>
+            <h4 style="font-weight: bold;">Form</h4>
+          </mat-card-header>
+          <p-toast></p-toast>
+          <div class="card flex justify-content-center">
+            <p-accordion class="w-full">
+              <p-accordionTab *ngFor="let degree of degrees; let i = index">
+                <ng-template pTemplate="header">
+                  <div class="flex align-items-center">
+                    <span class="vertical-align-middle">{{ degree }}</span>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <!-- Bachelors -->
+                  <form [formGroup]="Instructional" *ngIf="degree == 'Bachelors'">
+                    <div class="form" formArrayName="formsInstructional">
+                      <ng-container *ngFor="let form of  instructionalArray.controls; let j = index">
+                        <h4>Form {{ j + 1 }}</h4>
+                        <div class="row" [formGroupName]="j">
+                          
+                          <div class="form">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Name</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="First Name"  
+                                  formControlName="instructionalNameBachelors" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Select College</label><br>
+                                <p-dropdown [options]="collegeList" class="p-inputtext-sm"
+                                  (onChange)="onCollegeChange($event)" formControlName="instructionalCollegeBachelors" 
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" [filter]="true"
+                                  filterBy="name"   placeholder="Select a CollegeName" [editable]="true">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Course</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
+                                  formControlName="instructionalCourseBachelors" (onChange)="onCollegeChange($event)"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name"  
+                                    placeholder="Select a Course" [editable]="true">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Specialization</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Specialization"  
+                                  formControlName="instructionalSpecializationBachelors" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Division/class</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
+                                  formControlName="instructionalDivisionBachelors" [virtualScroll]="true"
+                                  [virtualScrollItemSize]="30" optionLabel="name"   [editable]="true"  
+                                  placeholder="Select a Division">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Duration of Course</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"  
+                                  formControlName="instructionalDurationBachelors" />
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>Year of Passing</label><br>
+                                <input pInputText placeholder="Year" class="p-inputtext-sm"  
+                                  formControlName="instructionalYearOfPassingBachelors" />
+                              </div> 
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <p-button label="Save" (click)="saveInstructionalDetails(j,degree,'instructional')"
+                            [disabled]="!Instructional.get('formsInstructional')?.get(j.toString())?.valid" 
+                              styleClass="p-button-raised p-button-success"></p-button>
+                              <p-button label="Update" [style]="{'margin-left': '10px'}" (click)="saveInstructionalDetails(j,degree,'instructional')" 
+                               [disabled]="!Instructional.get('formsInstructional')?.get(j.toString())?.valid "
+                              styleClass="p-button-raised p-button-success"></p-button>
+                              <!-- <i class="pi pi-file-edit"   style="font-size:2.0rem;margin-right:20px;margin-top:5px;"></i>   -->
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </form>
+
+                  <!-- Masters -->
+                  <form [formGroup]="InstructionalMasters" *ngIf="degree == 'Masters'">
+                    <div class="form" formArrayName="formsInstructionalMaster">
+                      <ng-container *ngFor="let form of  instructionalArrayMaster.controls; let k = index">
+                        <h4>Form {{ k + 1 }}</h4>
+                        <div class="row" [formGroupName]="k">
+                          <div class="form">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Name</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="First Name"
+                                  formControlName="instructionalNameMasters" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Select College</label><br>
+                                <p-dropdown [options]="collegeList" class="p-inputtext-sm"
+                                  (onChange)="onCollegeChange($event)" formControlName="instructionalCollegeMasters"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" [filter]="true"
+                                  filterBy="name"  placeholder="Select a CollegeName" [editable]="true">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Course</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
+                                  formControlName="instructionalCourseMasters" (onChange)="onCollegeChange($event)"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" [editable]="true"
+                                  placeholder="Select a Course">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Specialization</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Specialization"
+                                  formControlName="instructionalSpecializationMasters" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Division/class</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
+                                  formControlName="instructionalDivisionMasters" [virtualScroll]="true"
+                                  [virtualScrollItemSize]="30" optionLabel="name"  [editable]="true"
+                                  placeholder="Select a Division">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Duration of Course</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"
+                                  formControlName="instructionalDurationMasters" />
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>Year of Passing</label><br>
+                                <input pInputText placeholder="Year" class="p-inputtext-sm"
+                                  formControlName="instructionalYearOfPassingMasters" />
+                              </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <p-button label="Save" (click)="saveInstructionalDetails(k,degree,'instructional')"
+                            [disabled]="!InstructionalMasters.get('formsInstructionalMaster')?.get(k.toString())?.valid"
+                              styleClass="p-button-raised p-button-success"></p-button> 
+                              <p-button label="Update" [style]="{'margin-left': '10px'}" (click)="saveInstructionalDetails(k,degree,'instructional')" 
+                              [disabled]="!InstructionalMasters.get('formsInstructionalMaster')?.get(k.toString())?.valid"
+                              styleClass="p-button-raised p-button-success"></p-button>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </form>
+
+                  <!-- Phd -->
+                  <form [formGroup]="InstructionalPhd" *ngIf="degree == 'Phd'">
+                    <div class="form" formArrayName="formsInstructionalPhd">
+                      <ng-container *ngFor="let form of  instructionalArrayPhd.controls; let p = index">
+                        <h4>Form {{ p + 1 }}</h4>
+                        <div class="row" [formGroupName]="p">
+                          <div class="form">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Name</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="First Name"
+                                  formControlName="instructionalNamePhd" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Select College</label><br>
+                                <p-dropdown [options]="collegeList" class="p-inputtext-sm"
+                                  (onChange)="onCollegeChange($event)" formControlName="instructionalCollegePhd"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" [filter]="true"
+                                  filterBy="name"   placeholder="Select a CollegeName" [editable]="true">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Course</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
+                                  formControlName="instructionalCoursePhd" (onChange)="onCollegeChange($event)"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" [editable]="true"
+                                   placeholder="Select a Course">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Specialization</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Specialization"
+                                  formControlName="instructionalSpecializationPhd" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Division/class</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
+                                  formControlName="instructionalDivisionPhd" [virtualScroll]="true"
+                                  [virtualScrollItemSize]="30" optionLabel="name" [editable]="true"
+                                  placeholder="Select a Division">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Duration of Course</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"
+                                  formControlName="instructionalDurationPhd" />
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>Year of Passing</label><br>
+                                <input pInputText placeholder="Year" class="p-inputtext-sm"
+                                  formControlName="instructionalYearOfPassingPhd" />
+                              </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <p-button label="Save" (click)="saveInstructionalDetails(p,degree,'instructional')"
+                            [disabled]="!InstructionalPhd.get('formsInstructionalPhd')?.get(p.toString())?.valid"
+                              styleClass="p-button-raised p-button-success"></p-button> 
+                              <p-button label="Update" [style]="{'margin-left': '10px'}" (click)="saveInstructionalDetails(p,degree,'instructional')" 
+                              [disabled]="!InstructionalPhd.get('formsInstructionalPhd')?.get(p.toString())?.valid"
+                              styleClass="p-button-raised p-button-success"></p-button>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </form>
+                </ng-template>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </mat-card>
+
+      </div>
+    </mat-tab> 
+
+<!-- Affiliation Details -->
+    <mat-tab  >
+      <ng-template mat-tab-label>
+        <div class="title">Affiliation Letter Details</div>
+      </ng-template>
+      <div class="tab-content">
+        <div class="Instructional">
+          <h4 class="innerHeader">Affiliation Details</h4>
+        </div>
+        <mat-card>
+          <mat-card-header>
+            <h4 style="font-weight: bold;">Form</h4>
+          </mat-card-header>
+          <p-toast></p-toast>
+          <div class="card flex justify-content-center">
+            <p-accordion class="w-full">
+              <p-accordionTab *ngFor="let degree of degrees; let i = index">
+                <ng-template pTemplate="header">
+                  <div class="flex align-items-center">
+                    <span class="vertical-align-middle">{{ degree }}</span>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <!-- Bachelors -->
+                  <form [formGroup]="Affiliation" *ngIf="degree == 'Bachelors'">
+                    <div class="form" formArrayName="formsAffiliation">
+                      <ng-container *ngFor="let form of  affiliationArray.controls; let j = index">
+                        <h4>Form {{ j + 1 }}</h4>
+                        <div class="row" [formGroupName]="j">
+                          <div class="form">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Name</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="First Name"
+                                  formControlName="affiliationNameBachelors" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Select College</label><br>
+                                <p-dropdown [options]="collegeList" class="p-inputtext-sm"
+                                  (onChange)="onCollegeChange($event)" formControlName="affiliationCollegeBachelors" [editable]="true"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" [filter]="true"
+                                  filterBy="name"   placeholder="Select a CollegeName">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Course</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
+                                  formControlName="affiliationCourseBachelors" (onChange)="onCollegeChange($event)" [editable]="true"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name"
+                                    placeholder="Select a Course">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Specialization</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Specialization"
+                                  formControlName="affiliationSpecializationBachelors" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Division/class</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
+                                  formControlName="affiliationDivisionBachelors" [virtualScroll]="true" [editable]="true"
+                                  [virtualScrollItemSize]="30" optionLabel="name"  
+                                  placeholder="Select a Division">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Duration of Course</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"
+                                  formControlName="affiliationDurationBachelors" />
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>Year of Passing</label><br>
+                                <input pInputText placeholder="Year" class="p-inputtext-sm"
+                                  formControlName="affiliationYearOfPassingBachelors" />
+                              </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <p-button label="Save" (click)="saveAffiliationDetails(j,degree,'affiliation')"
+                            [disabled]="!Affiliation.get('formsAffiliation')?.get(j.toString())?.valid"
+                              styleClass="p-button-raised p-button-success"></p-button>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </form>
+
+                  <!-- Masters -->
+                  <form [formGroup]="AffiliationMasters" *ngIf="degree == 'Masters'">
+                    <div class="form" formArrayName="formsAffiliationMaster">
+                      <ng-container *ngFor="let form of affiliationArrayMaster.controls; let k = index">
+                        <h4>Form {{ k + 1 }}</h4>
+                        <div class="row" [formGroupName]="k">
+                          <div class="form">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Name</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="First Name"
+                                  formControlName="affiliationNameMasters" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Select College</label><br>
+                                <p-dropdown [options]="collegeList" class="p-inputtext-sm"
+                                  (onChange)="onCollegeChange($event)" formControlName="affiliationCollegeMasters" [editable]="true"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" [filter]="true"
+                                  filterBy="name"  placeholder="Select a CollegeName">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Course</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
+                                  formControlName="affiliationCourseMasters" (onChange)="onCollegeChange($event)" [editable]="true"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name"
+                                  placeholder="Select a Course">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Specialization</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Specialization"
+                                  formControlName="affiliationSpecializationMasters" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Division/class</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
+                                  formControlName="affiliationDivisionMasters" [virtualScroll]="true" [editable]="true"
+                                  [virtualScrollItemSize]="30" optionLabel="name"  
+                                  placeholder="Select a Division">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Duration of Course</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"
+                                  formControlName="affiliationDurationMasters" />
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>Year of Passing</label><br>
+                                <input pInputText placeholder="Year" class="p-inputtext-sm"
+                                  formControlName="affiliationYearOfPassingMasters" />
+                              </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <p-button label="Save" (click)="saveAffiliationDetails(k,degree,'affiliation')"
+                            [disabled]="!AffiliationMasters.get('formsAffiliationMaster')?.get(k.toString())?.valid"
+                              styleClass="p-button-raised p-button-success"></p-button> 
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </form>
+
+                  <!-- Phd -->
+                   <form [formGroup]="AffiliationPhd" *ngIf="degree == 'Phd'">
+                    <div class="form" formArrayName="formsAffiliationPhd">
+                      <ng-container *ngFor="let form of  affiliationArrayPhd.controls; let p = index">
+                        <h4>Form {{ p + 1 }}</h4>
+                        <div class="row" [formGroupName]="p">
+                          <div class="form">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Name</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="First Name"
+                                  formControlName="affiliationNamePhd" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Select College</label><br>
+                                <p-dropdown [options]="collegeList" class="p-inputtext-sm"
+                                  (onChange)="onCollegeChange($event)" formControlName="affiliationCollegePhd" [editable]="true"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" [filter]="true"
+                                  filterBy="name"   placeholder="Select a CollegeName">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Course</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="collegeCourse" class="p-inputtext-sm"
+                                  formControlName="affiliationCoursePhd" (onChange)="onCollegeChange($event)" [editable]="true"
+                                  [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name"
+                                   placeholder="Select a Course">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <label>Specialization</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Specialization"
+                                  formControlName="affiliationSpecializationPhd" />
+                              </div>
+                              <div class="col-md-4">
+                                <label>Division/class</label><br>
+                                <p-dropdown [style]="{'width':'15rem'}" [options]="division" class="p-inputtext-sm"
+                                  formControlName="affiliationDivisionPhd" [virtualScroll]="true" [editable]="true"
+                                  [virtualScrollItemSize]="30" optionLabel="name" 
+                                  placeholder="Select a Division">
+                                </p-dropdown>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 70px;">
+                                <label>Duration of Course</label><br>
+                                <input pInputText class="p-inputtext-sm" placeholder="Duration of Course" type="number"
+                                  formControlName="affiliationDurationPhd" />
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>Year of Passing</label><br>
+                                <input pInputText placeholder="Year" class="p-inputtext-sm"
+                                  formControlName="affiliationYearOfPassingPhd" />
+                              </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <p-button label="Save" (click)="saveAffiliationDetails(p,degree,'affiliation')"
+                            [disabled]="!Affiliation.get('formsAffiliationPhd')?.get(p.toString())?.valid"
+                              styleClass="p-button-raised p-button-success"></p-button> 
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </form> 
+                </ng-template>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </mat-card>
+
       </div>
     </mat-tab>
     <mat-tab *ngIf="activeTab2 == true">

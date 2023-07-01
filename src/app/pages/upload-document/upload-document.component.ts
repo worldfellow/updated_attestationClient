@@ -48,9 +48,7 @@ export class UploadDocumentComponent implements OnInit {
   activeTab4: boolean = true;
   selectedCollege: any;
   app_id_namechange: any;
-  division: any[] = [];
-  Instructional: FormGroup;
-  Affiliation: FormGroup;
+  division: any[] = []; 
   dynamicValue: number = 1; // Example initial value
   name = "Angular " + VERSION.major;
   isReady: boolean;
@@ -72,6 +70,16 @@ export class UploadDocumentComponent implements OnInit {
   width: number;
   marksheets: any = [];
   transcripts: any = [];
+  Instructional: FormGroup;
+  InstructionalMasters: FormGroup;
+  InstructionalPhd: FormGroup;
+  Affiliation: FormGroup;
+  AffiliationMasters:FormGroup;
+  AffiliationPhd :FormGroup;
+  Bachelorsdegrees:string[] = [];
+  Mastersdegrees:string[] = [];
+  PhdDegrees:string[] = []; 
+  degrees: string[] = []
 
   LetterforNameChangeform: FormGroup = new FormGroup({
     firstNameMarksheetCtrl: new FormControl(''),
@@ -88,10 +96,15 @@ export class UploadDocumentComponent implements OnInit {
   collegeCount: any;
   transcriptDisplay: any;
   uniqueCollegeName: any;
-  extraData: any;
-  LetterforNameChange: any;
-  curriculum: any;
+  extraData: any; 
   gradtoper: any;
+  instructionalField:any;
+  affiliation:any;
+  educationalDetails:any;
+  CompetencyLetter:any;
+  curriculum:any
+  gradToPer:any;
+  LetterforNameChange:any;
  
 
 
@@ -101,9 +114,21 @@ export class UploadDocumentComponent implements OnInit {
     this.Instructional = this.fb.group({
       formsInstructional: this.fb.array([])
     });
+    this.InstructionalMasters = this.fb.group({
+      formsInstructionalMaster: this.fb.array([])
+    });
+    this.InstructionalPhd = this.fb.group({
+      formsInstructionalPhd: this.fb.array([])
+    });
 
     this.Affiliation = this.fb.group({
       formsAffiliation: this.fb.array([])
+    })
+    this.AffiliationMasters = this.fb.group({
+      formsAffiliationMaster: this.fb.array([])
+    })
+    this.AffiliationPhd = this.fb.group({
+      formsAffiliationPhd: this.fb.array([])
     })
 
 
@@ -117,8 +142,17 @@ export class UploadDocumentComponent implements OnInit {
       collegeId : ['']
     });
 
-    this.generateFormsInstructional();
-    this.generateFormsAffiliation();
+    this.api.getAppliedUserDetail(this.user_id).subscribe((data : any) =>{
+      const userApplied = (data as any)['data']; 
+      this.instructionalField = userApplied.instructionalField;
+      this.affiliation = userApplied.affiliation;
+      this.educationalDetails = userApplied.educationalDetails; 
+      this.CompetencyLetter = userApplied.CompetencyLetter;
+      this.curriculum = userApplied.curriculum;
+      this.gradToPer = userApplied.gradToPer;
+      this.LetterforNameChange = userApplied.letterforNameChange;
+      }) 
+
     this.token = JSON.parse(localStorage.getItem('user')!)
     this.user_id = this.token.data.user.user_id;
     this.api.getNameChangeData(this.user_id).subscribe(data => {
@@ -160,16 +194,88 @@ export class UploadDocumentComponent implements OnInit {
       }
     });
 
-
-    this.api.getuploadedCurriculum(this.user_id).subscribe((data: any) => {
-      if (data['status'] == 200) {
-        this.curr_filename = data['data'][0];
-      } else {
-        this.curr_filename = data['data']
-      }
-    })
     this.refresh()
 
+  }
+
+  /** Get Data of Instructional and Affiliation letter forms through Api */
+  getLettersDetails(degrees: any) { 
+    this.api.getletterDetails(this.user_id, degrees).subscribe((data: any) => {  
+      if (data?.dataInstructional?.bachelors[0]) {
+        const bachelorsDetailsInstructional = data?.dataInstructional?.bachelors[0].instructionalDetails;
+        for(let i = 0; i < bachelorsDetailsInstructional.length; i++){ 
+          this.patchValueInstructional(bachelorsDetailsInstructional, this.Instructional.get('formsInstructional') as FormArray, 'Bachelors');
+        }
+      } 
+      if (data?.dataAffiliation?.bachelors[0]) {
+        const bachelorsDetailsAffiliation = data?.dataAffiliation?.bachelors[0].affiliationDetails;
+        for(let i = 0; i < bachelorsDetailsAffiliation.length; i++){ 
+          this.patchValueAffiliation(bachelorsDetailsAffiliation, this.Affiliation.get('formsAffiliation') as FormArray, 'Bachelors');
+        }
+      }
+
+      if (data?.dataInstructional?.masters[0]) {
+        const mastersDetailsInstructional = data.dataInstructional.masters[0].instructionalDetails; 
+        for(let i = 0; i < mastersDetailsInstructional.length; i++){
+        this.patchValueInstructional(mastersDetailsInstructional, this.InstructionalMasters.get('formsInstructionalMaster') as FormArray, 'Masters');
+        }
+      }
+      if (data?.dataAffiliation?.masters[0]) {
+        const mastersDetailsAffiliation = data.dataAffiliation.masters[0].affiliationDetails; 
+        for(let i = 0; i < mastersDetailsAffiliation.length; i++){
+        this.patchValueAffiliation(mastersDetailsAffiliation, this.AffiliationMasters.get('formsAffiliationMaster') as FormArray, 'Masters');
+        }
+      }
+
+      if (data?.dataInstructional?.phd[0]) {
+        const phdDetailsInstructional = data.dataInstructional.phd[0].instructionalDetails; 
+        for(let i = 0; i < phdDetailsInstructional.length; i++){
+        this.patchValueInstructional(phdDetailsInstructional, this.InstructionalPhd.get('formsInstructionalPhd') as FormArray, 'Phd');
+        }
+      }
+      if (data?.dataAffiliation?.phd[0]) {
+        const phdDetailsAffiliation = data.dataAffiliation.phd[0].instructionalDetails; 
+        for(let i = 0; i < phdDetailsAffiliation.length; i++){
+        this.patchValueAffiliation(phdDetailsAffiliation, this.AffiliationPhd.get('formsAffiliationPhd') as FormArray, 'Phd');
+        }
+      }
+
+    });
+  }
+
+    /**Patch the value of Instructional Letter */
+  patchValueInstructional(details: any[], formArray: FormArray, degreeType: string) {
+    for (let i = 0; i < details.length; i++) {
+      const detail = details[i]; 
+        const formGroup = formArray.at(i) as FormGroup;
+        formGroup.patchValue({
+          idCtrl: detail.id,
+          [`instructionalName${degreeType}`]: detail.studentName,
+          [`instructionalCollege${degreeType}`]: detail.collegeName,
+          [`instructionalCourse${degreeType}`]: detail.courseName,
+          [`instructionalSpecialization${degreeType}`]: detail.specialization,
+          [`instructionalDivision${degreeType}`]: detail.division,
+          [`instructionalDuration${degreeType}`]: detail.duration,
+          [`instructionalYearOfPassing${degreeType}`]: detail.yearofpassing
+        });  
+    }
+  }
+    /**Patch the value of Affiliation Letter */
+  patchValueAffiliation(details: any[], formArray: FormArray, degreeType: string) {
+    for (let i = 0; i < details.length; i++) {
+      const detail = details[i];
+      const formGroup = formArray.at(i) as FormGroup;
+      formGroup.patchValue({
+        idCtrl: detail.id,
+        [`affiliationName${degreeType}`]: detail.studentName,
+        [`affiliationCollege${degreeType}`]: detail.collegeName,
+        [`affiliationCourse${degreeType}`]: detail.courseName,
+        [`affiliationSpecialization${degreeType}`]: detail.specialization,
+        [`affiliationDivision${degreeType}`]: detail.division,
+        [`affiliationDuration${degreeType}`]: detail.duration,
+        [`affiliationYearOfPassing${degreeType}`]: detail.yearofpassing
+      });
+    }
   }
   uploadfun(event : any){
     console.log('nooooooooooooooooooo' ,event)
@@ -325,10 +431,7 @@ export class UploadDocumentComponent implements OnInit {
       maximizable: true
     });
   }
-
-  updateLetter() {
-
-  }
+ 
 
   deleteInfo(id: any, type: any) {
     console.log("id", id)
@@ -354,7 +457,6 @@ export class UploadDocumentComponent implements OnInit {
     this.updateButton = true;
   }
   saveLetter() {
-    console.log("save");
 
     var data: any = {
       "firstNameMarksheetCtrl": this.LetterforNameChangeform.controls['firstNameMarksheetCtrl'].value,
@@ -388,56 +490,216 @@ export class UploadDocumentComponent implements OnInit {
   }
 
 
-  // Instructional form
+   /**
+    * Instructional Letter
+    */
 
-  get instructionalArray(): FormArray {
+   get instructionalArray(): FormArray {
     return this.Instructional.get('formsInstructional') as FormArray;
   }
-  generateFormsInstructional(): void {
-    const instructionalArray = this.Instructional.get('formsInstructional') as FormArray;
 
-    for (let i = 0; i < this.dynamicValue; i++) {
-      instructionalArray.push(this.createFormInstructional());
-    }
+  generateFormsInstructional(Bachelorsdegrees:any): void {
+    
+    const instructionalArray = this.Instructional.get('formsInstructional') as FormArray;
+     for(let i=0 ;i < Bachelorsdegrees ; i++){
+  instructionalArray.push(this.createFormInstructional());
+     } 
   }
 
   createFormInstructional(): FormGroup {
     return this.fb.group({
-      instructionalName: new FormControl('', [Validators.required]),
-      instructionalCollege: new FormControl('', [Validators.required]),
-      instructionalCourse: new FormControl('', [Validators.required]),
-      instructionalSpecialization: new FormControl('', [Validators.required]),
-      instructionalDivision: new FormControl('', [Validators.required]),
-      instructionalDuration: new FormControl('', [Validators.required]),
-      instructionalYearOfPassing: new FormControl('', [Validators.required])
+      idCtrl:new FormControl(''),
+      instructionalNameBachelors: new FormControl('', [Validators.required]),
+      instructionalCollegeBachelors: new FormControl('', [Validators.required]),
+      instructionalCourseBachelors: new FormControl('', [Validators.required]),
+      instructionalSpecializationBachelors: new FormControl('', [Validators.required]),
+      instructionalDivisionBachelors: new FormControl('', [Validators.required]),
+      instructionalDurationBachelors: new FormControl('', [Validators.required]),
+      instructionalYearOfPassingBachelors: new FormControl('', [Validators.required])
     });
   }
 
+  get instructionalArrayMaster(): FormArray {
+    return this.InstructionalMasters.get('formsInstructionalMaster') as FormArray;
+  }
 
+  generateFormsInstructionalMaster(Mastersdegrees:any): void {
+    const instructionalArrayMaster = this.InstructionalMasters.get('formsInstructionalMaster') as FormArray;
+    for(let i=0 ;i < Mastersdegrees ; i++){
+    instructionalArrayMaster.push(this.createFormInstructionalMaster());
+  }
+  }
 
-  // Affiliation form
+  createFormInstructionalMaster(): FormGroup {
+    return this.fb.group({
+      idCtrl:new FormControl(''),
+      instructionalNameMasters: new FormControl('', [Validators.required]),
+      instructionalCollegeMasters: new FormControl('', [Validators.required]),
+      instructionalCourseMasters: new FormControl('', [Validators.required]),
+      instructionalSpecializationMasters: new FormControl('', [Validators.required]),
+      instructionalDivisionMasters: new FormControl('', [Validators.required]),
+      instructionalDurationMasters: new FormControl('', [Validators.required]),
+      instructionalYearOfPassingMasters: new FormControl('', [Validators.required])
+    });
+  }
+
+  get instructionalArrayPhd(): FormArray {
+    return this.InstructionalPhd.get('formsInstructionalPhd') as FormArray;
+  }
+
+  generateFormsInstructionalPhd(PhdDegrees:any): void {
+    const instructionalArrayPhd = this.InstructionalPhd.get('formsInstructionalPhd') as FormArray;
+    for(let i=0 ;i < PhdDegrees ; i++){
+      instructionalArrayPhd.push(this.createFormInstructionalPhd());
+    }
+   
+  }
+
+  createFormInstructionalPhd(): FormGroup {
+    return this.fb.group({
+      idCtrl:new FormControl(''),
+      instructionalNamePhd: new FormControl('', [Validators.required]),
+      instructionalCollegePhd: new FormControl('', [Validators.required]),
+      instructionalCoursePhd: new FormControl('', [Validators.required]),
+      instructionalSpecializationPhd: new FormControl('', [Validators.required]),
+      instructionalDivisionPhd: new FormControl('', [Validators.required]),
+      instructionalDurationPhd: new FormControl('', [Validators.required]),
+      instructionalYearOfPassingPhd: new FormControl('', [Validators.required])
+    });
+  }
+
+  saveInstructionalDetails(index: number, degree: string, type: string) { 
+
+    const formArrayKey = degree === "Bachelors" ? "formsInstructional" : degree === "Masters" ? "formsInstructionalMaster" : "formsInstructionalPhd";
+    const formArray = degree === "Bachelors" ? this.Instructional.get(formArrayKey) as FormArray : degree === "Masters" ? this.InstructionalMasters.get(formArrayKey) as FormArray : this.InstructionalPhd.get(formArrayKey) as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+    if (formGroup.valid) {
+      const formData = new FormData();
+      formData.append('idCtrl', formGroup.controls["idCtrl"].value);
+      formData.append('name', formGroup.controls[`instructionalName${degree}`].value);
+      formData.append('college', formGroup.controls[`instructionalCollege${degree}`].value['name'] || formGroup.controls[`instructionalCollege${degree}`].value);
+      formData.append('course', formGroup.controls[`instructionalCourse${degree}`].value['name'] || formGroup.controls[`instructionalCourse${degree}`].value);
+      formData.append('specialization', formGroup.controls[`instructionalSpecialization${degree}`].value);
+      formData.append('division', formGroup.controls[`instructionalDivision${degree}`].value['name'] || formGroup.controls[`instructionalDivision${degree}`].value);
+      formData.append('duration', formGroup.controls[`instructionalDuration${degree}`].value);
+      formData.append('yearOfpassing', formGroup.controls[`instructionalYearOfPassing${degree}`].value);
+      formData.append('user_id', this.user_id);
+      formData.append('education', degree);
+      formData.append('type', type);
+
+      this.api.saveInstructionalData(formData).subscribe((data: any) => {
+        if (data['status'] == 200) {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: data['message'] });
+          this.getLettersDetails(this.degrees);
+        }
+      });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Fields Please Fill all the details !' });
+    }
+  }
+ 
+
+  /**
+   * Affiliation Letter
+   */
 
   get affiliationArray(): FormArray {
     return this.Affiliation.get('formsAffiliation') as FormArray;
   }
-  generateFormsAffiliation(): void {
-    const affiliationArray = this.Affiliation.get('formsAffiliation') as FormArray;
-
-    for (let i = 0; i < this.dynamicValue; i++) {
-      affiliationArray.push(this.createFormAffiliation());
+  generateFormsAffiliation(Bachelorsdegrees:any): void {
+    const affiliationArray = this.Affiliation.get('formsAffiliation') as FormArray; 
+    for(let i=0 ;i < Bachelorsdegrees ; i++){
+    affiliationArray.push(this.createFormAffiliation());
     }
   }
 
   createFormAffiliation(): FormGroup {
     return this.fb.group({
-      name: new FormControl('', [Validators.required]),
-      college: new FormControl('', [Validators.required]),
-      course: new FormControl('', [Validators.required]),
-      specialization: new FormControl('', [Validators.required]),
-      division: new FormControl('', [Validators.required]),
-      duration: new FormControl('', [Validators.required]),
-      yearOfPassing: new FormControl('', [Validators.required])
+      idCtrl:new FormControl(''),
+      affiliationNameBachelors: new FormControl('', [Validators.required]),
+      affiliationCollegeBachelors: new FormControl('', [Validators.required]),
+      affiliationCourseBachelors: new FormControl('', [Validators.required]),
+      affiliationSpecializationBachelors: new FormControl('', [Validators.required]),
+      affiliationDivisionBachelors: new FormControl('', [Validators.required]),
+      affiliationDurationBachelors: new FormControl('', [Validators.required]),
+      affiliationYearOfPassingBachelors: new FormControl('', [Validators.required])
     });
+  }
+
+  get affiliationArrayMaster(): FormArray {
+    return this.AffiliationMasters.get('formsAffiliationMaster') as FormArray;
+  }
+  generateFormsAffiliationMaster(Mastersdegrees:any): void {
+    const affiliationArrayMaster = this.AffiliationMasters.get('formsAffiliationMaster') as FormArray; 
+    for(let i=0 ;i < Mastersdegrees ; i++){
+    affiliationArrayMaster.push(this.createFormAffiliationMaster());
+    }
+  }
+
+  createFormAffiliationMaster(): FormGroup {
+    return this.fb.group({
+      idCtrl:new FormControl(''),
+      affiliationNameMasters: new FormControl('', [Validators.required]),
+      affiliationCollegeMasters: new FormControl('', [Validators.required]),
+      affiliationCourseMasters: new FormControl('', [Validators.required]),
+      affiliationSpecializationMasters: new FormControl('', [Validators.required]),
+      affiliationDivisionMasters: new FormControl('', [Validators.required]),
+      affiliationDurationMasters: new FormControl('', [Validators.required]),
+      affiliationYearOfPassingMasters: new FormControl('', [Validators.required])
+    });
+  }
+
+  get affiliationArrayPhd(): FormArray {
+    return this.AffiliationPhd.get('formsAffiliationPhd') as FormArray;
+  }
+  generateFormsAffiliationPhd(PhdDegrees:any): void {
+    const affiliationArrayPhd = this.AffiliationPhd.get('formsAffiliationPhd') as FormArray; 
+    for(let i=0 ;i < PhdDegrees ; i++){
+    affiliationArrayPhd.push(this.createFormAffiliationPhd());
+    }
+  }
+
+  createFormAffiliationPhd(): FormGroup {
+    return this.fb.group({
+      idCtrl:new FormControl(''),
+      affiliationNamePhd: new FormControl('', [Validators.required]),
+      affiliationCollegePhd: new FormControl('', [Validators.required]),
+      affiliationCoursePhd: new FormControl('', [Validators.required]),
+      affiliationSpecializationPhd: new FormControl('', [Validators.required]),
+      affiliationDivisionPhd: new FormControl('', [Validators.required]),
+      affiliationDurationPhd: new FormControl('', [Validators.required]),
+      affiliationYearOfPassingPhd: new FormControl('', [Validators.required])
+    });
+  }
+
+  saveAffiliationDetails(index: number, degree: string,type: string) {  
+   
+    const formArrayKey = degree === "Bachelors" ? "formsAffiliation" : degree === "Masters" ? "formsAffiliationMaster" : "formsAffiliationPhd";
+    const formArray = degree === "Bachelors" ? this.Affiliation.get(formArrayKey) as FormArray : degree === "Masters" ? this.AffiliationMasters.get(formArrayKey) as FormArray : this.AffiliationPhd.get(formArrayKey) as FormArray;
+    const formGroup = formArray.at(index) as FormGroup; 
+    if(formGroup.valid){
+    const formData = new FormData();
+    formData.append('idCtrl',formGroup.controls["idCtrl"].value)
+    formData.append('name', formGroup.controls[`affiliationName${degree}`].value);
+    formData.append('college', formGroup.controls[`affiliationCollege${degree}`].value['name'] || formGroup.controls[`affiliationCollege${degree}`].value);
+    formData.append('course', formGroup.controls[`affiliationCourse${degree}`].value['name'] || formGroup.controls[`affiliationCourse${degree}`].value);
+    formData.append('specialization', formGroup.controls[`affiliationSpecialization${degree}`].value);
+    formData.append('division', formGroup.controls[`affiliationDivision${degree}`].value['name'] || formGroup.controls[`affiliationDivision${degree}`].value);
+    formData.append('duration', formGroup.controls[`affiliationDuration${degree}`].value);
+    formData.append('yearOfpassing', formGroup.controls[`affiliationYearOfPassing${degree}`].value);
+    formData.append('user_id', this.user_id);
+    formData.append('education', degree);
+    formData.append('type',type);
+  
+    this.api.saveInstructionalData(formData).subscribe((data: any) => {
+      if (data['status'] == 200) { 
+        this.messageService.add({ severity: 'success', summary: 'Success', detail:  data['message'] });  
+      }
+    });
+      
+    }else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Fields Please Fill all the details !' }); 
+    }
   }
   refresh(){
     this.api.getUploadedDocuments(this.user_id,this.app_id).subscribe((data:any)=>{
@@ -451,6 +713,34 @@ export class UploadDocumentComponent implements OnInit {
         this.curriculum = data['data'][5];
         this.gradtoper = data['data'][6];
       }
+  })
+
+  this.api.getInstructionalForms(this.user_id).subscribe((data : any)=>{  
+
+    if ((data) as any['data'] != undefined) {   
+      
+      for(let i = 0; i < data.length; i++) {
+        let collegeLength = data[i].formLength
+        if(data[i].education_type == "Bachelors"){ 
+          this.Bachelorsdegrees.push(collegeLength); 
+        }
+        if(data[i].education_type == "Masters"){ 
+          this.Mastersdegrees.push(collegeLength); 
+        }
+        if(data[i].education_type == "Masters"){ 
+          this.PhdDegrees.push(collegeLength); 
+        }
+        this.degrees.push(data[i].education_type)  
+      } 
+      this.generateFormsInstructional(this.Bachelorsdegrees);
+      this.generateFormsInstructionalMaster(this.Mastersdegrees);
+      this.generateFormsInstructionalPhd(this.PhdDegrees);
+      this.generateFormsAffiliation(this.Bachelorsdegrees);
+      this.generateFormsAffiliationMaster(this.Mastersdegrees);
+      this.generateFormsAffiliationPhd(this.PhdDegrees);
+      this.getLettersDetails(this.degrees);  
+      
+    }
   })
 }
 }
