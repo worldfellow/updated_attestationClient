@@ -201,6 +201,10 @@ const routes: Routes = [{
       // canActivate: [AuthGuard],
       // data: {type: ['studentFeedback']}
     },
+    {
+      path : 'adminTotal/viewMore',
+      component : ViewMoreComponent,
+    },
   ],
   providers:[AuthGuard]
 

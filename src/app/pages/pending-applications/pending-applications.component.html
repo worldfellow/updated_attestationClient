@@ -1,1 +1,572 @@
-<p>pending-applications works!</p>
+
+<div class="card flex justify-content-center">
+    <p-card header="Pending Applications">
+        <mat-tab-group #tabGroup (selectedIndexChange)="handleTabChange($event,10,0,null,'',null,'')">
+            <mat-tab label="New Application"  >  
+                <p-toast></p-toast>
+                <p-confirmDialog [style]="{width: '20vw'}"></p-confirmDialog>
+                <div class="card">
+                    <p-table
+                        #dt1
+                        dataKey="id" 
+                        [showCurrentPageReport]="true" 
+                        [value]="newApplication" 
+                        [tableStyle]="{ 'min-width': '75rem' }"
+                        >
+                        <ng-template pTemplate="caption"> 
+                            <div class="row">
+                              <div class="col-md-2">
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search"  style="color: #15d015"></i>
+                                  <input pInputText type="text"    placeholder="Search App ID" #id />
+                                </span>
+                              </div>
+                              <div class="col-md-2">
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search"  style="color: #15d015"></i>
+                                  <input pInputText type="text"   placeholder="Search Name" #name />
+                                </span>
+                              </div>
+                              <div class="col-md-2" >
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search" style="color: #15d015"></i>
+                                  <input pInputText type="text"    placeholder="Search Email ID" #email />
+                                </span>
+                              </div>
+                              <div class="col-md-2"></div>
+                              <div class="col-md-2"  >
+                                <p-calendar   selectionMode="range" placeholder="Date Picker" [readonlyInput]="true" [showIcon]="true" ></p-calendar>
+                            </div>
+                              <div class="col-md-2">
+                                <p-button label="Download Excel" styleClass="p-button-success"   [loading]="loading"   #datePicker></p-button>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-2 pt-2">
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search" style="color: #15d015"></i> 
+                                  <input pInputText type="text" [(ngModel)]="filterText" (input)="filterData()" placeholder="Search Keywords" #globalSearch/> 
+                                </span>
+                              </div>
+                              <div class="col-md-8 pt-2">
+                                 <p-button label="search" (click)="searchNewApplication(id.value,name.value,email.value)" styleClass="p-button-success"></p-button>
+                              </div>
+                              <div class="col-md-2 pt-2" >
+                                <button pButton label="Clear" (click)="clear('new')" style="color: #15d015" class="p-button-outlined" icon="pi pi-filter-slash"  ></button> 
+                            </div>
+                           
+                            </div> 
+                          </ng-template> 
+                           
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width:5%">Application ID</th>
+                                <th style="width:10%">Name</th>
+                                <th style="width:10%">Email ID</th>
+                                <th style="width:10%">Applied For</th>
+                                <th style="width:10%">Educational Status</th>
+                                <th style="width:10%">Purpose</th>
+                                <th style="width:10%">Application Date</th>
+                                <th style="width:15%">College</th>
+                                <th style="width:5%">Email Status</th>
+                                <th style="width:5%">Errata</th>
+                                <th style="width:5%">Verify</th>
+                                <th style="width:5%">Action</th> 
+                            </tr> 
+                        </ng-template>
+                        <ng-template pTemplate="body" let-newpendingData>
+                            <tr [pSelectableRow]="newpendingData">
+                                <td> {{newpendingData.id}} </td>
+                                <td>  {{newpendingData.name}} </td>
+                                <td> {{newpendingData.email}} </td>
+                                <td> 
+                                    {{newpendingData?.instructionalField == true ? 'Instructional Details,' : ''}}
+                                    {{newpendingData?.curriculum == true ? 'Curriculum,' : ''}}
+                                    {{newpendingData?.educationalDetails == true ? 'Educational Details,' : ''}} 
+                                    {{newpendingData?.gradToPer == true ? ',Grade To Percentage Letter,' : ''}} 
+                                    {{newpendingData?.affiliation == true ? ',Affiliation Letter,' : ''}} 
+                                    {{newpendingData?.CompetencyLetter == true ? 'Competency Letter,' : ''}} 
+                                    {{newpendingData?.Letterfor_NameChange == true ? 'LetterforNameChange' : ''}}  
+                                 </td>
+                                <td>  </td>
+                                <td> {{newpendingData.type}} </td>
+                                <td> {{newpendingData.application_date}} </td>
+                                <td>{{newpendingData.college}}</td>
+                                <td>
+                                    <i class="pi pi-refresh"></i>
+                                </td>
+                                <td>
+                                    <i class="pi pi-eye" (click)="viewErrata(newpendingData.user_id,newpendingData.id)"></i>
+                                </td>
+                                <td> 
+                                    <i class="pi pi-verified" (click)="verifyApplication(newpendingData.user_id,newpendingData.id)"></i> 
+                                </td>
+                                <td>
+                                    <i class="pi pi-times-circle" (click)="rejectApplication(newpendingData.user_id,newpendingData.id)"></i>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage"> 
+                              NO Data Found.
+                            <!-- <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner> -->
+                                </ng-template>
+                    </p-table>
+                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" ></p-paginator>
+                </div>
+            </mat-tab> 
+                <mat-tab label="Requested Application" > 
+                    <div class="card">
+                        <p-table
+                            #dt2
+                            dataKey="id" 
+                            [showCurrentPageReport]="true" 
+                            [value]="requestedApplication"  
+                            [tableStyle]="{ 'min-width': '75rem' }"
+                            >
+                            <ng-template pTemplate="caption"> 
+                                <div class="row">
+                                  <div class="col-md-2">
+                                    <span class="p-input-icon-left">
+                                      <i class="pi pi-search"  style="color: rgb(243, 191, 24)"></i>
+                                      <input pInputText type="text"    placeholder="Search App ID" #idR />
+                                    </span>
+                                  </div>
+                                  <div class="col-md-2">
+                                    <span class="p-input-icon-left">
+                                      <i class="pi pi-search"  style="color: rgb(243, 191, 24)"></i>
+                                      <input pInputText type="text"   placeholder="Search Name" #nameR />
+                                    </span>
+                                  </div>
+                                  <div class="col-md-2" >
+                                    <span class="p-input-icon-left">
+                                      <i class="pi pi-search" style="color: rgb(243, 191, 24)"></i>
+                                      <input pInputText type="text"    placeholder="Search Email ID" #emailR />
+                                    </span>
+                                  </div>
+                                  <div class="col-md-2"></div>
+                                  <div class="col-md-2"  >
+                                    <p-calendar   selectionMode="range" placeholder="Date Picker" [readonlyInput]="true" [showIcon]="true"  ></p-calendar>
+                                </div>
+                                  <div class="col-md-2">
+                                    <p-button label="Download Excel" styleClass="p-button-warning"   [loading]="loading"   #datePicker></p-button>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-2 pt-2">
+                                    <span class="p-input-icon-left">
+                                      <i class="pi pi-search" style="color: rgb(243, 191, 24)"></i> 
+                                      <input pInputText type="text" [(ngModel)]="filterText" (input)="filterDataRequested()" placeholder="Search Keywords" #globalSearchR/> 
+                                    </span>
+                                  </div>
+                                  <div class="col-md-8 pt-2">
+                                     <p-button label="search" (click)="searchRequestedApplication(idR.value,nameR.value,emailR.value)" styleClass="p-button-warning"></p-button>
+                                  </div>
+                                  <div class="col-md-2 pt-2" >
+                                    <button pButton label="Clear" (click)="clear('requested')" style="color:rgb(243, 191, 24)" class="p-button-outlined" icon="pi pi-filter-slash"  ></button> 
+                                </div>
+                               
+                                </div> 
+                              </ng-template> 
+                               
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width:5%">Application ID</th>
+                                    <th style="width:10%">Name</th>
+                                    <th style="width:10%">Email ID</th>
+                                    <th style="width:10%">Applied For</th>
+                                    <th style="width:10%">Educational Status</th>
+                                    <th style="width:10%">Purpose</th>
+                                    <th style="width:10%">Application Date</th>
+                                    <th style="width:15%">College</th>
+                                    <th style="width:10%">Email Status</th>
+                                    <th style="width:5%">Errata</th>
+                                    <th style="width:5%">Verify</th>
+                                    <th style="width:5%">Action</th> 
+                                </tr> 
+                            </ng-template>
+                            <ng-template pTemplate="body" let-requestedData> 
+                                <tr [pSelectableRow]="requestedData">
+                                    <td> {{requestedData.id}} </td>
+                                    <td>  {{requestedData.name}} </td>
+                                    <td> {{requestedData.email}} </td>
+                                    <td> 
+                                        {{requestedData?.instructionalField == true ? 'Instructional Details,' : ''}}
+                                        {{requestedData?.curriculum == true ? 'Curriculum,' : ''}}
+                                        {{requestedData?.educationalDetails == true ? 'Educational Details,' : ''}} 
+                                        {{requestedData?.gradToPer == true ? ',Grade To Percentage Letter,' : ''}} 
+                                        {{requestedData?.affiliation == true ? ',Affiliation Letter,' : ''}} 
+                                        {{requestedData?.CompetencyLetter == true ? 'Competency Letter,' : ''}} 
+                                        {{requestedData?.Letterfor_NameChange == true ? 'LetterforNameChange' : ''}}  
+                                     </td>
+                                    <td>  </td>
+                                    <td> {{requestedData.type}} </td>
+                                    <td> {{requestedData.application_date}} </td>
+                                    <td>{{requestedData.college}}</td>
+                                    <td>
+                                        <i class="pi pi-refresh"></i>
+                                    </td>
+                                    <td>
+                                        <i class="pi pi-eye" (click)="viewErrata(requestedData.user_id,requestedData.id)"></i>
+                                    </td>
+                                    <td> 
+                                        <i class="pi pi-verified" (click)="verifyApplication(requestedData.user_id,requestedData.id)"></i> 
+                                    </td>
+                                    <td>
+                                        <i class="pi pi-times-circle" (click)="rejectApplication(requestedData.user_id,requestedData.id)"></i>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="5">No Data found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    <p-paginator (onPageChange)="onPageChangeRequested($event)" [first]="first" [rows]="rows" [totalRecords]="120" ></p-paginator>
+                    </div>
+                </mat-tab> 
+            
+            <mat-tab label="Changed Application">
+                <div class="card">
+                    <p-table
+                        #dt3
+                        dataKey="id"
+                        [rows]="10"
+                        [showCurrentPageReport]="true"
+                        [rowsPerPageOptions]="[10, 25, 50]"
+                        [value]="changedApplication" 
+                        [paginator]="true"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+                        [tableStyle]="{ 'min-width': '75rem' }"
+                        >
+                        <ng-template pTemplate="caption">
+                            <div class="flex-container">
+                              <div class="flex-item">
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search"  style="color: #0b5bf1"></i>
+                                  <input pInputText type="text" placeholder="Search App ID" />
+                                </span>
+                              </div>
+                              <div class="flex-item">
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search"  style="color: #0b5bf1"></i>
+                                  <input pInputText type="text" placeholder="Search Email ID" />
+                                </span>
+                              </div>
+                              <div class="ml-auto" >
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search" style="color: #0b5bf1"></i>
+                                  <input pInputText type="text" placeholder="Search Keywords" />
+                                </span>
+                              </div>
+                              <div class="flex-item ml-auto">
+                                <p-button label="Download Excel"  [loading]="loading" (click)="load()"></p-button>
+                              </div>
+                            </div>
+                            <div class="flex">
+                                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"  ></button> 
+                            </div>
+                          </ng-template>
+                           
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width:5%">Application ID</th>
+                                <th style="width:10%">Name</th>
+                                <th style="width:10%">Email ID</th>
+                                <th style="width:10%">Applied For</th>
+                                <th style="width:10%">Educational Status</th>
+                                <th style="width:10%">Purpose</th>
+                                <th style="width:10%">Application Date</th>
+                                <th style="width:15%">College</th>
+                                <th style="width:10%">Email Status</th>
+                                <th style="width:5%">Errata</th>
+                                <th style="width:5%">Verify</th>
+                                <th style="width:5%">Action</th> 
+                            </tr>
+                            <tr>
+                                <!-- <th>
+                                    <p-columnFilter type="text" field="name"></p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter type="text" field="country.name"></p-columnFilter>
+                                </th> -->
+                                <!-- <th> -->
+                                    <!-- <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-multiSelect [ngModel]="value" placeholder="Any"  optionLabel="name">
+                                                <ng-template let-option pTemplate="item">
+                                                    <div class="inline-block vertical-align-middle">
+                                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                    </div>
+                                                </ng-template>
+                                            </p-multiSelect>
+                                        </ng-template>
+                                    </p-columnFilter> -->
+                                <!-- </th> -->
+                                <!-- <th>
+                                    <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value"   placeholder="Any" [showClear]="true">
+                                                <ng-template let-option pTemplate="item">
+                                                    <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </th> -->
+                                <!-- <th>
+                                    <p-columnFilter type="boolean" field="verified"></p-columnFilter>
+                                </th> -->
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-changedData>
+                            <tr [pSelectableRow]="changedData">
+                                <td> {{changedData.id}} </td>
+                                <td>  {{changedData.name}} </td>
+                                <td> {{changedData.email}} </td>
+                                <td> 
+                                    {{changedData?.instructionalField == true ? 'Instructional Details,' : ''}}
+                                    {{changedData?.curriculum == true ? 'Curriculum,' : ''}}
+                                    {{changedData?.educationalDetails == true ? 'Educational Details' : ''}} 
+                                    {{changedData?.gradToPer == true ? ',Grade To Percentage Letter' : ''}} 
+                                    {{changedData?.affiliation == true ? ',Affiliation Letter' : ''}} 
+                                    {{changedData?.CompetencyLetter == true ? 'Competency Letter' : ''}} 
+                                    {{changedData?.Letterfor_NameChange == true ? 'LetterforNameChange' : ''}}  
+                                 </td>
+                                <td>  </td>
+                                <td> {{changedData.type}} </td>
+                                <td> {{changedData.created_at}} </td>
+                                <td></td>
+                                <td>  </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>   
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5">No Data found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </mat-tab>
+            <mat-tab label="OnHold Application">
+                <div class="card">
+                    <p-table
+                        #dt1
+                        dataKey="id"
+                        [rows]="10"
+                        [showCurrentPageReport]="true"
+                        [rowsPerPageOptions]="[10, 25, 50]"
+                         
+                        [paginator]="true"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+                        [tableStyle]="{ 'min-width': '75rem' }"
+                        >
+                        <ng-template pTemplate="caption">
+                            <div class="flex-container">
+                              <div class="flex-item">
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search"  style="color: #e21111"></i>
+                                  <input pInputText type="text" placeholder="Search App ID" />
+                                </span>
+                              </div>
+                              <div class="flex-item">
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search"  style="color: #e21111"></i>
+                                  <input pInputText type="text" placeholder="Search Email ID" />
+                                </span>
+                              </div>
+                              <div class="ml-auto" >
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search" style="color: #e21111"></i>
+                                  <input pInputText type="text" placeholder="Search Keywords" />
+                                </span>
+                              </div>
+                              <div class="flex-item ml-auto">
+                                <p-button label="Download Excel"  styleClass="p-button-danger" [loading]="loading" (click)="load()"></p-button>
+                              </div>
+                            </div>
+                            <div class="flex">
+                                <button pButton label="Clear" style="color:#e21111" class="p-button-outlined" icon="pi pi-filter-slash"  ></button> 
+                            </div>
+                          </ng-template>
+                           
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width:5%">Application ID</th>
+                                <th style="width:10%">Name</th>
+                                <th style="width:10%">Email ID</th>
+                                <th style="width:10%">Applied For</th>
+                                <th style="width:10%">Educational Status</th>
+                                <th style="width:10%">Purpose</th>
+                                <th style="width:10%">Application Date</th>
+                                <th style="width:15%">College</th>
+                                <th style="width:10%">Email Status</th>
+                                <th style="width:5%">Errata</th>
+                                <th style="width:5%">Verify</th>
+                                <th style="width:5%">Action</th> 
+                            </tr>
+                            <tr>
+                                <!-- <th>
+                                    <p-columnFilter type="text" field="name"></p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter type="text" field="country.name"></p-columnFilter>
+                                </th> -->
+                                <!-- <th> -->
+                                    <!-- <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-multiSelect [ngModel]="value" placeholder="Any"  optionLabel="name">
+                                                <ng-template let-option pTemplate="item">
+                                                    <div class="inline-block vertical-align-middle">
+                                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                    </div>
+                                                </ng-template>
+                                            </p-multiSelect>
+                                        </ng-template>
+                                    </p-columnFilter> -->
+                                <!-- </th> -->
+                                <!-- <th>
+                                    <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value"   placeholder="Any" [showClear]="true">
+                                                <ng-template let-option pTemplate="item">
+                                                    <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </th> -->
+                                <!-- <th>
+                                    <p-columnFilter type="boolean" field="verified"></p-columnFilter>
+                                </th> -->
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-customer>
+                            <tr>
+                                <td>
+                                    {{ customer.name }}
+                                </td>
+                                <td>
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                </td>
+                                <td>
+                                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                </td>
+                                <td>
+                                    <!-- <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag> -->
+                                </td>
+                                <td>
+                                    <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5">No Data found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div> </mat-tab>
+            <mat-tab label="College Confirmation Application"> 
+                <div class="card">
+                    <p-table
+                        #dt2
+                        dataKey="id"
+                        [rows]="10"
+                        [showCurrentPageReport]="true"
+                        [rowsPerPageOptions]="[10, 25, 50]"
+                         
+                        [paginator]="true"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+                        [tableStyle]="{ 'min-width': '75rem' }"
+                        >
+                        <ng-template pTemplate="caption">
+                            <div class="flex-container">
+                              <div class="flex-item">
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search" ></i>
+                                  <input pInputText type="text" placeholder="Search App ID" />
+                                </span>
+                              </div>
+                              <div class="flex-item">
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search"  ></i>
+                                  <input pInputText type="text" placeholder="Search Email ID" />
+                                </span>
+                              </div>
+                              <div class="ml-auto" >
+                                <span class="p-input-icon-left">
+                                  <i class="pi pi-search" ></i>
+                                  <input pInputText type="text" placeholder="Search Keywords" />
+                                </span>
+                              </div>
+                              <div class="flex-item ml-auto">
+                                <p-button label="Download Excel"  styleClass="p-button-help" [loading]="loading" (click)="load()"></p-button>
+                              </div>
+                            </div>
+                            <div class="flex">
+                                <button pButton label="Clear"   class="p-button-outlined" icon="pi pi-filter-slash"  ></button> 
+                            </div>
+                          </ng-template>
+                           
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width:5%">Application ID</th>
+                                <th style="width:10%">Name</th>
+                                <th style="width:10%">Email ID</th>
+                                <th style="width:10%">Applied For</th>
+                                <th style="width:10%">Educational Status</th>
+                                <th style="width:10%">Purpose</th>
+                                <th style="width:10%">Application Date</th>
+                                <th style="width:15%">College</th>
+                                <th style="width:10%">Email Status</th>
+                                <th style="width:5%">Errata</th>
+                                <th style="width:5%">Verify</th>
+                                <th style="width:5%">Action</th> 
+                            </tr>
+                            <tr>
+                                
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-customer>
+                            <tr>
+                                <td>
+                                    {{ customer.name }}
+                                </td>
+                                <td>
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                </td>
+                                <td>
+                                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                </td>
+                                <td> 
+                                </td>
+                                <td>
+                                    <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5">No Data found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </mat-tab>
+          </mat-tab-group>
+          
+    </p-card>
+</div>

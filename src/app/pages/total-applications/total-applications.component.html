@@ -1,1 +1,101 @@
-<p>total-applications works!</p>
+<div class="card flex justify-content-center">
+    <p-card header="Total Applications">
+      <p-toast></p-toast>
+        <div class="card">
+            <p-table
+                #dt1
+                [value]="totalApplication"
+                dataKey="id" 
+                [showCurrentPageReport]="true"
+                [globalFilterFields]="['id', 'name']"
+                [tableStyle]="{ 'min-width': '75rem' }"
+                >
+                <ng-template pTemplate="caption"> 
+                    <div class="row">
+                      <div class="col-md-2">
+                        <span class="p-input-icon-left">
+                          <i class="pi pi-search"  style="color: #15d015"></i>
+                          <input pInputText type="text"    placeholder="Search App ID" #id />
+                        </span>
+                      </div>
+                      <div class="col-md-2">
+                        <span class="p-input-icon-left">
+                          <i class="pi pi-search"  style="color: #15d015"></i>
+                          <input pInputText type="text"   placeholder="Search Name" #name />
+                        </span>
+                      </div>
+                      <div class="col-md-2" >
+                        <span class="p-input-icon-left">
+                          <i class="pi pi-search" style="color: #15d015"></i>
+                          <input pInputText type="text"    placeholder="Search Email ID" #email />
+                        </span>
+                      </div>
+                      <div class="col-md-2"></div>
+                      <div class="col-md-2"  >
+                        <p-calendar [(ngModel)]="rangeDates" selectionMode="range" placeholder="Date Picker" [readonlyInput]="true" [showIcon]="true" ></p-calendar>
+                    </div>
+                      <div class="col-md-2">
+                        <p-button label="Download Excel" styleClass="p-button-success" [disabled]="!rangeDates || !rangeDates[0] || !rangeDates[1]" [loading]="loading" (click)="downloadExcel(rangeDates)" #datePicker></p-button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2 pt-2">
+                        <span class="p-input-icon-left">
+                          <i class="pi pi-search" style="color: #15d015"></i> 
+                          <input pInputText type="text" [(ngModel)]="filterText" (input)="filterData()" placeholder="Search Keywords" #globalSearch/> 
+                        </span>
+                      </div>
+                      <div class="col-md-8 pt-2">
+                         <p-button label="search" (click)="search(id.value,name.value,email.value)" styleClass="p-button-success"></p-button>
+                      </div>
+                      <div class="col-md-2 pt-2" >
+                        <button pButton label="Clear" (click)="clear()" style="color: #15d015" class="p-button-outlined" icon="pi pi-filter-slash"  ></button> 
+                    </div>
+                   
+                    </div> 
+                  </ng-template> 
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:5%">Application ID</th>
+                        <th style="width:10%">Name</th>
+                        <th style="width:10%">Email ID</th>
+                        <th style="width:10%">Applied For</th> 
+                        <th style="width:10%">Purpose</th>
+                        <th style="width:10%">Application Date</th>
+                        <th style="width:5%">Application Tracker</th>
+                        <th style="width:10%">Application Status</th>
+                        <th style="width:15%">College</th>
+                        <th style="width:5%">View</th> 
+                    </tr>
+                  </ng-template> 
+                <ng-template pTemplate="body" let-totalData> 
+                    <tr [pSelectableRow]="totalData">
+                        <td> {{totalData.id}} </td>
+                        <td> {{totalData.name}} </td>
+                        <td> {{totalData.email}} </td>
+                        <td>
+                          {{totalData?.instructionalField == true ? 'Instructional Details,' : ''}}
+                          {{totalData?.curriculum == true ? 'Curriculum,' : ''}}
+                          {{totalData?.educationalDetails == true ? 'Educational Details' : ''}} 
+                          {{totalData?.gradToPer == true ? ',Grade To Percentage Letter' : ''}} 
+                          {{totalData?.affiliation == true ? ',Affiliation Letter' : ''}} 
+                          {{totalData?.CompetencyLetter == true ? 'Competency Letter' : ''}} 
+                          {{totalData?.Letterfor_NameChange == true ? 'LetterforNameChange' : ''}}  
+                        </td>
+                        <td> {{totalData.type}} </td>
+                        <td> {{totalData.application_date}}  </td>
+                        <td> <p-tag [value]="totalData.tracker ?? ''" [severity]="getSeverity(totalData.tracker)"></p-tag> </td>
+                        <td>  <p-tag [value]="totalData.status ?? ''" [severity]="getSeverity(totalData.status)"></p-tag>
+                        </td>
+                        <td>  {{totalData.college}} </td>
+                        <td><i class="pi pi-user" (click)="viewMore()" ></i></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  No Data Found.
+                </ng-template> 
+            </p-table>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" ></p-paginator>
+        </div>
+    </p-card>
+</div>

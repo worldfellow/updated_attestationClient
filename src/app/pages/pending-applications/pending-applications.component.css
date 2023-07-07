@@ -1,0 +1,59 @@
+.flex-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .flex-item {
+    margin-right: 10px; /* Adjust as needed */
+  }
+  
+  .ml-auto {
+    margin-left: auto;
+  }
+
+
+  .pi.pi-eye:hover {
+    font-size: 1.8rem;
+    color: #1194f9
+  }
+
+
+.pi.pi-eye {
+  color: #078df3;
+  font-size: 1.5rem; 
+} 
+
+.pi.pi-times-circle:hover {
+  font-size: 1.8rem;
+  color: rgb(221, 12, 12)
+}
+
+
+.pi.pi-times-circle {
+color: rgb(244, 11, 11);
+font-size: 1.5rem; 
+} 
+
+
+.pi.pi-verified:hover {
+  font-size: 1.8rem;
+  color: rgb(8, 205, 38);
+}
+
+
+.pi.pi-verified {
+color: rgb(8, 205, 38);
+font-size: 1.5rem; 
+} 
+
+.pi.pi-refresh:hover {
+  font-size: 1.8rem;
+  color: rgb(243, 191, 24);
+}
+
+
+.pi.pi-refresh {
+color: rgb(243, 191, 24);
+font-size: 1.5rem; 
+} 

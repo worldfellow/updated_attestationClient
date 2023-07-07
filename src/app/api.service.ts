@@ -257,9 +257,9 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/student/getPurposeList?purpose_name=${purpose_name}`);
   }
 
-  getUserApplication(tracker: any, status: any, app_id: any, offset: any, limit: any, name: any, email: any, globalSearch: any, purpose_search: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/admin/getApplicationData?tracker=${tracker}&status=${status}&app_id=${app_id}&offset=${offset}&limit=${limit}&name=${name}&email=${email}&globalSearch=${globalSearch}&purpose_search=${purpose_search}`);
-  }
+  // getUserApplication(tracker: any, status: any, app_id: any, offset: any, limit: any, name: any, email: any, globalSearch: any, purpose_search: any) {
+  //   return this.httpClient.get(`${this.baseUrl}/api/admin/getApplicationData?tracker=${tracker}&status=${status}&app_id=${app_id}&offset=${offset}&limit=${limit}&name=${name}&email=${email}&globalSearch=${globalSearch}&purpose_search=${purpose_search}`);
+  // }
 
   getDownloadExcel(startDate: any, endDate: any, type: any, tracker: any, status: any) {
     return this.httpClient.get(`${this.baseUrl}/api/admin/getDownloadExcel?startDate=${startDate}&endDate=${endDate}&type=${type}&tracker=${tracker}&status=${status}`);
@@ -283,5 +283,18 @@ export class ApiService {
   updateNotes(notes_data: any, app_id: any, user_id: any, admin_email: any) {
     return this.httpClient.post(`${this.baseUrl}/api/admin/updateNotes`, { "notes_data": notes_data, "app_id": app_id, "user_id": user_id, "admin_email": admin_email });
   }
+
+  getUserApplication(tracker:any,status:any,app_id:any,offset:number,limit:number,name:any,email:any,globalSearch:any,purpose_search: any){
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getApplicationData?tracker=${tracker}&status=${status}&app_id=${app_id}&offset=${offset}&limit=${limit}&name=${name}&email=${email}&globalSearch=${globalSearch}&purpose_search=${purpose_search}`)
+  }
+  rejectApplications(user_id:number,app_id:number,admin_email:any){
+    return this.httpClient.post(`${this.baseUrl}/api/admin/rejectApplication`,{"user_id" :user_id,"app_id" :app_id,"admin_email" : admin_email})
+  }
+
+  verifiedApplication(user_id:number,app_id:number,admin_email:any){
+    return this.httpClient.post(`${this.baseUrl}/api/admin/verifiedApplication`,{"user_id" :user_id,"app_id" :app_id,"admin_email" : admin_email})
+  }
+
+ 
 
 }    

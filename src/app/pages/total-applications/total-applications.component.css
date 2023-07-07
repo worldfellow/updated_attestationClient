@@ -1,0 +1,28 @@
+.flex-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .flex-item {
+    margin-right: 10px; /* Adjust as needed */
+  }
+  
+  .ml-auto {
+    margin-left: auto;
+  }
+
+  .pi.pi-user:hover {
+    font-size: 1.8rem;
+    color: #28f4ea
+  }
+
+
+.pi.pi-user {
+  color: #05b0a8;
+  font-size: 1.5rem; 
+} 
+
+  
+
+  

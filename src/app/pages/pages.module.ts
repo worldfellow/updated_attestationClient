@@ -95,7 +95,8 @@ import { UpdateInstructionalAffiliationComponent } from './dialog/update-instruc
 import { CalendarModule } from 'primeng/calendar';
 import { PaginatorModule } from 'primeng/paginator';
 import { ShowNotesComponent } from './dialog/show-notes/show-notes.component';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primeng/inputtextarea'; 
+import { TagModule } from 'primeng/tag';  
 
 @NgModule({
   declarations: [
@@ -218,6 +219,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     CalendarModule,
     PaginatorModule,
     InputTextareaModule,
+    TagModule
   ],
   providers:[AuthGuard]
 })
