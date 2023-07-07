@@ -26,3 +26,13 @@
 mat-form-field {
     width: 100%;
 }
+
+input::file-selector-button {
+    font-weight: bold; 
+    color: rgb(246, 248, 250);
+    background-color:dodgerblue;
+    padding: 0.5em;
+    border: thin solid grey;
+    border-radius: 6px;
+    height: 45px; 
+  }

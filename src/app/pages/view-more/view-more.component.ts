@@ -8,6 +8,9 @@ import { OpenImgPdfDialogComponent } from '../dialog/open-img-pdf-dialog/open-im
 import { UpdateInstructionalAffiliationComponent } from '../dialog/update-instructional-affiliation/update-instructional-affiliation.component';
 import { AddInstitutionDialogComponent } from '../dialog/add-institution-dialog/add-institution-dialog.component';
 import { AddHrdDialogComponent } from '../dialog/add-hrd-dialog/add-hrd-dialog.component';
+import { config } from 'config';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-view-more',
@@ -16,6 +19,7 @@ import { AddHrdDialogComponent } from '../dialog/add-hrd-dialog/add-hrd-dialog.c
   providers: [ConfirmationService, MessageService],
 })
 export class ViewMoreComponent {
+  uploadForm: FormGroup;
   studentData: any;
   student_id: void;
   token: any;
@@ -39,6 +43,15 @@ export class ViewMoreComponent {
   filterText: string = "";
   instituteData: any[] = [];
   hrdData: any[] = [];
+  serverUrl = config.serverUrl;
+  imageChangedEvent: any;
+  base64Image: any;
+  fileUploaded: any;
+  croppedImage: any = "";
+  fgdfg: any;
+  fileInputCtrl: FormControl;
+  height: number;
+  width: number;
 
   constructor(
     protected api: ApiService,
@@ -46,7 +59,10 @@ export class ViewMoreComponent {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     public dialog: MatDialog,
-  ) { }
+    private fb: FormBuilder,
+  ) {
+    // this.fileInputCtrl = new FormControl
+  }
 
   ngOnInit(): void {
     //get user details from localstorage
@@ -55,8 +71,9 @@ export class ViewMoreComponent {
     this.user_name = this.token.data.user.user_name + ' ' + this.token.data.user.user_surname;
 
     this.route.queryParams.subscribe(params => {
-      this.student_id = params['id'];
+      this.student_id = params['user_id'];
       this.student_app_id = params['app_id'];
+      console.log('ID:', this.student_id);
       console.log('ID:', this.student_app_id);
     });
 
@@ -79,6 +96,8 @@ export class ViewMoreComponent {
         this.instructionalData = data['data'][0].instructionalData;
         this.affiliationData = data['data'][0].affiliationData;
         this.namechangeproofData = data['data'][0].namechangeproofData;
+        console.log('^^^^^^^^^^^^^^^^^^^^^', this.marksheetsData);
+
       }
     })
 
@@ -107,6 +126,10 @@ export class ViewMoreComponent {
         console.log('Failed to load data!');
       }
     })
+
+    this.uploadForm = this.fb.group({
+      fileInputCtrl: ['', Validators.required],
+    });
   }
 
   //profile tab functions
@@ -243,6 +266,62 @@ export class ViewMoreComponent {
     });
   }
 
+  handleFileInput(event: any) {
+    console.log('event^^^^^^^^', event);
+
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      console.log('reader^^^^^^^^', reader);
+      this.imageChangedEvent = event;
+      console.log('imageChangedEvent^^^^^^^^', this.imageChangedEvent);
+      this.fileUploaded = event.target.files[0];
+      console.log('fileUploaded^^^^^^^^', this.fileUploaded);
+      this.base64Image = event.target.files[0];
+      console.log('base64Image^^^^^^^^', this.base64Image);
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event: any) => {
+      };
+    }
+  }
+
+  imageCropped(event: ImageCroppedEvent): void {
+    this.croppedImage = event.base64;
+    this.height = event.height
+    this.width = event.width
+  }
+
+  dataurl(croppedFile: any, name: any, height: number, width: number) {
+    const base64String = croppedFile.split(",")[1]; // Extract the base64 string from the data URI
+    const byteCharacters = atob(base64String);
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    const blob = new Blob(byteArrays, { type: "image/jpeg" });
+    return new File([blob], name, { type: blob.type });
+  }
+
+  uploadDetails() {
+    const fileUrl = this.dataurl(this.croppedImage, "11.jpeg",this.height,this.width)
+    // this.ref = this.dialogService.open(CollegeDetailsComponent, {
+    //   data: {
+    //     fileInput: this.myfile,
+    //   },
+    //   header: 'College Details',
+    //   width: '70%',
+    //   height: '50%',
+    //   contentStyle: { overflow: 'auto' },
+    //   baseZIndex: 10000,
+    //   maximizable: true
+    // });
+  }
+
   onSelect(event: any) {
     var maxFileSize = 5000000;
   }
@@ -326,8 +405,8 @@ export class ViewMoreComponent {
   }
 
   //letter for name change
-  updateLetterForNameChange(){}
-  
+  updateLetterForNameChange() { }
+
   //activity tracker
   filterTable() {
     if (this.filterText) {

@@ -1,1 +1,117 @@
-<p>signed-applications works!</p>
+<p-card header="Signed Applications">
+    <div class="card">
+        <p-table [value]="signedData" [tableStyle]="{'min-width': '50rem'}" [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card flex flex-wrap justify-content-center">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
+                                    [(ngModel)]="filterText" (input)="filterData()" style="width: 100%;" />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card flex justify-content-center">
+                            <p-dropdown [options]="purposes" optionLabel="name" placeholder="Select Purpose"
+                                [style]="{ 'width': '100%', 'color': 'black', 'background-color': '#8a7fff' }"
+                                (onChange)="filteredByPurpose($event.value.name)"></p-dropdown>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2">
+                        <div class="card"
+                            style="width: 120%; display: flex-end; justify-content: flex-end; margin-right: auto;">
+                            <p-calendar class="p-inputtext-lg" [(ngModel)]="rangeDates" placeholder="Input Date Range"
+                                selectionMode="range" [readonlyInput]="true" [showIcon]="true" #range></p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="display: flex; justify-content: flex-end; margin-right: auto;">
+                        <button pButton pRipple label="DOWNLOAD EXCEL" class="p-button-success"
+                            (click)="downloadExcel(range.value)"></button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                        <h2>Filtered students count : {{signedLength}}</h2>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Application ID.</th>
+                    <th>Name</th>
+                    <th>Email ID.</th>
+                    <th>Applied For</th>
+                    <th>Purpose</th>
+                    <th>Application Date</th>
+                    <th>Reference NO.</th>
+                    <th>View Sign PDF</th>
+                    <th>Email PDF</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-signed>
+                <tr [pSelectableRow]="signed">
+                    <td>{{signed.id}}</td>
+                    <td>{{signed.name}}</td>
+                    <td>{{signed.email}}</td>
+                    <td> 
+                        {{signed.instructionalField == true ? 'Instructional Details' : ''}}
+                        {{signed.curriculum == true ? 'Curriculum,' : ''}}
+                        {{signed.educationalDetails == true ? 'Educational Details' : ''}}
+                        {{signed.gradToPer == true ? ',Grade To Percentage Letter' : ''}}
+                        {{signed.affiliation == true ? 'Affiliation Letter' : ''}}
+                        {{signed.CompetencyLetter == true ? 'Competency Letter' : ''}}
+                        {{signed.LetterforNameChange == true ? 'LetterforNameChange' : ''}}
+                    </td>
+                    <td>
+                        <span *ngIf="signed.type != null" style="margin-bottom: 1px;">{{signed.type}} </span>
+                        <span *ngIf="signed.purposeEmail != null" style="margin-bottom: 1px;">{{signed.purposeEmail}}
+                        </span>
+                        <span *ngIf="signed.purposeOtherEmail != null"
+                            style="margin-bottom: 1px;">{{signed.purposeOtherEmail}} </span>
+                    </td>
+                    <td>{{signed.created_at}}</td>
+                    <td>{{signed.refno}}</td>
+                    <td>
+                        <a class="hoverIcon">
+                            <i class="pi pi-file-pdf" style="font-size: 1.9rem; cursor: pointer;"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="hoverIcon">
+                            <i class="pi pi-envelope" style="font-size: 1.9rem; cursor: pointer;"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="button-container">
+                                <div class="button-set">
+                                    <a class="hoverIcon">
+                                        <i class="pi pi-user" style="font-size: 2.3rem; cursor: pointer;"></i>
+                                    </a>
+                                    <a class="hoverIcon">
+                                        <i class="pi pi-id-card" style="font-size: 2.8rem; cursor: pointer;" (click)="showNotes(signed.notes,signed.id,signed.user_id,signed.collegeConfirmation)"></i>
+                                    </a>
+                                </div>
+                                <div class="button-set">
+                                    <p-button icon="pi pi-times"
+                                        styleClass="p-button-rounded p-button-danger p-button-outlined" (click)="rejectApplication(signed.user_id,signed.id,signed.name)"></p-button>
+                                    <p-button icon="pi pi-refresh"
+                                        styleClass="p-button-rounded p-button p-button-outlined" (click)="resendApplication(signed.user_id,signed.id,signed.name)"></p-button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
+            [totalRecords]="120"></p-paginator>
+    </div>
+</p-card>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>

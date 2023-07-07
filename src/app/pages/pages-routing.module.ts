@@ -184,7 +184,19 @@ const routes: Routes = [{
       data: {type: ['studentFeedback']}
     },
     {
+      path : 'adminVerified/viewMore',
+      component : ViewMoreComponent,
+      // canActivate: [AuthGuard],
+      // data: {type: ['studentFeedback']}
+    },
+    {
       path : 'studentManagement/viewMore',
+      component : ViewMoreComponent,
+      // canActivate: [AuthGuard],
+      // data: {type: ['studentFeedback']}
+    },
+    {
+      path : 'adminSigned/viewMore',
       component : ViewMoreComponent,
       // canActivate: [AuthGuard],
       // data: {type: ['studentFeedback']}

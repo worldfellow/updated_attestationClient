@@ -1,1 +1,114 @@
-<p>verified-applications works!</p>
+<p-card header="Verified Applications">
+    <div class="card">
+        <p-table [value]="verifiedData" [tableStyle]="{'min-width': '50rem'}" [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card flex flex-wrap justify-content-center">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
+                                    [(ngModel)]="filterText" (input)="filterData()" style="width: 100%;" />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card flex justify-content-center">
+                            <p-dropdown [options]="purposes" optionLabel="name" placeholder="Select Purpose"
+                                [style]="{ 'width': '100%', 'color': 'black', 'background-color': '#8a7fff' }"
+                                (onChange)="filteredByPurpose($event.value.name)"></p-dropdown>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2">
+                        <div class="card"
+                            style="width: 120%; display: flex-end; justify-content: flex-end; margin-right: auto;">
+                            <p-calendar class="p-inputtext-lg" [(ngModel)]="rangeDates" placeholder="Input Date Range"
+                                selectionMode="range" [readonlyInput]="true" [showIcon]="true" #range></p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="display: flex; justify-content: flex-end; margin-right: auto;">
+                        <button pButton pRipple label="DOWNLOAD EXCEL" class="p-button-success"
+                            (click)="downloadExcel(range.value)"></button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                        <h2>Filtered students count : {{verifiedLength}}</h2>
+                    </div>
+                    <!-- <div class="col-md-12"
+                        style="display: flex; justify-content: flex-start; margin-right: auto; color: red;"
+                        *ngIf="verifiedShow">
+                        <h1>Verified applications not available</h1>
+                    </div> -->
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Application ID.</th>
+                    <th>Name</th>
+                    <th>Email ID.</th>
+                    <th>Applied For</th>
+                    <th>Purpose</th>
+                    <th>Application Date</th>
+                    <th>Approved By</th>
+                    <th>View</th>
+                    <th>Sign</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-verified>
+                <tr [pSelectableRow]="verified">
+                    <td>{{verified.id}}</td>
+                    <td>{{verified.name}}</td>
+                    <td>{{verified.email}}</td>
+                    <td>
+                        {{verified.instructionalField == true ? 'Instructional Details' : ''}}
+                        {{verified.curriculum == true ? 'Curriculum,' : ''}}
+                        {{verified.educationalDetails == true ? 'Educational Details' : ''}}
+                        {{verified.gradToPer == true ? ',Grade To Percentage Letter' : ''}}
+                        {{verified.affiliation == true ? 'Affiliation Letter' : ''}}
+                        {{verified.CompetencyLetter == true ? 'Competency Letter' : ''}}
+                        {{verified.LetterforNameChange == true ? 'LetterforNameChange' : ''}}
+                    </td>
+                    <td>
+                        <span *ngIf="verified.type != null" style="margin-bottom: 1px;">{{verified.type}} </span>
+                        <span *ngIf="verified.refno != null && verified.refno != ''"
+                            style="margin-bottom: 1px;">({{verified.refno}}) </span>
+                        <span *ngIf="verified.purposeEmail != null"
+                            style="margin-bottom: 1px;">{{verified.purposeEmail}} </span>
+                        <span *ngIf="verified.purposeOtherEmail != null"
+                            style="margin-bottom: 1px;">{{verified.purposeOtherEmail}} </span>
+                    </td>
+                    <td>{{verified.created_at}}</td>
+                    <td>{{verified.approved_by}}</td>
+                    <td>
+                        <a class="hoverIcon">
+                            <i class="pi pi-user" style="font-size: 1.5rem; cursor: pointer;"
+                                (click)="viewMore(verified.user_id,verified.id)"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <p-button label="Sign Single" styleClass="p-button-outlined p-button-success"
+                            (click)="sendSingle()"></p-button>
+                        <p-button label="Sign Multiple" styleClass="p-button-outlined p-button-success"
+                            (click)="sendMultiple()"></p-button>
+                        <p-button label="Sign Multiple & Send to WES" styleClass="p-button-outlined p-button-success"
+                            (click)="sendMultiple()"></p-button>
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined"
+                            (click)="rejectApplication(verified.user_id,verified.id,verified.name)"></p-button>
+                        <p-button icon="pi pi-refresh" styleClass="p-button-rounded p-button p-button-outlined"
+                            (click)="resendApplication(verified.user_id,verified.id,verified.name)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
+            [totalRecords]="120"></p-paginator>
+    </div>
+</p-card>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>

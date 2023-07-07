@@ -50,7 +50,7 @@ export class PurposeComponent {
     this.user_type = this.token.data.user.user_type;
 
     //get dynamic data of deopdown
-    this.api.getPurposeList(this.purposeList, '').subscribe((data: any) => {
+    this.api.getPurposeList('').subscribe((data: any) => {
       if (data['data'] != undefined) {
         this.purposes = data['data'];
       }

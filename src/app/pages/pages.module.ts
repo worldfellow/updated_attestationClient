@@ -92,6 +92,10 @@ import { ViewMoreComponent } from './view-more/view-more.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AddDocumentByAdminComponent } from './dialog/add-document-by-admin/add-document-by-admin.component';
 import { UpdateInstructionalAffiliationComponent } from './dialog/update-instructional-affiliation/update-instructional-affiliation.component';
+import { CalendarModule } from 'primeng/calendar';
+import { PaginatorModule } from 'primeng/paginator';
+import { ShowNotesComponent } from './dialog/show-notes/show-notes.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -148,6 +152,7 @@ import { UpdateInstructionalAffiliationComponent } from './dialog/update-instruc
     ViewMoreComponent,
     AddDocumentByAdminComponent,
     UpdateInstructionalAffiliationComponent,
+    ShowNotesComponent,
   ],
   imports: [
     CommonModule, 
@@ -210,6 +215,9 @@ import { UpdateInstructionalAffiliationComponent } from './dialog/update-instruc
     MatInputModule,
     MatSlideToggleModule,
     MatExpansionModule,
+    CalendarModule,
+    PaginatorModule,
+    InputTextareaModule,
   ],
   providers:[AuthGuard]
 })

@@ -11,6 +11,8 @@ import { ApiService } from 'src/app/api.service';
 })
 export class StudentManagementComponent {
   filterText: string = "";
+  name: string = "";
+  email: string = "";
   studentsData: any;
   appliedData: any;
   combinedData: any[] = [];
@@ -20,6 +22,7 @@ export class StudentManagementComponent {
   token: any;
   user_id: any;
   user_name: string;
+  studentsLength: any;
 
   constructor(
     protected api: ApiService,
@@ -37,18 +40,65 @@ export class StudentManagementComponent {
       if (data['status'] == 200) {
         this.studentsData = data['data'];
         console.log('students------------->', this.studentsData);
+        this.studentsLength = this.studentsData.length;
       }
     })
+
+    console.log('filterrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',this.filterText);
+
   }
 
-  filterTableName() { }
+  search(name: any, email: any) {
+    this.name = name;
+    this.email = email;
 
-  filterTableEmail() { }
+    if (this.name != null) {
+      this.studentsData = this.studentsData.filter((students: any) =>
+        students.name.toLowerCase().includes(this.name.toLowerCase()) || students.surname.toLowerCase().includes(this.name.toLowerCase())
+      );
+      this.studentsLength = this.studentsData.length;
+    } else {
+      this.studentsData = this.studentsData;
+    }
 
-  filterTable() { }
+    if (this.email != null) {
+      this.studentsData = this.studentsData.filter((students: any) =>
+        students.email.toLowerCase().includes(this.email.toLowerCase())
+      );
+      this.studentsLength = this.studentsData.length;
+    } else {
+      this.studentsData = this.studentsData;
+    }
 
-  viewMore(studentData: any) {
-    this.router.navigate(['pages/studentManagement/viewMore'],{ queryParams: studentData })
+    // if ((this.name != null && this.email != null) || (this.name != null && this.email == null) || (this.name == null && this.email != null)) {
+    //   console.log('++++++++++++++');
+    //   console.log('name--****---', this.name);
+    //   console.log('email****-----', this.email);
+
+    //   this.studentsData = this.studentsData.filter((students: any) =>
+    //     students.name.toLowerCase().includes(this.name.toLowerCase()) || students.surname.toLowerCase().includes(this.name.toLowerCase()) || students.email.toLowerCase().includes(this.email.toLowerCase())
+    //   );
+    //   this.studentsLength = this.studentsData.length;
+    // } else {
+    //   this.studentsData = this.studentsData;
+    // }
+  }
+
+  filterTable() {
+    console.log('filt',this.filterText);
+    
+    if (this.filterText) {
+      this.studentsData = this.studentsData.filter((students: any) =>
+        students.name.toLowerCase().includes(this.filterText.toLowerCase()) || students.surname.toLowerCase().includes(this.filterText.toLowerCase()) || students.email.toLowerCase().includes(this.filterText.toLowerCase())
+      );
+      this.studentsLength = this.studentsData.length;
+    } else {
+      this.studentsData = this.studentsData;
+    }
+  }
+
+  viewMore(user_id: any, app_id: any) {
+    this.router.navigate(['pages/studentManagement/viewMore'], { queryParams: {user_id : user_id, app_id : app_id, viewFrom : 'student'} })
   }
 
   toggleChanged(event: any, studentData: any) {

@@ -249,7 +249,7 @@ export class AddInstitutionDialogComponent {
     this.student_app_id = this.data.student_app_id;
 
     //view input fields as per database values
-    this.api.getPurposeList('', this.purpose_name).subscribe((data: any) => {
+    this.api.getPurposeList(this.purpose_name).subscribe((data: any) => {
       if (data['data'] != undefined) {
         this.purpose = data['data'][0];
         this.refno = this.purpose['allRefNo'];

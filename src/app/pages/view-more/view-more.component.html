@@ -189,6 +189,12 @@
                                             </mat-expansion-panel-header>
                                             <p-divider></p-divider>
                                             <br>
+                                            <div class="text-center col-md-8" *ngIf="imageChangedEvent">
+                                                <image-cropper [imageChangedEvent]="imageChangedEvent"
+                                                    [maintainAspectRatio]="false" [resizeToWidth]="256" format="png"
+                                                    (imageCropped)="imageCropped($event)">
+                                                </image-cropper>
+                                            </div>
                                             <div class="row" *ngFor="let marksheets of marksheetsData">
                                                 <div class="col-md-3" style="margin-top: 2%;"
                                                     *ngIf="marksheets.extension == 'pdf' || marksheets.extension == 'PDF'">
@@ -219,21 +225,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-fileUpload (onSelect)="onSelect($event)"
-                                                                        mode="basic" chooseLabel="UPLOAD" name="demo[]"
-                                                                        url="https://www.primefaces.org/cdn/api/upload.php"
-                                                                        accept=".jpg,.jpeg,.png,.PNG,.JPEG,.JPG,.pdf"
-                                                                        [maxFileSize]="5000000"
-                                                                        (onUpload)="onUpload($event)"></p-fileUpload>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(marksheets,'marksheets')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -270,24 +279,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <div class="card flex justify-content-center">
-                                                                        <p-fileUpload (onSelect)="onSelect($event)"
-                                                                            mode="basic" chooseLabel="Choose"
-                                                                            name="demo[]"
-                                                                            url="https://www.primefaces.org/cdn/api/upload.php"
-                                                                            accept=".jpg,.jpeg,.png,.PNG,.JPEG,.JPG,.pdf"
-                                                                            [maxFileSize]="5000000"
-                                                                            (onUpload)="onUpload($event)"></p-fileUpload>
-                                                                    </div>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(marksheets,'marksheets')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -348,16 +357,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(transcripts,'transcripts')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -394,16 +411,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(transcripts,'transcripts')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -464,16 +489,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(curriculum,'curriculum')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -510,16 +543,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(curriculum,'curriculum')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -580,16 +621,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(gradtoper,'gradtoper')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -626,16 +675,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(gradtoper,'gradtoper')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -696,16 +753,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(competency,'competency')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -742,16 +807,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(competency,'competency')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -802,16 +875,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(namechangeproof,'namechangeproof')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -839,16 +920,24 @@
                                                                 <div class="col-md-5">
                                                                     <p-button label="DOWNLOAD"></p-button>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <p-button label="UPLOAD"></p-button>
+                                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                                    <input id="fileInput" class="file-upload"
+                                                                        accept="image/*" type='file' name="file"
+                                                                        #fileUpload id="fileUpload"
+                                                                        formControlName="fileInputCtrl"
+                                                                        (change)="handleFileInput($event)">
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                                    <p-button (click)="uploadDetails()"
+                                                                        label="UPLOAD"></p-button>
+                                                                </div>
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-trash"
                                                                         style="color: red; font-size: 24px;"
                                                                         (click)="deleteDocument(namechangeproof,'namechangeproof')"></i>
                                                                 </div>
-                                                                <div class="col-md-1"
+                                                                <div class="col-md-3"
                                                                     style="display: flex; align-items: center; justify-content: center;">
                                                                     <i class="fa fa-info-circle"
                                                                         style="color: blue; font-size: 24px;"></i>
@@ -1180,15 +1269,21 @@
                                                 <div class="col-md-5">
                                                     <p-button label="DOWNLOAD"></p-button>
                                                 </div>
-                                                <div class="col-md-5">
-                                                    <p-button label="UPLOAD"></p-button>
+                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                    <input id="fileInput" class="file-upload" accept="image/*"
+                                                        type='file' name="file" #fileUpload id="fileUpload"
+                                                        formControlName="fileInputCtrl"
+                                                        (change)="handleFileInput($event)">
                                                 </div>
-                                                <div class="col-md-1"
+                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                    <p-button (click)="uploadDetails()" label="UPLOAD"></p-button>
+                                                </div>
+                                                <div class="col-md-3"
                                                     style="display: flex; align-items: center; justify-content: center;">
                                                     <i class="fa fa-trash" style="color: red; font-size: 24px;"
                                                         (click)="deleteDocument(letterfornamechange,'letterfornamechange')"></i>
                                                 </div>
-                                                <div class="col-md-1"
+                                                <div class="col-md-3"
                                                     style="display: flex; align-items: center; justify-content: center;">
                                                     <i class="fa fa-info-circle"
                                                         style="color: blue; font-size: 24px;"></i>
@@ -1225,15 +1320,21 @@
                                                 <div class="col-md-5">
                                                     <p-button label="DOWNLOAD"></p-button>
                                                 </div>
-                                                <div class="col-md-5">
-                                                    <p-button label="UPLOAD"></p-button>
+                                                <div class="col-md-7" [formGroup]="uploadForm">
+                                                    <input id="fileInput" class="file-upload" accept="image/*"
+                                                        type='file' name="file" #fileUpload id="fileUpload"
+                                                        formControlName="fileInputCtrl"
+                                                        (change)="handleFileInput($event)">
                                                 </div>
-                                                <div class="col-md-1"
+                                                <div class="col-md-6" style="margin-top: 1%;">
+                                                    <p-button (click)="uploadDetails()" label="UPLOAD"></p-button>
+                                                </div>
+                                                <div class="col-md-3"
                                                     style="display: flex; align-items: center; justify-content: center;">
                                                     <i class="fa fa-trash" style="color: red; font-size: 24px;"
                                                         (click)="deleteDocument(letterfornamechange,'letterfornamechange')"></i>
                                                 </div>
-                                                <div class="col-md-1"
+                                                <div class="col-md-3"
                                                     style="display: flex; align-items: center; justify-content: center;">
                                                     <i class="fa fa-info-circle"
                                                         style="color: blue; font-size: 24px;"></i>

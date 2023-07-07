@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 // import 'rxjs/add/operator/toPromise';
 import { Observable, Subscriber } from 'rxjs';
 import { config } from 'config';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -87,10 +88,6 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/student/educationalDetails`, { "formdata": formdata, "user_id": user_id });
   }
 
-  getPurposeList(purposeList: any, purpose_name: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getPurposeList?purposeList=${purposeList}&purpose_name=${purpose_name}`);
-  }
-
   deleteInstituteHrd(institute_id: any, purpose_name: any, user_id: any) {
     return this.httpClient.post(`${this.baseUrl}/api/student/deleteInstituteHrd`, { "institute_id": institute_id, "purpose_name": purpose_name, "user_id": user_id });
   }
@@ -160,8 +157,8 @@ export class ApiService {
   getFacultyLists() {
     return this.httpClient.get(`${this.baseUrl}/api/student/getFacultyLists`);
   }
-  saveUserMarkList(documentid : any ,app_id : number , user_id : number ,value : string,data:any){ 
-    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`,{"documentid":documentid,"app_id":app_id,"user_id" : user_id , "value" :value ,"data" : data});
+  saveUserMarkList(documentid: any, app_id: number, user_id: number, value: string, data: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`, { "documentid": documentid, "app_id": app_id, "user_id": user_id, "value": value, "data": data });
   }
   getExtraDocuments(user_id: number) {
     return this.httpClient.get(`${this.baseUrl}/api/student/getExtraDocuments?user_id=${user_id}`);
@@ -248,12 +245,43 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/admin/updateInstructionalAffiliation`, { "formData": formData, "user_id": user_id, "user_email": user_email, "purpose": purpose, "type": type, "id": id, "student_id": student_id, "student_app_id": student_app_id });
   }
 
-  ScanData(collegeid: any,education_type: any,patteren: any,faculty : any ,app_id : number , user_id : number ,value : string ,formData:any){ 
-    return this.httpClient.post(`${this.baseUrl}/api/student/ScanData?value=${value}&user_id=${user_id}&app_id=${app_id}&collegeid=${collegeid}&education_type=${education_type}&patteren=${patteren}&faculty=${faculty}`,formData);
+  ScanData(collegeid: any, education_type: any, patteren: any, faculty: any, app_id: number, user_id: number, value: string, formData: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/ScanData?value=${value}&user_id=${user_id}&app_id=${app_id}&collegeid=${collegeid}&education_type=${education_type}&patteren=${patteren}&faculty=${faculty}`, formData);
   }
 
-  getUploadedDocuments(user_id:any , app_id : any){
+  getUploadedDocuments(user_id: any, app_id: any) {
     return this.httpClient.get(`${this.baseUrl}/api/student/getUploadeddocument_student?user_id=${user_id}&app_id=${app_id}`);
   }
-  
+
+  getPurposeList(purpose_name: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getPurposeList?purpose_name=${purpose_name}`);
+  }
+
+  getUserApplication(tracker: any, status: any, app_id: any, offset: any, limit: any, name: any, email: any, globalSearch: any, purpose_search: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getApplicationData?tracker=${tracker}&status=${status}&app_id=${app_id}&offset=${offset}&limit=${limit}&name=${name}&email=${email}&globalSearch=${globalSearch}&purpose_search=${purpose_search}`);
+  }
+
+  getDownloadExcel(startDate: any, endDate: any, type: any, tracker: any, status: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getDownloadExcel?startDate=${startDate}&endDate=${endDate}&type=${type}&tracker=${tracker}&status=${status}`);
+  }
+
+  getDownloadExcelBySaveAs(filepath: any) {
+    let headers = new HttpHeaders();
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getDownloadExcel?filepath=${filepath}`, { headers: headers, responseType: 'blob' }).pipe(map((res: any) => {
+      return new Blob([res], { type: 'application/pdf' });
+    }));
+  }
+
+  resendApplication(user_id: any, app_id: any, user_name: any, type: any, admin_email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/resendApplication`, { "user_id": user_id, "app_id": app_id, "user_name": user_name, "type": type, "admin_email": admin_email });
+  }
+
+  rejectApplication(user_id: any, app_id: any, user_name: any, type: any, admin_email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/rejectApplication`, { "user_id": user_id, "app_id": app_id, "user_name": user_name, "type": type, "admin_email": admin_email });
+  }
+
+  updateNotes(notes_data: any, app_id: any, user_id: any, admin_email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/updateNotes`, { "notes_data": notes_data, "app_id": app_id, "user_id": user_id, "admin_email": admin_email });
+  }
+
 }    
