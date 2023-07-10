@@ -53,6 +53,7 @@
                     </div>
                    
                     </div> 
+                    <p>Total Student Count : {{this.totalCount}}</p>
                   </ng-template> 
                 <ng-template pTemplate="header">
                     <tr>
@@ -95,7 +96,7 @@
                   No Data Found.
                 </ng-template> 
             </p-table>
-        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" ></p-paginator>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalCount" ></p-paginator>
         </div>
     </p-card>
 </div>

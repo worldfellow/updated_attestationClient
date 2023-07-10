@@ -34,6 +34,7 @@ export class TotalApplicationsComponent implements OnInit {
   endDate: any;
   filterText: any;
   isLoadingResults: boolean = false;
+  totalCount:number;
 
 
   @ViewChild('id') id!: ElementRef;
@@ -60,6 +61,9 @@ export class TotalApplicationsComponent implements OnInit {
       if (data) {
         this.isLoadingResults = false;  
         this.totalApplication = data['data'];
+        this.totalCount = data['count'];
+        console.log(" this.totalCount", this.totalCount);
+        
       }
 
     })

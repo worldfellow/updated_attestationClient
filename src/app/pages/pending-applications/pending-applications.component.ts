@@ -28,6 +28,7 @@ export class PendingApplicationsComponent implements OnInit {
   user_email: any;
   filterText: any;
   filterTextRequested: any;
+  totalCount:any;
 
 
   @ViewChild('id') id!: ElementRef;
@@ -68,16 +69,16 @@ export class PendingApplicationsComponent implements OnInit {
     console.log('Selected Tab Index:', selectedIndex);
     switch (selectedIndex) {
       case 0:
-        this.tracker = "AND tracker='apply'";
-        this.status = "AND status='new'";
+        this.tracker = "apply";
+        this.status = "new";
         break;
       case 1:
-        this.tracker = "AND tracker='apply'";
-        this.status = "AND status='requested'";
+        this.tracker = "apply";
+        this.status = "requested";
         break;
       case 2:
-        this.tracker = "AND tracker='apply'";
-        this.status = "AND status='changed'";
+        this.tracker = "apply";
+        this.status = "changed";
         break;
       default:
         break;
@@ -94,12 +95,15 @@ export class PendingApplicationsComponent implements OnInit {
       
       if (data && selectedIndex == 0) {
         this.newApplication = data['data'];
+        this.totalCount = data['count'];
       }
       if (data && selectedIndex == 1) {
         this.requestedApplication = data['data'];
+        this.totalCount = data['count'];
       }
       if (data && selectedIndex == 2) {
         this.changedApplication = data['data'];
+        this.totalCount = data['count'];
       }
 
     })

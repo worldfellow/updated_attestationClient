@@ -1,1 +1,94 @@
-<p>wes-applications works!</p>
+<div class="card flex justify-content-center">
+    <p-card header="Wes Applications">
+
+    <div class="card">
+        <p-table
+        #dt1
+        dataKey="id" 
+        [value]="wesApplication"
+        [showCurrentPageReport]="true"  
+        [tableStyle]="{ 'min-width': '75rem' }"
+            >
+            <ng-template pTemplate="caption"> 
+                <div class="row">
+                  <div class="col-md-2">
+                    <span class="p-input-icon-left">
+                      <i class="pi pi-search"  style="color: #15d015"></i>
+                      <input pInputText type="text"    placeholder="Search App ID" #id />
+                    </span>
+                  </div>
+                  <div class="col-md-2">
+                    <span class="p-input-icon-left">
+                      <i class="pi pi-search"  style="color: #15d015"></i>
+                      <input pInputText type="text"   placeholder="Search Name" #name />
+                    </span>
+                  </div>
+                  <div class="col-md-2" >
+                    <span class="p-input-icon-left">
+                      <i class="pi pi-search" style="color: #15d015"></i>
+                      <input pInputText type="text"    placeholder="Search Email ID" #email />
+                    </span>
+                  </div>
+                  <div class="col-md-2"></div>
+                  <div class="col-md-2"  >
+                    <p-calendar   selectionMode="range" placeholder="Date Picker" [readonlyInput]="true" [showIcon]="true" ></p-calendar>
+                </div>
+                  <div class="col-md-2">
+                    <p-button label="Download Excel" styleClass="p-button-success"      #datePicker></p-button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2 pt-2">
+                    <span class="p-input-icon-left">
+                      <i class="pi pi-search" style="color: #15d015"></i> 
+                      <input pInputText type="text"    placeholder="Search Wes No" #wesno/> 
+                    </span>
+                  </div>
+                  <div class="col-md-8 pt-2">
+                     <p-button label="search" (click)="searchWes(id.value,name.value,email.value,wesno.value)" styleClass="p-button-success" ></p-button>
+                  </div>
+                  <div class="col-md-2 pt-2" >
+                    <button pButton label="Clear" (click)="clear()" style="color: #15d015" class="p-button-outlined" icon="pi pi-filter-slash"  ></button> 
+                </div>
+               
+                </div> 
+                <p>Total Student Count : {{this.totalCount}}</p>
+              </ng-template> 
+               
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:5%">Application ID</th>
+                    <th style="width:10%">Name</th>
+                    <th style="width:10%">Email ID</th> 
+                    <th style="width:15%">Purpose</th>
+                    <th style="width:8%">Wes-Upload</th>
+                    <th style="width:10%">Wes No.</th> 
+                    <th style="width:5%">View File Status</th>  
+                    <th style="width:8%">Action</th> 
+                </tr> 
+            </ng-template>
+            <ng-template pTemplate="body" let-wesData >
+                <tr [pSelectableRow]="wesData">
+                    <td>{{wesData.app_id}}</td>
+                    <td>{{wesData.name}}</td>
+                    <td>{{wesData.email}}</td>
+                    <td>{{wesData.type}}</td>
+                    <td>{{wesData.wesupload}}</td>
+                    <td>{{wesData.refno}}</td>
+                    <td><span class="pi pi-file"></span></td>
+                    <td>
+                        <span class="pi pi-user"></span>
+                        <span class="pi pi-replay"></span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5">No Data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalCount" ></p-paginator>
+    </div>
+    </p-card>
+</div>

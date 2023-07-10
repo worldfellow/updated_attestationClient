@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class EmailedApplicationsComponent {
 
+  filterText:any;
+
+  filterData(){
+
+  }
+
+  clear(){
+
+  }
+
+  search(id:any,name:any,email:any){
+
+  }
 }

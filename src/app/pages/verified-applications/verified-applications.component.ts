@@ -98,7 +98,7 @@ export class VerifiedApplicationsComponent {
 
   refresh(offset: number, limit: number, globalSearch: any, purpose_search: any) {
 
-    this.api.getUserApplication("AND tracker='verified'", "AND status='accept'", null, offset, limit, "", null, globalSearch, purpose_search).subscribe((data: any) => {
+    this.api.getUserApplication("verified","accept", null, offset, limit, "", null, globalSearch, purpose_search).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.verifiedData = data['data'];
       } else {

@@ -56,6 +56,7 @@
                             </div>
                            
                             </div> 
+                            <p>Total Student Count : {{this.totalCount}}</p>
                           </ng-template> 
                            
                         <ng-template pTemplate="header">
@@ -111,7 +112,7 @@
                             <!-- <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner> -->
                                 </ng-template>
                     </p-table>
-                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" ></p-paginator>
+                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalCount" ></p-paginator>
                 </div>
             </mat-tab> 
                 <mat-tab label="Requested Application" > 
@@ -166,6 +167,7 @@
                                 </div>
                                
                                 </div> 
+                                <p>Total Student Count : {{this.totalCount}}</p>
                               </ng-template> 
                                
                             <ng-template pTemplate="header">
@@ -222,7 +224,7 @@
                                 </tr>
                             </ng-template>
                         </p-table>
-                    <p-paginator (onPageChange)="onPageChangeRequested($event)" [first]="first" [rows]="rows" [totalRecords]="120" ></p-paginator>
+                    <p-paginator (onPageChange)="onPageChangeRequested($event)" [first]="first" [rows]="rows" [totalRecords]="totalCount" ></p-paginator>
                     </div>
                 </mat-tab> 
             
@@ -267,6 +269,7 @@
                             <div class="flex">
                                 <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"  ></button> 
                             </div>
+                            <p>Total Student Count : {{this.totalCount}}</p>
                           </ng-template>
                            
                         <ng-template pTemplate="header">

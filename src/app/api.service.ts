@@ -295,6 +295,10 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/admin/verifiedApplication`,{"user_id" :user_id,"app_id" :app_id,"admin_email" : admin_email})
   }
 
+  getWesApplication(app_id:number,name:string,email:any,wesno:number,limit:number,offset:number){
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getWesApplication?app_id=${app_id}&name=${name}&email=${email}&wesno=${wesno}&limit=${limit}&offset=${offset}`)
+  }
+
  
 
 }    

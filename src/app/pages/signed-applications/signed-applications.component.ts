@@ -99,7 +99,7 @@ export class SignedApplicationsComponent {
 
   refresh(offset: number, limit: number, globalSearch: any, purpose_search: any) {
 
-    this.api.getUserApplication("AND tracker='signed'", "AND status='accept'", null, offset, limit, "", null, globalSearch, purpose_search).subscribe((data: any) => {
+    this.api.getUserApplication("signed", "accept", null, offset, limit, "", null, globalSearch, purpose_search).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.signedData = data['data'];
         console.log('signed data', this.signedData);

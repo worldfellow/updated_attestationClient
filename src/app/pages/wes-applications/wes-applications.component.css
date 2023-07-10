@@ -1,0 +1,33 @@
+.pi.pi-user:hover {
+    font-size: 1.8rem;
+    color: #28f4ea
+  }
+
+
+.pi.pi-user {
+  color: #05b0a8;
+  font-size: 1.5rem; 
+} 
+
+.pi.pi-replay:hover {
+    font-size: 1.8rem;
+    color: #ee8e1a
+  }
+
+
+.pi.pi-replay {
+  color: #ee8e1a;
+  font-size: 1.5rem; 
+  padding-left: 2rem;
+}
+
+.pi.pi-file:hover {
+    font-size: 1.8rem;
+    color: #37f69d
+  }
+
+
+.pi.pi-file {
+  color: #37f69d;
+  font-size: 1.5rem; 
+}
