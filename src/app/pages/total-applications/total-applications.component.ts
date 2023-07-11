@@ -47,7 +47,7 @@ export class TotalApplicationsComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.refresh(0, 10, null, " ", null, "null");
+    this.refresh(0, 10," "," "," "," ");
   }
 
 
@@ -62,8 +62,6 @@ export class TotalApplicationsComponent implements OnInit {
         this.isLoadingResults = false;  
         this.totalApplication = data['data'];
         this.totalCount = data['count'];
-        console.log(" this.totalCount", this.totalCount);
-        
       }
 
     })
@@ -76,7 +74,7 @@ export class TotalApplicationsComponent implements OnInit {
     this.name.nativeElement.value = '';
     this.email.nativeElement.value = '';
     this.globalSearch.nativeElement.value = '',
-      this.refresh(0, 10, null, " ", null, null)
+      this.refresh(0, 10," "," "," "," ")
   }
 
   getSeverity(status: string): string {
@@ -115,35 +113,25 @@ export class TotalApplicationsComponent implements OnInit {
     this.router.navigate(['pages/adminTotal/viewMore']);
   }
 
-  search(id: any, name: any, email: any) {
-    if (!id) {
-      id = null;
-    }
-
-    if (!email) {
-      email = null;
-    }
-
-    console.log("name", id, name, email);
-    this.refresh(0, 10, id, name, email, null);
-
+  search(id: any, name: any, email: any) { 
+    this.refresh(0, 10, id, name, email," "); 
   }
   filterData() {
-    this.refresh(0, 10, "null", "", "null", this.filterText)
+    this.refresh(0, 10, " ", "", " ", this.filterText)
   }
   onPageChange(event: PageEvent) {
     this.first = event.first;
     this.rows = event.rows;
     let offset = this.first
     let limit = this.rows
-    this.filterData();
     let filterData;
-    if (!this.filterText) {
-      filterData = "null"
-    } else {
+    this.filterData();
+    if(!this.filterText){
+       filterData="";
+    }else{
       filterData = this.filterText
     }
-    this.refresh(offset, limit, "null", "", "null", filterData);
+    this.refresh(offset, limit," "," ", " ", filterData);
   }
   downloadExcel(range: any) {
 

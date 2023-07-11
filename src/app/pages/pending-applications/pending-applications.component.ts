@@ -57,14 +57,12 @@ export class PendingApplicationsComponent implements OnInit {
     }, 2000);
   }
   refresh() {
-    this.handleTabChange(0,10,0,"null","","null","null");
+    this.handleTabChange(0,10,0," "," "," "," ");
   }
   /** handleTabChange Function to load the data based on tracker and status*/
   handleTabChange(event: number,limit:number,offset:number,id:any,name:any,email:any,globalSearch:any) {
-    this.tracker = "AND tracker='apply'";
-    this.status = "AND status='new'";
-    console.log("limit1111111111111",limit);
-    console.log("offset1111111111111",offset);
+    this.tracker = "apply";
+    this.status = "new"; 
     const selectedIndex = event;
     console.log('Selected Tab Index:', selectedIndex);
     switch (selectedIndex) {
@@ -82,13 +80,7 @@ export class PendingApplicationsComponent implements OnInit {
         break;
       default:
         break;
-    }
-    console.log("tracker", this.tracker);
-    console.log("status", this.status);
-    console.log("id", id);
-    console.log("name", name);
-    console.log("email", email);
-    console.log("globalSearch", globalSearch);
+    } 
 
 /**get pending application Data from api */
     this.api.getUserApplication(this.tracker, this.status,id,offset,limit,name,email,globalSearch,"").subscribe((data: any) => { 
@@ -162,36 +154,22 @@ onPageChange(event: PageEvent) {
   let limit=this.rows
   this.filterData();
   let filterData;
-  if (!this.filterText) {
-    filterData = "null"
-  } else {
-    filterData = this.filterText
-  } 
-  this.handleTabChange(0,limit,offset,"null","","null",filterData)
+  if(!this.filterText){
+    filterData="";
+ }else{
+   filterData = this.filterText
+ }
+  this.handleTabChange(0,limit,offset," "," "," ",filterData)
 }
 
 /**Search new Application Function to search individual */
-searchNewApplication(id: any, name: any, email: any) {
-  if (!id) {
-    id = null;
-  } 
-  if (!email) {
-    email = null;
-  } 
-  console.log("name", id, name, email); 
-  this.handleTabChange(0,10,0,id,name,email,"null")
+searchNewApplication(id: any, name: any, email: any) { 
+  this.handleTabChange(0,10,0,id,name,email," ")
 }
 
 /**Search Requested Application Function to search individual */
-searchRequestedApplication(id: any, name: any, email: any) {
-  if (!id) {
-    id = null;
-  } 
-  if (!email) {
-    email = null;
-  } 
-  console.log("name", id, name, email); 
-  this.handleTabChange(1,10,0,id,name,email,"null")
+searchRequestedApplication(id: any, name: any, email: any) { 
+  this.handleTabChange(1,10,0,id,name,email,"")
 }
 
 /**Pagination of Requested Application */
@@ -203,12 +181,12 @@ let offset =this.first;
 let limit=this.rows;
 this.filterDataRequested();
 let filterDataRequested;
-if (!this.filterText) {
-  filterDataRequested = "null"
-} else {
+if(!this.filterText){
+  filterDataRequested="";
+}else{
   filterDataRequested = this.filterText
-} 
-this.handleTabChange(1,limit,offset,"null"," ","null",filterDataRequested)
+}
+this.handleTabChange(1,limit,offset," "," "," ",filterDataRequested)
 }
 
 /**Clear the search input value based on type */
@@ -216,33 +194,30 @@ clear(type:string) {
   console.log("type",type);
 
 
-  if(type === "new"){
-    console.log("type",type);
+  if(type === "new"){ 
     this.id.nativeElement.value = '';
     this.name.nativeElement.value = '';
     this.email.nativeElement.value = '';
     this.globalSearch.nativeElement.value = '';
-    this.handleTabChange(0,10,0,"null","","null","null") 
+    this.handleTabChange(0,10,0," "," "," "," ") 
   }
   if(type === "requested"){
     this.idR.nativeElement.value = '';
     this.nameR.nativeElement.value = '';
     this.emailR.nativeElement.value = '';
-    this.globalSearchR.nativeElement.value = ''; 
-    console.log("type",type);
-    this.handleTabChange(1,10,0,"null","","null","null") 
+    this.globalSearchR.nativeElement.value = '';  
+    this.handleTabChange(1,10,0," "," "," "," ") 
   }
 }
 
 /**Global Search Function in new Application*/
 filterData() {
-this.handleTabChange(0,10,0,"null"," ","null",this.filterText)
+this.handleTabChange(0,10,0," "," "," ",this.filterText)
 }
 /**Global Search Function in Requested Application*/
-filterDataRequested(){
-  console.log("this.filterText",this.filterText);
+filterDataRequested(){ 
   
-  this.handleTabChange(1,10,0,"null"," ","null",this.filterText)
+  this.handleTabChange(1,10,0," "," "," ",this.filterText)
 }
 
 }

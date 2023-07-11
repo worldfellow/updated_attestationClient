@@ -51,7 +51,7 @@ export class SignedApplicationsComponent {
     this.admin_email = this.token.data.user.user_email;
 
     //for first time data load calling
-    this.refresh(0, 10, null, null);
+    this.refresh(0, 10," "," ");
 
     //get dynamic data of deopdown
     this.api.getPurposeList('').subscribe((data: any) => {
@@ -65,13 +65,13 @@ export class SignedApplicationsComponent {
 
   filterData() {
     console.log("filterText", this.filterText);
-    this.refresh(0, 10, this.filterText, null)
+    this.refresh(0, 10, this.filterText," ")
   }
 
   filteredByPurpose(purpose_name: any) {
     this.purpose_name = purpose_name;
     console.log('----------',purpose_name);
-    this.refresh(0, 10, null, purpose_name);
+    this.refresh(0, 10," ", purpose_name);
   }
 
   onPageChange(event: PageEvent) {
@@ -82,7 +82,7 @@ export class SignedApplicationsComponent {
     this.filterData();
     let filterData;
     if (!this.filterText) {
-      filterData = "null";
+      filterData = " ";
     } else {
       filterData = this.filterText;
     }
@@ -90,7 +90,7 @@ export class SignedApplicationsComponent {
     this.filteredByPurpose(this.purpose_name);
     let purpose;
     if(!this.purpose_name){
-      purpose = "null";
+      purpose = " ";
     }else{
       purpose = this.purpose_name;
     }
@@ -99,7 +99,7 @@ export class SignedApplicationsComponent {
 
   refresh(offset: number, limit: number, globalSearch: any, purpose_search: any) {
 
-    this.api.getUserApplication("signed", "accept", null, offset, limit, "", null, globalSearch, purpose_search).subscribe((data: any) => {
+    this.api.getUserApplication("signed","accept"," ", offset, limit," "," ", globalSearch, purpose_search).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.signedData = data['data'];
         console.log('signed data', this.signedData);

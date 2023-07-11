@@ -51,7 +51,7 @@ export class VerifiedApplicationsComponent {
     this.admin_email = this.token.data.user.user_email;
 
     //for first time data load calling
-    this.refresh(0, 10, null, null);
+    this.refresh(0, 10," "," ");
 
     //get dynamic data of deopdown
     this.api.getPurposeList('').subscribe((data: any) => {
@@ -63,13 +63,13 @@ export class VerifiedApplicationsComponent {
 
   filterData() {
     console.log("filterText", this.filterText);
-    this.refresh(0, 10, this.filterText, null)
+    this.refresh(0, 10, this.filterText," ")
   }
 
   filteredByPurpose(purpose_name: any) {
     this.purpose_name = purpose_name;
     console.log('----------',purpose_name);
-    this.refresh(0, 10, null, purpose_name);
+    this.refresh(0, 10," ", purpose_name);
   }
 
   onPageChange(event: PageEvent) {
@@ -81,7 +81,7 @@ export class VerifiedApplicationsComponent {
     this.filterData();
     let filterData;
     if (!this.filterText) {
-      filterData = "null";
+      filterData = " ";
     } else {
       filterData = this.filterText;
     }
@@ -89,7 +89,7 @@ export class VerifiedApplicationsComponent {
     this.filteredByPurpose(this.purpose_name);
     let purpose;
     if(!this.purpose_name){
-      purpose = "null";
+      purpose = " ";
     }else{
       purpose = this.purpose_name;
     }
@@ -98,7 +98,7 @@ export class VerifiedApplicationsComponent {
 
   refresh(offset: number, limit: number, globalSearch: any, purpose_search: any) {
 
-    this.api.getUserApplication("verified","accept", null, offset, limit, "", null, globalSearch, purpose_search).subscribe((data: any) => {
+    this.api.getUserApplication("verified","accept"," ", offset, limit," "," ", globalSearch, purpose_search).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.verifiedData = data['data'];
       } else {
