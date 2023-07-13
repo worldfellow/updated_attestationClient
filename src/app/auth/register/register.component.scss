@@ -1,0 +1,253 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
+$color1: #f4f4f4;
+$color2: #3197EE;
+
+.form::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.form {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.about {
+    overflow: hidden;
+    position: relative;
+}
+
+.aboutt {
+    position: absolute;
+    top: 25%;
+    right: 0;
+    left: 0;
+    z-index: 5;
+}
+
+a {
+    text-decoration: none;
+}
+
+.about .logo {
+    width: 350px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.about .logo img {
+    width: 350px;
+    height: 300px;
+}
+
+.about h4 {
+    position: absolute;
+    text-align: center;
+    z-index: 5;
+    left: 0;
+    right: 0;
+}
+
+.elip {
+    border-radius: 50%;
+    height: 80vw;
+    width: 80vw;
+    background-color: #266FEF;
+    position: absolute;
+    z-index: 1;
+    opacity: 0.2;
+    right: -85%;
+    top: -62%;
+}
+
+:host {
+    .title {
+        margin-bottom: 2rem;
+    }
+}
+
+.mcr {
+    position: relative;
+    overflow: hidden;
+    height: 90vh;
+    width: 90vw;
+    background-color: #bef4d0;
+    margin: 0 auto;
+    border-radius: 50px;
+}
+
+.form {
+    height: 100%;
+    overflow-y: scroll;
+    padding: 30px 60px;
+}
+
+input[type=email],
+[type=password],
+[type=text],
+[type=number] {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    padding-left: 3%;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.radio {
+    height: auto;
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+
+        +.radio-label {
+            &:before {
+                content: '';
+                background: $color1;
+                border-radius: 100%;
+                border: 1px solid darken($color1, 25%);
+                display: inline-block;
+                width: 1.4em;
+                height: 1.4em;
+                position: relative;
+                top: -0.2em;
+                margin-right: 1em;
+                vertical-align: top;
+                cursor: pointer;
+                text-align: center;
+                transition: all 250ms ease;
+            }
+        }
+
+        &:checked {
+            +.radio-label {
+                &:before {
+                    background-color: $color2;
+                    box-shadow: inset 0 0 0 4px $color1;
+                }
+            }
+        }
+
+        &:focus {
+            +.radio-label {
+                &:before {
+                    outline: none;
+                    border-color: $color2;
+                }
+            }
+        }
+
+        +.radio-label {
+            &:empty {
+                &:before {
+                    margin: auto 0;
+                }
+            }
+        }
+    }
+}
+
+button {
+    height: 40px;
+    width: 60%;
+    border: none;
+    border-radius: 8px;
+}
+
+.eye {
+    position: absolute;
+    top: 25%;
+    right: 5%;
+  }
+
+
+@media (min-width: 767px) {
+    .logo1 {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .mcr {
+        overflow-y: auto;
+        height: 100vh;
+        width: 100vw;
+        background-color: #bef4d0;
+        border-radius: 0;
+    }
+
+    .form {
+        height: 100%;
+        overflow-y: scroll;
+        padding: 10px 20px;
+    }
+
+    .logo1 {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo1 img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .about {
+        display: none;
+    }
+}
+
+@media (min-width: 767px) {
+    .login1 {
+        display: none;
+    }
+}
+
+.login1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+:host {
+    .title {
+        margin-bottom: 2rem;
+    }
+
+    .gender {
+        width: 550px;
+        height: 50px;
+    }
+
+    .countrycode {
+        width: 100%;
+        height: 50px;
+
+
+    }
+
+    .eyeicon {
+        position: absolute;
+        cursor: pointer;
+        top: 30%;
+        right: 4%;
+    }
+}
+
+.Proceed {
+    pointer-events: none;
+}
