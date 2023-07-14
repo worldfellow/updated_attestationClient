@@ -1,6 +1,6 @@
 <div class="card flex justify-content-center">
     <p-card header="Wes Applications">
-
+      <p-toast></p-toast>
     <div class="card">
         <p-table
         #dt1
@@ -77,8 +77,11 @@
                     <td>{{wesData.refno}}</td>
                     <td><span class="pi pi-file"></span></td>
                     <td>
-                        <span class="pi pi-user"></span>
-                        <span class="pi pi-replay"></span>
+                        <span class="pi pi-user" pTooltip="View More" tooltipPosition="top"></span>
+                        <span class="pi pi-replay" (click)="resendApplication(wesData.user_id,wesData.app_id,wesData.name)"
+                        pTooltip="Resend" tooltipPosition="top"></span>
+                        <span *ngIf="wesData.notes != null" class="pi pi-book"  pTooltip="View Notes" tooltipPosition="top"
+                        (click)="showNotes(wesData.notes,wesData.id,wesData.user_id,wesData.collegeConfirmation)"></span>
                     </td>
                 </tr>
             </ng-template>
@@ -91,4 +94,6 @@
         <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalCount" ></p-paginator>
     </div>
     </p-card>
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
 </div>

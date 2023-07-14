@@ -34,6 +34,7 @@ export class VerifiedApplicationsComponent {
   verifiedShow: boolean = false;
   filepath: any;
   purpose_name: any;
+  totalCount:any;
 
   constructor(
     private router: Router,
@@ -101,6 +102,7 @@ export class VerifiedApplicationsComponent {
     this.api.getUserApplication("verified","accept"," ", offset, limit," "," ", globalSearch, purpose_search).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.verifiedData = data['data'];
+        this.totalCount = data['count']
       } else {
         console.log('Verified data not found!');
       }

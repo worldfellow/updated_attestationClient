@@ -35,7 +35,8 @@ export class SignedApplicationsComponent {
   signedShow: boolean = false;
   excel: any;
   filepath: any;
-  purpose_name: any;
+  purpose_name: any; 
+  totalCount:any;
 
   constructor(
     private router: Router,
@@ -98,10 +99,12 @@ export class SignedApplicationsComponent {
   }
 
   refresh(offset: number, limit: number, globalSearch: any, purpose_search: any) {
+console.log("karthik",purpose_search);
 
     this.api.getUserApplication("signed","accept"," ", offset, limit," "," ", globalSearch, purpose_search).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.signedData = data['data'];
+        this.totalCount = data['count'];
         console.log('signed data', this.signedData);
       } else {
         console.log('Signed data not found!');

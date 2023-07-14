@@ -97,6 +97,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ShowNotesComponent } from './dialog/show-notes/show-notes.component';
 import { InputTextareaModule } from 'primeng/inputtextarea'; 
 import { TagModule } from 'primeng/tag';  
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -219,7 +220,8 @@ import { TagModule } from 'primeng/tag';
     CalendarModule,
     PaginatorModule,
     InputTextareaModule,
-    TagModule
+    TagModule,
+    TooltipModule
   ],
   providers:[AuthGuard]
 })

@@ -35,7 +35,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
-                        <h2>Filtered students count : {{verifiedLength}}</h2>
+                        <h2>Filtered students count : {{this.totalCount}}</h2>
                     </div>
                     <!-- <div class="col-md-12"
                         style="display: flex; justify-content: flex-start; margin-right: auto; color: red;"
@@ -107,7 +107,7 @@
             </ng-template>
         </p-table>
         <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
-            [totalRecords]="120"></p-paginator>
+            [totalRecords]="totalCount"></p-paginator>
     </div>
 </p-card>
 <p-toast></p-toast>

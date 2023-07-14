@@ -18,7 +18,7 @@
 .pi.pi-replay {
   color: #ee8e1a;
   font-size: 1.5rem; 
-  padding-left: 2rem;
+  padding-left: 1.5rem;
 }
 
 .pi.pi-file:hover {
@@ -30,4 +30,16 @@
 .pi.pi-file {
   color: #37f69d;
   font-size: 1.5rem; 
+}
+
+.pi.pi-book:hover {
+  font-size: 1.8rem;
+  color: #5ee1be
+}
+
+
+.pi.pi-book {
+color: #32bd98;
+font-size: 1.5rem; 
+padding-left: 1.5rem;
 }

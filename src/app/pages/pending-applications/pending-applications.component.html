@@ -1,7 +1,7 @@
 
 <div class="card flex justify-content-center">
     <p-card header="Pending Applications">
-        <mat-tab-group #tabGroup (selectedIndexChange)="handleTabChange($event,10,0,' ','','','')">
+        <mat-tab-group #tabGroup (selectedIndexChange)="handleTabChange($event,10,0,'','','','')">
             <mat-tab label="New Application"  >  
                 <p-toast></p-toast>
                 <p-confirmDialog [style]="{width: '20vw'}"></p-confirmDialog>
@@ -94,16 +94,19 @@
                                 <td> {{newpendingData.application_date}} </td>
                                 <td>{{newpendingData.college}}</td>
                                 <td>
-                                    <i class="pi pi-refresh"></i>
+                                    <i class="pi pi-refresh" pTooltip="Refresh" tooltipPosition="top" ></i>
                                 </td>
                                 <td>
-                                    <i class="pi pi-eye" (click)="viewErrata(newpendingData.user_id,newpendingData.id)"></i>
+                                    <i class="pi pi-eye" pTooltip="View Errata" tooltipPosition="top"
+                                    (click)="viewErrata(newpendingData.user_id,newpendingData.id)"></i>
                                 </td>
                                 <td> 
-                                    <i class="pi pi-verified" (click)="verifyApplication(newpendingData.user_id,newpendingData.id)"></i> 
+                                    <i class="pi pi-verified" pTooltip="Verified" tooltipPosition="top"
+                                    (click)="verifyApplication(newpendingData.user_id,newpendingData.id)"></i> 
                                 </td>
                                 <td>
-                                    <i class="pi pi-times-circle" (click)="rejectApplication(newpendingData.user_id,newpendingData.id)"></i>
+                                    <i class="pi pi-times-circle" pTooltip="Reject" tooltipPosition="top"
+                                    (click)="rejectApplication(newpendingData.user_id,newpendingData.id)"></i>
                                 </td>
                             </tr>
                         </ng-template>
@@ -205,17 +208,20 @@
                                     <td> {{requestedData.application_date}} </td>
                                     <td>{{requestedData.college}}</td>
                                     <td>
-                                        <i class="pi pi-refresh"></i>
-                                    </td>
-                                    <td>
-                                        <i class="pi pi-eye" (click)="viewErrata(requestedData.user_id,requestedData.id)"></i>
-                                    </td>
-                                    <td> 
-                                        <i class="pi pi-verified" (click)="verifyApplication(requestedData.user_id,requestedData.id)"></i> 
-                                    </td>
-                                    <td>
-                                        <i class="pi pi-times-circle" (click)="rejectApplication(requestedData.user_id,requestedData.id)"></i>
-                                    </td>
+                                      <i class="pi pi-refresh" pTooltip="Refresh" tooltipPosition="top" ></i>
+                                  </td>
+                                  <td>
+                                      <i class="pi pi-eye" pTooltip="View Errata" tooltipPosition="top"
+                                      (click)="viewErrata(requestedData.user_id,requestedData.id)"></i>
+                                  </td>
+                                  <td> 
+                                      <i class="pi pi-verified" pTooltip="Verified" tooltipPosition="top"
+                                      (click)="verifyApplication(requestedData.user_id,requestedData.id)"></i> 
+                                  </td>
+                                  <td>
+                                      <i class="pi pi-times-circle" pTooltip="Reject" tooltipPosition="top"
+                                      (click)="rejectApplication(requestedData.user_id,requestedData.id)"></i>
+                                  </td>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="emptymessage">

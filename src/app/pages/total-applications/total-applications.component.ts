@@ -47,7 +47,7 @@ export class TotalApplicationsComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.refresh(0, 10," "," "," "," ");
+    this.refresh(0, 10,'','','','');
   }
 
 
@@ -74,7 +74,7 @@ export class TotalApplicationsComponent implements OnInit {
     this.name.nativeElement.value = '';
     this.email.nativeElement.value = '';
     this.globalSearch.nativeElement.value = '',
-      this.refresh(0, 10," "," "," "," ")
+      this.refresh(0, 10,'','','','')
   }
 
   getSeverity(status: string): string {
@@ -117,7 +117,7 @@ export class TotalApplicationsComponent implements OnInit {
     this.refresh(0, 10, id, name, email," "); 
   }
   filterData() {
-    this.refresh(0, 10, " ", "", " ", this.filterText)
+    this.refresh(0, 10,'','','', this.filterText)
   }
   onPageChange(event: PageEvent) {
     this.first = event.first;

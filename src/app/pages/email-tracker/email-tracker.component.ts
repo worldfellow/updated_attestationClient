@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./email-tracker.component.css']
 })
 export class EmailTrackerComponent {
-
+  first: number = 0;
+  rows: number = 10;
 }

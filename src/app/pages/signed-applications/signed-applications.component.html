@@ -35,7 +35,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
-                        <h2>Filtered students count : {{signedLength}}</h2>
+                        <h2>Filtered students count : {{this.totalCount}}</h2>
                     </div>
                 </div>
             </ng-template>
@@ -93,7 +93,7 @@
                                     <a class="hoverIcon">
                                         <i class="pi pi-user" style="font-size: 2.3rem; cursor: pointer;"></i>
                                     </a>
-                                    <a class="hoverIcon">
+                                    <a class="hoverIcon" *ngIf="signed.notes != null">
                                         <i class="pi pi-id-card" style="font-size: 2.8rem; cursor: pointer;" (click)="showNotes(signed.notes,signed.id,signed.user_id,signed.collegeConfirmation)"></i>
                                     </a>
                                 </div>
@@ -110,7 +110,7 @@
             </ng-template>
         </p-table>
         <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
-            [totalRecords]="120"></p-paginator>
+            [totalRecords]="totalCount"></p-paginator>
     </div>
 </p-card>
 <p-toast></p-toast>

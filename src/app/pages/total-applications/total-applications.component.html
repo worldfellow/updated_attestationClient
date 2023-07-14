@@ -89,7 +89,7 @@
                         <td>  <p-tag [value]="totalData.status ?? ''" [severity]="getSeverity(totalData.status)"></p-tag>
                         </td>
                         <td>  {{totalData.college}} </td>
-                        <td><i class="pi pi-user" (click)="viewMore()" ></i></td>
+                        <td><i class="pi pi-user" (click)="viewMore()" pTooltip="View More" tooltipPosition="top"></i></td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">

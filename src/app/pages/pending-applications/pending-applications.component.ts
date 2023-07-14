@@ -57,7 +57,7 @@ export class PendingApplicationsComponent implements OnInit {
     }, 2000);
   }
   refresh() {
-    this.handleTabChange(0,10,0," "," "," "," ");
+    this.handleTabChange(0,10,0,'','','','');
   }
   /** handleTabChange Function to load the data based on tracker and status*/
   handleTabChange(event: number,limit:number,offset:number,id:any,name:any,email:any,globalSearch:any) {
@@ -186,13 +186,11 @@ if(!this.filterText){
 }else{
   filterDataRequested = this.filterText
 }
-this.handleTabChange(1,limit,offset," "," "," ",filterDataRequested)
+this.handleTabChange(1,limit,offset,'', '','',filterDataRequested)
 }
-
+ 
 /**Clear the search input value based on type */
-clear(type:string) {
-  console.log("type",type);
-
+clear(type:string) { 
 
   if(type === "new"){ 
     this.id.nativeElement.value = '';
@@ -212,6 +210,7 @@ clear(type:string) {
 
 /**Global Search Function in new Application*/
 filterData() {
+ 
 this.handleTabChange(0,10,0," "," "," ",this.filterText)
 }
 /**Global Search Function in Requested Application*/

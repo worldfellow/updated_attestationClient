@@ -1,6 +1,10 @@
 import { Component, OnInit ,ElementRef, ViewChild} from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ShowNotesComponent } from '../dialog/show-notes/show-notes.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 interface PageEvent {
   first: number;
@@ -12,7 +16,8 @@ interface PageEvent {
 @Component({
   selector: 'app-wes-applications',
   templateUrl: './wes-applications.component.html',
-  styleUrls: ['./wes-applications.component.css']
+  styleUrls: ['./wes-applications.component.css'],
+  providers: [ ConfirmationService, MessageService]
 })
 export class WesApplicationsComponent implements OnInit {
   filterText: any;
@@ -25,7 +30,7 @@ export class WesApplicationsComponent implements OnInit {
   @ViewChild('name') name!: ElementRef;
   @ViewChild('email') email!: ElementRef;
 
-  constructor(protected api: ApiService, private router: Router) {
+  constructor(protected api: ApiService, private confirmationService: ConfirmationService, private router: Router,private dialog: MatDialog,private messageService: MessageService,) {
 
   }
 
@@ -68,4 +73,42 @@ export class WesApplicationsComponent implements OnInit {
     let limit = this.rows 
     this.refresh("","","","",limit,offset)
   }
+
+/**View and edit notes */
+  showNotes(notes: any, app_id: any, user_id: any, collegeConfirmation: any) {
+    const dialogRef = this.dialog.open(ShowNotesComponent, {
+      data: {
+        notes_data: notes,
+        app_id: app_id,
+        user_id: user_id,
+        collegeConfirmation: collegeConfirmation,
+      }
+    }).afterClosed().subscribe(result => {
+      this.ngOnInit(); 
+    });
+  }
+
+    /**resendApplication Function to resend the application to verified Tab */
+    resendApplication(user_id: any, app_id: any, user_name: any) {
+      this.confirmationService.confirm({
+        message: 'Are you sure want to resend this Application to Verified?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+  
+        accept: () => {
+          // this.api.resendApplication(user_id, app_id, user_name, 'verified', this.admin_email).subscribe((data: any) => {
+          //   if (data['status'] == 200) {
+          //     this.ngOnInit();
+          //     this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
+          //   } else {
+          //     this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
+          //   }
+          // })
+        },
+  
+        reject: () => {
+          this.confirmationService.close();
+        }
+      })
+    }
 }

@@ -299,6 +299,8 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/admin/getWesApplication?app_id=${app_id}&name=${name}&email=${email}&wesno=${wesno}&limit=${limit}&offset=${offset}`)
   }
 
- 
+  getEmailedApplication(app_id:any,name:any,email:any,globalSearch:any,limit:number,offset:number,){
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getEmailedApplication?app_id=${app_id}&name=${name}&email=${email}&globalSearch=${globalSearch}&limit=${limit}&offset=${offset}`)
+  }
 
 }    
