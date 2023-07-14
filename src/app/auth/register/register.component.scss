@@ -100,63 +100,122 @@ input[type=email],
     padding-left: 3%;
 }
 
+@keyframes checked-radio-4 {
+    0% {
+        transform: rotate(0) translateY(-4.8vw) scale(.2);
+    }
+    83% {
+        transform: rotate(360deg) translateY(-2.5vw) scale(1);
+        transform-origin: 2vw;
+    }
+    88% {
+        transform: translateY(.6vw) scale(1);
+    }
+    93% {
+        transform: translateY(-.9vw) scale(1);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes unchecked-radio-4 {
+    25% {
+        top: -6.5vw;
+    }
+    50% {
+        top: 9vw;
+    }
+    75% {
+        top: -10vw;
+    }
+    100% {
+        top: -10vw;
+        transform: scale(0);
+    }
+}
+
+.radio:before, .radio:after {
+    margin: auto;
+}
+
+.radio, .radio:before, .radio:after {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 .container {
+    height: auto;
+    width: 100%;
+    position: relative;
+    animation: fade 1s;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
 
 .radio {
-    height: auto;
+    display: inline-block;
+    width: 2.5vw;
+    height: 2.5vw;
+    border-radius: 50%;
+    transition: all .2s ease-in-out;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 1.6s;
+    animation-name: dot-anim;
+}
+.radio:checked + .radio {
+    animation-play-state: paused;
+}
+.radio:before {
+    content: "";
+    position: absolute;
+    width: 1vw;
+    height: 1vw;
+    background: white;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.117647) 0 0 .8vw 0, rgba(0, 0, 0, 0.239216) 0 .8vw .8vw 0;
+    transition: all .2s;
+}
+.radio:hover:before {
+    box-shadow: rgba(0, 0, 0, 0.0784314) 0 0 1vw 0, rgba(0, 0, 0, 0.239216) 0 1vw 1vw 0;
+}
+.radio:after {
+    content: "";
+    width: 2.5vw;
+    height: 2.5vw;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 50%;
+    transform: scale(0);
+}
+.radio:checked + .radio:after {
+    background: transparent;
+    transition: all .5s;
+    transform: scale(1);
+}
 
-    input[type="radio"] {
-        position: absolute;
-        opacity: 0;
+.ra + .radio {
+    background: #34A853;
+    animation-delay: .6s;
+}
+.ra + .radio:before {
+    animation: unchecked-radio-4 .5s both;
+}
+.ra:checked + .radio:before {
+    animation-name: checked-radio-4;
+    animation-duration: .6s;
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+    animation-fill-mode: both;
+}
+[type="radio"] {
+    display: none;
+}
 
-        +.radio-label {
-            &:before {
-                content: '';
-                background: $color1;
-                border-radius: 100%;
-                border: 1px solid darken($color1, 25%);
-                display: inline-block;
-                width: 1.4em;
-                height: 1.4em;
-                position: relative;
-                top: -0.2em;
-                margin-right: 1em;
-                vertical-align: top;
-                cursor: pointer;
-                text-align: center;
-                transition: all 250ms ease;
-            }
-        }
-
-        &:checked {
-            +.radio-label {
-                &:before {
-                    background-color: $color2;
-                    box-shadow: inset 0 0 0 4px $color1;
-                }
-            }
-        }
-
-        &:focus {
-            +.radio-label {
-                &:before {
-                    outline: none;
-                    border-color: $color2;
-                }
-            }
-        }
-
-        +.radio-label {
-            &:empty {
-                &:before {
-                    margin: auto 0;
-                }
-            }
-        }
-    }
+.lb{
+    margin: 0 20px 0 10px;
 }
 
 button {
