@@ -105,13 +105,16 @@
     color: #000;
 } */
 
-.navbar{
-    /* position: fixed; */
-    width: 100%;
-    top: 0;
-}
 
-.nav-link{
+
+/* .nav-link{
     color: #fff;
+} */
+
+.active {
+    /* background-color: #000; */
+    /* color: #fff; */
+    font-weight: 1000;
+    font-size: 18px;
 }
 

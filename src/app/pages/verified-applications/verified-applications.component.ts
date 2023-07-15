@@ -20,7 +20,6 @@ interface PageEvent {
 })
 export class VerifiedApplicationsComponent {
   rangeDates: Date[] | undefined;
-  value: string | undefined;
   verifiedData: any[] = [];
   purposes: any[] = [];
   verifiedLength: any;
@@ -29,7 +28,6 @@ export class VerifiedApplicationsComponent {
   first: number = 0;
   rows: number = 10;
   token: any;
-  admin_id: any;
   admin_email: string;
   verifiedShow: boolean = false;
   filepath: any;
@@ -48,7 +46,6 @@ export class VerifiedApplicationsComponent {
 
     //get user details from localstorage
     this.token = JSON.parse(localStorage.getItem('user')!);
-    this.admin_id = this.token.data.user.user_id;
     this.admin_email = this.token.data.user.user_email;
 
     //for first time data load calling
@@ -97,9 +94,9 @@ export class VerifiedApplicationsComponent {
     this.refresh(offset, limit, filterData, purpose);
   }
 
-  refresh(offset: number, limit: number, globalSearch: any, purpose_search: any) {
+  refresh(offset: number, limit: number, globalSearch: any, purposeSearch: any) {
 
-    this.api.getUserApplication("verified","accept"," ", offset, limit," "," ", globalSearch, purpose_search).subscribe((data: any) => {
+    this.api.getUserApplication("verified","accept"," ", offset, limit," "," ", globalSearch, purposeSearch).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.verifiedData = data['data'];
         this.totalCount = data['count']

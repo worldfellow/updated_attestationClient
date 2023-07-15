@@ -1,1 +1,89 @@
-<p>role-management works!</p>
+<p-card header="Role Management">
+    <div class="card">
+        <p-table [value]="rolesData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+            <ng-template pTemplate="caption">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card flex flex-wrap justify-content-center">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
+                                    [(ngModel)]="filterText" (input)="filterData()" style="width: 100%;" />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3" style="display: flex; justify-content: flex-end; margin-right: auto;">
+                        <button pButton pRipple label="ADD NEW SUB-ADMIN" class="p-button-success"
+                            (click)="addSubAdminComponent('add', rolesData.id)"></button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                        <h2>Filtered roles count : {{rolesLength}}</h2>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Sr.No.</th>
+                    <th>Full Name</th>
+                    <th>Email Address</th>
+                    <th>Roles</th>
+                    <th style="width: 10%;">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-roles>
+                <tr [pSelectableRow]="roles">
+                    <td>{{roles.srNo}}</td>
+                    <td>{{roles.name}}</td>
+                    <td>{{roles.email}}</td>
+                    <td>
+                        {{roles?.roles?.studentManagement == true ? 'Student Management' : ''}}
+                        {{roles?.roles?.roleManagement == true ? ', Role Management,' : ''}}
+                        {{roles?.roles?.adminManagement == true ? ', Admin Management' : ''}}
+                        {{roles?.roles?.adminTotal == true ? ', Admin Applications' : ''}}
+                        {{roles?.roles?.adminPending == true ? ', Pending Applications' : ''}}
+                        {{roles?.roles?.adminVerified == true ? ', Verified Applications' : ''}}
+                        {{roles?.roles?.adminSigned == true ? ', Signed Applications' : ''}}
+                        {{roles?.roles?.adminWesApp == true ? ', WES Applications' : ''}}
+                        {{roles?.roles?.adminemailed == true ? ', Emailed Applications' : ''}}
+                        {{roles?.roles?.adminPayment == true ? ', Payments' : ''}}
+                        {{roles?.roles?.adminEmailTracker == true ? ', Email Tracker' : ''}}
+                        {{roles?.roles?.adminReport == true ? ', Reports' : ''}}
+                        {{roles?.roles?.adminActivityTracker == true ? ', Activity Tracker' : ''}}
+                        {{roles?.roles?.adminhelp == true ? ', Help' : ''}}
+                        {{roles?.roles?.studentFeedback == true ? ', Student Feedback' : ''}}
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a>
+                                    <span class="pi pi-user" pTooltip="View" tooltipPosition="top"
+                                        (click)="viewMore(roles.roles,roles.id)"></span>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a>
+                                    <span class="pi pi-pencil" pTooltip="Edit" tooltipPosition="top"
+                                        (click)="addSubAdminComponent('edit', roles.id)"></span>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-slide-toggle class="example-margin" [color]="color"
+                                    [checked]="roles.status == 'active'" [disabled]="disabled"
+                                    (change)="toggleChanged($event.checked,roles)">
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-card>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>

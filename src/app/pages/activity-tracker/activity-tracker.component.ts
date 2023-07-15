@@ -28,14 +28,22 @@ export class ActivityTrackerComponent {
   }
 
   filterTable() {
+    console.log('lllllllllllllllllll', this.filterText);
+
     if (this.filterText) {
       this.trackerData = this.trackerData.filter((tracker: any) =>
         tracker.activity.toLowerCase().includes(this.filterText.toLowerCase()) || tracker.data.toLowerCase().includes(this.filterText.toLowerCase())
       );
-      this.trackerLength = this.trackerData.length;
-    } else {
+    } 
+    // else if (this.filterText.trim()) {
+    //   this.trackerData = this.trackerData.filter((tracker: any) =>
+    //     tracker.activity.toLowerCase().includes(this.filterText.toLowerCase()) || tracker.data.toLowerCase().includes(this.filterText.toLowerCase())
+    //   );
+    // } 
+    else {
       this.trackerData = this.trackerData;
     }
+    this.trackerLength = this.trackerData.length;
   }
 
 }

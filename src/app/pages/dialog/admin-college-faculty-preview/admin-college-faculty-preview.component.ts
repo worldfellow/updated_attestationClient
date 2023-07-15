@@ -86,7 +86,7 @@ export class AdminCollegeFacultyPreviewComponent {
     this.degree = this.data.data.degree;
     this.purpose_name = this.data.purpose_name;
     this.college_name = this.data.data.name;
-    this.purpose_data = this.data.data;    
+    this.purpose_data = this.data.data;
   }
 
   //close dialog box
@@ -95,7 +95,6 @@ export class AdminCollegeFacultyPreviewComponent {
   }
 
   editCollegeFaculty(purpose: any, id: any, type: any) {
-    this.dismiss();
     const dialogRef = this.dialog.open(AdminManagementDialogComponent, {
       data: {
         id: id,
@@ -103,6 +102,7 @@ export class AdminCollegeFacultyPreviewComponent {
         function_type: type,
       }
     }).afterClosed().subscribe(result => {
+      this.dismiss();
       this.ngOnInit();
     });
   }

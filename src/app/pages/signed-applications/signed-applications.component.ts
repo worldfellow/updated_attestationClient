@@ -98,10 +98,10 @@ export class SignedApplicationsComponent {
     this.refresh(offset, limit, filterData, purpose);
   }
 
-  refresh(offset: number, limit: number, globalSearch: any, purpose_search: any) {
-console.log("karthik",purpose_search);
+  refresh(offset: number, limit: number, globalSearch: any, purposeSearch: any) {
+console.log("karthik",purposeSearch);
 
-    this.api.getUserApplication("signed","accept"," ", offset, limit," "," ", globalSearch, purpose_search).subscribe((data: any) => {
+    this.api.getUserApplication("signed","accept"," ", offset, limit," "," ", globalSearch, purposeSearch).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.signedData = data['data'];
         this.totalCount = data['count'];

@@ -1,0 +1,11 @@
+.pi.pi-user {
+    color: #32bd98;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.pi.pi-user:hover {
+    font-size: 1.8rem;
+    color: #c81212;
+    cursor: pointer;
+}

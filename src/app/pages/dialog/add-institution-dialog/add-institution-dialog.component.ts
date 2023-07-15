@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CountriesService } from 'src/app/data/countries.service';
 import { Observable } from 'rxjs';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 export interface DialogData {
   institute: any;
@@ -20,6 +20,7 @@ export interface DialogData {
   selector: 'app-add-institution-dialog',
   template: `
   <p-toast></p-toast>
+  <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
   <div>
   <div class="card text-center">
       <div class="card-header" style="background-color: rgb(64,220,126) !important;">
@@ -136,9 +137,7 @@ export interface DialogData {
   </div>
 </div>
   `,
-  providers: [
-    CountriesService, MessageService,
-  ]
+  providers: [ConfirmationService, MessageService, CountriesService],
 })
 
 export class AddInstitutionDialogComponent {
@@ -156,7 +155,7 @@ export class AddInstitutionDialogComponent {
   user_type: any;
   count: any;
   Data: any;
-  app_id: any;
+  app_id: any = null;
 
   //declaration of variables for data get from purpose component
   institute: any;
@@ -215,6 +214,7 @@ export class AddInstitutionDialogComponent {
     private fb: FormBuilder,
     protected countries: CountriesService,
     private messageService: MessageService,
+    private confirmationService: ConfirmationService,
   ) {
     //get list of countries
     this.Countries = this.countries.getData();
@@ -275,7 +275,6 @@ export class AddInstitutionDialogComponent {
         this.api.getInstituteData(this.app_id, this.purpose_name, this.user_id, this.institute_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.instituteData = data['data'][0];
-            console.log("this.instituteData--*****->", this.instituteData);
 
             this.ref_numbers = this.instituteData.reference_no.split('MU-').pop();
             this.wes_name = this.instituteData.nameaswes;
@@ -299,7 +298,6 @@ export class AddInstitutionDialogComponent {
         this.api.getInstituteData(this.student_app_id, this.purpose_name, this.student_id, this.institute_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.instituteData = data['data'][0];
-            console.log("this.instituteData--*****->", this.instituteData);
 
             this.ref_numbers = this.instituteData.reference_no.split('MU-').pop();
             this.wes_name = this.instituteData.nameaswes;
@@ -353,76 +351,87 @@ export class AddInstitutionDialogComponent {
 
   //save button
   saveInstitution() {
-    //set field controls on particulur purpose
-    if (this.purpose_name == "Educational credential evaluators WES") {
-      this.institutionForm.controls['allRefNo'].markAsDirty();
-      this.institutionForm.controls['wesName'].markAsDirty();
-      this.institutionForm.controls['wesSurname'].markAsDirty();
-      this.institutionForm.controls['wesEmail'].markAsDirty();
-    }
-    else if (this.purpose_name == "Further study" || this.purpose_name == "Employment") {
-      this.institutionForm.controls['allRefNo'].markAsDirty();
-      this.institutionForm.controls['allUniversityCompanyName'].markAsDirty();
-      this.institutionForm.controls['allCountryName'].markAsDirty();
-      this.institutionForm.controls['allContactPersonName'].markAsDirty();
-      this.institutionForm.controls['allContactNo'].markAsDirty();
-      this.institutionForm.controls['allEmail'].markAsDirty();
-    }
-    else if (this.purpose_name == "Visa" || this.purpose_name == "Others") {
-      this.institutionForm.controls['allRefNo'].markAsDirty();
-      this.institutionForm.controls['allName'].markAsDirty();
-      this.institutionForm.controls['allCountryName'].markAsDirty();
-      this.institutionForm.controls['allContactPersonName'].markAsDirty();
-      this.institutionForm.controls['allContactNo'].markAsDirty();
-      this.institutionForm.controls['allEmail'].markAsDirty();
-    }
-    else if (this.purpose_name == "ICAS" || this.purpose_name == "IQAS" || this.purpose_name == "CES" || this.purpose_name == "MYIEE" || this.purpose_name == "ICES" || this.purpose_name == "NASBA" || this.purpose_name == "NCEES" || this.purpose_name == "UK NARIC / UK ENIC / ECCTIS" || this.purpose_name == "National Committee on Accreditation") {
-      this.institutionForm.controls['allRefNo'].markAsDirty();
-      this.institutionForm.controls['allEmail'].markAsDirty();
-    }
+    this.confirmationService.confirm({
+      message: 'Are you sure want to delete?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
 
-    //create and update purpose data
-    this.formData = this.institutionForm.value;
-    console.log('===========', this.formData);
+      accept: () => {
+        //set field controls on particulur purpose
+        if (this.purpose_name == "Educational credential evaluators WES") {
+          this.institutionForm.controls['allRefNo'].markAsDirty();
+          this.institutionForm.controls['wesName'].markAsDirty();
+          this.institutionForm.controls['wesSurname'].markAsDirty();
+          this.institutionForm.controls['wesEmail'].markAsDirty();
+        }
+        else if (this.purpose_name == "Further study" || this.purpose_name == "Employment") {
+          this.institutionForm.controls['allRefNo'].markAsDirty();
+          this.institutionForm.controls['allUniversityCompanyName'].markAsDirty();
+          this.institutionForm.controls['allCountryName'].markAsDirty();
+          this.institutionForm.controls['allContactPersonName'].markAsDirty();
+          this.institutionForm.controls['allContactNo'].markAsDirty();
+          this.institutionForm.controls['allEmail'].markAsDirty();
+        }
+        else if (this.purpose_name == "Visa" || this.purpose_name == "Others") {
+          this.institutionForm.controls['allRefNo'].markAsDirty();
+          this.institutionForm.controls['allName'].markAsDirty();
+          this.institutionForm.controls['allCountryName'].markAsDirty();
+          this.institutionForm.controls['allContactPersonName'].markAsDirty();
+          this.institutionForm.controls['allContactNo'].markAsDirty();
+          this.institutionForm.controls['allEmail'].markAsDirty();
+        }
+        else if (this.purpose_name == "ICAS" || this.purpose_name == "IQAS" || this.purpose_name == "CES" || this.purpose_name == "MYIEE" || this.purpose_name == "ICES" || this.purpose_name == "NASBA" || this.purpose_name == "NCEES" || this.purpose_name == "UK NARIC / UK ENIC / ECCTIS" || this.purpose_name == "National Committee on Accreditation") {
+          this.institutionForm.controls['allRefNo'].markAsDirty();
+          this.institutionForm.controls['allEmail'].markAsDirty();
+        }
 
-    if (this.user_type == 'student') {
-      var wesEmailValue = this.institutionForm.controls['wesEmail'].value;
-      if (this.institutionForm.controls['wesEmail'].value == 'submit@wes.org' || this.institutionForm.controls['wesEmail'].value == 'contactca@wes.org' || wesEmailValue.includes("@wes.org")) {
+        //create and update purpose data
+        this.formData = this.institutionForm.value;
 
-      }
-      else {
-        var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-        this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.user_id, this.app_id, this.institute_id, this.function_type, '', '', '').subscribe((data: any) => {
-          if (data['status'] == 200) {
+        if (this.user_type == 'student') {
+          var wesEmailValue = this.institutionForm.controls['wesEmail'].value;
+          if (this.institutionForm.controls['wesEmail'].value == 'submit@wes.org' || this.institutionForm.controls['wesEmail'].value == 'contactca@wes.org' || wesEmailValue.includes("@wes.org")) {
 
-            this.dismiss();
-
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
           }
-          else if (data['status'] == 400) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-          }
-        });
-      }
-    } else {
-      var wesEmailValue = this.institutionForm.controls['wesEmail'].value;
-      if (this.institutionForm.controls['wesEmail'].value == 'submit@wes.org' || this.institutionForm.controls['wesEmail'].value == 'contactca@wes.org' || wesEmailValue.includes("@wes.org")) {
+          else {
+            var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.user_id, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+              if (data['status'] == 200) {
 
-      }
-      else {
-        var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-        this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.student_id, this.student_app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
-          if (data['status'] == 200) {
+                this.dismiss();
 
-            this.dismiss();
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
+              }
+              else if (data['status'] == 400) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
+              }
+            });
+          }
+        } else {
+          var wesEmailValue = this.institutionForm.controls['wesEmail'].value;
+          if (this.institutionForm.controls['wesEmail'].value == 'submit@wes.org' || this.institutionForm.controls['wesEmail'].value == 'contactca@wes.org' || wesEmailValue.includes("@wes.org")) {
 
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
           }
-          else if (data['status'] == 400) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
+          else {
+            var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.student_id, this.student_app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
+              if (data['status'] == 200) {
+
+                this.dismiss();
+
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
+              }
+              else if (data['status'] == 400) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
+              }
+            });
           }
-        });
+        }
+      },
+
+      reject: () => {
+        this.confirmationService.close();
       }
-    }
+    })
   }
 }

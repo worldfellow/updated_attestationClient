@@ -6,3 +6,39 @@
 mat-form-field {
     width: 120%;
 }
+
+.pi.pi-user {
+    color: #32bd98;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.pi.pi-user:hover {
+    font-size: 1.8rem;
+    color: #c81212;
+    cursor: pointer;
+}
+
+.pi.pi-trash {
+    color: #a62222;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.pi.pi-trash:hover {
+    font-size: 1.8rem;
+    color: #c81212;
+    cursor: pointer;
+}
+
+.pi.pi-envelope {
+    color: #1f11bb;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.pi.pi-envelope:hover {
+    font-size: 1.8rem;
+    color: #c81212;
+    cursor: pointer;
+}

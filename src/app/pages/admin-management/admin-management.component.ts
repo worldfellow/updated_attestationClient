@@ -52,7 +52,6 @@ export class AdminManagementComponent {
     this.api.getCollegeList(null).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.collegeData = data['data'];
-        console.log('---------------------------->>>>>>>>>>', this.collegeData);
         this.collegeLength = this.collegeData.length;
       } else {
         console.log('Failed to load data');
@@ -62,7 +61,6 @@ export class AdminManagementComponent {
     this.api.getFacultyList(null).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.facultyData = data['data'];
-        console.log('---------------------------->>>>>>>>>>', this.facultyData);
         this.facultyLength = this.facultyData.length;
       } else {
         console.log('Failed to load data');

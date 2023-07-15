@@ -1,84 +1,84 @@
-<div class="card text-center">
-    <div class="card-header">
-        <h2>Student Management</h2>
+<p-card header="Student Management">
+    <div class="card">
+        <p-table [value]="studentsData" [tableStyle]="{'min-width': '50rem'}" [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="card flex flex-wrap justify-content-center">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input class="p-inputtext-lg" placeholder="Name" type="text" pattern="[a-zA-Z ]*"
+                                    pInputText style="width: 100%;" #name />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card flex flex-wrap justify-content-center">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input class="p-inputtext-lg" placeholder="Email" type="text" pInputText
+                                    style="width: 100%;" #email />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <p-button label="SEARCH" styleClass="p-button-secondary"
+                            (click)="search(name.value,email.value,'',0,10)"></p-button>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <div class="card flex flex-wrap justify-content-center">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
+                                    [(ngModel)]="filterText" (input)="filterData()" style="width: 100%;" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                        <h2>Filtered students count : {{studentsLength}}</h2>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Sr.No.</th>
+                    <th>Full Name</th>
+                    <th>Email Address</th>
+                    <th>Applying For</th>
+                    <th>Current Location</th>
+                    <th>Registered Date</th>
+                    <th>View</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-student>
+                <tr [pSelectableRow]="student">
+                    <td>{{student.id}}</td>
+                    <td>{{student.name}} {{student.surname}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.applied_for}}</td>
+                    <td>{{student.current_location}}</td>
+                    <td>{{student.created_at}}</td>
+                    <td>
+                        <a class="hoverIcon">
+                            <i class="pi pi-user" pTooltip="View More" tooltipPosition="top"
+                                (click)="viewMore(student.id,student.app_id)"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <mat-slide-toggle class="example-margin" [color]="color"
+                            [checked]="student.user_status == 'active'" [disabled]="disabled"
+                            (change)="toggleChanged($event.checked,student)">
+                        </mat-slide-toggle>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
+            [totalRecords]="120"></p-paginator>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-5"
-                style="font-size: 18px; display: flex; justify-content: flex-start; margin-right: auto;">
-                <strong>Name</strong></div>
-            <div class="col-md-5"
-                style="font-size: 18px; display: flex; justify-content: flex-start; margin-right: auto;"><strong>Email
-                    ID</strong></div>
-            <div class="col-md-2"></div>
-        </div>
-        &nbsp;
-        <div class="row" style="margin-top: -1%;">
-            <div class="col-md-5">
-                <input style="height: 50px;" type="text" id="name" name="name" class="form-control" pattern="[a-zA-Z ]*"
-                    placeholder="Name" #name>
-            </div>
-            <div class="col-md-5">
-                <input style="height: 50px;" type="text" id="email" name="email" class="form-control"
-                    pattern="[a-zA-Z ]*" placeholder="Email" #email>
-            </div>
-            <div class="col-md-2">
-                <p-button label="SEARCH" styleClass="p-button-secondary"
-                    (click)="search(name.value,email.value)"></p-button>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <mat-form-field class="example-full-width">
-                    <input matInput type="text" [(ngModel)]="filterText" placeholder="Search" (input)="filterTable()" />
-                </mat-form-field>
-            </div>
-            <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
-                <h2>Filtered students count : {{studentsLength}}</h2>
-            </div>
-        </div>
-        <div class="row">
-            <p-table [value]="studentsData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
-                [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[10, 25, 50]">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Sr.No.</th>
-                        <th>Full Name</th>
-                        <th>Email Address</th>
-                        <th>Applying For</th>
-                        <th>Current Location</th>
-                        <th>Registered Date</th>
-                        <th>View</th>
-                        <th>Action</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-student>
-                    <tr [pSelectableRow]="student">
-                        <td>{{student.id}}</td>
-                        <td>{{student.name}} {{student.surname}}</td>
-                        <td>{{student.email}}</td>
-                        <td>{{student.applied_for}}</td>
-                        <td>{{student.current_location}}</td>
-                        <td>{{student.created_at}}</td>
-                        <td>
-                            <a class="hoverIcon">
-                                <i class="pi pi-user" style="font-size: 1.5rem; cursor: pointer;"
-                                    (click)="viewMore(student.id,student.app_id)"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <mat-slide-toggle class="example-margin" [color]="color"
-                                [checked]="student.user_status == 'active'" [disabled]="disabled"
-                                (change)="toggleChanged($event.checked,student)">
-                            </mat-slide-toggle>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    </div>
-    <p-toast></p-toast>
-</div>
+</p-card>

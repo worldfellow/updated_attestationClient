@@ -184,8 +184,8 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/student/getAppliedUserDetail?user_id=${user_id}`);
   }
 
-  updateAllInstitute(type: any, refNo: any, formData: any, user_id: any, app_id: any, institute_id: any, function_type: any, admin_id: any, admin_email: any, user_type: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllInstitute`, { "type": type, "refNo": refNo, "formData": formData, "user_id": user_id, "app_id": app_id, "institute_id": institute_id, "function_type": function_type, "admin_id": admin_id, "admin_email": admin_email, "user_type": user_type });
+  updateAllInstitute(type: any, refNo: any, formData: any, user_id: any, app_id: any, institute_id: any, function_type: any, admin_id: any, user_email: any, user_type: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllInstitute`, { "type": type, "refNo": refNo, "formData": formData, "user_id": user_id, "app_id": app_id, "institute_id": institute_id, "function_type": function_type, "admin_id": admin_id, "user_email": user_email, "user_type": user_type });
   }
 
 
@@ -209,12 +209,12 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/admin/getActivityTrackerList?student_id=${student_id}`);
   }
 
-  getStudentList(id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/admin/getStudentList?id=${id}`);
+  getStudentList(id: any, user_type: any, name: any, email: any, globalSearch: any, offset: any, limit: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getStudentList?id=${id}&user_type=${user_type}&name=${name}&email=${email}&globalSearch=${globalSearch}&offset=${offset}&limit=${limit}`);
   }
 
-  activeinactiveStudent(event: any, studentData: any, user_id: any, user_name: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/activeinactiveUser`, { "event": event, "studentData": studentData, "user_id": user_id, "user_name": user_name });
+  activeinactiveStudent(event: any, data: any, admin_email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/activeinactiveUser`, { "event": event, "data": data, "admin_email": admin_email });
   }
 
   resetPasswordByAdmin(studentData: any, user_id: any, user_name: any) {
@@ -257,10 +257,6 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/student/getPurposeList?purpose_name=${purpose_name}`);
   }
 
-  // getUserApplication(tracker: any, status: any, app_id: any, offset: any, limit: any, name: any, email: any, globalSearch: any, purpose_search: any) {
-  //   return this.httpClient.get(`${this.baseUrl}/api/admin/getApplicationData?tracker=${tracker}&status=${status}&app_id=${app_id}&offset=${offset}&limit=${limit}&name=${name}&email=${email}&globalSearch=${globalSearch}&purpose_search=${purpose_search}`);
-  // }
-
   getDownloadExcel(startDate: any, endDate: any, type: any, tracker: any, status: any) {
     return this.httpClient.get(`${this.baseUrl}/api/admin/getDownloadExcel?startDate=${startDate}&endDate=${endDate}&type=${type}&tracker=${tracker}&status=${status}`);
   }
@@ -301,6 +297,22 @@ export class ApiService {
 
   getEmailedApplication(app_id:any,name:any,email:any,globalSearch:any,limit:number,offset:number,){
     return this.httpClient.get(`${this.baseUrl}/api/admin/getEmailedApplication?app_id=${app_id}&name=${name}&email=${email}&globalSearch=${globalSearch}&limit=${limit}&offset=${offset}`)
+  }
+
+  getRolesData() {
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getRolesData`);
+  }
+
+  getUserDetails(user_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/admin/getUserDetails?user_id=${user_id}`);
+  }
+
+  getUpdateSubAdmin(formData: any, user_id: any, type: any, admin_email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/getUpdateSubAdmin`, { "formData": formData, "user_id": user_id, "type": type, "admin_email": admin_email });
+  }
+
+  getUpdateRoles(formData: any, user_id: any, admin_email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/getUpdateRoles`, { "formData": formData, "user_id": user_id, "admin_email": admin_email });
   }
 
 }    

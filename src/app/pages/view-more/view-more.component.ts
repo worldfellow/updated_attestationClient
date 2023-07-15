@@ -52,6 +52,8 @@ export class ViewMoreComponent {
   fileInputCtrl: FormControl;
   height: number;
   width: number;
+  studentAppId: any;
+  app_id_null : any = null;
 
   constructor(
     protected api: ApiService,
@@ -72,13 +74,12 @@ export class ViewMoreComponent {
 
     this.route.queryParams.subscribe(params => {
       this.student_id = params['user_id'];
-      this.student_app_id = params['app_id'];
-      console.log('ID:', this.student_id);
-      console.log('ID:', this.student_app_id);
+      this.student_app_id = params['app_id'] ? params['app_id'] :  this.app_id_null ;
+      console.log('>>>>>>>>>>>>>>>>' ,params['app_id'])
     });
 
 
-    this.api.getStudentList(this.student_id).subscribe((data: any) => {
+    this.api.getStudentList(this.student_id, null, null, null, null, null, null).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.studentData = data['data'][0];
         console.log('students------------->', this.studentData);

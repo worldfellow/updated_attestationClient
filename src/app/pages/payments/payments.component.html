@@ -1,1 +1,72 @@
-<p>payments works!</p>
+<p-card header="Payments">
+    <div class="card">
+        <mat-tab-group>
+            <mat-tab label="Payment Split">
+                <p-table [value]="paymentData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[10, 25, 50]">
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="card flex flex-wrap justify-content-center">
+                                    <span class="p-input-icon-left">
+                                        <i class="pi pi-search"></i>
+                                        <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
+                                            [(ngModel)]="filterText" (input)="filterTable()" style="width: 100%;" />
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                <div class="card flex justify-content-center">
+                                    <p-fileUpload mode="basic" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Upload Excel"></p-fileUpload>
+                                </div>
+                            </div>
+                            <div class="col-md-3" style="display: flex; justify-content: flex-end; margin-right: auto;">
+                                <button pButton pRipple label="EXCEL EXPORT" class="p-button-success"></button>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12"
+                                style="display: flex; justify-content: flex-start; margin-right: auto;">
+                                <h2>Total count : {{paymentLength}}</h2>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Order ID.</th>
+                            <th>Reference No.</th>
+                            <th>Total Amount</th>
+                            <th>CC</th>
+                            <th>Available Amount</th>
+                            <th>Beta</th>
+                            <th>Alpha</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-tracker>
+                        <tr [pSelectableRow]="tracker">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </mat-tab>
+            <mat-tab label="Payment Refund"> Content 2 </mat-tab>
+            <mat-tab label="Multiple Order Transaction"> Content 3 </mat-tab>
+            <mat-tab label="Total Applications"> Content 4 </mat-tab>
+        </mat-tab-group>
+    </div>
+</p-card>
+<p-toast></p-toast>

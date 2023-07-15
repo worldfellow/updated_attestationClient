@@ -168,8 +168,6 @@ export class AdminManagementDialogComponent {
       this.api.getCollegeList(this.id).subscribe((data: any) => {
         if (data['status'] == 200) {
           this.collegeData = data['data'][0];
-          console.log('----------------------------++++++++++++++++++++++++++++++++++++++++++++++++++++++++', this.collegeData);
-
 
           this.college_name = this.collegeData.name;
           this.contact_person_name = this.collegeData.contactPerson;
@@ -179,7 +177,6 @@ export class AdminManagementDialogComponent {
           this.alternate_contact_no = this.collegeData.alternateContactNo;
           this.alternate_emails = this.collegeData.alternateEmailId;
           this.clg_dept_type = this.collegeData.type;
-          console.log('Failed to load data', this.clg_dept_type);
         } else {
           console.log('Failed to load data');
         }
@@ -192,7 +189,6 @@ export class AdminManagementDialogComponent {
       this.api.getFacultyList(this.id).subscribe((data: any) => {
         if (data['status'] == 200) {
           this.facultyData = data['data'][0];
-          console.log('---------------------------->>>>>>>>>>', this.facultyData);
 
           this.faculty_name = this.facultyData.faculty;
           this.degree_name = this.facultyData.degree;
@@ -248,8 +244,6 @@ export class AdminManagementDialogComponent {
 
   //getting values of semester mat-select dropdown
   selectClgDepat(value: any) {
-    console.log('value', value);
-
     this.type = value;
   }
 
@@ -270,7 +264,6 @@ export class AdminManagementDialogComponent {
     }
 
     this.formData = this.adminManagementForm.value;
-    console.log('===========', this.formData);
     this.api.updateCollegeFaculty(this.purpose_name, this.type, this.function_type, this.formData, this.id, this.user_id, this.user_name, this.app_id).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.dismiss();

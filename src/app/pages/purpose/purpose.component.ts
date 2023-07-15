@@ -59,7 +59,7 @@ export class PurposeComponent {
     //get all institute purpose data to display on page
     this.api.getInstituteData(this.app_id, '', this.user_id, '').subscribe((data: any) => {
       if (data['status'] == 200) {
-        this.instituteData = data['data'];
+        this.instituteData = data['data'];        
       } else if (data['status'] == 400) {
       }
     });

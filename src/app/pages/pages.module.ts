@@ -98,6 +98,10 @@ import { ShowNotesComponent } from './dialog/show-notes/show-notes.component';
 import { InputTextareaModule } from 'primeng/inputtextarea'; 
 import { TagModule } from 'primeng/tag';  
 import { TooltipModule } from 'primeng/tooltip';
+import { AddSubAdminComponent } from './dialog/add-sub-admin/add-sub-admin.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { ViewSubAdminRolesComponent } from './dialog/view-sub-admin-roles/view-sub-admin-roles.component';
+
 
 @NgModule({
   declarations: [
@@ -155,6 +159,8 @@ import { TooltipModule } from 'primeng/tooltip';
     AddDocumentByAdminComponent,
     UpdateInstructionalAffiliationComponent,
     ShowNotesComponent,
+    AddSubAdminComponent,
+    ViewSubAdminRolesComponent,
   ],
   imports: [
     CommonModule, 
@@ -221,7 +227,8 @@ import { TooltipModule } from 'primeng/tooltip';
     PaginatorModule,
     InputTextareaModule,
     TagModule,
-    TooltipModule
+    TooltipModule,
+    MatRadioModule,
   ],
   providers:[AuthGuard]
 })

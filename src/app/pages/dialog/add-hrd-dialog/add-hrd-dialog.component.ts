@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 //getting data from purpose component via interface
 export interface DialogData {
@@ -19,6 +19,7 @@ export interface DialogData {
   selector: 'app-add-hrd-dialog',
   template: `
     <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
     <div>
       <div class="card text-center">
       <div class="card-header" style="background-color: rgb(64,220,126) !important;">
@@ -165,7 +166,7 @@ export interface DialogData {
     </div>
   `,
   providers: [
-    MessageService,
+    MessageService, ConfirmationService
   ]
 })
 export class AddHrdDialogComponent {
@@ -230,6 +231,7 @@ export class AddHrdDialogComponent {
     private fb: FormBuilder,
     protected api: ApiService,
     private messageService: MessageService,
+    private confirmationService: ConfirmationService,
   ) {
     //set validations using form controls
     this.email = new FormControl('do.asthahte-mh@gov.in, desk-adm1.sdeed-mh@gov.in');
