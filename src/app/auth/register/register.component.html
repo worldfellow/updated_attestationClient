@@ -43,7 +43,7 @@
 
         <label for="input-password">Password:</label>
         <div style="position: relative; width: 100%;">
-            <input type="password" id="passWord" formControlName="passWord" placeholder="Enter Password">
+            <input type="password" placeholder="Enter Password">
             <div class="eye">
                 <i class="fa fa-eye" aria-hidden="true"></i>
                 <i class="fa fa-eye-slash" aria-hidden="true"></i>
@@ -54,7 +54,7 @@
 
         <label for="input-re-password">Confirm Password:</label>
         <div style="position: relative; width: 100%;">
-            <input type="password" id="passWord" formControlName="passWord" placeholder="Enter Password">
+            <input type="password" placeholder="Enter Password">
             <div class="eye">
                 <i class="fa fa-eye" aria-hidden="true"></i>
                 <i class="fa fa-eye-slash" aria-hidden="true"></i>
@@ -64,17 +64,35 @@
         <br>
 
         <div style="display: flex;justify-content: space-between;">
-            <label for="inputMobile"> Country Code and Mobile number <span style="color:red;">*</span></label>
+            <label for="inputMobile">Country Code and Mobile number <span style="color:red;">*</span></label>
             <div>
                 <input type="checkbox"><label for="">Same as WhatsApp No?</label>
             </div>
         </div>
-        <input type="number">
+        <div class="number">
+            <select id="country" name="country">
+                <option>select country</option>
+                <option value="AF">Afghanistan</option>
+                <option value="AX">Aland Islands</option>
+                <option value="AL">Albania</option>
+                <option value="DZ">Algeria</option>
+                <option value="AS">American Samoa</option><i class="fa fa-eye"></i>
+                <option value="IN">India</option>
+            </select>
+            <input type="number">
+        </div>
 
         <br><br>
 
+        <div class="Captcha">
+            <div></div>
+            <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/60/refresh--v1.png" alt="refresh--v1" />
+            <input type="text">
+        </div>
+        <br>
+
         <div style="width: 100%; display: flex;justify-content: center;">
-            <button>Proceed</button>
+            <button (click)="Register()">Proceed</button>
         </div>
 
         <h6 class="login1" aria-label="Sign in">
@@ -94,3 +112,52 @@
         </div>
     </div>
 </div>
+<p-dialog [(visible)]="displayNo1" [modal]="true" [responsive]="true">
+    <p-header>
+        <h2>Verify OTP</h2>
+    </p-header>
+    <div>
+        <p>Please enter the OTP sent to your mobile number.</p>
+        <br>
+        <form class="OTP">
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 1)" />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 2)" />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 3)" />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 4)" />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 5)" />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 6)" />
+        </form>
+        <br>
+        <div style="display: flex;">
+            <button>Verify</button>
+            <button (click)="GwtnewOTP()">Gwt new OTP</button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="displayno2" [modal]="true" [responsive]="true">
+    <p-header>
+        <h2>Verify OTP</h2>
+    </p-header>
+    <div style="min-width: 30vw;">
+        <label for="inputMobile">Country Code and Mobile number <span style="color:red;">*</span></label>
+        <br><br>
+        <div class="number">
+            <select id="country" name="country">
+                <option>select country</option>
+                <option value="AF">Afghanistan</option>
+                <option value="AX">Aland Islands</option>
+                <option value="AL">Albania</option>
+                <option value="DZ">Algeria</option>
+                <option value="AS">American Samoa</option><i class="fa fa-eye"></i>
+                <option value="IN">India</option>
+            </select>
+            <input type="number">
+        </div>
+        <br>
+
+        <div style="display: flex; justify-content: center;">
+            <button (click)="Register()">Proceed</button>
+        </div>
+    </div>
+</p-dialog>
