@@ -16,7 +16,7 @@ interface SideNavToggle {
 export class SidenavComponent implements OnInit {
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter;
 
-  collapsed = false;
+  collapsed = true;
   screenWidth = 0;
   navData: any[] = [];
   token: any;
@@ -40,8 +40,6 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void {
     this.token = JSON.parse(localStorage.getItem('user')!)
     this.user_name = this.token.data.user.user_name;
-    
-    console.log("---------->", this.navData);
     this.user_type = this.token.data.user.user_type;
     this.user_roles = this.token.data.user.roles;    
 

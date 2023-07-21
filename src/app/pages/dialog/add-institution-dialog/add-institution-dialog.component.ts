@@ -23,12 +23,12 @@ export interface DialogData {
   <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
   <div>
   <div class="card text-center">
-      <div class="card-header" style="background-color: rgb(64,220,126) !important;">
-          <h1>{{purpose_name}}</h1>
-          <div class="right" (click)="dismiss()">
-            <i title="Back" class="fas fa-arrow-left fa-pull-right fa-border"></i>
-          </div>
+    <div class="card-header">
+      <div class="header-content">
+        <h3>{{purpose_name}}</h3>
       </div>
+      <i class="pi pi-times" mat-dialog-close style="font-size: 1.5rem"></i>
+    </div>
       <div class="card-body">
           <form [formGroup]="institutionForm" (ngSubmit)="saveInstitution()">
 
@@ -49,27 +49,31 @@ export interface DialogData {
                   <mat-hint *ngIf="purpose_name == 'IQAS'">Enter 6-digit numeric values only.</mat-hint>
                   <mat-hint *ngIf="purpose_name == 'CES' || purpose_name == 'MYIEE' || purpose_name == 'ICES' || purpose_name == 'NCEES' || purpose_name == 'UK NARIC / UK ENIC / ECCTIS'">Enter alphanumeric values.</mat-hint>
                   <mat-hint *ngIf="purpose_name == 'ICAS' || purpose_name == 'NASBA' || purpose_name == 'National Committee on Accreditation'">Enter numeric values.</mat-hint>
+                  <br>                
                 </div>
                 <div class="col-md-7" *ngIf="purpose_name == 'CES' || purpose_name == 'MYIEE' || purpose_name == 'ICES' || purpose_name == 'NCEES' || purpose_name == 'UK NARIC / UK ENIC / ECCTIS'">
                   <input type="text" [(ngModel)]="ref_numbers" class="form-control" formControlName="allRefNo" [ngClass]="{'is-invalid': allRefNo.invalid && (allRefNo.dirty || allRefNo.touched)}">
                   <mat-hint>Enter alphanumeric values.</mat-hint>
+                  <br>
                 </div>
               </div>
-
-              <div class="row" *ngIf="wesname">
+              
+              <div class="row" *ngIf="wesname" style="margin-bottom : -1px">
                   <div class="col-md-4">Name as per Wes Application/Registration:</div>
                   <div class="col-md-8">
                     <input type="text" [(ngModel)]="wes_name" class="form-control" formControlName="wesName" pattern="^[ A-Za-z_@./#&+-]*$" [ngClass]="{'is-invalid': wesName.invalid && (wesName.dirty || wesName.touched)}">
+                    <br>
                   </div>
               </div>
-
+              
               <div class="row" *ngIf="wessurname">
                   <div class="col-md-4">Surname as per Wes Application/Registration:</div>
                   <div class="col-md-8">
                     <input type="text" [(ngModel)]="wes_surname" class="form-control" formControlName="wesSurname" pattern="^[ A-Za-z_@./#&+-]*$" [ngClass]="{'is-invalid': wesSurname.invalid && (wesSurname.dirty || wesSurname.touched)}">
+                    <br>
                   </div>
               </div>
-
+              
               <div class="row" *ngIf="wesemail">
                   <div class="col-md-4">Registered email id as per WES registration:</div>
                   <div class="col-md-8" >
@@ -82,6 +86,7 @@ export interface DialogData {
                   <div class="col-md-4" *ngIf="purpose_name == 'Employment'">Company Name:</div>
                   <div class="col-md-8">
                     <input type="text" [(ngModel)]="university_compony_name" class="form-control" formControlName="allUniversityCompanyName" pattern="^[ A-Za-z_@./#&+-]*$" [ngClass]="{'is-invalid': allUniversityCompanyName.invalid && (allUniversityCompanyName.dirty || allUniversityCompanyName.touched)}">
+                    <br>
                   </div>
               </div>
 
@@ -89,6 +94,7 @@ export interface DialogData {
                   <div class="col-md-4">Name:</div>
                   <div class="col-md-8">
                     <input type="text" [(ngModel)]="names" class="form-control" formControlName="allName" pattern="[A-Za-z]+$" [ngClass]="{'is-invalid': allName.invalid && (allName.dirty || allName.touched)}">
+                    <br>
                   </div>
               </div>
 
@@ -107,11 +113,13 @@ export interface DialogData {
                   </mat-autocomplete> 
                 </div>
               </div>
+              <br>
 
               <div class="row" *ngIf="conpername">
                   <div class="col-md-4">Contact Person Name:</div>
                   <div class="col-md-8">
                     <input type="text" [(ngModel)]="contact_person_names" class="form-control" formControlName="allContactPersonName" pattern="[A-Za-z]+$" [ngClass]="{'is-invalid': allContactPersonName.invalid && (allContactPersonName.dirty || allContactPersonName.touched)}">
+                    <br>
                   </div>
               </div>
 
@@ -119,6 +127,7 @@ export interface DialogData {
                   <div class="col-md-4">Contact Number</div>
                   <div class="col-md-8">
                     <input type="tel" [(ngModel)]="contact_numbers" class="form-control" (keypress)="numberOnly($event)" formControlName="allContactNo" [ngClass]="{'is-invalid': allContactNo.invalid && (allContactNo.dirty || allContactNo.touched)}"> 
+                    <br>
                   </div>
               </div>
 
@@ -126,6 +135,7 @@ export interface DialogData {
                 <div class="col-md-4">Email:</div>
                 <div class="col-md-8">
                   <input type="text" [(ngModel)]="email_ids" class="form-control" formControlName="allEmail" [ngClass]="{'is-invalid': allEmail.invalid && (allEmail.dirty || allEmail.touched)}">      
+                  <br>
                 </div>
               </div>
 
@@ -137,6 +147,24 @@ export interface DialogData {
   </div>
 </div>
   `,
+  styles:[
+    `
+    .col-md-4{
+      font-weight: 600;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgb(64,220,126) !important;
+    }
+    
+    .header-content {
+      flex: 1;
+    } 
+    `
+  ],
   providers: [ConfirmationService, MessageService, CountriesService],
 })
 

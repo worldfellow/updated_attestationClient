@@ -22,12 +22,12 @@ export interface DialogData {
     <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
     <div>
       <div class="card text-center">
-      <div class="card-header" style="background-color: rgb(64,220,126) !important;">
-        <h1>{{purpose_name}}</h1>
-        <div class="right" (click)="dismiss();">
-          <i title="Back" class="fas fa-arrow-left fa-pull-right fa-border"></i>
+        <div class="card-header">
+          <div class="header-content">
+            <h3>{{purpose_name}}</h3>
+          </div>
+          <i class="pi pi-times" mat-dialog-close style="font-size: 1.5rem"></i>
         </div>
-      </div>
       <div class="card-body">
         <form [formGroup]="hrdForm" (ngSubmit)="saveHrd()">
           <div class="row">
@@ -41,6 +41,7 @@ export interface DialogData {
             <div class="col-md-4">Full Name :</div>
             <div class="col-md-8">
               <input type="text" [(ngModel)]="full_name" class="form-control" formControlName="fullName" [ngClass]="{'is-invalid': fullName.invalid && (fullName.dirty || fullName.touched)}">
+              <br>
             </div>
           </div>
 
@@ -48,6 +49,7 @@ export interface DialogData {
             <div class="col-md-4">Course Name :</div>
             <div class="col-md-8">
               <input type="text" [(ngModel)]="course_name" class="form-control" formControlName="courseName" [ngClass]="{'is-invalid': courseName.invalid && (courseName.dirty || courseName.touched)}">
+              <br>
             </div>
           </div>
 
@@ -55,6 +57,7 @@ export interface DialogData {
             <div class="col-md-4">Specialization(In case no Specialization leave the input box empty) :</div>
             <div class="col-md-8">
               <input type="text" [(ngModel)]="specializations" class="form-control" formControlName="specialization" [ngClass]="{'is-invalid': specialization.invalid && (specialization.dirty || specialization.touched)}">
+              <br>
             </div>
           </div>
 
@@ -62,6 +65,7 @@ export interface DialogData {
             <div class="col-md-4">Seat No. :</div>
             <div class="col-md-8">
               <input type="text" [(ngModel)]="seat_no" class="form-control" formControlName="seatNo" [ngClass]="{'is-invalid': seatNo.invalid && (seatNo.dirty || seatNo.touched)}">
+              <br>
             </div>
           </div>
 
@@ -83,6 +87,7 @@ export interface DialogData {
             </div>
             <div class="col-md-8">
               <input type="text" [(ngModel)]="seat_no_sem5" class="form-control" formControlName="seatNo_sem5" [ngClass]="{'is-invalid': seatNo_sem6.invalid && (seatNo_sem6.dirty || seatNo_sem6.touched)}">
+              <br>
             </div>
           </div>
 
@@ -104,6 +109,7 @@ export interface DialogData {
             </div>
             <div class="col-md-8">
               <input type="text" [(ngModel)]="seat_no_sem6" class="form-control" formControlName="seatNo_sem6" [ngClass]="{'is-invalid': seatNo_sem5.invalid && (seatNo_sem5.dirty || seatNo_sem5.touched)}">
+              <br>
             </div>
           </div>
 
@@ -111,6 +117,7 @@ export interface DialogData {
             <div class="col-md-4">PRN No. (Optional) :</div>
             <div class="col-md-8">
               <input type="text" [(ngModel)]="prn_no" class="form-control" formControlName="prnNo" [ngClass]="{'is-invalid': prnNo.invalid && (prnNo.dirty || prnNo.touched)}">
+              <br>
             </div>
           </div>
 
@@ -119,6 +126,7 @@ export interface DialogData {
             <div class="col-md-8">
               <input type="text" [(ngModel)]="cgpa_no" class="form-control" (keyup)="check($event, 'cgpa')" formControlName="cgpaNo" [ngClass]="{'is-invalid': cgpaNo.invalid && (cgpaNo.dirty || cgpaNo.touched)}">
               <p>OR</p>
+              <br>
             </div>
           </div>
 
@@ -126,6 +134,7 @@ export interface DialogData {
             <div class="col-md-4">CGPI :</div>
             <div class="col-md-8">
               <input type="text" [(ngModel)]="cgpi_no" class="form-control" (keyup)="check($event, 'cgpi')" formControlName="cgpiNo" [ngClass]="{'is-invalid': cgpiNo.invalid && (cgpiNo.dirty || cgpiNo.touched)}">
+              <br>
             </div>
           </div>
 
@@ -133,6 +142,7 @@ export interface DialogData {
             <div class="col-md-4">Transcript No :</div>
             <div class="col-md-8">
               <input type="text" [(ngModel)]="transcript_no" class="form-control" formControlName="transcriptNo" [ngClass]="{'is-invalid': transcriptNo.invalid && (transcriptNo.dirty || transcriptNo.touched)}">
+              <br>
             </div>
           </div>
 
@@ -140,6 +150,7 @@ export interface DialogData {
             <div class="col-md-4">Transcript Issuance Date :</div>
             <div class="col-md-8">
               <input type="date" [(ngModel)]="transcript_date" class="form-control" formControlName="transcriptDate" [ngClass]="{'is-invalid': transcriptDate.invalid && (transcriptDate.dirty || transcriptDate.touched)}">
+              <br>
             </div>
           </div>
 
@@ -147,6 +158,7 @@ export interface DialogData {
             <div class="col-md-4">Examination Held in Month-Year :</div>
             <div class="col-md-8">
               <input type="month" [(ngModel)]="exam_date" class="form-control" formControlName="examDate" [ngClass]="{'is-invalid': examDate.invalid && (examDate.dirty || examDate.touched)}">
+              <br>
             </div>
           </div>
 
@@ -154,6 +166,7 @@ export interface DialogData {
             <div class="col-md-4">E-Mail :</div>
             <div class="col-md-8">
               <input type="text" class="form-control" formControlName="email" [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}">
+              <br>
             </div>
           </div>
 
@@ -165,6 +178,24 @@ export interface DialogData {
       </div>
     </div>
   `,
+  styles:[
+    `
+    .col-md-4{
+      font-weight: 600;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgb(64,220,126) !important;
+    }
+    
+    .header-content {
+      flex: 1;
+    } 
+    `
+  ],
   providers: [
     MessageService, ConfirmationService
   ]
@@ -258,12 +289,19 @@ export class AddHrdDialogComponent {
 
     //get data from purpose component stores in another variables
     this.function_type = this.data.function_type;
+    console.log('function_type++++++++++',this.function_type);
     this.purpose_name = this.data.purpose_name;
+    console.log('purpose_name++++++++++',this.purpose_name);
     this.degree_type = this.data.degree_type;
+    console.log('degree_type++++++++++',this.degree_type);
     this.faculty_type = this.data.faculty_type;
+    console.log('faculty_type++++++++++',this.faculty_type);
     this.hrd_id = this.data.hrd_id;
+    console.log('hrd_id++++++++++',this.hrd_id);
     this.student_id = this.data.student_id;
+    console.log('student_id++++++++++',this.student_id);
     this.student_app_id = this.data.student_app_id;
+    console.log('student_app_id------------',this.student_app_id);
 
     //save form controls values using form builder
     this.hrdForm = this.fb.group({
@@ -333,14 +371,12 @@ export class AddHrdDialogComponent {
 
     //show pre-filled data of student name and his course name as well as show seat no or last sem seat nos as per annual or semester pattern 
     if (this.user_type == 'student') {
-      this.api.getHrdInfo(this.user_id, this.degree_type, this.faculty_type, '').subscribe((data: any) => {
+      this.api.getHrdInfo(this.user_id, this.degree_type, this.faculty_type, null).subscribe((data: any) => {
         if (data['status'] == 200) {
           this.hrdInfo = data['data'][0];
           console.log('this.hrdInfo', this.hrdInfo);
 
           if (this.hrdInfo != null) {
-            this.hrdForm.controls['fullName'].markAsDirty();
-            this.hrdForm.controls['courseName'].markAsDirty();
             this.full_name = this.hrdInfo.fullName ? this.hrdInfo.fullName : null;
             this.course_name = this.hrdInfo.type ? this.hrdInfo.type : null;
             this.pattern = this.hrdInfo.pattern ? this.hrdInfo.pattern : null;
@@ -352,6 +388,8 @@ export class AddHrdDialogComponent {
               this.hrdForm.controls['seatNo_sem6'].setValidators([Validators.required]);
               this.hrdForm.controls['seatNo_sem5'].setValidators([Validators.required]);
             }
+            console.log('aaaaaaaaaaaa');
+            
           }
         }
       })
@@ -362,8 +400,6 @@ export class AddHrdDialogComponent {
           console.log('this.hrdInfo', this.hrdInfo);
 
           if (this.hrdInfo != null) {
-            this.hrdForm.controls['fullName'].markAsDirty();
-            this.hrdForm.controls['courseName'].markAsDirty();
             this.full_name = this.hrdInfo.fullName ? this.hrdInfo.fullName : null;
             this.course_name = this.hrdInfo.type ? this.hrdInfo.type : null;
             this.pattern = this.hrdInfo.pattern ? this.hrdInfo.pattern : null;

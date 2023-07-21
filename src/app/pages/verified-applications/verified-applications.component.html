@@ -81,7 +81,7 @@
                         <span *ngIf="verified.purposeOtherEmail != null"
                             style="margin-bottom: 1px;">{{verified.purposeOtherEmail}} </span>
                     </td>
-                    <td>{{verified.application_date}}</td>
+                    <td>{{verified.created_at}}</td>
                     <td>{{verified.approved_by}}</td>
                     <td>
                         <a class="hoverIcon">
@@ -90,12 +90,12 @@
                         </a>
                     </td>
                     <td>
-                        <p-button label="Sign Single" styleClass="p-button-outlined p-button-success"
-                            (click)="sendSingle()"></p-button>
-                        <p-button label="Sign Multiple" styleClass="p-button-outlined p-button-success"
+                        <p-button label="Verify Application" styleClass="p-button-outlined p-button-success"
+                            (click)="verify(verified)"></p-button>
+                        <!-- <p-button label="Sign Multiple" styleClass="p-button-outlined p-button-success"
                             (click)="sendMultiple()"></p-button>
                         <p-button label="Sign Multiple & Send to WES" styleClass="p-button-outlined p-button-success"
-                            (click)="sendMultiple()"></p-button>
+                            (click)="sendMultiple()"></p-button> -->
                     </td>
                     <td>
                         <p-button icon="pi pi-times" pTooltip="Reject" tooltipPosition="top"

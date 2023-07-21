@@ -1,193 +1,206 @@
-<div class="row" style="justify-content: center;">
-    <div class="col-md-4">
-        <mat-select id="purposeSelect" class="form-control" placeholder="Select Purpose"
-            style="background-color:  #8a7fff;color:black;height: 40px;">
-            <mat-option id="mat" *ngFor="let list of purposes"
-                (click)="addInstitution('',list.id,list.name,'add')">{{list.name}}</mat-option>
-        </mat-select>
-    </div>
-</div>
-<br>
-<div *ngIf="hrdTrue">
-    <div>
-        <div *ngIf="Bachelors == true">
-            <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Bachelors','','')">Add Details for HRD For Bachelors</button>
+<p-card header="Purpose">
+    <div class="card">
+        <br>
+        <div class="purpose" style="margin-left: 2%;">
+            <h4><strong>Instructions</strong></h4>
+            <span>
+                1. Digitally signed copies will be sent to the concerned agency depending on your purpose.
+            </span><br>
+            <span>
+                2. Once documents are sent you'll be notified on the home page of the portal.
+            </span><br>
+            <span>
+                3. It ideally takes about 15 working to process the application.
+            </span><br>
+            <span>
+                4. Select relevent purpose based on where you want to send the attested documents.
+            </span><br>
+            <span>
+                5. You need to input you reference number after the code MU -
+            </span><br>
+            <span style="color :red; font-size : 16px;">
+                6. Personal email address not allowed to enter as purpose email address. If found, the application will
+                be rejected</span>
+            <br>
+            <br>
+        </div>
+        <div class="row" style="justify-content: left; margin-left: 2%;">
+            <div class="col-md-4">
+                <mat-select id="purposeSelect" class="form-control" placeholder="Select Purpose"
+                    style="background-color:  #8a7fff;color:black;height: 40px;">
+                    <mat-option id="mat" *ngFor="let list of purposes"
+                        (click)="addInstitution('',list.id,list.name,'add')">{{list.name}}</mat-option>
+                </mat-select>
+            </div>
         </div>
         <br>
-        <div *ngIf="Masters == true">
-            <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Masters','','')">Add Details for HRD For Masters</button>
+        <div *ngIf="hrdTrue" style="margin-left: 2%;">
+            <div>
+                <div *ngIf="Bachelors == true">
+                    <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Bachelors','','')">Add
+                        Details for HRD For Bachelors</button>
+                </div>
+                <br>
+                <div *ngIf="Masters == true">
+                    <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Masters','','')">Add Details
+                        for HRD For Masters</button>
+                </div>
+                <br>
+                <div *ngIf="Phd == true">
+                    <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Phd','','')">Add Details for
+                        HRD For Phd</button>
+                </div>
+            </div>
         </div>
         <br>
-        <div *ngIf="Phd == true">
-            <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Phd','','')">Add Details for HRD For Phd</button>
+        <div *ngIf="differentCourse" style="margin-left: 2%;">
+            <div *ngFor="let different of hrdInfo">
+                <button mat-raised-button color="accent" style="float: left;"
+                    (click)="addDifferentCourse('add','HRD',different.degree,different.faculty,'')">{{different.faculty}}</button>
+            </div>
         </div>
+        <br>
+        <div class="row col-md-7" *ngIf="hrdData == null" style="margin-left: 2%;">
+            <p-card header="{{institute.type}}" *ngFor="let institute of instituteData">
+                <div class="card">
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.reference_no != null">
+                        <div class="col-md-6">Reference Number :</div>
+                        <div class="col-md-6">{{institute.reference_no}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.nameaswes != null">
+                        <div class="col-md-6">Name as Per Wes Application/Registration :</div>
+                        <div class="col-md-6">{{institute.nameaswes}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.lastnameaswes != null">
+                        <div class="col-md-6">Surname as Per Wes Application/Registration :</div>
+                        <div class="col-md-6">{{institute.lastnameaswes}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.emailAsWes != null">
+                        <div class="col-md-6">Email as Per Wes Application/Registration :</div>
+                        <div class="col-md-6">{{institute.emailAsWes}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.university_name != null">
+                        <div class="col-md-6">University Name :</div>
+                        <div class="col-md-6">{{institute.university_name}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.contact_person != null">
+                        <div class="col-md-6">Contact Person :</div>
+                        <div class="col-md-6">{{institute.contact_person}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.contact_number != null">
+                        <div class="col-md-6">Contact Number :</div>
+                        <div class="col-md-6">{{institute.contact_number}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.name != null">
+                        <div class="col-md-6">Name :</div>
+                        <div class="col-md-6">{{institute.name}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.email != null">
+                        <div class="col-md-6">Email :</div>
+                        <div class="col-md-6">{{institute.email}}</div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <a class="hoverIcon">
+                                <i class="pi pi-pencil" (click)="addInstitution('',institute.id,institute.type,'edit')">
+                                </i>
+                            </a>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <a class="hoverIcon">
+                                <i class="pi pi-trash" (click)="deleteInstituteHrd(institute.id,institute.type)">
+                                </i>
+                            </a>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+            </p-card>
+            <br><br>
+        </div>
+        <div class="row col-md-7" style="margin-left: 2%;">
+            <p-card header="{{hrd.course_name}}" *ngFor="let hrd of hrdData">
+                <div class="card">
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.fullName != null">
+                        <div class="col-md-6">Full Name :</div>
+                        <div class="col-md-6">{{hrd.fullName}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.course_name != null">
+                        <div class="col-md-6">Course Name :</div>
+                        <div class="col-md-6">{{hrd.course_name}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.specialization != null">
+                        <div class="col-md-6">Specialization :</div>
+                        <div class="col-md-6">{{hrd.specialization}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.seat_no != null">
+                        <div class="col-md-6">Seat No :</div>
+                        <div class="col-md-6">{{hrd.seat_no}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;"
+                        *ngIf="hrd.seat_no_sem5 != null || hrd.secondlastsem != null">
+                        <div class="col-md-6">Seat No For {{hrd.secondlastsem}} :</div>
+                        <div class="col-md-6">{{hrd.seat_no_sem5}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.seat_no_sem6 != null || hrd.lastsem != null">
+                        <div class="col-md-6">Seat No For {{hrd.lastsem}} :</div>
+                        <div class="col-md-6">{{hrd.seat_no_sem6}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.prn_no != null">
+                        <div class="col-md-6">PRN No :</div>
+                        <div class="col-md-6">{{hrd.prn_no}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.cgpa != null">
+                        <div class="col-md-6">CGPA :</div>
+                        <div class="col-md-6">{{hrd.cgpa}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.cgpi != null">
+                        <div class="col-md-6">CGPI :</div>
+                        <div class="col-md-6">{{hrd.cgpi}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.transcript_no != null">
+                        <div class="col-md-6">Transcript No :</div>
+                        <div class="col-md-6">{{hrd.transcript_no}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.transcript_date != null">
+                        <div class="col-md-6">Transcript Date :</div>
+                        <div class="col-md-6">{{hrd.transcript_date}}</div>
+                    </div>
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.exam_date != null">
+                        <div class="col-md-6">Examination date :</div>
+                        <div class="col-md-6">{{hrd.exam_date}}</div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <a class="hoverIcon">
+                                <i class="pi pi-pencil"
+                                    (click)="addHrd('edit','HRD',hrd.degree,hrd.course_name,hrd.id)">
+                                </i>
+                            </a>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <a class="hoverIcon">
+                                <i class="pi pi-trash" (click)="deleteInstituteHrd(hrd.id,'HRD')">
+                                </i>
+                            </a>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+        <br>
+        <br>
+        <div *ngIf="instituteData != null || hrdData != null" style="display: flex; justify-content: center;">
+            <p-button label="View Cart" styleClass="p-button-success" (click)="viewCart()"></p-button>
+        </div>
+        <br>
     </div>
-</div>
+</p-card>
 <br>
-<div *ngIf="differentCourse">
-    <div *ngFor="let different of hrdInfo">
-        <button mat-raised-button color="accent" style="float: left;" (click)="addDifferentCourse('add','HRD',different.degree,different.faculty,'')">{{different.faculty}}</button>
-    </div>
-</div>
-<br>
-<br>
-<div class="row" *ngIf="hrdData == null">
-    <mat-card class="col-md-7" style="margin-top: 5%;" *ngFor="let institute of instituteData">
-        <mat-card-header
-            style="font-size: 25px; font-weight: bold; background-color: rgb(64,220,126) !important;">{{institute.type}}</mat-card-header>
-        <p-divider></p-divider>
-        <mat-card-content style="font-size: 14px;">
-            <div class="row" style="margin-top: 2%;" *ngIf="institute.reference_no != null">
-                <div class="col-md-6">Reference Number :</div>
-                <div class="col-md-6">{{institute.reference_no}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="institute.nameaswes != null">
-                <div class="col-md-6">Name as Per Wes Application/Registration :</div>
-                <div class="col-md-6">{{institute.nameaswes}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="institute.lastnameaswes != null">
-                <div class="col-md-6">Surname as Per Wes Application/Registration :</div>
-                <div class="col-md-6">{{institute.lastnameaswes}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="institute.emailAsWes != null">
-                <div class="col-md-6">Email as Per Wes Application/Registration :</div>
-                <div class="col-md-6">{{institute.emailAsWes}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="institute.university_name != null">
-                <div class="col-md-6">University Name :</div>
-                <div class="col-md-6">{{institute.university_name}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="institute.contact_person != null">
-                <div class="col-md-6">Contact Person :</div>
-                <div class="col-md-6">{{institute.contact_person}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="institute.contact_number != null">
-                <div class="col-md-6">Contact Number :</div>
-                <div class="col-md-6">{{institute.contact_number}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="institute.name != null">
-                <div class="col-md-6">Name :</div>
-                <div class="col-md-6">{{institute.name}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="institute.email != null">
-                <div class="col-md-6">Email :</div>
-                <div class="col-md-6">{{institute.email}}</div>
-            </div>
-        </mat-card-content>
-        <p-divider></p-divider>
-        <mat-card-footer style="margin-top: 1%;">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <a class="hoverIcon">
-                        <i class="fa fa-edit" style="color: #007bff;"
-                            (click)="addInstitution('',institute.id,institute.type,'edit')">
-                        </i>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <p-toast></p-toast>
-                    <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
-                    <a class="hoverIcon">
-                        <i class="fa fa-trash" style="color: red;"
-                            (click)="deleteInstituteHrd(institute.id,institute.type)">
-                        </i>
-                    </a>
-                </div>
-                <div class="col-md-3"></div>
-            </div>
-        </mat-card-footer>
-    </mat-card>
-    <br><br>
-</div>
-<div class="row">
-    <mat-card class="col-md-7" style="margin-top: 5%;" *ngFor="let hrd of hrdData">
-        <mat-card-header
-            style="font-size: 25px; font-weight: bold; background-color: rgb(64,220,126) !important;">{{hrd.course_name}}</mat-card-header>
-        <p-divider></p-divider>
-        <mat-card-content>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.fullName != null">
-                <div class="col-md-6">Full Name :</div>
-                <div class="col-md-6">{{hrd.fullName}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.course_name != null">
-                <div class="col-md-6">Course Name :</div>
-                <div class="col-md-6">{{hrd.course_name}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.specialization != null">
-                <div class="col-md-6">Specialization :</div>
-                <div class="col-md-6">{{hrd.specialization}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.seat_no != null">
-                <div class="col-md-6">Seat No :</div>
-                <div class="col-md-6">{{hrd.seat_no}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.seat_no_sem5 != null || hrd.secondlastsem != null">
-                <div class="col-md-6">Seat No For {{hrd.secondlastsem}} :</div>
-                <div class="col-md-6">{{hrd.seat_no_sem5}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.seat_no_sem6 != null || hrd.lastsem != null">
-                <div class="col-md-6">Seat No For {{hrd.lastsem}} :</div>
-                <div class="col-md-6">{{hrd.seat_no_sem6}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.prn_no != null">
-                <div class="col-md-6">PRN No :</div>
-                <div class="col-md-6">{{hrd.prn_no}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.cgpa != null">
-                <div class="col-md-6">CGPA :</div>
-                <div class="col-md-6">{{hrd.cgpa}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.cgpi != null">
-                <div class="col-md-6">CGPI :</div>
-                <div class="col-md-6">{{hrd.cgpi}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.transcript_no != null">
-                <div class="col-md-6">Transcript No :</div>
-                <div class="col-md-6">{{hrd.transcript_no}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.transcript_date != null">
-                <div class="col-md-6">Transcript Date :</div>
-                <div class="col-md-6">{{hrd.transcript_date}}</div>
-            </div>
-            <div class="row" style="margin-top: 2%;" *ngIf="hrd.exam_date != null">
-                <div class="col-md-6">Examination date :</div>
-                <div class="col-md-6">{{hrd.exam_date}}</div>
-            </div>
-        </mat-card-content>
-        <p-divider></p-divider>
-        <mat-card-footer style="margin-top: 1%;">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <a class="hoverIcon">
-                        <i class="fa fa-edit" style="color: #007bff;"
-                            (click)="addHrd('edit','HRD',hrd.degree,hrd.course_name,hrd.id)">
-                        </i>
-                    </a>
-                </div>
-                <!-- <div class="col-md-3">
-                    <a class="hoverIcon">
-                        <i class="fa fa-edit" style="color: #007bff;"
-                            (click)="addDifferentCourse('edit','HRD',hrd.degree,hrd.course_name,hrd.id)">
-                        </i>
-                    </a>
-                </div> -->
-                <div class="col-md-3">
-                    <p-toast></p-toast>
-                    <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
-                    <a class="hoverIcon">
-                        <i class="fa fa-trash" style="color: red;" (click)="deleteInstituteHrd(hrd.id,'HRD')">
-                        </i>
-                    </a>
-                </div>
-                <div class="col-md-3"></div>
-            </div>
-        </mat-card-footer>
-    </mat-card>
-</div>
-<br>
-<br>
-<div *ngIf="instituteData != null || hrdData != null" style="display: flex; justify-content: center;">
-    <p-button label="View Cart" styleClass="p-button-success" (click)="viewCart()"></p-button>
-</div>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>

@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
-import { AuthService } from 'src/app/auth.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
@@ -27,18 +25,25 @@ export class NewAttestationComponent implements OnInit {
   showButton: boolean;
   firstComplete: boolean = false;
   message: any;
+  appliedData: any;
 
   constructor(
-    private router: Router,
     protected api: ApiService,
-    private auth: AuthService,
     private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
     this.token = JSON.parse(localStorage.getItem('user')!);
     this.user_id = this.token.data.user.user_id;
-    console.log("this.user_idthis.user_id", this.user_id);
+
+    this.api.getEducationalDetails(this.user_id, null).subscribe((data: any)=>{
+      if(data['status'] == 200){
+        this.appliedData = data['data'];
+        console.log('----------------->',this.appliedData);
+      }else{
+        console.log('Data not found!');
+      }
+    })
 
     this.firstForm = this.fb.group({
       educationalDetails: [],

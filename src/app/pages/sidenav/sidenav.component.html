@@ -5,6 +5,15 @@
         </button>
         <div class="logo-text" *ngIf="collapsed">Attestation</div>
     </div>
+    <ul class="sidenav-nav" *ngIf="user_type == 'student'">
+        <li class="sidenav-nav-item" *ngFor="let data of navData">
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <i class="sidenav-link-icon" [class]="data.icon"></i>
+                <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
+            </a>
+        </li>
+    </ul>
     <ul class="sidenav-nav">
         <li class="sidenav-nav-item" *ngFor="let data of navData">
             <a *ngIf="user_roles.includes(data.routeLink)" class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"

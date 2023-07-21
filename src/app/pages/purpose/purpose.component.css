@@ -1,3 +1,23 @@
-.dropdown{
-    align-self: center;
+.pi.pi-trash {
+    color: #a62222;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.pi.pi-trash:hover {
+    font-size: 1.8rem;
+    color: #c81212;
+    cursor: pointer;
+}
+
+.pi.pi-pencil {
+    color: #530dde;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.pi.pi-pencil:hover {
+    font-size: 1.8rem;
+    color: #c81212;
+    cursor: pointer;
 }

@@ -315,4 +315,12 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/admin/getUpdateRoles`, { "formData": formData, "user_id": user_id, "admin_email": admin_email });
   }
 
+  verifyApplication(app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/admin/verifyApplication?app_id=${app_id}`);
+  }
+
+  getEducationalDetails(user_id: any, app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getEducationalDetails?user_id=${user_id}&app_id=${app_id}`);
+  }
+
 }    

@@ -68,6 +68,7 @@ export class PurposeComponent {
     this.api.getHrdData(this.user_id, '', '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.hrdData = data['data'];
+        console.log('vvvvvvvvvvvvvvvvvvvvvvvvv',this.hrdData);
       }
     })
   }
@@ -158,8 +159,14 @@ export class PurposeComponent {
 
   //using this we can open AddHrdDialogComponent dialog box and send data using his type add and edit & display form
   addHrd(type: any, purpose: any, degree: any, faculty: any, hrd_id: any) {
+    console.log('type------------',type);
+    console.log('purpose------------',purpose);
+    console.log('degree------------',degree);
+    console.log('faculty------------',faculty);
+    console.log('hrd_id------------',hrd_id);
+
     if (type == 'add') {
-      this.api.getHrdInfo(this.user_id, degree, '', '').subscribe((data: any) => {
+      this.api.getHrdInfo(this.user_id, degree, '', null).subscribe((data: any) => {
         if (data['status'] == 200) {
           this.hrdInfo = data['data'];
           console.log('this,hrdInfo------------------------------->', this.hrdInfo);
@@ -198,6 +205,12 @@ export class PurposeComponent {
 
   //using this we can open AddHrdDialogComponent dialog box and send data using his type add and edit & display form for different courses.
   addDifferentCourse(type: any, purpose: any, degree: any, faculty: any, hrd_id: any) {
+    console.log('type',type);
+    console.log('purpose',purpose);
+    console.log('degree',degree);
+    console.log('faculty',faculty);
+    console.log('hrd_id',hrd_id);
+    
     if (type == 'add') {
       const dialogRef = this.dialog.open(AddHrdDialogComponent, {
         data: {
