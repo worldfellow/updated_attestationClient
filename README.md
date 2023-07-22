@@ -9,6 +9,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 ## Versions
 
 Angular - 15.2.7 
+
 ngx-image-cropper - 6.3.4 
 
 ## Code scaffolding
