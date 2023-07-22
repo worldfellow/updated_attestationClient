@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-
+  checked: boolean = false;
 }

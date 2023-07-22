@@ -737,6 +737,135 @@
         </mat-card>
       </div>
     </mat-tab>
+
+    <!-- Competency Letter --> 
+<ng-container *ngFor="let degree of degrees">
+  <mat-tab  *ngIf="CompetencyLetter == true && degree == 'Bachelors'" >
+    <ng-template mat-tab-label>
+      <div class="title">Competency Letter</div>
+    </ng-template>
+    <div class="tab-content">
+      <div class="transcript">
+        <h4 class="innerHeader">Upload Competency Letter</h4>
+        <h4>Instructions</h4>
+        <span>
+          1. Enter the number of pages of your competency letter & upload as per the same.
+        </span><br>
+        <span>
+          2. File size should not exceed 5MB (per document) and accepted formats are jpeg, png, jpg and PDF format
+          will not be accepted.
+        </span><br>
+        <span>
+          3. Multiple Competency letter can be attested and can be requested at the same time. (It shall be considered
+          as a single application only)
+        </span><br>
+        <span>
+          4. Upload digital copies or legible scanned copies (CamScanner documents will not be accepted)
+        </span><br>
+        <span>
+          5. In case you have other documents (like Passing Certificate), Kindly use Add More at bottom of page.
+        </span><br>
+        <br>
+        <br>
+      </div>
+      <p-card header="Bachelors">
+        <div class="card flex justify-content-center">
+          <p-accordion class="w-full">
+            <p-accordionTab>
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <span class="vertical-align-middle">Competency Letter</span>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-dropdown [options]="collegeList" [virtualScroll]="true" [virtualScrollItemSize]="30"
+                      optionLabel="name" filterBy="name" [showClear]="true" placeholder="Select a CollegeName">
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-4">
+                    <label>Enter Number of Pages</label>
+                    <input pInputText class="p-inputtext-sm" type="number" />
+                  </div>
+                  <div class="col-md-4">
+                    <p-button>OK</p-button>
+                  </div>
+                </div>
+                <br>
+                <div class="table">
+                  <p-table [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>File Name</th>
+                        <th>College Name</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr class="tablecontent">
+                        <td>filename </td>
+                        <td>college name </td>
+                        <td style="padding-top: 5px">
+                          <p-toast></p-toast>
+                          <!-- incomplete url passed static data -->
+                          <p-fileUpload mode="basic" name="file"
+                           url="{{CompetencyletterUploadUrl}}?user_id={{user_id}}&degree_name=Bachelors_science&hiddentype=aaaaaa&clgId=4"
+                            accept="image/*" [maxFileSize]="1000000" (onUpload)="onBasicUploadAuto($event)"
+                            [auto]="true" chooseLabel="Upload"></p-fileUpload>
+                          <!-- <div><i class="pi pi-eye" (click)="imageView()"
+                        style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i> 
+                        <i class="pi pi-trash" style="font-size: 1.5rem"></i>
+                      </div> -->
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </ng-template>
+            </p-accordionTab>
+            <p-accordionTab>
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <span class="vertical-align-middle">Convocation Certificate</span>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="content">
+                <div class="table">
+                  <p-table [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>File Name</th>
+                        <th>College Name</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr class="tablecontent">
+                        <td>filename </td>
+                        <td>college name </td>
+                        <td style="padding-top: 5px">
+                          <p-toast></p-toast>
+                          <p-fileUpload mode="basic" name="file" url="https://www.primefaces.org/cdn/api/upload.php"
+                            accept="image/*" [maxFileSize]="1000000" (onUpload)="onBasicUploadAuto($event)"
+                            [auto]="true" chooseLabel="Upload"></p-fileUpload>
+                          <!-- <div><i class="pi pi-eye" (click)="imageView()"
+                      style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i> 
+                      <i class="pi pi-trash" style="font-size: 1.5rem"></i>
+                    </div> -->
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </ng-template>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </p-card>
+      <p-toast></p-toast>
+      <p-card header=" Add More">
+        <p-button icon="pi pi-plus" (click)="uploadMoreCompetency()" styleClass="p-button-success"></p-button>
+      </p-card>
+    </div>
+  </mat-tab> 
+</ng-container>
     <mat-tab *ngIf="activeTab2 == true">
       <br>
       <ng-template mat-tab-label>

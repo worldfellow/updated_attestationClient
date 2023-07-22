@@ -168,14 +168,14 @@ export class VerifiedApplicationsComponent {
     })
   }
 
-  rejectApplication(user_id: any, app_id: any, user_name: any) {
+  rejectApplication(studentUserId: any, studentAppId: any,type:string) {
     this.confirmationService.confirm({
       message: 'Are you sure want to reject application?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        this.api.rejectApplication(user_id, app_id, user_name, 'pending', this.admin_email).subscribe((data: any) => {
+        this.api.rejectApplications(studentUserId ,studentAppId,this.admin_email,type).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.ngOnInit();
             this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
@@ -191,19 +191,19 @@ export class VerifiedApplicationsComponent {
     })
   }
 
-  resendApplication(user_id: any, app_id: any, user_name: any) {
+  resendApplication(user_id: any, app_id: any,type:string) {
     this.confirmationService.confirm({
       message: 'Are you sure want to resend application?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        this.api.resendApplication(user_id, app_id, user_name, 'pending', this.admin_email).subscribe((data: any) => {
+        this.api.resendApplication(user_id, app_id,type, this.admin_email).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.ngOnInit();
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data['message'] });
           } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
           }
         })
       },

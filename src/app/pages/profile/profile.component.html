@@ -1,1 +1,94 @@
-<p>profile works!</p>
+    <p-card header="Profile">
+    <!-- <div class="card-header">
+        Profile
+    </div> -->
+    <div class="card-body"> 
+        <p-card>
+                <!-- <div class="card-header">
+        Profile
+    </div> -->
+        <div class="main-container">
+            <div class="left-side">
+        <div class="row ">
+            <div class="col-md-2">First Name</div>
+            <div class="col-md-2">
+              <input class="p-inputtext-sm"  pInputText id="username"  />
+            </div>
+            <div class="col-md-2">Surname Name</div>
+            <div class="col-md-2">
+              <input class="p-inputtext-sm"  pInputText id="username"  />
+            </div>
+        </div> 
+        <div class="row pt-4"> 
+            <div class="col-md-2">Gender</div>
+            <div class="col-md-2">
+              <input class="p-inputtext-sm"  pInputText id="username"  />
+            </div>
+            <div class="col-md-2">Email ID</div>
+            <div class="col-md-2">
+              <input class="p-inputtext-sm"  pInputText id="username"  />
+            </div>
+        </div> 
+        <div class="row pt-4">
+            <div class="col-md-2">Mobile Number</div>  
+            <div class="col-md-2 pl-2"> 
+                <p-autoComplete [dropdown]="true"   [group]="true"     field="label" >
+                </p-autoComplete>
+                <!-- <p-autoComplete     ></p-autoComplete>  -->
+        </div>  
+            <div class="col-md-2">
+                <p-inputNumber [useGrouping]="false"> </p-inputNumber>
+            </div>
+        </div>
+        <br>
+       <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Same as Mobile number
+            </label>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+                Other
+            </label>
+          </div>
+        </div>
+       </div>
+        <div class="row pt-4">
+            <div class="col-md-2">WhatsApp Number</div> 
+            <div class="col-md-2">
+                <p-autoComplete   [group]="true"     field="label" [dropdown]="true">
+                </p-autoComplete>
+        </div>
+            <div class="col-md-2">
+                <p-inputNumber [useGrouping]="false"> </p-inputNumber>
+            </div>
+        </div>
+        <div class="row pt-4">  
+            <div class="col-md-1"> 
+            <p-button label="EDIT" icon="pi pi-user-edit" styleClass="p-button-success"></p-button>
+                </div> 
+                <div class="col-md-1" style="padding-left:50px;">
+                    <p-button label="UPDATE" icon="pi pi-check" styleClass="p-button-success"></p-button> 
+                        </div>
+        </div>
+    </div>
+    <div class="right-side">
+        <div class="row"> 
+              <div class="col-md-6" id="imageContainer">
+                <img  src="https://mu.etranscript.in/api/images/boyWithquestionmark.jpg" class="imageContainer">
+              </div>  
+          </div> 
+            <h5 id="cube" class="Container2">Email Us on <a style="color:#40dc7e">support@etranscript.in</a></h5>  
+</div>
+    </div>
+</p-card>
+    </div>
+</p-card> 

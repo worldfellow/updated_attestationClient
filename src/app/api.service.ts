@@ -65,6 +65,10 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/auth/verify-otp-reg`, { data: data });
   }
 
+  removeToken(){
+    localStorage.removeItem("user");
+  }
+
   UpdateNumberOTP(data: any) {
     console.log("RESEND OTP");
     return this.httpClient.post(`${this.baseUrl}/api/auth/resend-otp`, { data: data });
@@ -268,23 +272,23 @@ export class ApiService {
     }));
   }
 
-  resendApplication(user_id: any, app_id: any, user_name: any, type: any, admin_email: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/resendApplication`, { "user_id": user_id, "app_id": app_id, "user_name": user_name, "type": type, "admin_email": admin_email });
+  resendApplication(user_id: any, app_id: any, type: any, admin_email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/resendApplication`, { "user_id": user_id, "app_id": app_id,"type": type, "admin_email": admin_email });
   }
 
-  rejectApplication(user_id: any, app_id: any, user_name: any, type: any, admin_email: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/rejectApplication`, { "user_id": user_id, "app_id": app_id, "user_name": user_name, "type": type, "admin_email": admin_email });
-  }
+  // rejectApplication(user_id: any, app_id: any, user_name: any, type: any, admin_email: any) {
+  //   return this.httpClient.post(`${this.baseUrl}/api/admin/rejectApplication`, { "user_id": user_id, "app_id": app_id, "user_name": user_name, "type": type, "admin_email": admin_email });
+  // }
 
-  updateNotes(notes_data: any, app_id: any, user_id: any, admin_email: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/updateNotes`, { "notes_data": notes_data, "app_id": app_id, "user_id": user_id, "admin_email": admin_email });
+  updateNotes(notes_data: any, app_id: any, user_id: any, admin_email: any,type:any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/updateNotes`, { "notes_data": notes_data, "app_id": app_id, "user_id": user_id, "admin_email": admin_email, "type": type});
   }
 
   getUserApplication(tracker:any,status:any,app_id:any,offset:number,limit:number,name:any,email:any,globalSearch:any,purpose_search: any){
     return this.httpClient.get(`${this.baseUrl}/api/admin/getApplicationData?tracker=${tracker}&status=${status}&app_id=${app_id}&offset=${offset}&limit=${limit}&name=${name}&email=${email}&globalSearch=${globalSearch}&purpose_search=${purpose_search}`)
   }
-  rejectApplications(user_id:number,app_id:number,admin_email:any){
-    return this.httpClient.post(`${this.baseUrl}/api/admin/rejectApplication`,{"user_id" :user_id,"app_id" :app_id,"admin_email" : admin_email})
+  rejectApplications(user_id:number,app_id:number,admin_email:any,type:string){
+    return this.httpClient.post(`${this.baseUrl}/api/admin/rejectApplications`,{"user_id" :user_id,"app_id" :app_id,"admin_email" : admin_email,"type":type})
   }
 
   verifiedApplication(user_id:number,app_id:number,admin_email:any){
@@ -297,6 +301,10 @@ export class ApiService {
 
   getEmailedApplication(app_id:any,name:any,email:any,globalSearch:any,limit:number,offset:number,){
     return this.httpClient.get(`${this.baseUrl}/api/admin/getEmailedApplication?app_id=${app_id}&name=${name}&email=${email}&globalSearch=${globalSearch}&limit=${limit}&offset=${offset}`)
+  }
+
+  resendWesApplication(user_id: any, app_id: any, admin_email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/resendWesApplication`, { "user_id": user_id, "app_id": app_id,"admin_email": admin_email });
   }
 
   getRolesData() {

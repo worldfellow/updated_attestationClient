@@ -85,6 +85,11 @@ const routes: Routes = [{
       component : PreviewApplicationComponent,
       canActivate: [AuthGuard], 
     },
+    {
+      path : 'dashboard/viewProfile',
+      component : ProfileComponent,
+      canActivate: [AuthGuard], 
+    },
 
     //admin
     {

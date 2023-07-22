@@ -12,7 +12,7 @@ import { PagesModule } from './pages/pages.module';
 import { OneColumnModule } from './one-column/one-column.module';
 // import { SidenavComponent } from './pages/sidenav/sidenav.component';
 // import { BodyComponent } from './pages/body/body.component';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu'; 
 
 @NgModule({
   declarations: [

@@ -17,3 +17,14 @@
     height: 85px;
     width: 150px;
   } 
+
+ /* Style for the button */
+.user-button {
+  background-color: #fff; /* Change the background color */
+  color: #fff; /* Change the text color */
+  padding: 8px 16px; /* Adjust padding to give it some space */
+  border-radius: 50px; /* Add rounded corners */
+  cursor: pointer; /* Show pointer cursor on hover */
+  
+}
+

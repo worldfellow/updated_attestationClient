@@ -98,10 +98,10 @@
                             (click)="sendMultiple()"></p-button> -->
                     </td>
                     <td>
-                        <p-button icon="pi pi-times" pTooltip="Reject" tooltipPosition="top"
-                            (click)="rejectApplication(verified.user_id,verified.id,verified.name)"></p-button>
-                        <p-button icon="pi pi-refresh" pTooltip="Resend" tooltipPosition="top"
-                            (click)="resendApplication(verified.user_id,verified.id,verified.name)"></p-button>
+                        <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined"
+                            (click)="rejectApplication(verified.user_id,verified.id,'verified')"></p-button>
+                        <p-button icon="pi pi-refresh" styleClass="p-button-rounded p-button p-button-outlined"
+                            (click)="resendApplication(verified.user_id,verified.id,'pending')"></p-button>
                     </td>
                 </tr>
             </ng-template>

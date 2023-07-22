@@ -87,7 +87,7 @@
                     <td>{{emailedData.type}}</td>
                     <td>{{emailedData.application_date}}</td>
                     <td>{{emailedData.approved_by}}</td>
-                    <td>{{emailedData.updated_at}}</td>
+                    <td>{{emailedData.emailSent_on}}</td>
                     <td>{{emailedData.email_status}}</td>
                     <td>
                       <span class="pi pi-user" pTooltip="View More" tooltipPosition="top" 
@@ -98,7 +98,7 @@
                       <span class="pi pi-book" *ngIf="emailedData.notes != null" pTooltip="View Notes" tooltipPosition="top" 
                       (click)="showNotes(emailedData.notes,emailedData.id,emailedData.user_id,emailedData.collegeConfirmation)"></span>
 
-                      <span class="pi pi-refresh" (click)="resendApplication(emailedData.user_id,emailedData.id,emailedData.name)" 
+                      <span class="pi pi-refresh" (click)="resendApplication(emailedData.user_id,emailedData.id,'verified')" 
                       pTooltip="Resend" tooltipPosition="top" ></span>
 
                       <p-tag icon="pi pi-check" severity="success" pTooltip="Merge File" tooltipPosition="top" 

@@ -11,6 +11,8 @@ import { createWorker } from 'tesseract.js';
 import { ImageCroppedEvent } from "ngx-image-cropper";
 import { CollegeDetailsComponent } from '../dailogComponents/college-details.component';
 import { ActivatedRoute } from '@angular/router';
+import { TranscriptDailogComponent } from '../dailogComponents/transcript-dailog.component';
+import { CompetencyDailogComponent } from '../dailogComponents/competency-dailog.component';
 
 
 @Component({
@@ -41,6 +43,7 @@ export class UploadDocumentComponent implements OnInit {
   transUploadUrl = config.transUploadUrl;
   curriculumUploadUrl = config.curriculumUploadUrl;
   NameChangeLetterUrl = config.NameChangeLetterUrl;
+  CompetencyletterUploadUrl = config.CompetencyletterUploadUrl;
   namechangeletterdetails: any;
   activeTab1: boolean = true;
   activeTab2: boolean = true;
@@ -742,5 +745,57 @@ export class UploadDocumentComponent implements OnInit {
       
     }
   })
+}
+
+
+ /**
+   * Competency Letter
+   */
+
+ uploadMoreCompetency() {
+
+  this.ref = this.dialogService.open(CompetencyDailogComponent, {
+    header: 'Add More Document',
+    width: '50%',
+    height: '40%',
+    contentStyle: { overflow: 'auto' },
+    baseZIndex: 10000,
+    maximizable: true
+  })
+  this.ref.onClose
+    .subscribe(
+      (data: any) => {
+        if (data !== undefined) {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Document Uploaded Succesfully !' });
+        } else {
+          this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'Document Not Uploaded !' });
+        }
+      });
+}
+
+
+
+/**
+   * Transcripts Letter
+   */
+uploadMoreTranscript() {
+  this.ref = this.dialogService.open(TranscriptDailogComponent, {
+    header: 'Add More Document',
+    width: '50%',
+    height: '40%',
+    contentStyle: { overflow: 'auto' },
+    baseZIndex: 10000,
+    maximizable: true
+  })
+  this.ref.onClose
+    .subscribe(
+      (data: any) => {
+
+        if (data !== undefined) {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Document Uploaded Succesfully !' });
+        } else {
+          this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'Document Not Uploaded !' });
+        }
+      });
 }
 }

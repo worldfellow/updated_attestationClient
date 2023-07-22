@@ -1,10 +1,10 @@
 import { Component, OnInit ,ElementRef, ViewChild} from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ShowNotesComponent } from '../dialog/show-notes/show-notes.component';
+import { ConfirmationService, MessageService } from 'primeng/api'; 
 import { MatDialog } from '@angular/material/dialog';
-
+import { NotesComponent } from '../dailogComponents/notes.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 interface PageEvent {
   first: number;
@@ -17,7 +17,7 @@ interface PageEvent {
   selector: 'app-wes-applications',
   templateUrl: './wes-applications.component.html',
   styleUrls: ['./wes-applications.component.css'],
-  providers: [ ConfirmationService, MessageService]
+  providers: [ ConfirmationService, MessageService,DialogService]
 })
 export class WesApplicationsComponent implements OnInit {
   filterText: any;
@@ -25,17 +25,23 @@ export class WesApplicationsComponent implements OnInit {
   first: number = 0;
   rows: number = 10;
   totalCount:number;
+  token:any;
+  admin_email:any;
+  ref:DynamicDialogRef;
 
   @ViewChild('id') id!: ElementRef;
   @ViewChild('name') name!: ElementRef;
   @ViewChild('email') email!: ElementRef;
+  @ViewChild('wesno') wesno!: ElementRef;
 
-  constructor(protected api: ApiService, private confirmationService: ConfirmationService, private router: Router,private dialog: MatDialog,private messageService: MessageService,) {
+  constructor(protected api: ApiService, private confirmationService: ConfirmationService,private dialogService: DialogService, private router: Router,private dialog: MatDialog,private messageService: MessageService,) {
 
   }
 
   ngOnInit(): void {
-  this.refresh("","","","",10,0)
+    this.token = JSON.parse(localStorage.getItem('user')!);
+    this.admin_email = this.token.data.user.user_email;
+    this.refresh("","","","",10,0)
   }
 
 /**get Wes application Data through api in refresh function */
@@ -57,7 +63,8 @@ export class WesApplicationsComponent implements OnInit {
     this.id.nativeElement.value = '';
     this.name.nativeElement.value = '';
     this.email.nativeElement.value = '';
-      this.refresh("","","","",10,0)
+    this.wesno.nativeElement.value = '';
+    this.refresh("","","","",10,0)
   }
 
   /**SearchWes function to get Data based on searched value */
@@ -75,35 +82,47 @@ export class WesApplicationsComponent implements OnInit {
   }
 
 /**View and edit notes */
-  showNotes(notes: any, app_id: any, user_id: any, collegeConfirmation: any) {
-    const dialogRef = this.dialog.open(ShowNotesComponent, {
-      data: {
-        notes_data: notes,
-        app_id: app_id,
-        user_id: user_id,
-        collegeConfirmation: collegeConfirmation,
-      }
-    }).afterClosed().subscribe(result => {
-      this.ngOnInit(); 
-    });
-  }
+showNotes(notes: any, app_id: any, user_id: any, collegeConfirmation: any) {
+  this.ref = this.dialogService.open(NotesComponent, {
+    data: {
+      notes_data: notes,
+      app_id: app_id,
+      user_id: user_id,
+      collegeConfirmation: collegeConfirmation,
+    },
+    header: 'Notes Details',
+    contentStyle: { overflow: 'auto' },
+    baseZIndex: 10000,
+    maximizable: true,
+    closable: true
+  });
+  this.ref.onClose.subscribe((data: any) => {  
+    if (data) {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Details Saved Successfullyaaaaaaaaa!' });
+      this.refresh("", "", "","", 10, 0);
+    }
+  });
+}
+
+  
 
     /**resendApplication Function to resend the application to verified Tab */
-    resendApplication(user_id: any, app_id: any, user_name: any) {
+    resendApplication(user_id: any, app_id: any) {
       this.confirmationService.confirm({
         message: 'Are you sure want to resend this Application to Verified?',
         header: 'Confirmation',
         icon: 'pi pi-exclamation-triangle',
   
         accept: () => {
-          // this.api.resendApplication(user_id, app_id, user_name, 'verified', this.admin_email).subscribe((data: any) => {
-          //   if (data['status'] == 200) {
-          //     this.ngOnInit();
-          //     this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-          //   } else {
-          //     this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-          //   }
-          // })
+
+          this.api.resendWesApplication(user_id, app_id,this.admin_email).subscribe((data: any) => {
+            if (data['status'] == 200) {
+              this.ngOnInit();
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: data['message'] });
+            } else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
+            }
+          })
         },
   
         reject: () => {

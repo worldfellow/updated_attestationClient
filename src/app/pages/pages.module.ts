@@ -93,11 +93,15 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { AddDocumentByAdminComponent } from './dialog/add-document-by-admin/add-document-by-admin.component';
 import { UpdateInstructionalAffiliationComponent } from './dialog/update-instructional-affiliation/update-instructional-affiliation.component';
 import { CalendarModule } from 'primeng/calendar';
-import { PaginatorModule } from 'primeng/paginator';
-import { ShowNotesComponent } from './dialog/show-notes/show-notes.component';
+import { PaginatorModule } from 'primeng/paginator'; 
 import { InputTextareaModule } from 'primeng/inputtextarea'; 
 import { TagModule } from 'primeng/tag';  
 import { TooltipModule } from 'primeng/tooltip';
+import { NotesComponent } from './dailogComponents/notes.component'; 
+import { AvatarModule } from 'primeng/avatar';
+import { MenubarModule } from 'primeng/menubar';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CheckboxModule } from 'primeng/checkbox';
 import { AddSubAdminComponent } from './dialog/add-sub-admin/add-sub-admin.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { ViewSubAdminRolesComponent } from './dialog/view-sub-admin-roles/view-sub-admin-roles.component';
@@ -157,8 +161,8 @@ import { ViewSubAdminRolesComponent } from './dialog/view-sub-admin-roles/view-s
     ActivityTrackerComponent,
     ViewMoreComponent,
     AddDocumentByAdminComponent,
-    UpdateInstructionalAffiliationComponent,
-    ShowNotesComponent,
+    UpdateInstructionalAffiliationComponent, 
+    NotesComponent,
     AddSubAdminComponent,
     ViewSubAdminRolesComponent,
   ],
@@ -228,6 +232,10 @@ import { ViewSubAdminRolesComponent } from './dialog/view-sub-admin-roles/view-s
     InputTextareaModule,
     TagModule,
     TooltipModule,
+    AvatarModule,
+    MenubarModule,
+    AutoCompleteModule,
+    CheckboxModule,
     MatRadioModule,
   ],
   providers:[AuthGuard]

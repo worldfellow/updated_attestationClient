@@ -1,9 +1,10 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
-import { MatDialog } from '@angular/material/dialog';
-import { ShowNotesComponent } from '../dialog/show-notes/show-notes.component';
+import { MatDialog } from '@angular/material/dialog'; 
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { NotesComponent } from '../dailogComponents/notes.component';
 
 interface PageEvent {
   first: number;
@@ -15,7 +16,7 @@ interface PageEvent {
   selector: 'app-emailed-applications',
   templateUrl: './emailed-applications.component.html',
   styleUrls: ['./emailed-applications.component.css'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService, DialogService]
 })
 export class EmailedApplicationsComponent implements OnInit {
 
@@ -24,6 +25,9 @@ export class EmailedApplicationsComponent implements OnInit {
   totalCount: any;
   first: number = 0;
   rows: number = 10; 
+  token:any;
+  admin_email:any;
+  ref: DynamicDialogRef;
 
 
   @ViewChild('id') id!: ElementRef;
@@ -31,20 +35,26 @@ export class EmailedApplicationsComponent implements OnInit {
   @ViewChild('email') email!: ElementRef;
   @ViewChild('globalSearch') globalSearch!: ElementRef;
 
-  constructor(protected api: ApiService, private dialog: MatDialog, private router: Router, private confirmationService: ConfirmationService, private messageService: MessageService,) {
+   
+    constructor(protected api: ApiService, private dialog: MatDialog, private dialogService: DialogService, private router: Router, private confirmationService: ConfirmationService, private messageService: MessageService,) {
 
   }
 
   ngOnInit(): void {
+        //get user details from localstorage
+        this.token = JSON.parse(localStorage.getItem('user')!);
+        this.admin_email = this.token.data.user.user_email;
+
     this.refresh("", "", "","", 10, 0);
   }
 
-  refresh(id: any, name: any, email: any,globalSearch:any,limit: number, offset: number) {
-    this.api.getEmailedApplication(id, name, email,globalSearch, limit, offset).subscribe((data: any) => {
+  refresh(id: any, name: any, email: any,globalSearch:any,limit: number, offset: number) { 
+    this.api.getUserApplication('done','',id,offset,limit,name,email,globalSearch,"").subscribe((data: any) => {
       console.log("data", data['data']);
       if (data) {
         this.emailedApplication = data['data'];
-        this.totalCount = data['count'][0].email_count; 
+        // this.totalCount = data['count'][0].email_count; 
+        this.totalCount = data['count']
       }
     })
   }
@@ -102,34 +112,43 @@ export class EmailedApplicationsComponent implements OnInit {
 
   /**View and edit notes */
   showNotes(notes: any, app_id: any, user_id: any, collegeConfirmation: any) {
-    const dialogRef = this.dialog.open(ShowNotesComponent, {
+    this.ref = this.dialogService.open(NotesComponent, {
       data: {
         notes_data: notes,
         app_id: app_id,
         user_id: user_id,
         collegeConfirmation: collegeConfirmation,
+      },
+      header: 'Notes Details',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      closable: true
+    });
+    this.ref.onClose.subscribe((data: any) => {  
+      if (data) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Details Saved Successfullyaaaaaaaaa!' });
+        this.refresh("", "", "","", 10, 0);
       }
-    }).afterClosed().subscribe(result => {
-      this.ngOnInit();
     });
   }
 
   /**resendApplication Function to resend the application to verified Tab */
-  resendApplication(user_id: any, app_id: any, user_name: any) {
+  resendApplication(user_id: any, app_id: any, type: string) {
     this.confirmationService.confirm({
       message: 'Are you sure want to resend this Application to Verified?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        // this.api.resendApplication(user_id, app_id, user_name, 'verified', this.admin_email).subscribe((data: any) => {
-        //   if (data['status'] == 200) {
-        //     this.ngOnInit();
-        //     this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-        //   } else {
-        //     this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-        //   }
-        // })
+        this.api.resendApplication(user_id, app_id,type, this.admin_email).subscribe((data: any) => {
+          if (data['status'] == 200) {
+            this.ngOnInit();
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data['message'] });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message ']});
+          }
+        })
       },
 
       reject: () => {

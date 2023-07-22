@@ -1,7 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
-
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { NotesComponent } from '../dailogComponents/notes.component';
 interface PageEvent {
   first: number;
   rows: number;
@@ -12,10 +13,11 @@ interface PageEvent {
   selector: 'app-pending-applications',
   templateUrl: './pending-applications.component.html',
   styleUrls: ['./pending-applications.component.css'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService,DialogService]
 })
 export class PendingApplicationsComponent implements OnInit {
-
+  
+  ref:DynamicDialogRef;
   loading: boolean = false;
   tracker: any;
   status: any;
@@ -25,7 +27,7 @@ export class PendingApplicationsComponent implements OnInit {
   first: number = 0; 
   rows: number = 10;
   token:any;
-  user_email: any;
+  admin_email: any;
   filterText: any;
   filterTextRequested: any;
   totalCount:any;
@@ -41,12 +43,12 @@ export class PendingApplicationsComponent implements OnInit {
   @ViewChild('globalSearchR') globalSearchR!: ElementRef; 
 
 
-  constructor(protected api: ApiService,private confirmationService: ConfirmationService, private messageService: MessageService) {
+    constructor(protected api: ApiService,private confirmationService: ConfirmationService,private dialogService: DialogService, private messageService: MessageService) {
 
   }
   ngOnInit() {
     this.token = JSON.parse(localStorage.getItem('user')!)
-    this.user_email = this.token.data.user.user_email;
+    this.admin_email = this.token.data.user.user_email;
     this.refresh();
   }
   load() {
@@ -103,24 +105,37 @@ export class PendingApplicationsComponent implements OnInit {
 
 
 /**Reject Application function from pending TAb */
-rejectApplication(studentUserId:number,studentAppId:number){
-   console.log("studentUserId",studentUserId);
-   console.log("studentAppId",studentAppId); 
+  rejectApplication(studentUserId: number, studentAppId: number, type: string) { 
     this.confirmationService.confirm({
-        message: 'Are you sure that you want to reject this Application?',
-        header: 'Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-          this.api.rejectApplications(studentUserId ,studentAppId,this.user_email).subscribe((data : any)=>{
-            if(data['status'] == 200){
-              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+      message: 'Are you sure that you want to reject this Application?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.ref = this.dialogService.open(NotesComponent, {
+          data: {
+            type: 'rejected',
+            app_id: studentAppId
+          },
+          header: 'Notes Details',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: true,
+          closable: false
+        });
+        this.ref.onClose.subscribe(() => {
+          this.api.rejectApplications(studentUserId, studentAppId, this.admin_email, type).subscribe((data: any) => {
+            if (data['status'] == 200) {
               this.refresh();
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: data['message'] });
+            } else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
             }
           })
-           
-        }
+        });
+      }
     })
-}
+
+  }
 
 /**verify Application function from pending TAb */
 verifyApplication(userId:number,appId:number){
@@ -129,9 +144,9 @@ verifyApplication(userId:number,appId:number){
     header: 'Confirmation',
     icon: 'pi pi-exclamation-triangle',
     accept: () => {
-      this.api.verifiedApplication(userId ,appId,this.user_email).subscribe((data : any)=>{
+      this.api.verifiedApplication(userId ,appId,this.admin_email).subscribe((data : any)=>{
         if(data['status'] == 200){
-          this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+          this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: data['message'] });
           this.refresh();
         }
       }) 

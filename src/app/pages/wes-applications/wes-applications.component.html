@@ -78,7 +78,7 @@
                     <td><span class="pi pi-file"></span></td>
                     <td>
                         <span class="pi pi-user" pTooltip="View More" tooltipPosition="top"></span>
-                        <span class="pi pi-replay" (click)="resendApplication(wesData.user_id,wesData.app_id,wesData.name)"
+                        <span class="pi pi-replay" (click)="resendApplication(wesData.user_id,wesData.app_id)"
                         pTooltip="Resend" tooltipPosition="top"></span>
                         <span *ngIf="wesData.notes != null" class="pi pi-book"  pTooltip="View Notes" tooltipPosition="top"
                         (click)="showNotes(wesData.notes,wesData.id,wesData.user_id,wesData.collegeConfirmation)"></span>

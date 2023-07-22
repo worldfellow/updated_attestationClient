@@ -1,0 +1,47 @@
+/* .card-body{
+    background-color:rgb(239, 236, 230)
+} */
+
+.card-header{
+    background-color: rgb(102, 243, 222);
+    height: 60px;
+    font-size: 40px;
+    font-weight:450;
+    text-align: center; 
+}
+
+
+/* Style for the main container, using flexbox */
+.main-container {
+    display: flex;
+  }
+  
+  /* Style for the left side container */
+  .left-side {
+    flex: 0 0 70%;; /* Take up available space in the container */
+    padding: 10px; /* Add padding for spacing */
+  }
+  
+  /* Style for the right side container */
+  .right-side {
+    flex: 0 0 30%;; /* Take up available space in the container */
+    padding: 10px; /* Add padding for spacing */
+    /* Add any other styles for the right side content */
+  }
+  
+ 
+  .help{
+    text-align:center;
+    top: 30px;
+    padding-bottom: 20px;
+  }
+
+  .imageContainer{
+    margin-top:75px;
+    width: 200px;
+    border-radius: 10px; 
+  }
+
+  .Container2{
+    margin-right: 50%;
+  }

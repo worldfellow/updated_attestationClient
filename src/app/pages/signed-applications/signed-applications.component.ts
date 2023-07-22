@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import * as moment from 'moment';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { MatDialog } from '@angular/material/dialog';
-import { ShowNotesComponent } from '../dialog/show-notes/show-notes.component';
+import { MatDialog } from '@angular/material/dialog'; 
 import { saveAs } from 'file-saver';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { NotesComponent } from '../dailogComponents/notes.component';
 
 interface PageEvent {
   first: number;
@@ -18,9 +19,10 @@ interface PageEvent {
   selector: 'app-signed-applications',
   templateUrl: './signed-applications.component.html',
   styleUrls: ['./signed-applications.component.css'],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, DialogService],
 })
 export class SignedApplicationsComponent {
+  ref: DynamicDialogRef;
   rangeDates: Date[] | undefined;
   value: string | undefined;
   signedData: any[] = [];
@@ -44,6 +46,7 @@ export class SignedApplicationsComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private dialog: MatDialog,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -141,17 +144,27 @@ console.log("karthik",purposeSearch);
   }
 
   showNotes(notes: any, app_id: any, user_id: any, collegeConfirmation: any) {
-    const dialogRef = this.dialog.open(ShowNotesComponent, {
+    this.ref = this.dialogService.open(NotesComponent, {
       data: {
         notes_data: notes,
         app_id: app_id,
         user_id: user_id,
         collegeConfirmation: collegeConfirmation,
+      },
+      header: 'Notes Details',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      closable: true
+    });
+    this.ref.onClose.subscribe((data: any) => {  
+      if (data) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Details Saved Successfully!' });
+        this.refresh(0, 10, " ", " "); 
       }
-    }).afterClosed().subscribe(result => {
-      this.ngOnInit();
     });
   }
+
 
   rejectApplication(user_id: any, app_id: any, user_name: any) {
     this.confirmationService.confirm({
@@ -160,14 +173,27 @@ console.log("karthik",purposeSearch);
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        this.api.rejectApplication(user_id, app_id, user_name, 'verified', this.admin_email).subscribe((data: any) => {
-          if (data['status'] == 200) {
-            this.ngOnInit();
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-          } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-          }
-        })
+        this.ref = this.dialogService.open(NotesComponent, {
+          data: {
+            type: 'rejected',
+            app_id: app_id
+          },
+          header: 'Notes Details',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: true,
+          closable: false
+        });
+        this.ref.onClose.subscribe(() => { 
+          this.api.rejectApplications(user_id, app_id, 'verified', this.admin_email).subscribe((data: any) => {
+            if (data['status'] == 200) {
+              this.refresh(0, 10," "," ");
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: data['message'] });
+            } else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
+            }
+          })
+        });
       },
 
       reject: () => {
@@ -176,14 +202,14 @@ console.log("karthik",purposeSearch);
     })
   }
 
-  resendApplication(user_id: any, app_id: any, user_name: any) {
+  resendApplication(user_id: any, app_id: any,type:string) {
     this.confirmationService.confirm({
       message: 'Are you sure want to resend application?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        this.api.resendApplication(user_id, app_id, user_name, 'verified', this.admin_email).subscribe((data: any) => {
+        this.api.resendApplication(user_id, app_id,type, this.admin_email).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.ngOnInit();
             this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
