@@ -30,10 +30,7 @@ export class DashboardComponent implements OnInit {
     this.token = JSON.parse(localStorage.getItem('user')!)
     this.user_name = this.token.data.user.user_name;
 
-    this.api.setuserId(this.token).subscribe((response)=>{
-
-    })
-
+    
     // this.api.getpreAppldetails().subscribe((response)=>{
     //   // if(response['status'] == 200)
     //   // {

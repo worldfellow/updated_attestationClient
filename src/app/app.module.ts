@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
@@ -13,6 +13,7 @@ import { OneColumnModule } from './one-column/one-column.module';
 // import { SidenavComponent } from './pages/sidenav/sidenav.component';
 // import { BodyComponent } from './pages/body/body.component';
 import { MatMenuModule } from '@angular/material/menu'; 
+import { AuthInterceptor } from './auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { MatMenuModule } from '@angular/material/menu';
     OneColumnModule,
     CommonModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
