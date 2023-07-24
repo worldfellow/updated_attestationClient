@@ -1,1 +1,129 @@
-<p>payment-issue works!</p>
+<div class="card-header" >
+    <h5>If you have completed the payment & still the portal is not showing your application, then fill out the below form</h5>
+</div>
+<br>
+<form [formGroup]="registerForm" >
+    <div >
+        <label>Registed Email</label><span style="color: red;">*</span>
+        <input type="text"  class="form-control" formControlName="emailCtrl" [ngClass]="{'is-invalid': registerForm.get('emailCtrl')?.invalid && (registerForm.get('emailCtrl')?.dirty || registerForm.get('emailCtrl')?.touched)}">
+        <div *ngIf="registerForm.get('emailCtrl')?.invalid && (registerForm.get('emailCtrl')?.dirty || registerForm.get('emailCtrl')?.touched)" class="invalid-feedback">
+            Email must be a valid email address
+        </div>
+      <br>
+    </div>
+    <div class="form-group">
+        <label for="transaction">CCAvenue Reference No.</label><span style="color: red;">*</span>
+        <input type="number" formControlName="transactionCtrl" class="form-control" [ngClass]="{'is-invalid': registerForm.get('transactionCtrl')?.invalid && (registerForm.get('transactionCtrl')?.dirty || registerForm.get('transactionCtrl')?.touched)}" />
+        <br>
+    </div>
+    <div class="form-group">
+        <label for="bankref">Bank Reference No.</label><span style="color: red;">*</span>
+        <input type="number" formControlName="bankrefCtrl" class="form-control"  [ngClass]="{'is-invalid': registerForm.get('bankrefCtrl')?.invalid && (registerForm.get('bankrefCtrl')?.dirty || registerForm.get('bankrefCtrl')?.touched)}"/>
+        <br>
+    </div>
+    <div class="form-group">
+        <mat-hint for="paymentdate" >Payment Date</mat-hint><span style="color: red;">*</span>
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>today</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <input matInput [matDatepicker]="picker" ype="paymentdate" formControlName="paymentdateCtrl" class="form-control" [ngClass]="{'is-invalid': registerForm.get('paymentdateCtrl')?.invalid && (registerForm.get('paymentdateCtrl')?.dirty || registerForm.get('paymentdateCtrl')?.touched)}">        
+        <br>
+    </div>
+    <div class="form-group">
+        <label for="ordeid">Order No.</label><span style="color: red;">*</span>
+        <input type="number" formControlName="ordeidCtrl" class="form-control"  [ngClass]="{'is-invalid': registerForm.get('ordeidCtrl')?.invalid && (registerForm.get('ordeidCtrl')?.dirty || registerForm.get('ordeidCtrl')?.touched)}"/>
+        
+        <br>
+    </div>
+    <div class="form-group">
+        <label for="amount">Amount(in figures)</label><span style="color: red;">*</span>
+        <input type="number" formControlName="amountCtrl" class="form-control" [ngClass]="{'is-invalid': registerForm.get('amountCtrl')?.invalid && (registerForm.get('amountCtrl')?.dirty || registerForm.get('amountCtrl')?.touched)}" />
+        
+        <br>
+    </div>
+   <div class="form-group">
+        <label for="note">Issue Description:</label><span style="color: red;">*</span>
+        <mat-form-field style="height: 150px; width: 450px;">
+            <textarea style="height: 90px;" type="note" formControlName="noteCtrl" class="form-control" matInput></textarea>
+          </mat-form-field>
+        <br>
+    </div>
+    <div class="form-group">
+      <div class="row" *ngIf="base64Image">
+        <div class="text-center col-md-6">
+          <h4 class="cropPreview">Crop</h4>
+          <div class="row" style="margin-top: 15px;">
+            <div class="text-center col-md-8" *ngIf="imageChangedEvent">
+              <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+              format="png" (imageCropped)="imageCropped($event)">
+              </image-cropper>
+            </div>
+          </div>
+        </div>
+      </div>   
+    <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
+    (change)="handleFileInput($event)"> 
+  <!-- <p-button  (click)="uploadDetails($event)" label="Upload"></p-button> -->
+  </div>
+
+    <div class="form-group">
+        <button (click)="uploadDetails()" class="btn btn-primary">Submit</button>
+    </div>
+    
+</form>
+
+<div class="wrapper">
+  <table id="selectedColumn">
+    <thead>
+      <tr>
+        <th>Traking ID</th>
+        <th>Email</th>
+        <th>CCAvenue Reference No</th>
+        <th>Bank Reference No</th>
+        <th>Payment Date</th>
+        <th>Amount</th>
+        <th>Order No</th>
+        <th>Issue Description</th>
+        <th>Status</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let student of issuedata">
+        <td>
+          {{student?.id}}
+        </td>
+        <td>
+          {{student?.email}}
+        </td>
+        <td>
+          {{student?.transaction_id}}
+        </td>
+        <td>
+          {{student?.bank_refno}}
+        </td>
+        <td>
+          {{student?.date}}
+        </td>
+        <td>
+          {{student?.amount}}
+        </td>
+        <td>
+          {{student?.order_id}}
+        </td>
+        <td >
+          {{student?.tracker}}
+          <br>
+        <span *ngIf="student?.tracker == 'Reject'" style="color: red;">Reason for rejection send on your Register Mail</span>
+        </td>
+        <td>
+         Click here
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+  
+</div>

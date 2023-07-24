@@ -24,7 +24,7 @@ import { ActivatedRoute } from '@angular/router';
   <div class="col-md-6">
   <p-dropdown  [style]="{'width':'25rem'}"
   [options]="collegeCourse"  [virtualScroll]="true" formControlName="courseNameCtrl" [(ngModel)]="courseName"
-  [virtualScrollItemSize]="30" optionLabel="faculty" [editable] = true [filter]="true" filterBy="faculty" [showClear]="true"
+  [virtualScrollItemSize]="30" optionLabel="full_name" [editable] = true [filter]="true" filterBy="full_name" [showClear]="true"
   placeholder="Select a CollegeName">
   </p-dropdown>
   </div>
@@ -111,7 +111,9 @@ export class CollegeDetailsComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.file);
     formData.append('user_id', this.user_id);
+    console.log('sssssssssssss' ,formData)
     this.api.ScanData('','','','',this.app_id,this.user_id,this.type,formData).subscribe((data: any) => {
+      
       if (data['status'] == 200) {
         this.collegeName = data['data'][0];
         this.courseName = data['data'][1];
@@ -119,10 +121,13 @@ export class CollegeDetailsComponent implements OnInit {
         this.documentId = data['data'][3];
         this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Uploaded Successfully!' });
          this.CollegeDetails.patchValue({
-          collegeNameCtrl: this.collegeName,
-          semYearCtrl : this.patteren,
-          courseNameCtrl : this.courseName
+          collegeNameCtrl: this.collegeName[0],
+          semYearCtrl : this.patteren[0],
+          courseNameCtrl : this.courseName[0]
          })
+      }else if(data['status'] == 401){
+        // this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Change your delivery Type' });
+        this.ref.close(401)
       }else{
         this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Kindly Upload Proper Documents which are visible' });
       }
@@ -154,6 +159,8 @@ export class CollegeDetailsComponent implements OnInit {
   }
 
   saveCollegeDetails() {
+    console.log('eeeeeeeeeeee')
+    console.log('this.CollegeDetails' ,this.CollegeDetails.value)
     var data=[];
     data.push({'collegeId' : this.CollegeDetails.controls['collegeNameCtrl'].value['id'] , 'faculty' :this.CollegeDetails.controls['courseNameCtrl'].value['faculty']
     , 'degree' : this.CollegeDetails.controls['courseNameCtrl'].value['degree'],'patteren' : this.CollegeDetails.controls['semYearCtrl'].value,'user_id' : this.user_id})
@@ -161,6 +168,9 @@ export class CollegeDetailsComponent implements OnInit {
     this.api.saveUserMarkList(this.documentId,this.app_id,this.user_id,this.type,data).subscribe( (data: any) => {
       if (data['status'] == 200) {
         this.ref.close();
+      }else if(data['status'] == 401){
+        this.ref.close(401)
+
       }else{
         this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Details Not Updated!' });
       }

@@ -1,7 +1,6 @@
 <p-card class="card">
-  <mat-tab-group class="mat-tab-group-custom">
-
-    <mat-tab *ngIf="activeTab1 == true">
+  <mat-tab-group class="mat-tab-group-custom" #tabGroup  (selectedTabChange)="myTabSelectedIndexChange($event)"  [selectedIndex]="tabcheck1">  
+    <mat-tab >
       <br>
       <ng-template mat-tab-label>
         <div class="title"> Upload Marksheets</div>
@@ -61,10 +60,12 @@
                     <h4 class="cropPreview">Crop</h4>
                     <div class="row" style="margin-top: 15px;">
                       <div class="text-center col-md-8" *ngIf="imageChangedEvent">
-                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+                        <image-cropper 
+                        [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
                         format="png" (imageCropped)="imageCropped($event)">
                         </image-cropper>
                       </div>
+                      <img [src]="croppedImage" />
                     </div>
                   </div>
                 </div>
@@ -104,8 +105,131 @@
         </mat-card>
       </div>
     </mat-tab>
-    <!-- Instructional Details -->
-    <mat-tab   >
+ <!-- Transcripts Details -->
+   <mat-tab >
+      <br>
+      <ng-template mat-tab-label>
+        <div class="title"> Upload Transcripts</div>
+      </ng-template>
+      <div class="tab-content">
+        <mat-card>
+          <div class="instruction">
+            <h4 class="innerHeader">Upload Transcripts Files</h4>
+            <h4>Instructions</h4>
+            <span>
+              1. File size should not exceed 5MB (per document) and accepted formats are jpg, jpeg, png or pdf.
+            </span><br>
+            <span>
+              2. Multiple degree marksheet attestation can also be requested (It shall be considered as a single
+              application only)
+            </span><br>
+            <span>
+              3. Upload digital copies or legible scanned copies (CamScanner documents will not be accepted)
+            </span><br>
+            <span>
+              4. Do not merge marksheets otherwise application will be rejected
+            </span><br>
+            <span style="color :red">
+              5. Incorrect selection of college name will lead to rejection of application
+            </span><br>
+            <span style="color :red">
+              6.ATKT /Fail marksheet should be uploaded in Add More section
+            </span><br><span style="color :red; font-size : 16px;">
+              7. For (10+3) Diploma holders, No need to upload first year / first two semesters documents.</span>
+            <br>
+            <span style="color :red; font-size : 16px;">
+              8.For Currently studying students, No need to upload last year / last two semesters documents.</span>
+            <br>
+            <span style="color :red; font-size : 16px;">
+              9. If you select NameChangeLetter option,kindly upload the latest marksheet.</span>
+            <br>
+            <br>
+          </div>
+          <mat-card class="innercard">
+            <mat-card-header style="font-size: 20px;">
+              Upload your Transcripts's
+            </mat-card-header>
+            <br><br>
+            <mat-card-content>
+
+              <div class="card flex justify-content-center">
+                <p-toast></p-toast>
+                <head>
+                  <!-- v2 -->
+                  <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+                  <!-- v1 -->
+                  <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script>
+                </head>
+
+                <div class="row" *ngIf="base64Image">
+                  <div class="text-center col-md-6">
+                    <h4 class="cropPreview">Crop</h4>
+                    <div class="row" style="margin-top: 15px;">
+                      <div class="text-center col-md-8" *ngIf="imageChangedEvent">
+                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+                        format="png" (imageCropped)="imageCropped($event)">
+                        </image-cropper>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body" >
+                  <p-toast></p-toast>
+                  <form class="needs-validation" [formGroup]="uploadForm" novalidate> 
+                   
+                    <div class="table">
+                      <p-table [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>Name of the Course </th>
+                            <th>Name of the College</th>
+                            <th>Actions</th>
+                          </tr>
+                          <tr class="tablecontent" *ngFor="let transcriptdata of transcriptDisplay">
+                            <td> {{transcriptdata.coursename}} </td>
+                            <td>{{transcriptdata.college}} </td>
+                            <td>
+                              <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
+                              (change)="handleFileInput($event)"> 
+                              <p-button  (click)="uploadDetails($event,'transcript',transcriptdata.coursename,transcriptdata.college,transcriptdata.collegeid,transcriptdata.faculty,transcriptdata.education_type,transcriptdata.patteren)" label="Upload"></p-button>
+                          </td>
+
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <br><br> 
+                    <div class="table">
+                      <p-table [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>File Name</th>
+                            <th>Name of the College</th>
+                            <th>Actions</th>
+                          </tr>
+                          <tr class="tablecontent" *ngFor="let marksheet of transcripts">
+                            <td> {{marksheet.name}} </td>
+                            <td>{{marksheet.CollegeName}} </td>
+                            <td> <i class="pi pi-eye" (click)="imageView()"
+                                style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i> 
+                                <i class="pi pi-trash" style="font-size: 1.5rem" (click)="deleteDocument(marksheet.id,'transcript')"></i></td>
+
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </form>
+                </div>
+
+
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-card>
+      </div>
+    </mat-tab>
+  <!-- Instructional Details -->
+  <mat-tab>
       <ng-template mat-tab-label>
         <div class="title">Instructional Details</div>
       </ng-template>
@@ -363,11 +487,11 @@
           </div>
         </mat-card>
 
-      </div>
+      </div>  
     </mat-tab> 
 
 <!-- Affiliation Details -->
-    <mat-tab  >
+   <mat-tab  >
       <ng-template mat-tab-label>
         <div class="title">Affiliation Letter Details</div>
       </ng-template>
@@ -615,130 +739,7 @@
 
       </div>
     </mat-tab>
-    <mat-tab *ngIf="activeTab2 == true">
-      <br>
-      <ng-template mat-tab-label>
-        <div class="title"> Upload Transcripts</div>
-      </ng-template>
-      <div class="tab-content">
-        <mat-card>
-          <div class="instruction">
-            <h4 class="innerHeader">Upload Transcripts Files</h4>
-            <h4>Instructions</h4>
-            <span>
-              1. File size should not exceed 5MB (per document) and accepted formats are jpg, jpeg, png or pdf.
-            </span><br>
-            <span>
-              2. Multiple degree marksheet attestation can also be requested (It shall be considered as a single
-              application only)
-            </span><br>
-            <span>
-              3. Upload digital copies or legible scanned copies (CamScanner documents will not be accepted)
-            </span><br>
-            <span>
-              4. Do not merge marksheets otherwise application will be rejected
-            </span><br>
-            <span style="color :red">
-              5. Incorrect selection of college name will lead to rejection of application
-            </span><br>
-            <span style="color :red">
-              6.ATKT /Fail marksheet should be uploaded in Add More section
-            </span><br><span style="color :red; font-size : 16px;">
-              7. For (10+3) Diploma holders, No need to upload first year / first two semesters documents.</span>
-            <br>
-            <span style="color :red; font-size : 16px;">
-              8.For Currently studying students, No need to upload last year / last two semesters documents.</span>
-            <br>
-            <span style="color :red; font-size : 16px;">
-              9. If you select NameChangeLetter option,kindly upload the latest marksheet.</span>
-            <br>
-            <br>
-          </div>
-          <mat-card class="innercard">
-            <mat-card-header style="font-size: 20px;">
-              Upload your Transcripts's
-            </mat-card-header>
-            <br><br>
-            <mat-card-content>
-
-              <div class="card flex justify-content-center">
-                <p-toast></p-toast>
-                <head>
-                  <!-- v2 -->
-                  <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
-                  <!-- v1 -->
-                  <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script>
-                </head>
-
-                <div class="row" *ngIf="base64Image">
-                  <div class="text-center col-md-6">
-                    <h4 class="cropPreview">Crop</h4>
-                    <div class="row" style="margin-top: 15px;">
-                      <div class="text-center col-md-8" *ngIf="imageChangedEvent">
-                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
-                        format="png" (imageCropped)="imageCropped($event)">
-                        </image-cropper>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body" >
-                  <p-toast></p-toast>
-                  <form class="needs-validation" [formGroup]="uploadForm" novalidate> 
-                   
-                    <div class="table">
-                      <p-table [tableStyle]="{ 'min-width': '50rem' }">
-                        <ng-template pTemplate="header">
-                          <tr>
-                            <th>Name of the Course </th>
-                            <th>Name of the College</th>
-                            <th>Actions</th>
-                          </tr>
-                          <tr class="tablecontent" *ngFor="let transcriptdata of transcriptDisplay">
-                            <td> {{transcriptdata.coursename}} </td>
-                            <td>{{transcriptdata.college}} </td>
-                            <td>
-                              <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
-                              (change)="handleFileInput($event)"> 
-                              <p-button  (click)="uploadDetails($event,'transcript',transcriptdata.coursename,transcriptdata.college,transcriptdata.collegeid,transcriptdata.faculty,transcriptdata.education_type,transcriptdata.patteren)" label="Upload"></p-button>
-                          </td>
-
-                          </tr>
-                        </ng-template>
-                      </p-table>
-                    </div>
-                    <br><br> 
-                    <div class="table">
-                      <p-table [tableStyle]="{ 'min-width': '50rem' }">
-                        <ng-template pTemplate="header">
-                          <tr>
-                            <th>File Name</th>
-                            <th>Name of the College</th>
-                            <th>Actions</th>
-                          </tr>
-                          <tr class="tablecontent" *ngFor="let marksheet of transcripts">
-                            <td> {{marksheet.name}} </td>
-                            <td>{{marksheet.CollegeName}} </td>
-                            <td> <i class="pi pi-eye" (click)="imageView()"
-                                style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i> 
-                                <i class="pi pi-trash" style="font-size: 1.5rem" (click)="deleteDocument(marksheet.id,'transcript')"></i></td>
-
-                          </tr>
-                        </ng-template>
-                      </p-table>
-                    </div>
-                  </form>
-                </div>
-
-
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </mat-card>
-      </div>
-    </mat-tab>
-
-    <!-- Competency Letter --> 
+  <!-- Competency Letter --> 
 <ng-container *ngFor="let degree of degrees">
   <mat-tab  *ngIf="CompetencyLetter == true && degree == 'Bachelors'" >
     <ng-template mat-tab-label>
@@ -866,7 +867,8 @@
     </div>
   </mat-tab> 
 </ng-container>
-    <mat-tab *ngIf="activeTab2 == true">
+  <!-- Curriculum Details -->
+  <mat-tab>
       <br>
       <ng-template mat-tab-label>
         <div class="title"> Upload Curriculum</div>
@@ -967,7 +969,7 @@
                             <th>Name of the College</th>
                             <th>Actions</th>
                           </tr>
-                          <tr class="tablecontent" *ngFor="let data of curriculum">
+                          <tr class="tablecontent" *ngFor="let data of curriculumData">
                             <td> {{data.name}} </td>
                             <td>{{data.CollegeName}} </td>
                             <td> <i class="pi pi-eye" (click)="imageView()"
@@ -987,7 +989,8 @@
         </mat-card>
       </div>
     </mat-tab>
-    <mat-tab *ngIf="activeTab2 == true">
+    <!-- Upload GradeToPercentage Details -->
+   <mat-tab>
       <br>
       <ng-template mat-tab-label>
         <div class="title"> Upload GradeToPercentage</div>
@@ -1106,7 +1109,8 @@
         </mat-card>
       </div>
     </mat-tab>
-    <!-- <mat-tab *ngIf="activeTab3 == true">
+    <!-- Letter For Mother Name on Marksheet Details -->
+    <mat-tab>
       <ng-template mat-tab-label>
         <div class="title"> Letter For Mother Name on Marksheet</div>
       </ng-template>
@@ -1221,8 +1225,9 @@
 
 
       </div>
-    </mat-tab> -->
-    <mat-tab *ngIf="activeTab2 == true">
+    </mat-tab>
+<!-- Name Change Proof Details -->
+     <mat-tab>
       <br>
       <ng-template mat-tab-label>
         <div class="title"> Name Change Proof</div>
@@ -1299,7 +1304,7 @@
                   </form>
                 </div>
 
-
+                
               </div>
             </mat-card-content>
           </mat-card>

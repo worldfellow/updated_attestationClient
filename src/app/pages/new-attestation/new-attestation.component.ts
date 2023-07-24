@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { AuthService } from 'src/app/auth.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-attestation',
@@ -20,20 +23,35 @@ export class NewAttestationComponent implements OnInit {
   CompetencyLetter: any;
   LetterforNameChange: any;
   token: any;
+  phd: any;
   user_id: any;
   formdata: any;
   showButton: boolean;
   firstComplete: boolean = false;
   message: any;
   appliedData: any;
+  degree : any[] = [];
+  degreeselected: any;
+  tabcheck1: any;
+  tabcheck2: any;
+  tabcheck3: any;
+  app_id: string | null;
+  tabcheck_inner1: any;
+  tabcheck_inner2: any;
+  tabcheck_inner3: any;
 
   constructor(
+    private router: Router,
     protected api: ApiService,
+    private auth: AuthService,
     private fb: FormBuilder,
+    private route : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    
     this.token = JSON.parse(localStorage.getItem('user')!);
+    this.app_id = this.route.snapshot.queryParamMap.get('app_id');
     this.user_id = this.token.data.user.user_id;
 
     this.api.getEducationalDetails(this.user_id, null).subscribe((data: any)=>{
@@ -53,24 +71,48 @@ export class NewAttestationComponent implements OnInit {
       affiliation: [],
       CompetencyLetter: [],
       LetterforNameChange: [],
+      phd : [Validators.required]
     })
+    this.degree = [
+      { name: 'Bachelors', code: 'Bachelors' },
+      { name: 'Bachelors,Masters', code: 'Bachelors,Masters' },
+      { name: 'Masters', code: 'Masters' },
+      { name: 'Phd', code: 'Phd' },
+      { name: 'Bachelors,Masters,Phd', code: 'Bachelors,Masters,Phd' }
+  ];
+      this.getUserEducation();
+      if(this.firstForm.valid){
+        this.showButton = true;
+      }
+      this.checkStepper();
   }
 
-  onChange(){
+  onChange(event : any){
     this.formdata = this.firstForm.value;
     
-    if(this.formdata.educationalDetails == true || this.formdata.instructionalDetails == true || this.formdata.curriculumDetails == true || this.formdata.gradToPer == true || this.formdata.affiliation == true || this.formdata.CompetencyLetter == true || this.formdata.LetterforNameChange == true){
+    console.log('this.formdata.phd' ,this.formdata)
+    // if((this.formdata.educationalDetails == true || this.formdata.instructionalDetails == true || this.formdata.curriculumDetails == true || this.formdata.gradToPer == true || this.formdata.affiliation == true || this.formdata.CompetencyLetter == true || this.formdata.LetterforNameChange == true) && (this.formdata.phd == true ||  this.formdata.phd == false )){
+    if((this.formdata.educationalDetails == true  )){
       this.showButton = true;
+      console.log('this.showButton' ,this.showButton)
     }else{
       this.showButton = false;
+      console.log('ddddddddddddd')
     }
   }
-
   getUserEducation() {
-    console.log("inside userEducation");
-
+    
+    this.api.getAppliedUserDetail(this.user_id).subscribe((data: any) => {
+        this.educationalDetails =  data['data'].educationalDetails;
+        this.instructionalDetails = data['data'].instructionalField;
+        this.curriculumDetails = data['data'].curriculum;
+        this.gradToPer = data ['data'].gradToPer;
+        this.affiliation = data['data'].affiliation;
+        this.CompetencyLetter = data['data'].CompetencyLetter;
+        this.LetterforNameChange = data['data'].LetterforNameChange;
+        this.phd =  data['data'].isphd
+    })
   }
-
   checktabs(event: any){
     // console.log("indexsdasds",event);
     
@@ -85,29 +127,39 @@ export class NewAttestationComponent implements OnInit {
     //   }
     // }
   }
-
+  onDegreeselected(event : any){
+    console.log('event',event)
+    this.degreeselected = event.value.name;
+  }
   checkStepper(){
-    console.log("inside checkstepper");
+    this.api.checkstepper(this.user_id,this.app_id).subscribe((response: any) => {
+      this.tabcheck1 = response['data'].tab1
+      this.tabcheck2 = response['data'].tab2
+      this.tabcheck3 = response['data'].tab3
+
+     if(this.tabcheck1 == true){
+        this.stepper.selectedIndex = 1;
+      }
+      if(this.tabcheck2 == true){
+        this.stepper.selectedIndex = 2
+      }
+      if(this.tabcheck3 == true){
+        this.stepper.selectedIndex = 3
+      }
+    })
     
   }
-
   eduDetails(){
     this.firstComplete = true;
     this.formdata = this.firstForm.value;
-
-    this.api.addUserEducationalDetails(this.formdata, this.user_id).subscribe((response: any) => {
+    this.api.addUserEducationalDetails(this.formdata, this.user_id ,this.degreeselected).subscribe((response: any) => {
       if (response['status'] == 200) {
         this.message = response.message;
       }
     });
   }
-
   nextStep() {
     console.log("selectedIndex == " + this.stepper.selectedIndex);
-    // this.eduDetails(this.message);
-    // console.log("selectedIndex == " + this.messgae);
-
-    // if(this.stepper.selectedIndex == 1 && )
   }
 
 }

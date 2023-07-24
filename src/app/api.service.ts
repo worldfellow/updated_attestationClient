@@ -88,9 +88,14 @@ export class ApiService {
 
   //new api's========================================================================================================================================================
 
-  addUserEducationalDetails(formdata: any, user_id: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/educationalDetails`, { "formdata": formdata, "user_id": user_id });
+  addUserEducationalDetails(formdata: any, user_id: any ,degree : any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/educationalDetails`, { "formdata": formdata, "user_id": user_id ,"degree" : degree});
   }
+
+  getPurposeList(purpose_name: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getPurposeList?purpose_name=${purpose_name}`);
+  }
+
 
   deleteInstituteHrd(institute_id: any, purpose_name: any, user_id: any) {
     return this.httpClient.post(`${this.baseUrl}/api/student/deleteInstituteHrd`, { "institute_id": institute_id, "purpose_name": purpose_name, "user_id": user_id });
@@ -257,9 +262,6 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/student/getUploadeddocument_student?user_id=${user_id}&app_id=${app_id}`);
   }
 
-  getPurposeList(purpose_name: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getPurposeList?purpose_name=${purpose_name}`);
-  }
 
   getDownloadExcel(startDate: any, endDate: any, type: any, tracker: any, status: any) {
     return this.httpClient.get(`${this.baseUrl}/api/admin/getDownloadExcel?startDate=${startDate}&endDate=${endDate}&type=${type}&tracker=${tracker}&status=${status}`);
@@ -330,5 +332,39 @@ export class ApiService {
   getEducationalDetails(user_id: any, app_id: any) {
     return this.httpClient.get(`${this.baseUrl}/api/student/getEducationalDetails?user_id=${user_id}&app_id=${app_id}`);
   }
+
+    // checkstepper api for student.
+    checkstepper(user_id: any ,app_id : any) {
+      return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper?user_id=${user_id}&app_id=${app_id}`);
+    }
+  
+    // checkstepper api for student on 2nd step.
+    checkstepper_inner(user_id: any ,app_id : any) {
+      return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper_inner?user_id=${user_id}&app_id=${app_id}`);
+    }
+  
+  
+    getCountry() {
+      return this.httpClient.get(`${this.baseUrl}/api/student/getCountry`);
+    }
+  
+    Register(values : any) {
+      return this.httpClient.post(`${this.baseUrl}/api/student/register` ,{"values" : values});
+    }
+  
+      /* To save the Payment Issue Details */
+      savepaymentissuedata(data: any, user_id: any ,formData: any) {
+        console.log('formData',formData)
+        return this.httpClient.post(`${this.baseUrl}/api/student/savePaymentIssueData?data=${data}&user_id=${user_id}`,formData);
+      }
+    
+      /* To get the Payment Issue Details */
+      getpaymentissuedata(user_id: any) {
+        return this.httpClient.get(`${this.baseUrl}/api/student/getPaymentIssueData?user_id=${user_id}`);
+      }
+  /* To set userid in backend */
+  setuserId(token : any) {
+        return this.httpClient.get(`${this.baseUrl}/api/student/setUserId?token=${token}`);
+      }
 
 }    

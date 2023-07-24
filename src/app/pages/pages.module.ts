@@ -105,6 +105,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { AddSubAdminComponent } from './dialog/add-sub-admin/add-sub-admin.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { ViewSubAdminRolesComponent } from './dialog/view-sub-admin-roles/view-sub-admin-roles.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -237,6 +240,10 @@ import { ViewSubAdminRolesComponent } from './dialog/view-sub-admin-roles/view-s
     AutoCompleteModule,
     CheckboxModule,
     MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTableModule
+
   ],
   providers:[AuthGuard]
 })

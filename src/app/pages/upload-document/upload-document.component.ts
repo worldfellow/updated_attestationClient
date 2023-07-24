@@ -1,4 +1,4 @@
-import { Component, OnInit, VERSION, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, VERSION, Input, ViewChild ,Output} from '@angular/core';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ImageViewComponent } from '../dailogComponents/image-view.component';
@@ -11,6 +11,7 @@ import { createWorker } from 'tesseract.js';
 import { ImageCroppedEvent } from "ngx-image-cropper";
 import { CollegeDetailsComponent } from '../dailogComponents/college-details.component';
 import { ActivatedRoute } from '@angular/router';
+import { EventEmitter } from '@angular/core';
 import { TranscriptDailogComponent } from '../dailogComponents/transcript-dailog.component';
 import { CompetencyDailogComponent } from '../dailogComponents/competency-dailog.component';
 
@@ -22,8 +23,8 @@ import { CompetencyDailogComponent } from '../dailogComponents/competency-dailog
   providers: [ConfirmationService, MessageService, DialogService]
 })
 export class UploadDocumentComponent implements OnInit {
-
-
+  @ViewChild('tabGroup') tabGroup : any;
+  @Output() selectedTabChange:EventEmitter<number> 
 
   ref: DynamicDialogRef;
   position: string;
@@ -45,10 +46,6 @@ export class UploadDocumentComponent implements OnInit {
   NameChangeLetterUrl = config.NameChangeLetterUrl;
   CompetencyletterUploadUrl = config.CompetencyletterUploadUrl;
   namechangeletterdetails: any;
-  activeTab1: boolean = true;
-  activeTab2: boolean = true;
-  activeTab3: boolean = true;
-  activeTab4: boolean = true;
   selectedCollege: any;
   app_id_namechange: any;
   division: any[] = []; 
@@ -108,8 +105,16 @@ export class UploadDocumentComponent implements OnInit {
   curriculum:any
   gradToPer:any;
   LetterforNameChange:any;
- 
-
+  curriculumData: any = [];
+  tabcheck1: any;
+  tabcheck2: any;
+  tabcheck3: any;
+  tabcheck4: any;
+  tabcheck5: any;
+  tabcheck6: any;
+  tabcheck7: any;
+  tabcheck8: any;
+  stepper: any;
 
   constructor(private confirmationService: ConfirmationService, private fb: FormBuilder, protected api: ApiService, private messageService: MessageService, private dialogService: DialogService, private authService: AuthService,private route : ActivatedRoute) {
     this.initialize();
@@ -139,7 +144,8 @@ export class UploadDocumentComponent implements OnInit {
 
   ngOnInit() {
     this.app_id = this.route.snapshot.queryParamMap.get('app_id');
-
+    this.token = JSON.parse(localStorage.getItem('user')!)
+    this.user_id = this.token.data.user.user_id;
     this.uploadForm = this.fb.group({
       fileInputCtrl: ['', Validators.required],
       collegeId : ['']
@@ -154,7 +160,7 @@ export class UploadDocumentComponent implements OnInit {
       this.curriculum = userApplied.curriculum;
       this.gradToPer = userApplied.gradToPer;
       this.LetterforNameChange = userApplied.letterforNameChange;
-      }) 
+    }) 
 
     this.token = JSON.parse(localStorage.getItem('user')!)
     this.user_id = this.token.data.user.user_id;
@@ -198,7 +204,7 @@ export class UploadDocumentComponent implements OnInit {
     });
 
     this.refresh()
-
+    this.checkStepper();
   }
 
   /** Get Data of Instructional and Affiliation letter forms through Api */
@@ -359,8 +365,8 @@ export class UploadDocumentComponent implements OnInit {
         maximizable: true
       });
       this.ref.onClose.subscribe(() => {
-        this.refresh();
-         this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Details Saved Successfully!' });
+          this.refresh();
+          this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Details Saved Successfully!' });
       });
     }else{
       this.file = fileUrl
@@ -706,14 +712,13 @@ export class UploadDocumentComponent implements OnInit {
   }
   refresh(){
     this.api.getUploadedDocuments(this.user_id,this.app_id).subscribe((data:any)=>{
-      console.log(' DTA ' ,data)
       if(data['status']==200){
         this.marksheets = data['data'][0];
         this.transcripts = data['data'][1];
         this.transcriptDisplay = data['data'][2];
         this.uniqueCollegeName = data['data'][3];
         this.extraData = data['data'][4];
-        this.curriculum = data['data'][5];
+        this.curriculumData = data['data'][5];
         this.gradtoper = data['data'][6];
       }
   })
@@ -748,11 +753,44 @@ export class UploadDocumentComponent implements OnInit {
 }
 
 
- /**
+checkStepper(){
+  this.api.checkstepper_inner(this.user_id,this.app_id).subscribe((response: any) => {
+    if(response['data'].tab1 == true){
+        this.tabcheck1 = 2
+    }
+    else if(response['data'].tab2 == true){
+      this.tabcheck1 = 3
+    }
+    else if(response['data'].tab3 == true){
+      this.tabcheck1 = 4
+    }
+    else if(response['data'].tab4 == true){
+      this.tabcheck1 = 5
+    }
+    else if(response['data'].tab5 == true){
+      this.tabcheck1 = 6
+    }
+    else if(response['data'].tab6 == true){
+      this.tabcheck1 = 7
+    }
+    else if(response['data'].tab7 == true){
+      this.tabcheck1 = 8
+    }
+    else if(response['data'].tab8 == true){
+      this.tabcheck1 = 9
+    }
+  })
+  
+}
+
+myTabSelectedIndexChange(index: any) {
+    
+}
+/**
    * Competency Letter
    */
 
- uploadMoreCompetency() {
+uploadMoreCompetency() {
 
   this.ref = this.dialogService.open(CompetencyDailogComponent, {
     header: 'Add More Document',

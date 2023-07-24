@@ -36,21 +36,6 @@ export class AuthGuard implements CanActivate {
     let type = route.data["type"] as Array<string>
     this.token = JSON.parse(localStorage.getItem('user')!);
     this.roles = this.token.data.user.roles;
-    console.log('type------------', type);
-    console.log('roles------------', this.roles);
-    // console.log('url------------', this.currentUrl);
-
-
-    // if (this.authService.isUserLoggedIn.value == false) {
-    //   this.router.navigate(['auth/login']);
-    //   return false;
-    // } else {
-    //   if (this.roles.includes(type)) {
-    //     console.log('inside includes ************************************************ ');
-    //     return this.authService.isUserLoggedIn;
-    //   }
-    // }
-    // return this.authService.isUserLoggedIn;
     return true;
   }
 }
