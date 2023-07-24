@@ -237,7 +237,7 @@ export class PurposeComponent {
     }
   }
 
-  viewCart(){
-    this.router.navigate(['pages/dashboard/cart']);
+  previewApplication(){
+    this.router.navigate(['pages/previewApplication']);
   }
 }

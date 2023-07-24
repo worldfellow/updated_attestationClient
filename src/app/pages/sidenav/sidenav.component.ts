@@ -16,7 +16,7 @@ interface SideNavToggle {
 export class SidenavComponent implements OnInit {
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter;
 
-  collapsed = true;
+  collapsed = false;
   screenWidth = 0;
   navData: any[] = [];
   token: any;

@@ -27,6 +27,7 @@ import { AdminManagementComponent } from './admin-management/admin-management.co
 import { RoleManagementComponent } from './role-management/role-management.component';
 import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.component';
 import { ViewMoreComponent } from './view-more/view-more.component';
+import { PurposeComponent } from './purpose/purpose.component';
 
 console.log("inside pages routing");
 
@@ -76,18 +77,23 @@ const routes: Routes = [{
       canActivate: [AuthGuard], 
     },
     {
-      path : 'dashboard/cart',
+      path : 'cart',
       component : CartComponent,
       canActivate: [AuthGuard], 
     },
     {
-      path : 'dashboard/previewApplication',
+      path : 'previewApplication',
       component : PreviewApplicationComponent,
       canActivate: [AuthGuard], 
     },
     {
       path : 'dashboard/viewProfile',
       component : ProfileComponent,
+      canActivate: [AuthGuard], 
+    },
+    {
+      path : 'purpose',
+      component : PurposeComponent,
       canActivate: [AuthGuard], 
     },
 

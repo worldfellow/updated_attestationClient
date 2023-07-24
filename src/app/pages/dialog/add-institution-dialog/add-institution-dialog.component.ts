@@ -380,7 +380,7 @@ export class AddInstitutionDialogComponent {
   //save button
   saveInstitution() {
     this.confirmationService.confirm({
-      message: 'Are you sure want to delete?',
+      message: 'Are you sure want to save purpose?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
 

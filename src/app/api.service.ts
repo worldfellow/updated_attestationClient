@@ -367,4 +367,8 @@ export class ApiService {
         return this.httpClient.get(`${this.baseUrl}/api/student/setUserId?token=${token}`);
       }
 
+      getMyApplicationData(user_id: any, app_id: any) {
+        return this.httpClient.get(`${this.baseUrl}/api/student/getMyApplicationData?user_id=${user_id}&app_id=${app_id}`);
+      }
+
 }    

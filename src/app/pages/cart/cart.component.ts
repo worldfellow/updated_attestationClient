@@ -92,7 +92,7 @@ export class CartComponent {
   }
 
   previewApplication(){
-    this.router.navigate(['pages/dashboard/previewApplication']);
+    this.router.navigate(['pages/previewApplication']);
   }
 
 }

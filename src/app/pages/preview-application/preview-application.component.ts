@@ -76,7 +76,7 @@ export class PreviewApplicationComponent {
   }
 
   dismiss() {
-    this.router.navigate(['pages/dashboard/cart']);
+    this.router.navigate(['pages/purpose']);
   }
 
   openImgPdf(fileName:any, extension:any){
@@ -91,5 +91,9 @@ export class PreviewApplicationComponent {
     }).afterClosed().subscribe(result => {
       this.ngOnInit();
     });
+  }
+
+  viewCart(){
+    this.router.navigate(['pages/cart']);
   }
 }

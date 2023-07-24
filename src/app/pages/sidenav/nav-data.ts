@@ -18,7 +18,7 @@ export const navbarData = {
         },
         {
             routeLink: 'payment-issue',
-            icon: 'fa fa-folder-open',
+            icon: 'fa fa-wallet',
             label: 'Payment Issue',
         },
         {
