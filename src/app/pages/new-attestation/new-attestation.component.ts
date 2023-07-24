@@ -54,10 +54,9 @@ export class NewAttestationComponent implements OnInit {
     this.app_id = this.route.snapshot.queryParamMap.get('app_id');
     this.user_id = this.token.data.user.user_id;
 
-    this.api.getEducationalDetails(this.user_id, null).subscribe((data: any)=>{
+    this.api.getEducationalDetails().subscribe((data: any)=>{
       if(data['status'] == 200){
         this.appliedData = data['data'];
-        console.log('----------------->',this.appliedData);
       }else{
         console.log('Data not found!');
       }
@@ -97,12 +96,11 @@ export class NewAttestationComponent implements OnInit {
       console.log('this.showButton' ,this.showButton)
     }else{
       this.showButton = false;
-      console.log('ddddddddddddd')
     }
   }
   getUserEducation() {
     
-    this.api.getAppliedUserDetail(this.user_id).subscribe((data: any) => {
+    this.api.getAppliedUserDetail().subscribe((data: any) => {
         this.educationalDetails =  data['data'].educationalDetails;
         this.instructionalDetails = data['data'].instructionalField;
         this.curriculumDetails = data['data'].curriculum;
@@ -128,11 +126,10 @@ export class NewAttestationComponent implements OnInit {
     // }
   }
   onDegreeselected(event : any){
-    console.log('event',event)
     this.degreeselected = event.value.name;
   }
   checkStepper(){
-    this.api.checkstepper(this.user_id,this.app_id).subscribe((response: any) => {
+    this.api.checkstepper(this.app_id).subscribe((response: any) => {
       this.tabcheck1 = response['data'].tab1
       this.tabcheck2 = response['data'].tab2
       this.tabcheck3 = response['data'].tab3
@@ -152,7 +149,7 @@ export class NewAttestationComponent implements OnInit {
   eduDetails(){
     this.firstComplete = true;
     this.formdata = this.firstForm.value;
-    this.api.addUserEducationalDetails(this.formdata, this.user_id ,this.degreeselected).subscribe((response: any) => {
+    this.api.addUserEducationalDetails(this.formdata ,this.degreeselected).subscribe((response: any) => {
       if (response['status'] == 200) {
         this.message = response.message;
       }

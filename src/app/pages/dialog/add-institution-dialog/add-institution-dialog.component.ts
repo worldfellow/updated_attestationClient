@@ -300,7 +300,7 @@ export class AddInstitutionDialogComponent {
     //storing patchvalues while editing
     if (this.user_type == 'student') {
       if (this.function_type == 'edit') {
-        this.api.getInstituteData(this.app_id, this.purpose_name, this.user_id, this.institute_id).subscribe((data: any) => {
+        this.api.getInstituteData(this.app_id, this.purpose_name,this.institute_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.instituteData = data['data'][0];
 
@@ -323,7 +323,7 @@ export class AddInstitutionDialogComponent {
       }
     } else {
       if (this.function_type == 'edit') {
-        this.api.getInstituteData(this.student_app_id, this.purpose_name, this.student_id, this.institute_id).subscribe((data: any) => {
+        this.api.getInstituteData(this.student_app_id, this.purpose_name,this.institute_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.instituteData = data['data'][0];
 
@@ -423,7 +423,7 @@ export class AddInstitutionDialogComponent {
           }
           else {
             var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.user_id, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData,this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
               if (data['status'] == 200) {
 
                 this.dismiss();
@@ -442,7 +442,7 @@ export class AddInstitutionDialogComponent {
           }
           else {
             var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.student_id, this.student_app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
+            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData,this.student_app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
               if (data['status'] == 200) {
 
                 this.dismiss();

@@ -57,7 +57,7 @@ export class PurposeComponent {
     });
 
     //get all institute purpose data to display on page
-    this.api.getInstituteData(this.app_id, '', this.user_id, '').subscribe((data: any) => {
+    this.api.getInstituteData(this.app_id, '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.instituteData = data['data'];        
       } else if (data['status'] == 400) {
@@ -65,17 +65,16 @@ export class PurposeComponent {
     });
 
     //get all hrd purpose data to display on page
-    this.api.getHrdData(this.user_id, '', '', '').subscribe((data: any) => {
+    this.api.getHrdData('', '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.hrdData = data['data'];
-        console.log('vvvvvvvvvvvvvvvvvvvvvvvvv',this.hrdData);
       }
     })
   }
 
   //get students details of which degree he applied 
   checkApplied() {
-    this.api.getAppliedDetails(this.app_id, this.user_type, this.user_id).subscribe((data: any) => {
+    this.api.getAppliedDetails(this.app_id, this.user_type).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.appliedFor = data['data'][0];
 
@@ -130,7 +129,7 @@ export class PurposeComponent {
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        this.api.deleteInstituteHrd(institute_id, purpose_name, this.user_id).subscribe((data: any) => {
+        this.api.deleteInstituteHrd(institute_id, purpose_name).subscribe((data: any) => {
           if (data['status'] == 200) {
             if (purpose_name == 'HRD') {
               let Array = this.hrdData.filter((data: any) => data.id != institute_id);
@@ -159,17 +158,10 @@ export class PurposeComponent {
 
   //using this we can open AddHrdDialogComponent dialog box and send data using his type add and edit & display form
   addHrd(type: any, purpose: any, degree: any, faculty: any, hrd_id: any) {
-    console.log('type------------',type);
-    console.log('purpose------------',purpose);
-    console.log('degree------------',degree);
-    console.log('faculty------------',faculty);
-    console.log('hrd_id------------',hrd_id);
-
     if (type == 'add') {
-      this.api.getHrdInfo(this.user_id, degree, '', null).subscribe((data: any) => {
+      this.api.getHrdInfo(degree, '', null).subscribe((data: any) => {
         if (data['status'] == 200) {
           this.hrdInfo = data['data'];
-          console.log('this,hrdInfo------------------------------->', this.hrdInfo);
 
           if (this.hrdInfo.length > 1) {
             this.differentCourse = true;

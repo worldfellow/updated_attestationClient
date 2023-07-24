@@ -84,7 +84,6 @@ dataurl(croppedFile: any, name: any ,height : number , width : number) {
 }
 uploadDetails(){
   const fileUrl = this.dataurl(this.croppedImage, "11.jpeg",this.height,this.width)
-  console.log("fileUrl",fileUrl);
   
   this.file = fileUrl
   const formData = new FormData();
@@ -104,7 +103,7 @@ uploadDetails(){
   };
 
   if (this.registerForm.valid) {
-   this.api.savepaymentissuedata(data, this.user_id,formData).subscribe((data: any) => {
+   this.api.savepaymentissuedata(data,formData).subscribe((data: any) => {
 
     if (data['status'] == 200) {
       this.getDetails()
@@ -114,7 +113,7 @@ uploadDetails(){
 }
 
 getDetails(){
-  this.api.getpaymentissuedata(this.user_id).subscribe((data: any)=>{
+  this.api.getpaymentissuedata().subscribe((data: any)=>{
     if(data['status'] == 200){
       this.issuedata = data['data'];
     }else{

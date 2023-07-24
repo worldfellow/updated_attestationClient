@@ -1213,7 +1213,7 @@
                 <div *ngIf="namechangeletterdetails != undefined || namechangeletterdetails != null"> <i
                     class="pi pi-file-edit" (click)="editLetter()"
                     style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i>
-                  <i class="pi pi-trash" (click)="deleteInfo(user_id,'NameChangeletter')" style="font-size: 1.5rem"></i>
+                  <i class="pi pi-trash" (click)="deleteInfo('NameChangeletter')" style="font-size: 1.5rem"></i>
                 </div>
                 <p-button label="Update"
                   *ngIf="((namechangeletterdetails != undefined || namechangeletterdetails != null) && updateButton == true)"

@@ -45,7 +45,7 @@ export class PreviewApplicationComponent {
     this.user_mobile_country_code = this.token.data.user.mobile_country_code;
     console.log(this.user_id);
 
-    this.api.preViewApplication(this.user_id).subscribe((data: any) => {
+    this.api.preViewApplication().subscribe((data: any) => {
       if (data['status'] == 200) {
         this.education_details = data['data'][0].educationalDetails[0];        
         this.college_data = data['data'][0].collegeData;

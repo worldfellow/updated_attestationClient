@@ -88,8 +88,8 @@ export class ApiService {
 
   //new api's========================================================================================================================================================
 
-  addUserEducationalDetails(formdata: any, user_id: any ,degree : any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/educationalDetails`, { "formdata": formdata, "user_id": user_id ,"degree" : degree});
+  addUserEducationalDetails(formdata: any,degree : any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/educationalDetails`, { "formdata": formdata, "degree" : degree});
   }
 
   getPurposeList(purpose_name: any) {
@@ -97,20 +97,20 @@ export class ApiService {
   }
 
 
-  deleteInstituteHrd(institute_id: any, purpose_name: any, user_id: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/deleteInstituteHrd`, { "institute_id": institute_id, "purpose_name": purpose_name, "user_id": user_id });
+  deleteInstituteHrd(institute_id: any, purpose_name: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/deleteInstituteHrd`, { "institute_id": institute_id, "purpose_name": purpose_name });
   }
 
-  getAppliedDetails(app_id: any, user_type: any, user_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getAppliedDetails?app_id=${app_id}&user_type=${user_type}&user_id=${user_id}`);
+  getAppliedDetails(app_id: any, user_type: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getAppliedDetails?app_id=${app_id}&user_type=${user_type}`);
   }
 
   getCartDetails(user_id: any) {
     return this.httpClient.get(`${this.baseUrl}/api/student/getInstituteData?user_id=${user_id}`);
   }
 
-  preViewApplication(user_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/preViewApplication?user_id=${user_id}`);
+  preViewApplication() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/preViewApplication`);
   }
 
   //admin
@@ -138,17 +138,15 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/admin/activeinactiveCollege`, { "event": event, "dataCollegeFaculty": dataCollegeFaculty, "user_id": user_id, "user_name": user_name, "app_id": app_id });
   }
 
-  saveNameChangedata(data: any, user_id: any) {
-    console.log("iiiiidddddddddddd", user_id);
-    console.log("data", data);
+  saveNameChangedata(data: any) {
 
-    return this.httpClient.post(`${this.baseUrl}/api/student/saveLetterNameChangeData`, { "data": data, "user_id": user_id });
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveLetterNameChangeData`, { "data": data });
   }
-  getNameChangeData(user_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getNameChangeData?user_id=` + user_id);
+  getNameChangeData() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getNameChangeData`);
   }
-  deleteInfo(id: number, type: string) {
-    return this.httpClient.delete(`${this.baseUrl}/api/student/deleteInfo?id=${id}&type=${type}`);
+  deleteInfo(type: string) {
+    return this.httpClient.delete(`${this.baseUrl}/api/student/deleteInfo?type=${type}`);
   }
 
 
@@ -156,8 +154,8 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/student/getCollegeList`);
   }
 
-  getuploadedCurriculum(user_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getuploadedCurriculum?user_id=` + user_id,);
+  getuploadedCurriculum() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getuploadedCurriculum`);
   }
 
   deleteDocument(id: number, type: string, user_id: number) {
@@ -166,11 +164,11 @@ export class ApiService {
   getFacultyLists() {
     return this.httpClient.get(`${this.baseUrl}/api/student/getFacultyLists`);
   }
-  saveUserMarkList(documentid: any, app_id: number, user_id: number, value: string, data: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`, { "documentid": documentid, "app_id": app_id, "user_id": user_id, "value": value, "data": data });
+  saveUserMarkList(documentid: any, app_id: number,value: string, data: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`, { "documentid": documentid, "app_id": app_id,"value": value, "data": data });
   }
-  getExtraDocuments(user_id: number) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getExtraDocuments?user_id=${user_id}`);
+  getExtraDocuments() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getExtraDocuments`);
   }
 
   saveInstructionalData(formData: any) {
@@ -181,37 +179,37 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/student/saveAffiliationData`, formData)
   }
 
-  getletterDetails(user_id: number, degrees: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getletterDetails?user_id=${user_id}&degrees=${degrees}`);
+  getletterDetails(degrees: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getletterDetails?degrees=${degrees}`);
   }
 
-  getInstructionalForms(user_id: number) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getInstructionalForms?user_id=${user_id}`);
+  getInstructionalForms() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getInstructionalForms`);
   }
 
-  getAppliedUserDetail(user_id: number) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getAppliedUserDetail?user_id=${user_id}`);
+  getAppliedUserDetail() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getAppliedUserDetail`);
   }
 
-  updateAllInstitute(type: any, refNo: any, formData: any, user_id: any, app_id: any, institute_id: any, function_type: any, admin_id: any, user_email: any, user_type: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllInstitute`, { "type": type, "refNo": refNo, "formData": formData, "user_id": user_id, "app_id": app_id, "institute_id": institute_id, "function_type": function_type, "admin_id": admin_id, "user_email": user_email, "user_type": user_type });
+  updateAllInstitute(type: any, refNo: any, formData: any, app_id: any, institute_id: any, function_type: any, admin_id: any, user_email: any, user_type: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllInstitute`, { "type": type, "refNo": refNo, "formData": formData,"app_id": app_id, "institute_id": institute_id, "function_type": function_type, "admin_id": admin_id, "user_email": user_email, "user_type": user_type });
   }
 
 
-  getInstituteData(app_id: any, purpose_name: any, user_id: any, institute_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getInstituteData?app_id=${app_id}&purpose_name=${purpose_name}&user_id=${user_id}&institute_id=${institute_id}`);
+  getInstituteData(app_id: any, purpose_name: any, institute_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getInstituteData?app_id=${app_id}&purpose_name=${purpose_name}&institute_id=${institute_id}`);
   }
 
-  getHrdInfo(user_id: any, degree_type: any, faculty_type: any, app_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getHrdInfo?user_id=${user_id}&degree_type=${degree_type}&faculty_type=${faculty_type}&app_id=${app_id}`);
+  getHrdInfo(degree_type: any, faculty_type: any, app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getHrdInfo?degree_type=${degree_type}&faculty_type=${faculty_type}&app_id=${app_id}`);
   }
 
-  updateAllHrd(formData: any, user_id: any, function_type: any, degree_type: any, secondlastSem: any, lastSem: any, purpose_name: any, hrd_id: any, app_id: any, admin_id: any, admin_email: any, user_type: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllHrd`, { "formData": formData, "user_id": user_id, "function_type": function_type, "degree_type": degree_type, "secondlastSem": secondlastSem, "lastSem": lastSem, "purpose_name": purpose_name, "hrd_id": hrd_id, "app_id": app_id, "admin_id": admin_id, "admin_email": admin_email, "user_type": user_type });
+  updateAllHrd(formData: any, function_type: any, degree_type: any, secondlastSem: any, lastSem: any, purpose_name: any, hrd_id: any, app_id: any, admin_id: any, admin_email: any, user_type: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllHrd`, { "formData": formData,"function_type": function_type, "degree_type": degree_type, "secondlastSem": secondlastSem, "lastSem": lastSem, "purpose_name": purpose_name, "hrd_id": hrd_id, "app_id": app_id, "admin_id": admin_id, "admin_email": admin_email, "user_type": user_type });
   }
 
-  getHrdData(user_id: any, hrd_id: any, purpose_name: any, app_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getHrdData?user_id=${user_id}&hrd_id=${hrd_id}&purpose_name=${purpose_name}&app_id=${app_id}`);
+  getHrdData( hrd_id: any, purpose_name: any, app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getHrdData?hrd_id=${hrd_id}&purpose_name=${purpose_name}&app_id=${app_id}`);
   }
 
   getActivityTrackerList(student_id: any) {
@@ -254,12 +252,12 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/admin/updateInstructionalAffiliation`, { "formData": formData, "user_id": user_id, "user_email": user_email, "purpose": purpose, "type": type, "id": id, "student_id": student_id, "student_app_id": student_app_id });
   }
 
-  ScanData(collegeid: any, education_type: any, patteren: any, faculty: any, app_id: number, user_id: number, value: string, formData: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/ScanData?value=${value}&user_id=${user_id}&app_id=${app_id}&collegeid=${collegeid}&education_type=${education_type}&patteren=${patteren}&faculty=${faculty}`, formData);
+  ScanData(collegeid: any, education_type: any, patteren: any, faculty: any, app_id: number, value: string, formData: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/ScanData?value=${value}&app_id=${app_id}&collegeid=${collegeid}&education_type=${education_type}&patteren=${patteren}&faculty=${faculty}`, formData);
   }
 
-  getUploadedDocuments(user_id: any, app_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getUploadeddocument_student?user_id=${user_id}&app_id=${app_id}`);
+  getUploadedDocuments(app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getUploadeddocument_student?app_id=${app_id}`);
   }
 
 
@@ -329,18 +327,18 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/admin/verifyApplication?app_id=${app_id}`);
   }
 
-  getEducationalDetails(user_id: any, app_id: any) {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getEducationalDetails?user_id=${user_id}&app_id=${app_id}`);
+  getEducationalDetails() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getEducationalDetails`);
   }
 
     // checkstepper api for student.
-    checkstepper(user_id: any ,app_id : any) {
-      return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper?user_id=${user_id}&app_id=${app_id}`);
+    checkstepper(app_id : any) {
+      return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper?app_id=${app_id}`);
     }
   
     // checkstepper api for student on 2nd step.
-    checkstepper_inner(user_id: any ,app_id : any) {
-      return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper_inner?user_id=${user_id}&app_id=${app_id}`);
+    checkstepper_inner(app_id : any) {
+      return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper_inner?app_id=${app_id}`);
     }
   
   
@@ -353,22 +351,22 @@ export class ApiService {
     }
   
       /* To save the Payment Issue Details */
-      savepaymentissuedata(data: any, user_id: any ,formData: any) {
+      savepaymentissuedata(data: any,formData: any) {
         console.log('formData',formData)
-        return this.httpClient.post(`${this.baseUrl}/api/student/savePaymentIssueData?data=${data}&user_id=${user_id}`,formData);
+        return this.httpClient.post(`${this.baseUrl}/api/student/savePaymentIssueData?data=${data}`,formData);
       }
     
       /* To get the Payment Issue Details */
-      getpaymentissuedata(user_id: any) {
-        return this.httpClient.get(`${this.baseUrl}/api/student/getPaymentIssueData?user_id=${user_id}`);
+      getpaymentissuedata() {
+        return this.httpClient.get(`${this.baseUrl}/api/student/getPaymentIssueData`);
       }
   /* To set userid in backend */
   setuserId(token : any) {
         return this.httpClient.get(`${this.baseUrl}/api/student/setUserId?token=${token}`);
       }
 
-      getMyApplicationData(user_id: any, app_id: any) {
-        return this.httpClient.get(`${this.baseUrl}/api/student/getMyApplicationData?user_id=${user_id}&app_id=${app_id}`);
-      }
+  getMyApplicationData(app_id: any) {
+      return this.httpClient.get(`${this.baseUrl}/api/student/getMyApplicationData?app_id=${app_id}`);
+  }
 
 }    

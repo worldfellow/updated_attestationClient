@@ -151,7 +151,7 @@ export class UploadDocumentComponent implements OnInit {
       collegeId : ['']
     });
 
-    this.api.getAppliedUserDetail(this.user_id).subscribe((data : any) =>{
+    this.api.getAppliedUserDetail().subscribe((data : any) =>{
       const userApplied = (data as any)['data']; 
       this.instructionalField = userApplied.instructionalField;
       this.affiliation = userApplied.affiliation;
@@ -164,7 +164,7 @@ export class UploadDocumentComponent implements OnInit {
 
     this.token = JSON.parse(localStorage.getItem('user')!)
     this.user_id = this.token.data.user.user_id;
-    this.api.getNameChangeData(this.user_id).subscribe(data => {
+    this.api.getNameChangeData().subscribe(data => {
       this.namechangeletterdetails = (data as any)['data'];
       this.file_name = (data as any)['filename'];
       this.app_id_namechange = this.namechangeletterdetails.app_id;
@@ -209,7 +209,7 @@ export class UploadDocumentComponent implements OnInit {
 
   /** Get Data of Instructional and Affiliation letter forms through Api */
   getLettersDetails(degrees: any) { 
-    this.api.getletterDetails(this.user_id, degrees).subscribe((data: any) => {  
+    this.api.getletterDetails(degrees).subscribe((data: any) => {  
       if (data?.dataInstructional?.bachelors[0]) {
         const bachelorsDetailsInstructional = data?.dataInstructional?.bachelors[0].instructionalDetails;
         for(let i = 0; i < bachelorsDetailsInstructional.length; i++){ 
@@ -287,14 +287,12 @@ export class UploadDocumentComponent implements OnInit {
     }
   }
   uploadfun(event : any){
-    console.log('nooooooooooooooooooo' ,event)
     if (event.files && event.files[0]) {
       const reader = new FileReader();
       this.imageChangedEvent = event;
       this.croppedImage = event.files[0];
       this.base64Image = event.files[0];
       reader.readAsDataURL(event.files[0]);
-      // console.log('event.target.files[0]', event.files[0]);
       reader.onload = (event: any) => {
       };
     }
@@ -304,7 +302,6 @@ export class UploadDocumentComponent implements OnInit {
     this.base64Image = event.files[0];
     this.imageChangedEvent = event;
   
-    // console.log('ecent????????????' , this.imageChangedEvent);s
   }
   async initialize(): Promise<void> {
   }
@@ -374,8 +371,7 @@ export class UploadDocumentComponent implements OnInit {
       formData.append('file', this.file);
       formData.append('user_id', this.user_id);
       var data=[];
-      this.api.ScanData(collegeid,education_type,patteren,faculty,this.app_id,this.user_id,type,formData).subscribe( (data: any) => {
-        console.log('*************',data)
+      this.api.ScanData(collegeid,education_type,patteren,faculty,this.app_id,type,formData).subscribe( (data: any) => {
         if (data['status'] == 200) {
           this.base64Image = false
           this.refresh();
@@ -442,16 +438,14 @@ export class UploadDocumentComponent implements OnInit {
   }
  
 
-  deleteInfo(id: any, type: any) {
-    console.log("id", id)
-    console.log("type", type);
+  deleteInfo(type: any) {
 
     this.confirmationService.confirm({
       message: 'Do you want to delete this Data?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.api.deleteInfo(id, type).subscribe((data: any) => {
+        this.api.deleteInfo(type).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Data Deleted !' });
           } else {
@@ -478,9 +472,7 @@ export class UploadDocumentComponent implements OnInit {
     };
     if (this.LetterforNameChangeform.valid) {
 
-      this.api.saveNameChangedata(data, this.user_id).subscribe((data: any) => {
-        console.log("id", this.user_id);
-
+      this.api.saveNameChangedata(data).subscribe((data: any) => {
         if (data['status'] == 200) {
           console.log("status", data['status']);
           this.ngOnInit()
@@ -696,7 +688,6 @@ export class UploadDocumentComponent implements OnInit {
     formData.append('division', formGroup.controls[`affiliationDivision${degree}`].value['name'] || formGroup.controls[`affiliationDivision${degree}`].value);
     formData.append('duration', formGroup.controls[`affiliationDuration${degree}`].value);
     formData.append('yearOfpassing', formGroup.controls[`affiliationYearOfPassing${degree}`].value);
-    formData.append('user_id', this.user_id);
     formData.append('education', degree);
     formData.append('type',type);
   
@@ -711,7 +702,7 @@ export class UploadDocumentComponent implements OnInit {
     }
   }
   refresh(){
-    this.api.getUploadedDocuments(this.user_id,this.app_id).subscribe((data:any)=>{
+    this.api.getUploadedDocuments(this.app_id).subscribe((data:any)=>{
       if(data['status']==200){
         this.marksheets = data['data'][0];
         this.transcripts = data['data'][1];
@@ -723,7 +714,7 @@ export class UploadDocumentComponent implements OnInit {
       }
   })
 
-  this.api.getInstructionalForms(this.user_id).subscribe((data : any)=>{  
+  this.api.getInstructionalForms().subscribe((data : any)=>{  
 
     if ((data) as any['data'] != undefined) {   
       
@@ -754,7 +745,7 @@ export class UploadDocumentComponent implements OnInit {
 
 
 checkStepper(){
-  this.api.checkstepper_inner(this.user_id,this.app_id).subscribe((response: any) => {
+  this.api.checkstepper_inner(this.app_id).subscribe((response: any) => {
     if(response['data'].tab1 == true){
         this.tabcheck1 = 2
     }

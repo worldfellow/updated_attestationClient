@@ -47,10 +47,9 @@ export class CartComponent {
     })
 
     //get all hrd purpose data to display on page
-    this.api.getHrdData(this.user_id, '', '','').subscribe((data: any) => {
+    this.api.getHrdData('', '','').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.hrdData = data['data'];
-        console.log('this.hrdData---------->', this.hrdData);
       }
     })
   }
@@ -62,7 +61,7 @@ export class CartComponent {
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        this.api.deleteInstituteHrd(institute_id, purpose_name, this.user_id).subscribe((data: any) => {
+        this.api.deleteInstituteHrd(institute_id, purpose_name).subscribe((data: any) => {
           if (data['status'] == 200) {
             if (purpose_name == 'HRD') {
               let Array = this.hrdData.filter((data: any) => data.id != institute_id);

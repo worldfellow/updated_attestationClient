@@ -103,7 +103,7 @@ export class ViewMoreComponent {
     })
 
     //get all institute purpose data to display on page
-    this.api.getInstituteData(this.student_app_id, '', this.student_id, '').subscribe((data: any) => {
+    this.api.getInstituteData(this.student_app_id, '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.instituteData = data['data'];
       } else if (data['status'] == 400) {
@@ -111,17 +111,15 @@ export class ViewMoreComponent {
     });
 
     //get all hrd purpose data to display on page
-    this.api.getHrdData(this.student_id, '', '', this.student_app_id).subscribe((data: any) => {
+    this.api.getHrdData('', '', this.student_app_id).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.hrdData = data['data'];
-        console.log('************************+++++++++++++++++++++', this.hrdData);
       }
     })
 
     this.api.getActivityTrackerList(this.student_id).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.trackerData = data['data'];
-        console.log('this.trackerData***********', this.trackerData.length);
         this.trackerLength = this.trackerData.length;
       } else {
         console.log('Failed to load data!');

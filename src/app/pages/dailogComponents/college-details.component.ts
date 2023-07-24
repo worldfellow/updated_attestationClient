@@ -111,8 +111,7 @@ export class CollegeDetailsComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.file);
     formData.append('user_id', this.user_id);
-    console.log('sssssssssssss' ,formData)
-    this.api.ScanData('','','','',this.app_id,this.user_id,this.type,formData).subscribe((data: any) => {
+    this.api.ScanData('','','','',this.app_id,this.type,formData).subscribe((data: any) => {
       
       if (data['status'] == 200) {
         this.collegeName = data['data'][0];
@@ -159,13 +158,11 @@ export class CollegeDetailsComponent implements OnInit {
   }
 
   saveCollegeDetails() {
-    console.log('eeeeeeeeeeee')
-    console.log('this.CollegeDetails' ,this.CollegeDetails.value)
     var data=[];
     data.push({'collegeId' : this.CollegeDetails.controls['collegeNameCtrl'].value['id'] , 'faculty' :this.CollegeDetails.controls['courseNameCtrl'].value['faculty']
     , 'degree' : this.CollegeDetails.controls['courseNameCtrl'].value['degree'],'patteren' : this.CollegeDetails.controls['semYearCtrl'].value,'user_id' : this.user_id})
 
-    this.api.saveUserMarkList(this.documentId,this.app_id,this.user_id,this.type,data).subscribe( (data: any) => {
+    this.api.saveUserMarkList(this.documentId,this.app_id,this.type,data).subscribe( (data: any) => {
       if (data['status'] == 200) {
         this.ref.close();
       }else if(data['status'] == 401){
