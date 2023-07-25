@@ -1,43 +1,55 @@
     <p-card header="Profile">
+        <p-toast></p-toast>
     <!-- <div class="card-header">
         Profile
     </div> -->
     <div class="card-body"> 
-        <p-card>
+        <p-card header="Mr. {{ this.profile.get('firstName')?.value }} {{ this.profile.get('surname')?.value }}'s Profile">
                 <!-- <div class="card-header">
         Profile
     </div> -->
         <div class="main-container">
             <div class="left-side">
+                <form [formGroup]="profile">
         <div class="row ">
             <div class="col-md-2">First Name</div>
             <div class="col-md-2">
-              <input class="p-inputtext-sm"  pInputText id="username"  />
+              <input class="p-inputtext-sm"  formControlName="firstName" [readonly]="userValue" pInputText />
             </div>
             <div class="col-md-2">Surname Name</div>
             <div class="col-md-2">
-              <input class="p-inputtext-sm"  pInputText id="username"  />
+              <input class="p-inputtext-sm"  formControlName="surname" [readonly]="userValue" pInputText  />
             </div>
         </div> 
         <div class="row pt-4"> 
             <div class="col-md-2">Gender</div>
             <div class="col-md-2">
-              <input class="p-inputtext-sm"  pInputText id="username"  />
+              <!-- <input class="p-inputtext-sm" [(ngModel)]="gender" [readonly]="userValue" pInputText id="username"  /> -->
+              <p-dropdown [options]="genderList" class="p-inputtext-sm"
+              formControlName="gender" 
+              [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" 
+              filterBy="name"   placeholder="Select Gender" [editable]="true">
+            </p-dropdown>
             </div>
             <div class="col-md-2">Email ID</div>
             <div class="col-md-2">
-              <input class="p-inputtext-sm"  pInputText id="username"  />
+              <input class="p-inputtext-sm" formControlName="emailId"  [readonly]="userEmail" pInputText />
             </div>
         </div> 
         <div class="row pt-4">
             <div class="col-md-2">Mobile Number</div>  
-            <div class="col-md-2 pl-2"> 
-                <p-autoComplete [dropdown]="true"   [group]="true"     field="label" >
-                </p-autoComplete>
-                <!-- <p-autoComplete     ></p-autoComplete>  -->
-        </div>  
+            <div class="col-md-2 pl-2" style="width:135px;">  
+                <p-dropdown [options]="CountryCode" class="p-inputtext-sm" [readonly]="userValue"
+                formControlName="mobileCode" (onChange)="onOptionSelectedMob($event.value)" 
+                [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="phonecode" [filter]="true"  
+                filterBy="phonecode"   placeholder="Code" [editable]="true">
+                <ng-template let-option pTemplate="item">
+                    <span>+{{ option.phonecode }}</span>
+                  </ng-template>
+              </p-dropdown>
+        </div>
             <div class="col-md-2">
-                <p-inputNumber [useGrouping]="false"> </p-inputNumber>
+                <p-inputNumber class="p-inputtext-sm" [useGrouping]="false" [readonly]="userValue" formControlName="mobile"> </p-inputNumber>
             </div>
         </div>
         <br>
@@ -45,40 +57,39 @@
         <div class="col-md-2"></div>
         <div class="col-md-3">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="sameAsMobNO"  id="flexCheckDefault" (change)='onChange($event)'>
             <label class="form-check-label" for="flexCheckDefault">
                 Same as Mobile number
             </label>
           </div>
         </div>
         <div class="col-md-1"></div>
-        <div class="col-md-2">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-            <label class="form-check-label" for="flexCheckChecked">
-                Other
-            </label>
-          </div>
-        </div>
        </div>
-        <div class="row pt-4">
+        <div class="row pt-4" *ngIf="whatsAppInput">
             <div class="col-md-2">WhatsApp Number</div> 
-            <div class="col-md-2">
-                <p-autoComplete   [group]="true"     field="label" [dropdown]="true">
-                </p-autoComplete>
+            <div class="col-md-2 pl-2" style="width:135px;">  
+                <p-dropdown [options]="CountryCode" class="p-inputtext-sm" [readonly]="userValue"
+                formControlName="whatsAppCode" (onChange)="onOptionSelected($event.value)"
+                [virtualScroll]="true" [virtualScrollItemSize]="38"  [filter]="true"  
+                filterBy="phonecode"   placeholder="Code" [editable]="true">
+                <ng-template let-option pTemplate="item">
+                    <span>+{{ option.phonecode }}</span>
+                  </ng-template>
+              </p-dropdown>
         </div>
             <div class="col-md-2">
-                <p-inputNumber [useGrouping]="false"> </p-inputNumber>
+                <p-inputNumber class="p-inputtext-sm" [useGrouping]="false" [readonly]="userValue" formControlName="whatsApp" > </p-inputNumber>
             </div>
         </div>
         <div class="row pt-4">  
             <div class="col-md-1"> 
-            <p-button label="EDIT" icon="pi pi-user-edit" styleClass="p-button-success"></p-button>
+            <p-button label="EDIT" icon="pi pi-user-edit" (click)="editData()" styleClass="p-button-success"></p-button>
                 </div> 
                 <div class="col-md-1" style="padding-left:50px;">
-                    <p-button label="UPDATE" icon="pi pi-check" styleClass="p-button-success"></p-button> 
+                    <p-button label="UPDATE" (click)="updateData()" icon="pi pi-check" styleClass="p-button-success"></p-button> 
                         </div>
         </div>
+    </form>
     </div>
     <div class="right-side">
         <div class="row"> 
@@ -86,7 +97,7 @@
                 <img  src="https://mu.etranscript.in/api/images/boyWithquestionmark.jpg" class="imageContainer">
               </div>  
           </div> 
-            <h5 id="cube" class="Container2">Email Us on <a style="color:#40dc7e">support@etranscript.in</a></h5>  
+            <h5 id="cube" class="Container2">Email Us on <a href="mailto:support@etranscript.in" style="color:#40dc7e">support@etranscript.in</a></h5>  
 </div>
     </div>
 </p-card>

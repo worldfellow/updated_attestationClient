@@ -18,13 +18,14 @@
   
   /* Style for the left side container */
   .left-side {
-    flex: 0 0 70%;; /* Take up available space in the container */
+    flex: 0 0 80%;; /* Take up available space in the container */
     padding: 10px; /* Add padding for spacing */
+    margin-left:20px;
   }
   
   /* Style for the right side container */
   .right-side {
-    flex: 0 0 30%;; /* Take up available space in the container */
+    flex: 0 0 20%;; /* Take up available space in the container */
     padding: 10px; /* Add padding for spacing */
     /* Add any other styles for the right side content */
   }
@@ -43,5 +44,5 @@
   }
 
   .Container2{
-    margin-right: 50%;
+    margin-right: 60%; 
   }
