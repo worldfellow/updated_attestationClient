@@ -365,8 +365,8 @@ export class ApiService {
         return this.httpClient.get(`${this.baseUrl}/api/student/setUserId?token=${token}`);
       }
 
-  getMyApplicationData(app_id: any) {
-      return this.httpClient.get(`${this.baseUrl}/api/student/getMyApplicationData?app_id=${app_id}`);
+  getMyApplicationData() {
+      return this.httpClient.get(`${this.baseUrl}/api/student/getMyApplicationData`);
   }
 
   getProfileValue(){
@@ -379,6 +379,10 @@ export class ApiService {
 
   changePassword(data:any){
     return this.httpClient.post(`${this.baseUrl}/api/student/changePassword`, {"data" : data}) 
+  }
+
+  forgotPasswordSendEmailToUser(email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/forgotPasswordSendEmailToUser`, {"email": email});
   }
 
 }    

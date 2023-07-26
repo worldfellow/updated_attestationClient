@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component'
 import { RegisterComponent } from './auth/register/register.component';
-import { VerifyOtpComponent } from './auth/verify-otp/verify-otp.component';
 import { AuthGuard } from './auth.guard';
+import { VerifyOtpComponent } from './auth/dialog/verify-otp/verify-otp.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ResendEmailComponent } from './auth/dialog/resend-email/resend-email.component';
 
 const routes: Routes = [
   { path: 'pages',canActivate: [AuthGuard],loadChildren: () => import('../app/pages/pages.module').then(m => m.PagesModule)
@@ -24,6 +26,14 @@ const routes: Routes = [
       {
         path: 'otp',
         component: VerifyOtpComponent,
+      },
+      {
+        path: 'forgotPassword',
+        component: ForgotPasswordComponent,
+      },
+      {
+        path: 'resendEmail',
+        component: ResendEmailComponent,
       },
     ],
   },

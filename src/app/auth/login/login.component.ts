@@ -4,12 +4,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { ApiService } from 'src/app/api.service';
 import { MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { VerifyOtpComponent } from '../dialog/verify-otp/verify-otp.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [MessageService],
+  providers: [MessageService, DialogService],
 })
 export class LoginComponent {
   // loginForm = FormGroup;
@@ -23,6 +25,7 @@ export class LoginComponent {
   user_id: any;
   id: any;
   otpForm: FormGroup;
+  ref: DynamicDialogRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +35,7 @@ export class LoginComponent {
     private elementRef: ElementRef,
     private messageService: MessageService,
     protected api: ApiService,
+    private dialogService: DialogService,
   ) {
     this.otpForm = this.fb.group({
       otp1Value: new FormControl('', Validators.required),
@@ -45,8 +49,8 @@ export class LoginComponent {
 
   ngOnInit(): void {
     //get user details from localstorage
-    this.token = JSON.parse(localStorage.getItem('user')!);
-    this.user_id = this.token.data.user.user_id;
+    // this.token = JSON.parse(localStorage.getItem('user')!);
+    // this.user_id = this.token.data.user.user_id;
 
     this.loginForm = this.fb.group({
       userName: ['', [Validators.required, Validators.email]],
@@ -87,7 +91,18 @@ export class LoginComponent {
         if (this.user_type == 'student') {
           this.router.navigateByUrl('pages/dashboard');
         } else {
-          this.visible = true;
+          // this.visible = true;
+          this.ref = this.dialogService.open(VerifyOtpComponent, {
+            // data: {
+            //   email: this.forgotPassForm.controls['email'].value,
+            // },
+            header: 'Verify OTP',
+            width: '40%',
+            contentStyle: { overflow: 'auto' },
+            baseZIndex: 10000,
+          });
+          this.ref.onClose.subscribe(() => {
+          });
         }
       },
       error: error => {
@@ -139,5 +154,9 @@ export class LoginComponent {
         }
       })
     }
+  }
+
+  forgotPassword(){
+    this.router.navigate(['auth/forgotPassword']);
   }
 }

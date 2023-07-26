@@ -40,7 +40,7 @@ viewCart(){
 }
 
 viewProfile(){
-  this.router.navigate(['pages/dashboard/viewProfile']);
+  this.router.navigate(['pages/profile']);
 }
 
 changePassword(){

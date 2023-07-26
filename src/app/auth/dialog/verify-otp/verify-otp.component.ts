@@ -2,52 +2,40 @@ import { Component, ElementRef, Inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
-import { MatDialogRef } from '@angular/material/dialog';
+// import { MatDialogRef } from '@angular/material/dialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-verify-otp',
   template: `
   <p-toast></p-toast>
-  <div class="body">
-    <div class="card text-center">
-        <div class="card-header" style="font-weight: bold; background-color: rgb(174, 152, 176) !important;">
-            <h1 style="font-weight: bold;">Verify OTP</h1>
-            <div class="right" (click)="dismiss()">
-              <i title="Back" class="fas fa-arrow-left fa-pull-right fa-border"></i>
-            </div>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Enter Your OTP</h5>
-
-            <div class="row box">
-                <div class="col-xs-1">
-                    <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp1Value">
-                    <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp2Value">
-                    <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp3Value">
-                    <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp4Value">
-                    <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp5Value">
-                    <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp6Value">
-                </div>
-            </div>
-        </div>
-        <div class="card-footer text-body-secondary button-container">
-            <p-button label="Cancel" (click)="cancel()"></p-button>
-            <p-button label="Verify" (click)="verify()"></p-button>
-            <p-button label="Resend OTP" (click)="resendOtp()"></p-button>
-        </div>
+  <div class="card text-center">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="card-title">Enter Your OTP</h4>
+      </div>
     </div>
+    <div class="row box">
+      <div class="col-xs-2">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp1Value">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp2Value">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp3Value">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp4Value">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp5Value">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" [(ngModel)]="otp6Value">
+      </div>
+    </div>
+    <br>
+  </div>
+  <br>
+  <div class="button-container">
+    <p-button label="Cancel" (click)="cancel()"></p-button>
+    <p-button label="Verify" (click)="verify()"></p-button>
+    <p-button label="Resend OTP" (click)="resendOtp()"></p-button>
   </div>
   `,
   styles: [
-    `.body{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      background: whitesmoke;
-      height: 100%;
-  }
-  
+  `
   .box{
       display: flex;
   }
@@ -74,12 +62,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 
   .button-container {
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+    justify-content: center;
   }
   
   .button-container p-button {
-    margin-right: 10px;
+    margin: 0 5px; /* Add a small horizontal margin between the buttons */
   }
   `
   ],
@@ -99,11 +86,13 @@ export class VerifyOtpComponent {
   id: any;
 
   constructor(
-    public dialogRef: MatDialogRef<VerifyOtpComponent>,
+    // public dialogRef: MatDialogRef<VerifyOtpComponent>,
     private elementRef: ElementRef,
     private messageService: MessageService,
     private router: Router,
     protected api: ApiService,
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig,
   ) { }
 
   ngOnInit(): void {
@@ -127,10 +116,10 @@ export class VerifyOtpComponent {
   }
 
   //close dialog box
-  dismiss() {
-    console.log('Dismiss called');
-    this.dialogRef.close();
-  }
+  // dismiss() {
+  //   console.log('Dismiss called');
+  //   this.dialogRef.close();
+  // }
 
   //user can press only numbers on keyboard
   numberOnly(event: any): boolean {
@@ -142,7 +131,8 @@ export class VerifyOtpComponent {
   }
 
   cancel(){
-    this.dismiss();
+    // this.dismiss();
+    this.ref.close();
     this.router.navigate(['auth/login']);
   }
 
@@ -158,11 +148,13 @@ export class VerifyOtpComponent {
         if (data['status'] == 200) {
           console.log('inside=============================');
           this.router.navigateByUrl('pages/adminDashboard');
-          this.dismiss();
+          // this.dismiss();
+          this.ref.close();
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
         } else {
           console.log(' Erorrrrrrrrrrrrrrrrrrr ')
-          this.dismiss();
+          // this.dismiss();
+          this.ref.close();
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
         }
       })

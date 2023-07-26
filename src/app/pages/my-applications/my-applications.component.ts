@@ -23,9 +23,11 @@ export class MyApplicationsComponent {
     this.token = JSON.parse(localStorage.getItem('user')!);
     this.user_id = this.token.data.user.user_id;
 
-    this.api.getMyApplicationData(this.app_id).subscribe((data: any)=>{
-      if(data['status'] == 200){
+    this.api.getMyApplicationData().subscribe((data: any) => {
+      if (data['status'] == 200) {
         this.myApplicationData = data['data'];
+      } else {
+        console.log('Data not found!');
       }
     })
   }

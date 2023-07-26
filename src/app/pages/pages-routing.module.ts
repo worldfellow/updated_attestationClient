@@ -87,7 +87,7 @@ const routes: Routes = [{
       canActivate: [AuthGuard], 
     },
     {
-      path : 'dashboard/viewProfile',
+      path : 'profile',
       component : ProfileComponent,
       canActivate: [AuthGuard], 
     },
