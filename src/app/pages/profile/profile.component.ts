@@ -42,25 +42,22 @@ export class ProfileComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.token = JSON.parse(localStorage.getItem('user')!)
-    this.user_id = this.token.data.user.user_id;
+   
     this.genderList = [
-      { name: 'Male' },
+      { name: 'Male'  },
       { name: 'Female' },
       { name: 'Others' }
     ];
     this.refresh();
-    console.log("countrycode",this.CountryCode);
   }
     
     constructor(protected api: ApiService,private messageService: MessageService,protected countries: CountriesService){
     this.CountryCode = this.countries.getData();
-
     }
     
-  whatsAppCodeControl = new FormControl('');
+  
   refresh(){
-  this.api.getProfileValue(this.user_id).subscribe((data:any) =>{
+  this.api.getProfileValue().subscribe((data:any) =>{
     console.log("profileValue",data['data']['profile']);
     this.profileValue=data['data']['profile'];
     this.profile.patchValue({
@@ -109,7 +106,7 @@ onChange(event:any){
   const data={
     username:this.profile.controls['firstName'].value,
     surname:this.profile.controls['surname'].value,
-    gender:this.profile.controls['gender'].value,
+    gender:this.profile.controls['gender'].value.name,
     email:this.profile.controls['emailId'].value,
     mobile_country_code:this.profile.controls['mobileCode'].value.replace('+',''),
     mobile:this.profile.controls['mobile'].value,
@@ -117,7 +114,7 @@ onChange(event:any){
     whatsappMobile:this.profile.controls['whatsApp'].value,
   }
   
-  this.api.updateProfile(this.user_id,data).subscribe((data:any)=>{
+  this.api.updateProfile(data).subscribe((data:any)=>{
      if(data){
       if(data['status'] == 200){
         this.messageService.add({ severity: 'success', summary: 'Success', detail: data['message'] });

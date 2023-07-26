@@ -369,13 +369,16 @@ export class ApiService {
       return this.httpClient.get(`${this.baseUrl}/api/student/getMyApplicationData?app_id=${app_id}`);
   }
 
-  getProfileValue(user_id:any){
-    return this.httpClient.get(`${this.baseUrl}/api/student/getProfileValue?user_id=${user_id}`)
+  getProfileValue(){
+    return this.httpClient.get(`${this.baseUrl}/api/student/getProfileValue`)
   }
 
-  updateProfile(user_id:any,data:any){
-    return this.httpClient.post(`${this.baseUrl}/api/student/updateProfile`, {"user_id" : user_id,"data" : data})
+  updateProfile(data:any){
+    return this.httpClient.post(`${this.baseUrl}/api/student/updateProfile`, {"data" : data})
   }
 
+  changePassword(data:any){
+    return this.httpClient.post(`${this.baseUrl}/api/student/changePassword`, {"data" : data}) 
+  }
 
 }    

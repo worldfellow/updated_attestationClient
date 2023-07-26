@@ -108,7 +108,8 @@ import { ViewSubAdminRolesComponent } from './dialog/view-sub-admin-roles/view-s
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
-
+import { ChangePasswordComponent } from './dailogComponents/change-password.component'; 
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
@@ -168,6 +169,7 @@ import {MatTableModule} from '@angular/material/table';
     NotesComponent,
     AddSubAdminComponent,
     ViewSubAdminRolesComponent,
+    ChangePasswordComponent, 
   ],
   imports: [
     CommonModule, 
@@ -242,8 +244,8 @@ import {MatTableModule} from '@angular/material/table';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTableModule
-
+    MatTableModule,
+    PasswordModule
   ],
   providers:[AuthGuard]
 })

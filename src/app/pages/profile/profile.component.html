@@ -26,7 +26,7 @@
             <div class="col-md-2">
               <!-- <input class="p-inputtext-sm" [(ngModel)]="gender" [readonly]="userValue" pInputText id="username"  /> -->
               <p-dropdown [options]="genderList" class="p-inputtext-sm"
-              formControlName="gender" 
+              formControlName="gender" [readonly]="userValue"
               [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" 
               filterBy="name"   placeholder="Select Gender" [editable]="true">
             </p-dropdown>
