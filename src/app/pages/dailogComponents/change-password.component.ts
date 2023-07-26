@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
   selector: 'app-change-password',
   template: `
   <p-card>
+  <h6 style="text-align:center;color:green">Please set a new password</h6>
   <form (ngSubmit)="onSubmit()" [formGroup]="reactiveForm">
     <div class="row">
       <div class="col-md-4">
@@ -16,7 +17,7 @@ import { MessageService } from 'primeng/api';
       </div>
       <div class="col-md-1"></div>
       <div class="col-md-4">
-        <p-password [toggleMask]="true" formControlName="password" [feedback]="false"
+        <p-password [toggleMask]="true" formControlName="password" [feedback]="false" placeholder="Type Password"
           [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"></p-password>
         <div *ngIf="(f['password'].invalid || f['password'].touched) && (f['password'].touched || submitted)" class="invalid-feedback">
           <div *ngIf="f['password'].invalid && f['password'].errors?.hasOwnProperty('required')">Password is required</div>
@@ -36,7 +37,7 @@ import { MessageService } from 'primeng/api';
       </div>
       <div class="col-md-1"></div>
       <div class="col-md-4">
-        <p-password formControlName="confirmPassword" [feedback]="false"
+        <p-password formControlName="confirmPassword" [feedback]="false" placeholder="Re-Type Password"
           [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }" [toggleMask]="true"></p-password>
       </div>
       <div class=row>

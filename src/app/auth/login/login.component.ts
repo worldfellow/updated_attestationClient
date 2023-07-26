@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/api.service';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { VerifyOtpComponent } from '../dialog/verify-otp/verify-otp.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -90,6 +91,7 @@ export class LoginComponent {
 
         if (this.user_type == 'student') {
           this.router.navigateByUrl('pages/dashboard');
+          Swal.fire("Congratulation",'You Successfully Logged in','success')
         } else {
           // this.visible = true;
           this.ref = this.dialogService.open(VerifyOtpComponent, {
