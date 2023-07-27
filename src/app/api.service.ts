@@ -384,5 +384,8 @@ export class ApiService {
   forgotPasswordSendEmailToUser(email: any) {
     return this.httpClient.post(`${this.baseUrl}/api/student/forgotPasswordSendEmailToUser`, {"email": email});
   }
-
+      /* To get WES details for checking correct or not */
+  getwesdetails(wesno : any ,email : any ,name : any , lastname : any) {    
+    return this.httpClient.post(`${this.baseUrl}/api/admin/getWes_details`,{"wesno":wesno , "email" : email , "name" : name , "lastname" : lastname})
+  }
 }    

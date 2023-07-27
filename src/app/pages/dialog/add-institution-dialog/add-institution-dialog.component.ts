@@ -234,6 +234,7 @@ export class AddInstitutionDialogComponent {
   allEmail: FormControl;
   user_email: any;
   formData: any;
+  saveWes: boolean;
 
   constructor(
     protected api: ApiService,
@@ -378,7 +379,7 @@ export class AddInstitutionDialogComponent {
   }
 
   //save button
-  saveInstitution() {
+ async saveInstitution() {
     this.confirmationService.confirm({
       message: 'Are you sure want to save purpose?',
       header: 'Confirmation',
@@ -417,11 +418,29 @@ export class AddInstitutionDialogComponent {
         this.formData = this.institutionForm.value;
 
         if (this.user_type == 'student') {
-          var wesEmailValue = this.institutionForm.controls['wesEmail'].value;
-          if (this.institutionForm.controls['wesEmail'].value == 'submit@wes.org' || this.institutionForm.controls['wesEmail'].value == 'contactca@wes.org' || wesEmailValue.includes("@wes.org")) {
+          if(this.purpose_name == "Educational credential evaluators WES"){
+            this.api.getwesdetails(this.institutionForm.controls['allRefNo'].value,this.institutionForm.controls['wesEmail'].value,this.institutionForm.controls['wesName'].value,this.institutionForm.controls['wesSurname'].value).subscribe(async(data:any) => {
+              if(data['status'] == 400){
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
+              }else{
 
-          }
-          else {
+                var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+                this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData,this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+                  if (data['status'] == 200) {
+    
+                    this.dismiss();
+    
+                    this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
+                  }
+                  else if (data['status'] == 400) {
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
+                  }
+                });
+                
+              }
+             
+            })
+          }else{
             var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
             this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData,this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
               if (data['status'] == 200) {
@@ -436,11 +455,6 @@ export class AddInstitutionDialogComponent {
             });
           }
         } else {
-          var wesEmailValue = this.institutionForm.controls['wesEmail'].value;
-          if (this.institutionForm.controls['wesEmail'].value == 'submit@wes.org' || this.institutionForm.controls['wesEmail'].value == 'contactca@wes.org' || wesEmailValue.includes("@wes.org")) {
-
-          }
-          else {
             var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
             this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData,this.student_app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
               if (data['status'] == 200) {
@@ -453,7 +467,7 @@ export class AddInstitutionDialogComponent {
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
               }
             });
-          }
+        
         }
       },
 

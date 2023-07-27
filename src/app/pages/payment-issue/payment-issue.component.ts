@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { config } from '../../../../config';
 import { ApiService } from 'src/app/api.service';
 import { ImageCroppedEvent } from "ngx-image-cropper";
+import { ImageViewComponent } from '../dailogComponents/image-view.component';
+import { DialogService ,DynamicDialogRef } from 'primeng/dynamicdialog';
 
 
 
@@ -10,6 +12,7 @@ import { ImageCroppedEvent } from "ngx-image-cropper";
   selector: 'app-payment-issue',
   templateUrl: './payment-issue.component.html',
   styleUrls: ['./payment-issue.component.css'],
+  providers: [DialogService]
 })
 export class PaymentIssueComponent {
   registerForm: FormGroup;
@@ -24,9 +27,11 @@ export class PaymentIssueComponent {
   width: number;
   file: File;
   issuedata: any;
+  ref: DynamicDialogRef;
   constructor(
     private formBuilder: FormBuilder,
-    protected api: ApiService,) { }
+    protected api: ApiService,
+    private dialogService: DialogService,) { }
 
 
   ngOnInit() {
@@ -119,5 +124,19 @@ getDetails(){
     }else{
     }
   })
+}
+
+imageView(filepath:any,filename:any,extension:any){
+   this.ref =this.dialogService.open(ImageViewComponent, {
+    data:{
+      imgType : extension,
+      imgName : filepath,
+    },
+    header: 'Your Payment Recipt',
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true
+  });
 }
 }

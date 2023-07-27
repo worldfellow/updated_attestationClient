@@ -85,8 +85,8 @@
         <th>Amount</th>
         <th>Order No</th>
         <th>Issue Description</th>
+        <th>Payment Recipt</th>
         <th>Status</th>
-        <th>Image</th>
       </tr>
     </thead>
 
@@ -113,14 +113,19 @@
         <td>
           {{student?.order_id}}
         </td>
-        <td >
-          {{student?.tracker}}
-          <br>
-        <span *ngIf="student?.tracker == 'Reject'" style="color: red;">Reason for rejection send on your Register Mail</span>
+        <td>
+          {{student?.note}}
         </td>
         <td>
-         Click here
+          <i class="pi pi-eye" (click)="imageView(student.filePath,student.fileName,student.extension)"
+          style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i>
         </td>
+        <td >
+          <span *ngIf="student?.tracker == 'Inprocess' " style="color: orange;">{{student?.tracker}}</span>  
+          <span *ngIf="student?.tracker == 'Resolved'" style="color: green;"></span>  
+          <span *ngIf="student?.tracker == 'Reject'" style="color: red;" title="Reason for rejection send on your Register Mail">{{student?.tracker}}</span>
+        </td>
+       
       </tr>
     </tbody>
 
