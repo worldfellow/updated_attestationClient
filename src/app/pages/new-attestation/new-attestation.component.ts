@@ -39,6 +39,9 @@ export class NewAttestationComponent implements OnInit {
   tabcheck_inner1: any;
   tabcheck_inner2: any;
   tabcheck_inner3: any;
+  instructionalField: any;
+  curriculum: any;
+  affiliationletter: any;
 
   constructor(
     private router: Router,
@@ -57,9 +60,14 @@ export class NewAttestationComponent implements OnInit {
     this.api.getEducationalDetails().subscribe((data: any)=>{
       if(data['status'] == 200){
         this.appliedData = data['data'];
-      }else{
-        console.log('Data not found!');
+        this.educationalDetails = this.appliedData['educationalDetails']
+        this.instructionalField = this.appliedData['instructionalField']
+        this.curriculum = this.appliedData['curriculum']
+        this.gradToPer = this.appliedData['gradToPer']
+        this.affiliationletter = this.appliedData['affiliation']
+        this.LetterforNameChange = this.appliedData['LetterforNameChange']
       }
+        
     })
 
     this.firstForm = this.fb.group({

@@ -11,7 +11,7 @@
             <form [formGroup]="firstForm">
             <section class="example-section">
               <span class="example-list-section">
-                <mat-checkbox class="example-margin" formControlName="educationalDetails" [(ngModel)]="appliedData.educationalDetails" (change)="onChange($event)">
+                <mat-checkbox class="example-margin" formControlName="educationalDetails" [(ngModel)]="educationalDetails" (change)="onChange($event)">
                   Educational Details (select this option for attestation of marksheets, transcripts & Convocation
                   Certificate)
                 </mat-checkbox>
@@ -19,42 +19,42 @@
             </section>
             <section class="example-section">
               <span class="example-list-section">
-                <mat-checkbox class="example-margin" formControlName="instructionalDetails" [(ngModel)]="appliedData.instructionalField" (change)="onChange($event)">
+                <mat-checkbox class="example-margin" formControlName="instructionalDetails" [(ngModel)]="instructionalField" (change)="onChange($event)">
                   Medium of Instruction (In case you want letter(language) of medium of instructions eg: English,Hindi etc)
                 </mat-checkbox>
               </span>
             </section>
             <section class="example-section">
               <span class="example-list-section">
-                <mat-checkbox class="example-margin" formControlName="curriculumDetails" [(ngModel)]="appliedData.curriculum" (change)="onChange($event)">
+                <mat-checkbox class="example-margin" formControlName="curriculumDetails" [(ngModel)]="curriculum" (change)="onChange($event)">
                   Curriculum (Incase you want the subjects to be attested. Curriculum is issued by the college)
                 </mat-checkbox>
               </span>
             </section>
             <section class="example-section">
               <span class="example-list-section">
-                <mat-checkbox class="example-margin" formControlName="gradToPer" [(ngModel)]="appliedData.gradToPer" (change)="onChange($event)">
+                <mat-checkbox class="example-margin" formControlName="gradToPer" [(ngModel)]="gradToPer" (change)="onChange($event)">
                   Grade to Percentage Letter
                 </mat-checkbox>
               </span>
             </section>
             <section class="example-section">
               <span class="example-list-section">
-                <mat-checkbox class="example-margin" formControlName="affiliation" [(ngModel)]="appliedData.affiliation" (change)="onChange($event)">
+                <mat-checkbox class="example-margin" formControlName="affiliation" [(ngModel)]="affiliationletter" (change)="onChange($event)">
                   Affiliation Letter
                 </mat-checkbox>
               </span>
             </section>
             <section class="example-section">
               <span class="example-list-section">
-                <mat-checkbox class="example-margin" formControlName="CompetencyLetter" [(ngModel)]="appliedData.CompetencyLetter" (change)="onChange($event)">
+                <mat-checkbox class="example-margin" formControlName="CompetencyLetter" [(ngModel)]="CompetencyLetter" (change)="onChange($event)">
                   Certificate of Competency letter (For Master of Foreign-Going Ship Examination ONLY)
                 </mat-checkbox>
               </span>
             </section>
             <section class="example-section">
               <span class="example-list-section">
-                <mat-checkbox class="example-margin" formControlName="LetterforNameChange" [(ngModel)]="appliedData.LetterforNameChange" (change)="onChange($event)">
+                <mat-checkbox class="example-margin" formControlName="LetterforNameChange" [(ngModel)]="LetterforNameChange" (change)="onChange($event)">
                   Letter For Name Change (A Letter stating mothers name on marksheet and not on passport.)
                 </mat-checkbox>
               </span>

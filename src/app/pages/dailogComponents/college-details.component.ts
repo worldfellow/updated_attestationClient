@@ -42,7 +42,7 @@ import { ActivatedRoute } from '@angular/router';
   <br>
   <div class="row">
   <div class="col-md-6">
-  <button pButton pRipple label="Save" (click)="saveCollegeDetails()" class="p-button-success"></button>
+  <button pButton pRipple label="Save" (click)="saveCollegeDetails()" class="p-button-success" *ngIf="CollegeDetails.valid"></button>
   </div>
   </div>  
   </form>
@@ -70,6 +70,7 @@ export class CollegeDetailsComponent implements OnInit {
   app_id: any;
   documentId: any;
   type: any;
+  file_name: any;
 
   constructor(protected api: ApiService, public ref: DynamicDialogRef, private fb: FormBuilder, public config: DynamicDialogConfig,private messageService: MessageService,private route : ActivatedRoute) {
     this.data = config.data;
@@ -112,12 +113,12 @@ export class CollegeDetailsComponent implements OnInit {
     formData.append('file', this.file);
     formData.append('user_id', this.user_id);
     this.api.ScanData('','','','',this.app_id,this.type,formData).subscribe((data: any) => {
-      
       if (data['status'] == 200) {
         this.collegeName = data['data'][0];
         this.courseName = data['data'][1];
         this.patteren = data['data'][2];
         this.documentId = data['data'][3];
+        this.file_name = data['data'][4];
         this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Uploaded Successfully!' });
          this.CollegeDetails.patchValue({
           collegeNameCtrl: this.collegeName[0],
@@ -125,7 +126,6 @@ export class CollegeDetailsComponent implements OnInit {
           courseNameCtrl : this.courseName[0]
          })
       }else if(data['status'] == 401){
-        // this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Change your delivery Type' });
         this.ref.close(401)
       }else{
         this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Kindly Upload Proper Documents which are visible' });
@@ -160,9 +160,9 @@ export class CollegeDetailsComponent implements OnInit {
   saveCollegeDetails() {
     var data=[];
     data.push({'collegeId' : this.CollegeDetails.controls['collegeNameCtrl'].value['id'] , 'faculty' :this.CollegeDetails.controls['courseNameCtrl'].value['faculty']
-    , 'degree' : this.CollegeDetails.controls['courseNameCtrl'].value['degree'],'patteren' : this.CollegeDetails.controls['semYearCtrl'].value,'user_id' : this.user_id})
+    , 'degree' : this.CollegeDetails.controls['courseNameCtrl'].value['degree'],'patteren' : this.CollegeDetails.controls['semYearCtrl'].value,'user_id' : this.user_id , "file_name" : this.file_name})
 
-    this.api.saveUserMarkList(this.documentId,this.app_id,this.type,data).subscribe( (data: any) => {
+    this.api.saveUserMarkList(this.app_id,this.type,data).subscribe( (data: any) => {
       if (data['status'] == 200) {
         this.ref.close();
       }else if(data['status'] == 401){
@@ -173,6 +173,5 @@ export class CollegeDetailsComponent implements OnInit {
       }
     })
   }
-
 
 }

@@ -1,5 +1,6 @@
 <p-card class="card">
-  <mat-tab-group class="mat-tab-group-custom" #tabGroup  (selectedTabChange)="myTabSelectedIndexChange($event)"  [selectedIndex]="tabcheck1">  
+  <!-- Marksheet Details -->
+  <mat-tab-group class="mat-tab-group-custom" #tabGroup  (selectedTabChange)="myTabSelectedIndexChange($event)"  [selectedIndex]="tabcheck1">
     <mat-tab >
       <br>
       <ng-template mat-tab-label>
@@ -55,7 +56,7 @@
                   <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script>
                 </head>
 
-                <div class="row" *ngIf="base64Image">
+                <!-- <div class="row" *ngIf="base64Image">
                   <div class="text-center col-md-6">
                     <h4 class="cropPreview">Crop</h4>
                     <div class="row" style="margin-top: 15px;">
@@ -68,13 +69,13 @@
                       <img [src]="croppedImage" />
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="card-body" >
                   <p-toast></p-toast>
                   <form class="needs-validation" [formGroup]="uploadForm" novalidate> 
                     <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
-                      (change)="handleFileInput($event)"> 
-                    <p-button  (click)="uploadDetails($event,'marklist','','','','','','')" label="Upload"></p-button> 
+                      (change)="handleFileInput($event,'marklist' , null, null, null, null, null, null)"> 
+                    <p-button *ngIf="base64Image" (click)="uploadDetails($event,'marklist','','','','','','')" label="Upload"></p-button>
                     <br><br> 
                     <div class="table">
                       <p-table [tableStyle]="{ 'min-width': '50rem' }">
@@ -106,7 +107,7 @@
       </div>
     </mat-tab>
  <!-- Transcripts Details -->
-   <mat-tab >
+   <mat-tab *ngIf="educationalDetails == true">
       <br>
       <ng-template mat-tab-label>
         <div class="title"> Upload Transcripts</div>
@@ -161,7 +162,7 @@
                   <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script>
                 </head>
 
-                <div class="row" *ngIf="base64Image">
+                <!-- <div class="row" *ngIf="base64Image">
                   <div class="text-center col-md-6">
                     <h4 class="cropPreview">Crop</h4>
                     <div class="row" style="margin-top: 15px;">
@@ -172,7 +173,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="card-body" >
                   <p-toast></p-toast>
                   <form class="needs-validation" [formGroup]="uploadForm" novalidate> 
@@ -190,8 +191,8 @@
                             <td>{{transcriptdata.college}} </td>
                             <td>
                               <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
-                              (change)="handleFileInput($event)"> 
-                              <p-button  (click)="uploadDetails($event,'transcript',transcriptdata.coursename,transcriptdata.college,transcriptdata.collegeid,transcriptdata.faculty,transcriptdata.education_type,transcriptdata.patteren)" label="Upload"></p-button>
+                              (change)="handleFileInput($event,'transcript',transcriptdata.coursename,transcriptdata.college,transcriptdata.collegeid,transcriptdata.faculty,transcriptdata.education_type,transcriptdata.pattern)"> 
+                              <p-button *ngIf="base64Image" (click)="uploadDetails($event,'transcript',transcriptdata.coursename,transcriptdata.college,transcriptdata.collegeid,transcriptdata.faculty,transcriptdata.education_type,transcriptdata.pattern)" label="Upload"></p-button>
                           </td>
 
                           </tr>
@@ -229,7 +230,7 @@
       </div>
     </mat-tab>
   <!-- Instructional Details -->
-  <mat-tab>
+  <mat-tab *ngIf="instructionalField == true">
       <ng-template mat-tab-label>
         <div class="title">Instructional Details</div>
       </ng-template>
@@ -491,7 +492,7 @@
     </mat-tab> 
 
 <!-- Affiliation Details -->
-   <mat-tab  >
+   <mat-tab  *ngIf="affiliation == true">
       <ng-template mat-tab-label>
         <div class="title">Affiliation Letter Details</div>
       </ng-template>
@@ -868,7 +869,7 @@
   </mat-tab> 
 </ng-container>
   <!-- Curriculum Details -->
-  <mat-tab>
+  <mat-tab *ngIf="curriculum == true">
       <br>
       <ng-template mat-tab-label>
         <div class="title"> Upload Curriculum</div>
@@ -923,7 +924,7 @@
                   <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script>
                 </head>
     
-                <div class="row" *ngIf="base64Image">
+                <!-- <div class="row" *ngIf="base64Image">
                   <div class="text-center col-md-6">
                     <h4 class="cropPreview">Crop</h4>
                     <div class="row" style="margin-top: 15px;">
@@ -934,7 +935,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="card-body" >
                   <p-toast></p-toast>
                   <form class="needs-validation" [formGroup]="uploadForm" novalidate> 
@@ -952,8 +953,8 @@
                             <td>{{transcriptdata.college}} </td>
                             <td>
                               <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
-                              (change)="handleFileInput($event)"> 
-                              <p-button  (click)="uploadDetails($event,'curriculum',transcriptdata.coursename,transcriptdata.college,transcriptdata.collegeid,transcriptdata.faculty,transcriptdata.education_type,transcriptdata.patteren)" label="Upload"></p-button>
+                              (change)="handleFileInput($event,'curriculum', null, null, null, null, null, null)"> 
+                              <p-button  (click)="uploadDetails($event,'curriculum',transcriptdata.coursename,transcriptdata.college,transcriptdata.collegeid,transcriptdata.faculty,transcriptdata.education_type,transcriptdata.pattern)" label="Upload"></p-button>
                           </td>
     
                           </tr>
@@ -990,7 +991,7 @@
       </div>
     </mat-tab>
     <!-- Upload GradeToPercentage Details -->
-   <mat-tab>
+   <mat-tab *ngIf="gradToPer == true">
       <br>
       <ng-template mat-tab-label>
         <div class="title"> Upload GradeToPercentage</div>
@@ -1045,7 +1046,7 @@
                   <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script>
                 </head>
     
-                <div class="row" *ngIf="base64Image">
+                <!-- <div class="row" *ngIf="base64Image">
                   <div class="text-center col-md-6">
                     <h4 class="cropPreview">Crop</h4>
                     <div class="row" style="margin-top: 15px;">
@@ -1056,7 +1057,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="card-body" >
                   <p-toast></p-toast>
                   <form class="needs-validation" [formGroup]="uploadForm" novalidate> 
@@ -1074,8 +1075,8 @@
                             <td>{{transcriptdata.college}} </td>
                             <td>
                               <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
-                              (change)="handleFileInput($event)"> 
-                              <p-button  (click)="uploadDetails($event,'gradtoper',transcriptdata.coursename,transcriptdata.college,transcriptdata.collegeid,transcriptdata.faculty,transcriptdata.education_type,transcriptdata.patteren)" label="Upload"></p-button>
+                              (change)="handleFileInput($event,'gradtoper' , null, null, null, null, null, null)"> 
+                              <p-button  (click)="uploadDetails($event,'gradtoper',transcriptdata.coursename,transcriptdata.college,transcriptdata.collegeid,transcriptdata.faculty,transcriptdata.education_type,transcriptdata.pattern)" label="Upload"></p-button>
                           </td>
     
                           </tr>
@@ -1110,7 +1111,7 @@
       </div>
     </mat-tab>
     <!-- Letter For Mother Name on Marksheet Details -->
-    <mat-tab>
+    <mat-tab *ngIf="LetterforNameChange == true">
       <ng-template mat-tab-label>
         <div class="title"> Letter For Mother Name on Marksheet</div>
       </ng-template>
@@ -1176,6 +1177,18 @@
                     <input pInputText id="username" placeholder="Last Name as per Passport"
                       formControlName="lastNamePassportCtrl" />
                   </div>
+                  <!-- <div class="row" *ngIf="base64Image">
+                    <div class="text-center col-md-6">
+                      <h4 class="cropPreview">Crop</h4>
+                      <div class="row" style="margin-top: 15px;">
+                        <div class="text-center col-md-8" *ngIf="imageChangedEvent">
+                          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+                          format="png" (imageCropped)="imageCropped($event)">
+                          </image-cropper>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
                   <div class="col-md-3">Upload Passport</div>
                   <div class="col-md-3">
                     <div>
@@ -1183,8 +1196,8 @@
                       <p-toast></p-toast>
                     
                       <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
-                      (change)="handleFileInput($event)"> 
-                    <p-button  (click)="uploadDetails($event,'LetterforNameChange','','','','','','')" label="Upload"></p-button> 
+                      (change)="handleFileInput($event,'LetterforNameChange' , null, null, null, null, null, null)"> 
+                      <p-button   *ngIf="base64Image" (click)="uploadDetails($event,'LetterforNameChange','','','','','','')" label="Upload"></p-button>
                     
                     </div>
                     <div> <i class="pi pi-eye" (click)="imageView()"
@@ -1193,26 +1206,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" *ngIf="base64Image">
-                  <div class="text-center col-md-6">
-                    <h4 class="cropPreview">Crop</h4>
-                    <div class="row" style="margin-top: 15px;">
-                      <div class="text-center col-md-8" *ngIf="imageChangedEvent">
-                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
-                        format="png" (imageCropped)="imageCropped($event)">
-                        </image-cropper>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              
                 <br>
                 <p-toast></p-toast>
                 <p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>
-                <p-button label="Save" *ngIf="namechangeletterdetails == undefined || namechangeletterdetails == null"
+                <p-button label="Save" *ngIf="LetterforNameChangeform.valid"
                   (click)="saveLetter()" styleClass="p-button-raised p-button-success"></p-button>
-                <div *ngIf="namechangeletterdetails != undefined || namechangeletterdetails != null"> <i
-                    class="pi pi-file-edit" (click)="editLetter()"
-                    style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i>
+                <div *ngIf="namechangeletterdetails != undefined || namechangeletterdetails != null"> 
+                  <i class="pi pi-file-edit" (click)="editLetter()" style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"> </i>
                   <i class="pi pi-trash" (click)="deleteInfo('NameChangeletter')" style="font-size: 1.5rem"></i>
                 </div>
                 <p-button label="Update"
@@ -1227,7 +1228,7 @@
       </div>
     </mat-tab>
 <!-- Name Change Proof Details -->
-     <mat-tab>
+     <mat-tab >
       <br>
       <ng-template mat-tab-label>
         <div class="title"> Name Change Proof</div>
@@ -1265,7 +1266,7 @@
                   <script src='https://unpkg.com/tesseract.js@1.0.19/src/index.js'></script>
                 </head>
 
-                <div class="row" *ngIf="base64Image">
+                <!-- <div class="row" *ngIf="base64Image">
                   <div class="text-center col-md-6">
                     <h4 class="cropPreview">Crop</h4>
                     <div class="row" style="margin-top: 15px;">
@@ -1276,13 +1277,13 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="card-body" >
                   <p-toast></p-toast>
                   <form class="needs-validation" [formGroup]="uploadForm" novalidate> 
                     <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
-                      (change)="handleFileInput($event)"> 
-                    <p-button  (click)="uploadDetails($event,'extra','','','','','','')" label="Upload"></p-button> 
+                      (change)="handleFileInput($event,'extra' , null, null, null, null, null, null)"> 
+                    <p-button *ngIf="base64Image" (click)="uploadDetails($event,'extra','','','','','','')" label="Upload"></p-button> 
                     <br><br> 
                     <div class="table">
                       <p-table [tableStyle]="{ 'min-width': '50rem' }">

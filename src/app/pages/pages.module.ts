@@ -108,6 +108,7 @@ import { ViewSubAdminRolesComponent } from './dialog/view-sub-admin-roles/view-s
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
+import { ShowPreviewComponent } from '../pages/show-preview/show-preview.component';
 import { ChangePasswordComponent } from './dailogComponents/change-password.component'; 
 import { PasswordModule } from 'primeng/password';
 
@@ -169,6 +170,7 @@ import { PasswordModule } from 'primeng/password';
     NotesComponent,
     AddSubAdminComponent,
     ViewSubAdminRolesComponent,
+    ShowPreviewComponent,
     ChangePasswordComponent, 
   ],
   imports: [

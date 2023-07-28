@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 import { EventEmitter } from '@angular/core';
 import { TranscriptDailogComponent } from '../dailogComponents/transcript-dailog.component';
 import { CompetencyDailogComponent } from '../dailogComponents/competency-dailog.component';
+import { ShowPreviewComponent } from '../show-preview/show-preview.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -82,13 +84,14 @@ export class UploadDocumentComponent implements OnInit {
   degrees: string[] = []
 
   LetterforNameChangeform: FormGroup = new FormGroup({
-    firstNameMarksheetCtrl: new FormControl(''),
-    fatherNameMarksheetCtrl: new FormControl(''),
-    motherNameMarksheetCtrl: new FormControl(''),
-    lastNameMarksheetCtrl: new FormControl(''),
-    firstNamePassportCtrl: new FormControl(''),
-    fatherNamePassportCtrl: new FormControl(''),
-    lastNamePassportCtrl: new FormControl(''),
+    firstNameMarksheetCtrl: new FormControl('',Validators.required),
+    fatherNameMarksheetCtrl: new FormControl('',Validators.required),
+    motherNameMarksheetCtrl: new FormControl('',Validators.required),
+    lastNameMarksheetCtrl: new FormControl('',Validators.required),
+    firstNamePassportCtrl: new FormControl('',Validators.required),
+    fatherNamePassportCtrl: new FormControl('',Validators.required),
+    lastNamePassportCtrl: new FormControl('',Validators.required),
+    fileInputCtrl: new FormControl('',Validators.required),
   })
   app_id: any;
   collegeData: any =[];
@@ -115,8 +118,9 @@ export class UploadDocumentComponent implements OnInit {
   tabcheck7: any;
   tabcheck8: any;
   stepper: any;
+  id: any;
 
-  constructor(private confirmationService: ConfirmationService, private fb: FormBuilder, protected api: ApiService, private messageService: MessageService, private dialogService: DialogService, private authService: AuthService,private route : ActivatedRoute) {
+  constructor(private confirmationService: ConfirmationService, private fb: FormBuilder, protected api: ApiService, private messageService: MessageService, private dialogService: DialogService, private authService: AuthService,private route : ActivatedRoute,public dialog: MatDialog,) {
     this.initialize();
 
     this.Instructional = this.fb.group({
@@ -159,7 +163,7 @@ export class UploadDocumentComponent implements OnInit {
       this.CompetencyLetter = userApplied.CompetencyLetter;
       this.curriculum = userApplied.curriculum;
       this.gradToPer = userApplied.gradToPer;
-      this.LetterforNameChange = userApplied.letterforNameChange;
+      this.LetterforNameChange = userApplied.LetterforNameChange;
     }) 
 
     this.token = JSON.parse(localStorage.getItem('user')!)
@@ -306,7 +310,7 @@ export class UploadDocumentComponent implements OnInit {
   async initialize(): Promise<void> {
   }
 
-  handleFileInput(event: any): void {
+  handleFileInput(event: any , type : any , course_name  : any , college  : any , collegeid : any, faculty : any,education_type : any ,pattern : any): void {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       this.imageChangedEvent = event;
@@ -316,6 +320,29 @@ export class UploadDocumentComponent implements OnInit {
       reader.onload = (event: any) => {
       };
     }
+    this.showEditPreview(type , course_name , college , collegeid , faculty , education_type , pattern);
+  }
+
+  showEditPreview(type : any ,course_name : any, college : any, collegeid : any, faculty : any, education_type : any, pattern: any){
+    const dialogRef = this.dialog.open(ShowPreviewComponent, {
+      data: {
+        user_id  : this.user_id,
+        base64Image  : this.base64Image,
+        imageChangedEvent : this.imageChangedEvent,
+        type : type,
+        course_name : course_name,
+        college  : college,
+        collegeid  : collegeid,
+        faculty : faculty,
+        education_type : education_type,
+        pattern  : pattern
+
+        
+      }
+    }).afterClosed().subscribe(result => {
+        this.refresh()
+        this.id = result
+    });
   }
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
@@ -325,7 +352,7 @@ export class UploadDocumentComponent implements OnInit {
     this.height = event.height
     this.width = event.width
   }
-  dataurl(croppedFile: any, name: any ,height : number , width : number) {
+  dataurl(croppedFile: any, name: any ) {
     const base64String = croppedFile.split(",")[1]; // Extract the base64 string from the data URI
 
     const byteCharacters = atob(base64String);
@@ -346,8 +373,8 @@ export class UploadDocumentComponent implements OnInit {
     return new File([blob], name, { type: blob.type });
   }
 
-  uploadDetails(event: any ,type: any ,coursename : any ,collegename : any , collegeid : any,faculty : any,education_type: any,patteren:any) {
-    const fileUrl = this.dataurl(this.croppedImage, "11.jpeg",this.height,this.width)
+  uploadDetails(event: any ,type: any ,coursename : any ,collegename : any , collegeid : any,faculty : any,education_type: any,patteren:any) {  
+    const fileUrl = this.dataurl(this.croppedImage, "11.jpeg")
     if(type == 'marklist'){
       this.ref = this.dialogService.open(CollegeDetailsComponent, {
         data: {
@@ -469,6 +496,7 @@ export class UploadDocumentComponent implements OnInit {
       "firstNamePassportCtrl": this.LetterforNameChangeform.controls['firstNamePassportCtrl'].value,
       "fatherNamePassportCtrl": this.LetterforNameChangeform.controls['fatherNamePassportCtrl'].value,
       "lastNamePassportCtrl": this.LetterforNameChangeform.controls['lastNamePassportCtrl'].value,
+      "id": this.id,
     };
     if (this.LetterforNameChangeform.valid) {
 
@@ -747,35 +775,34 @@ export class UploadDocumentComponent implements OnInit {
 checkStepper(){
   this.api.checkstepper_inner(this.app_id).subscribe((response: any) => {
     if(response['data'].tab1 == true){
-        this.tabcheck1 = 2
+      this.tabcheck1 = 1
     }
-    else if(response['data'].tab2 == true){
+     if(response['data'].tab2 == true){
+      this.tabcheck1 = 2
+    }
+     if(response['data'].tab3 == true){
       this.tabcheck1 = 3
     }
-    else if(response['data'].tab3 == true){
+     if(response['data'].tab4 == true){
       this.tabcheck1 = 4
     }
-    else if(response['data'].tab4 == true){
+     if(response['data'].tab5 == true){
       this.tabcheck1 = 5
     }
-    else if(response['data'].tab5 == true){
+     if(response['data'].tab6 == true){
       this.tabcheck1 = 6
     }
-    else if(response['data'].tab6 == true){
+     if(response['data'].tab7 == true){
       this.tabcheck1 = 7
     }
-    else if(response['data'].tab7 == true){
+     if(response['data'].tab8 == true){
       this.tabcheck1 = 8
-    }
-    else if(response['data'].tab8 == true){
-      this.tabcheck1 = 9
     }
   })
   
 }
 
 myTabSelectedIndexChange(index: any) {
-    
 }
 /**
    * Competency Letter

@@ -164,8 +164,8 @@ export class ApiService {
   getFacultyLists() {
     return this.httpClient.get(`${this.baseUrl}/api/student/getFacultyLists`);
   }
-  saveUserMarkList(documentid: any, app_id: number,value: string, data: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`, { "documentid": documentid, "app_id": app_id,"value": value, "data": data });
+  saveUserMarkList( app_id: number,value: string, data: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`, { "app_id": app_id,"value": value, "data": data });
   }
   getExtraDocuments() {
     return this.httpClient.get(`${this.baseUrl}/api/student/getExtraDocuments`);
@@ -253,7 +253,7 @@ export class ApiService {
   }
 
   ScanData(collegeid: any, education_type: any, patteren: any, faculty: any, app_id: number, value: string, formData: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/ScanData?value=${value}&app_id=${app_id}&collegeid=${collegeid}&education_type=${education_type}&patteren=${patteren}&faculty=${faculty}`, formData);
+    return this.httpClient.post(`${this.baseUrl}/api/student/ScanData?value=${value}&app_id=${app_id}&collegeid=${collegeid}&education_type=${education_type}&pattern=${patteren}&faculty=${faculty}`, formData);
   }
 
   getUploadedDocuments(app_id: any) {
