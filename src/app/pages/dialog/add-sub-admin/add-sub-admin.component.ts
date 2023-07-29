@@ -1,22 +1,14 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
-import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
-
-export interface DialogData {
-  function_type: any;
-  user_id: any;
-}
 
 @Component({
   selector: 'app-add-sub-admin',
   template: `
-  <div class="card text-center custom-card">
-    <div class="card-header">
-      <h1>Add New Sub-Admin</h1>
-    </div>
-    <div class="card-body">
+  <div class="card">
+    <div class="row m-3">
       <form [formGroup]="subAdminForm">
         <div class="row">
           <div class="col-md-4">Name :</div>
@@ -64,17 +56,18 @@ export interface DialogData {
           </div>
         </div>
       </form>
-    </div>
-    <div class="card-footer text-muted">
-      <button pButton pRipple label="SAVE" mat-dialog-close class="p-button-success" *ngIf="subAdminForm.valid" (click)="saveSubAdmin()"></button>
+      <div class="col-md-12 d-flex justify-content-center m-2">
+        <button pButton pRipple label="SAVE" class="p-button-success" *ngIf="subAdminForm.valid" (click)="saveSubAdmin()"></button>
+      </div>
     </div>
   </div>
   `,
   styles: [
     `
-    .custom-card {
-      width: 100%;
-      height: 100%;
+    .col-md-3 {
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
     }
 
     .col-md-4{
@@ -117,7 +110,8 @@ export class AddSubAdminComponent {
   constructor(
     private fb: FormBuilder,
     protected api: ApiService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig,
     private messageService: MessageService,
   ) {
     //save form controls values using form builder
@@ -134,8 +128,8 @@ export class AddSubAdminComponent {
     this.admin_email = this.token.data.user.user_email;
 
     //get data from purpose component stores in another variables
-    this.user_id = this.data.user_id;
-    this.function_type = this.data.function_type;
+    this.user_id = this.config.data.user_id;    
+    this.function_type = this.config.data.function_type;
 
     this.subAdminForm = this.fb.group({
       allName: this.allName,
@@ -171,6 +165,7 @@ export class AddSubAdminComponent {
 
       this.api.getUpdateSubAdmin(this.formData, this.user_id, this.function_type, this.admin_email).subscribe((data: any) => {
         if (data['status'] == 200) {
+          this.ref.close();
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });

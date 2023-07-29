@@ -18,17 +18,20 @@ export class PreviewApplicationComponent {
   user_email: any;
   user_surname: any;
   preViewApplication: any;
-  education_details: any='';
+  education_details: any = '';
   college_data: any;
-  marksheets_data: any='';
-  transcripts_data: any='';
-  curriculum_data: any='';
-  gradtoper_data: any='';
-  affiliation_data: any='';
-  competency_data: any='';
-  letterfornamechange_data: any='';
-  instructional_data: any='';
+  marksheets_data: any = '';
+  transcripts_data: any = '';
+  curriculum_data: any = '';
+  gradtoper_data: any = '';
+  affiliation_data: any = '';
+  competency_data: any = '';
+  letterfornamechange_data: any = '';
+  instructional_data: any = '';
   preViewData: any;
+  allTabsOpen: boolean;
+  allTabsIndices: number[];
+
   constructor(
     private router: Router,
     protected api: ApiService,
@@ -47,7 +50,7 @@ export class PreviewApplicationComponent {
 
     this.api.preViewApplication().subscribe((data: any) => {
       if (data['status'] == 200) {
-        this.education_details = data['data'][0].educationalDetails[0];        
+        this.education_details = data['data'][0].educationalDetails[0];
         this.college_data = data['data'][0].collegeData;
         this.marksheets_data = data['data'][0].marksheetsData;
         this.transcripts_data = data['data'][0].transcriptsData;
@@ -57,10 +60,16 @@ export class PreviewApplicationComponent {
         this.affiliation_data = data['data'][0].affiliationData;
         this.competency_data = data['data'][0].competencyData;
         this.letterfornamechange_data = data['data'][0].letterfornamechangeData;
-        console.log("letterfornamechange_data",data['data'][0].letterfornamechangeData);
-        
-      }else{
-        console.log('Data not found!');      
+
+        console.log("######################", data['data'].length);
+
+        //p accordian bydefault visible
+        this.allTabsOpen = true;
+
+        // Set the array of all tab indices based on the number of tabs you have
+        this.allTabsIndices = Array.from({ length: data['data'].length }, (_, index) => index);
+      } else {
+        console.log('Data not found!');
       }
     })
 
@@ -79,9 +88,9 @@ export class PreviewApplicationComponent {
     this.router.navigate(['pages/purpose']);
   }
 
-  openImgPdf(fileName:any, extension:any){
-    console.log('fileName',fileName);
-    console.log('extention',extension);
+  openImgPdf(fileName: any, extension: any) {
+    console.log('fileName', fileName);
+    console.log('extention', extension);
 
     const dialogRef = this.dialog.open(OpenImgPdfDialogComponent, {
       data: {
@@ -93,7 +102,11 @@ export class PreviewApplicationComponent {
     });
   }
 
-  viewCart(){
+  viewCart() {
     this.router.navigate(['pages/cart']);
+  }
+
+  viewPurpose(){
+    this.router.navigate(['pages/attestation_page']);
   }
 }

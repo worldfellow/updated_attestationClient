@@ -65,8 +65,8 @@
             
 
                 <mat-radio-group (change)="onChange($event)" formControlName="phd" aria-label="Are you a Phd student?">
-                  <mat-radio-button  [checked]="phd == 'false'" value="false">No</mat-radio-button>
-                  <mat-radio-button  [checked]="phd == 'true'" value="true">yes</mat-radio-button>
+                  <mat-radio-button  [checked]="phd == false" value="false">No</mat-radio-button>
+                  <mat-radio-button  [checked]="phd == true" value="true">yes</mat-radio-button>
               </mat-radio-group>
 
 

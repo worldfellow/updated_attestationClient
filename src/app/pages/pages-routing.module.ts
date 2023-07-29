@@ -47,7 +47,7 @@ const routes: Routes = [{
       canActivate: [AuthGuard],
     },
     {
-      path : 'dashboard/attestation_page',
+      path : 'attestation_page',
       component : NewAttestationComponent,
       canActivate: [AuthGuard],
     },

@@ -57,19 +57,6 @@ export class NewAttestationComponent implements OnInit {
     this.app_id = this.route.snapshot.queryParamMap.get('app_id');
     this.user_id = this.token.data.user.user_id;
 
-    this.api.getEducationalDetails().subscribe((data: any)=>{
-      if(data['status'] == 200){
-        this.appliedData = data['data'];
-        this.educationalDetails = this.appliedData['educationalDetails']
-        this.instructionalField = this.appliedData['instructionalField']
-        this.curriculum = this.appliedData['curriculum']
-        this.gradToPer = this.appliedData['gradToPer']
-        this.affiliationletter = this.appliedData['affiliation']
-        this.LetterforNameChange = this.appliedData['LetterforNameChange']
-      }
-        
-    })
-
     this.firstForm = this.fb.group({
       educationalDetails: [],
       instructionalDetails: [],

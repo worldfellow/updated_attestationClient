@@ -24,3 +24,19 @@
 .header-content {
   flex: 1;
 } 
+
+.pi.pi-eye {
+  color: #330fd1;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.pi.pi-eye:hover {
+  font-size: 1.8rem;
+  color: #c81212;
+  cursor: pointer;
+}
+
+.p-accordionTab{
+  padding-bottom: 20%;
+}

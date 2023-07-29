@@ -1,5 +1,5 @@
 <div>
-    <div class="card text-center">
+    <div class="card">
         <div class="card-header">
             <div class="header-content">
                 <h3>Preview</h3>
@@ -8,54 +8,35 @@
         </div>
         <div class="card-body">
             <!-- personal information -->
-            <div class="row">
+            <div class="row" style="padding-bottom: 2%;">
                 <div class="col-md-6">
-                    <!-- <mat-card>
-                        <mat-card-header class="custom-header">
-                            <h4>Personal Information</h4>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="row" style="margin-top: 2%;">
-                                <div class="col-md-4"><strong>Name :</strong></div>
-                                <div class="col-md-4">{{user_name}} {{user_surname}}</div>
-                            </div>
-                            <div class="row" style="margin-top: 2%;">
-                                <div class="col-md-4"><strong>Email :</strong></div>
-                                <div class="col-md-4">{{user_email}}</div>
-                            </div>
-                            <div class="row" style="margin-top: 2%;">
-                                <div class="col-md-4"><strong>Mobile Number :</strong></div>
-                                <div class="col-md-4">+{{user_mobile_country_code}} {{user_mobile_number}}</div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card> -->
                     <p-card header="Personal Information">
-                        <div class="card">
-                            <div class="row" style="margin-top: 2%;">
-                                <div class="col-md-4"><strong>Name :</strong></div>
-                                <div class="col-md-4">{{user_name}} {{user_surname}}</div>
-                            </div>
-                            <div class="row" style="margin-top: 2%;">
-                                <div class="col-md-4"><strong>Email :</strong></div>
-                                <div class="col-md-4">{{user_email}}</div>
-                            </div>
-                            <div class="row" style="margin-top: 2%;">
-                                <div class="col-md-4"><strong>Mobile Number :</strong></div>
-                                <div class="col-md-4">+{{user_mobile_country_code}} {{user_mobile_number}}</div>
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <div class="row" style="margin-top: 2%;">
+                                    <div class="col-md-4"><strong>Name :</strong></div>
+                                    <div class="col-md-4">{{user_name}} {{user_surname}}</div>
+                                </div>
+                                <div class="row" style="margin-top: 2%;">
+                                    <div class="col-md-4"><strong>Email :</strong></div>
+                                    <div class="col-md-4">{{user_email}}</div>
+                                </div>
+                                <div class="row" style="margin-top: 2%;">
+                                    <div class="col-md-4"><strong>Mobile Number :</strong></div>
+                                    <div class="col-md-4">+{{user_mobile_country_code}} {{user_mobile_number}}</div>
+                                </div>
                             </div>
                         </div>
                     </p-card>
                 </div>
 
-                <!-- Attestation for -->
+                <!-- educational information -->
                 <div class="col-md-6">
-                    <!-- <mat-card>
-                        <mat-card-header class="custom-header">
-                            <h4>Attestation For</h4>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div style="margin-top: 2%;">
-                                <table>
+                    <p-card header="Education Information">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Attested For</h5>
+                                <table style="margin-left: 2%;">
                                     <td align="left">
                                         <span *ngIf="education_details.educationalDetails == true"><strong>- Educational
                                                 Detail</strong><br></span>
@@ -78,263 +59,103 @@
                                                 Name Change</strong></span>
                                     </td>
                                 </table>
-                            </div>
-                        </mat-card-content>
-                    </mat-card> -->
-                    <p-card header="Attestation For">
-                        <div class="card">
-                            <table style="margin-left: 2%;">
-                                <td align="left">
-                                    <span *ngIf="education_details.educationalDetails == true"><strong>- Educational
-                                            Detail</strong><br></span>
-                                    <span *ngIf="education_details.instructionalDetails == true"><strong>- Medium of
-                                            Instruction</strong><br></span>
-                                    <span *ngIf="education_details.curriculumDetails == true"><strong>-
-                                            Curriculum</strong><br>
-                                    </span>
-                                    <span *ngIf="education_details.gradtoperDetails == true"><strong>- Grade to
-                                            Percentage Letter</strong><br></span>
-                                    <span *ngIf="education_details.affiliationDetails == true"><strong>- Affiliation
-                                            Letter</strong><br></span>
-                                    <span *ngIf="education_details.competencyletterDetails == true"><strong>-
-                                            Certificate
-                                            of
-                                            Competency letter</strong><br></span>
-                                    <span *ngIf="education_details.letterfornamechangeDetails == true"><strong>-
-                                            Letter
-                                            For
-                                            Name Change</strong></span>
-                                </td>
-                            </table>
-                        </div>
-                    </p-card>
-                </div>
-            </div>
-            <br>
-
-            <!-- educational information -->
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- <mat-card>
-                        <mat-card-header class="custom-header">
-                            <h4>Education Information</h4>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="row" style="margin-top: 2%;">
-                                <div class="col-md-6" *ngFor="let college of college_data">
-                                    <div><strong>Degree for attested documents : </strong>{{college.degree}}</div>
-                                    <br>
-                                    <div><strong>College Name : </strong>{{college.name}}</div>
-                                    <br>
-                                    <div><strong>Degree & Year : </strong>{{college.year}}</div>
-                                    <br>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card> -->
-                    <p-card header="Education Information">
-                        <div class="card">
-                            <div class="row" style="margin-top: 2%;">
-                                <div class="col-md-6" *ngFor="let college of college_data">
-                                    <div><strong>Degree for attested documents : </strong>{{college.degree}}</div>
-                                    <br>
-                                    <div><strong>College Name : </strong>{{college.name}}</div>
-                                    <br>
-                                    <div><strong>Degree & Year : </strong>{{college.year}}</div>
-                                    <br>
+                                <br>
+                                <h5 class="card-title">Education</h5>
+                                <div class="row" style="margin-top: 2%;">
+                                    <div class="col-md-12" *ngFor="let college of college_data">
+                                        <div><strong>Degree for attested documents : </strong>{{college.degree}}</div>
+                                        <br>
+                                        <div><strong>College Name : </strong>{{college.name}}</div>
+                                        <br>
+                                        <div><strong>Degree & Year : </strong>{{college.year}}</div>
+                                        <br>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </p-card>
                 </div>
             </div>
-            <br>
 
             <!-- marksheets -->
-            <div class="row" *ngIf="marksheets_data.length > 0">
-                <div class="col-md-12">
-                    <!-- <mat-card>
-                        <mat-card-header class="custom-header">
-                            <h4>Marksheets</h4>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="row"
-                                *ngIf="marksheets_data.extension == 'pdf' || marksheets_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let marksheets of marksheets_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{marksheets.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
+            <p-accordion [activeIndex]="0">
+                <p-accordionTab header="Marksheets" *ngIf="marksheets_data.length > 0">
+                    <div class="card w-100">
+                        <div class="card-body row">
+                            <div class="col-md-3" *ngFor="let marksheets of marksheets_data">
+                                <!-- pdf -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="marksheets.extension == 'pdf' || marksheets.extension == 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{marksheets.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
                                             (click)="openImgPdf(marksheets.filePath,marksheets.extension)">
-                                    </mat-card>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="marksheets_data.extension != 'pdf' || marksheets_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let marksheets of marksheets_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{marksheets.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{marksheets.filePath}}"
+                                <!-- img -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="marksheets.extension != 'pdf' || marksheets.extension != 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{marksheets.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top" src="http://{{marksheets.filePath}}"
                                             (click)="openImgPdf(marksheets.filePath,marksheets.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card> -->
-
-                    <p-card header="Marksheets">
-                        <div class="card">
-                            <div class="row"
-                                *ngIf="marksheets_data.extension == 'pdf' || marksheets_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let marksheets of marksheets_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{marksheets.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
-                                            src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(marksheets.filePath,marksheets.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="marksheets_data.extension != 'pdf' || marksheets_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let marksheets of marksheets_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{marksheets.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{marksheets.filePath}}"
-                                            (click)="openImgPdf(marksheets.filePath,marksheets.extension)">
-                                    </mat-card>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </p-card>
-                </div>
-            </div>
-            <br>
+                    </div>
+                </p-accordionTab>
 
-            <!-- transcripts -->
-            <div class="row" *ngIf="transcripts_data.length > 0">
-                <div class="col-md-12">
-                    <!-- <mat-card>
-                        <mat-card-header class="custom-header">
-                            <h4>Transcripts</h4>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="row"
-                                *ngIf="transcripts_data.extension == 'pdf' || transcripts_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let transcripts of transcripts_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{transcripts.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
+                <!-- transcripts -->
+                <p-accordionTab header="Transcripts" *ngIf="transcripts_data.length > 0">
+                    <div class="card w-100">
+                        <div class="card-body row">
+                            <div class="col-md-3" *ngFor="let transcripts of transcripts_data">
+                                <!-- pdf -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="transcripts.extension == 'pdf' || transcripts.extension == 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{transcripts.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
                                             (click)="openImgPdf(transcripts.filePath,transcripts.extension)">
-                                    </mat-card>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="transcripts_data.extension != 'pdf' || transcripts_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let transcripts of transcripts_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{transcripts.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{transcripts.filePath}}"
+                                <!-- img -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="transcripts.extension != 'pdf' && transcripts.extension != 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{transcripts.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top" src="http://{{transcripts.filePath}}"
                                             (click)="openImgPdf(transcripts.filePath,transcripts.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card> -->
-
-                    <p-card header="Transcripts">
-                        <div class="card">
-                            <div class="row"
-                                *ngIf="transcripts_data.extension == 'pdf' || transcripts_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let transcripts of transcripts_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{transcripts.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
-                                            src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(transcripts.filePath,transcripts.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="transcripts_data.extension != 'pdf' || transcripts_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let transcripts of transcripts_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{transcripts.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{transcripts.filePath}}"
-                                            (click)="openImgPdf(transcripts.filePath,transcripts.extension)">
-                                    </mat-card>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </p-card>
-                </div>
-            </div>
-            <br>
+                    </div>
+                </p-accordionTab>
 
-            <!-- instructional -->
-            <div class="row" *ngIf="instructional_data.length > 0">
-                <!-- <mat-card class="col-md-12">
-                    <mat-card-header class="custom-header">
-                        <h4>Medium of Instruction</h4>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div class="row" *ngFor="let instructional of instructional_data">
-                            <p-divider align="center">
-                                <span class="p-tag">{{instructional.education_type}}</span>
-                            </p-divider>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Name :</strong> {{instructional.name}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Course :</strong> {{instructional.course}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>College :</strong> {{instructional.college}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Specialization :</strong> {{instructional.specialization}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Duration of Course :</strong> {{instructional.duration}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Division/Class :</strong> {{instructional.division}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Year of Passing :</strong> {{instructional.yearofpassing}}</div>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card> -->
-
-                <p-card header="Medium of Instruction">
-                    <div class="card">
-                        <div class="row" *ngFor="let instructional of instructional_data">
+                <!-- instructional -->
+                <p-accordionTab header="Medium of Instruction" *ngIf="instructional_data.length > 0">
+                    <div class="card w-100">
+                        <div class="card-body row" *ngFor="let instructional of instructional_data">
                             <p-divider align="center">
                                 <span class="p-tag">{{instructional.education_type}}</span>
                             </p-divider>
@@ -361,191 +182,86 @@
                             </div>
                         </div>
                     </div>
-                </p-card>
-            </div>
-            <br>
+                </p-accordionTab>
 
-            <!-- curriculum -->
-            <div class="row" *ngIf="curriculum_data.length > 0">
-                <div class="col-md-12">
-                    <!-- <mat-card>
-                        <mat-card-header class="custom-header">
-                            <h4>Curriculum</h4>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="row"
-                                *ngIf="curriculum_data.extension == 'pdf' || curriculum_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let curriculum of curriculum_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{curriculum.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
+                <!-- curriculum -->
+                <p-accordionTab header="Curriculum" *ngIf="curriculum_data.length > 0">
+                    <div class="card w-100">
+                        <div class="card-body row">
+                            <div class="col-md-3" *ngFor="let curriculum of curriculum_data">
+                                <!-- pdf -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="curriculum.extension == 'pdf' || curriculum.extension == 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{curriculum.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
                                             (click)="openImgPdf(curriculum.filePath,curriculum.extension)">
-                                    </mat-card>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="curriculum_data.extension != 'pdf' || curriculum_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let curriculum of curriculum_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{curriculum.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{curriculum.filePath}}"
+                                <!-- img -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="curriculum.extension != 'pdf' && curriculum.extension != 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{curriculum.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top" src="http://{{curriculum.filePath}}"
                                             (click)="openImgPdf(curriculum.filePath,curriculum.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card> -->
-
-                    <p-card header="Curriculum">
-                        <div class="card">
-                            <div class="row"
-                                *ngIf="curriculum_data.extension == 'pdf' || curriculum_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let curriculum of curriculum_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{curriculum.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
-                                            src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(curriculum.filePath,curriculum.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="curriculum_data.extension != 'pdf' || curriculum_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let curriculum of curriculum_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{curriculum.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{curriculum.filePath}}"
-                                            (click)="openImgPdf(curriculum.filePath,curriculum.extension)">
-                                    </mat-card>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </p-card>
-                </div>
-            </div>
-            <br>
+                    </div>
+                </p-accordionTab>
 
-            <!-- Grad to per -->
-            <div class="row" *ngIf="gradtoper_data.length > 0">
-                <div class="col-md-12">
-                    <!-- <mat-card>
-                        <mat-card-header class="custom-header">
-                            <h4>Grade to Percentage</h4>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="row"
-                                *ngIf="gradtoper_data.extension == 'pdf' || gradtoper_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;" *ngFor="let gradtoper of gradtoper_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{gradtoper.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
+                <!-- Grad to per -->
+                <p-accordionTab header="Grade to Percentage" *ngIf="gradtoper_data.length > 0">
+                    <div class="card w-100">
+                        <div class="card-body row">
+                            <div class="col-md-3" *ngFor="let gradtoper of gradtoper_data">
+                                <!-- pdf -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="gradtoper.extension == 'pdf' || gradtoper.extension == 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{gradtoper.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
                                             (click)="openImgPdf(gradtoper.filePath,gradtoper.extension)">
-                                    </mat-card>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="gradtoper_data.extension != 'pdf' || gradtoper_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;" *ngFor="let gradtoper of gradtoper_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{gradtoper.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{gradtoper.filePath}}"
+                                <!-- img -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="gradtoper.extension != 'pdf' && gradtoper.extension != 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{gradtoper.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top" src="http://{{gradtoper.filePath}}"
                                             (click)="openImgPdf(gradtoper.filePath,gradtoper.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card> -->
-
-                    <p-card header="Grade to Percentage">
-                        <div class="card">
-                            <div class="row"
-                                *ngIf="gradtoper_data.extension == 'pdf' || gradtoper_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;" *ngFor="let gradtoper of gradtoper_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{gradtoper.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
-                                            src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(gradtoper.filePath,gradtoper.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="gradtoper_data.extension != 'pdf' || gradtoper_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;" *ngFor="let gradtoper of gradtoper_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{gradtoper.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{gradtoper.filePath}}"
-                                            (click)="openImgPdf(gradtoper.filePath,gradtoper.extension)">
-                                    </mat-card>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </p-card>
-                </div>
-            </div>
-            <br>
+                    </div>
+                </p-accordionTab>
 
-            <!-- affiliation -->
-            <div class="row" *ngIf="affiliation_data.length > 0">
-                <!-- <mat-card class="col-md-12">
-                    <mat-card-header class="custom-header">
-                        <h4>Affiliation Letter</h4>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div class="row" *ngFor="let affiliation of affiliation_data">
-                            <p-divider align="center">
-                                <span class="p-tag">{{affiliation.education_type}}</span>
-                            </p-divider>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Name :</strong> {{affiliation.name}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Course :</strong> {{affiliation.course}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>College :</strong> {{affiliation.college}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Specialization :</strong> {{affiliation.specialization}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Duration of Course :</strong> {{affiliation.duration}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Division/Class :</strong> {{affiliation.division}}</div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 1%;">
-                                <div><strong>Year of Passing :</strong> {{affiliation.yearofpassing}}</div>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card> -->
-
-                <p-card header="Affiliation Letter">
-                    <div class="card">
-                        <div class="row" *ngFor="let affiliation of affiliation_data">
+                <!-- affiliation -->
+                <p-accordionTab header="Affiliation Letter" *ngIf="affiliation_data.length > 0">
+                    <div class="card w-100">
+                        <div class="card-body row" *ngFor="let affiliation of affiliation_data">
                             <p-divider align="center">
                                 <span class="p-tag">{{affiliation.education_type}}</span>
                             </p-divider>
@@ -572,258 +288,125 @@
                             </div>
                         </div>
                     </div>
-                </p-card>
-            </div>
-            <br>
+                </p-accordionTab>
 
-            <!-- competency -->
-            <div class="row" *ngIf="competency_data.length > 0">
-                <div class="col-md-12">
-                    <!-- <mat-card>
-                        <mat-card-header class="custom-header">
-                            <h4>Competency Letter</h4>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="row"
-                                *ngIf="competency_data.extension == 'pdf' || competency_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let competency of competency_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{competency.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
+                <!-- competency -->
+                <p-accordionTab header="Competency Letter" *ngIf="competency_data.length > 0">
+                    <div class="card w-100">
+                        <div class="card-body row">
+                            <div class="col-md-3" *ngFor="let competency of competency_data">
+                                <!-- pdf -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="competency.extension == 'pdf' || competency.extension == 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{competency.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
                                             (click)="openImgPdf(competency.filePath,competency.extension)">
-                                    </mat-card>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="competency_data.extension != 'pdf' || competency_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let competency of competency_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{competency.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{competency.filePath}}"
+                                <!-- img -->
+                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                    *ngIf="competency.extension != 'pdf' && competency.extension != 'PDF'">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-12">{{competency.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <img class="card-img-top" src="http://{{competency.filePath}}"
                                             (click)="openImgPdf(competency.filePath,competency.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card> -->
-
-                    <p-card header="Competency Letter">
-                        <div class="card">
-                            <div class="row"
-                                *ngIf="competency_data.extension == 'pdf' || competency_data.extension == 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let competency of competency_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{competency.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image
-                                            src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(competency.filePath,competency.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="competency_data.extension != 'pdf' || competency_data.extension != 'PDF'">
-                                <div class="col-md-3" style="margin-top: 2%;"
-                                    *ngFor="let competency of competency_data">
-                                    <mat-card class="example-card">
-                                        <mat-card-header>
-                                            <p>{{competency.name}}</p>
-                                        </mat-card-header>
-                                        <img mat-card-image src="http://{{competency.filePath}}"
-                                            (click)="openImgPdf(competency.filePath,competency.extension)">
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </div>
-                    </p-card>
-                </div>
-            </div>
-            <br>
-
-            <!-- letter for name change -->
-            <div class="row" *ngIf="letterfornamechange_data.length > 0">
-                <div class="col-md-12">
-                    <!-- <mat-card>
-                        <mat-card-header class="custom-header">
-                            <h4>Letter For Name Change</h4>
-                        </mat-card-header>
-                        <br>
-                        <mat-card-content>
-                            <div class="row" *ngFor="let letterfornamechange of letterfornamechange_data">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">First Name As Per Marksheet :</div>
-                                        <div class="col-md-6">{{letterfornamechange.firstnameaspermarksheet}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Fathers Name As Per Marksheet :</div>
-                                        <div class="col-md-6">{{letterfornamechange.fathersnameaspermarksheet}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Mothers Name As Per Marksheet :</div>
-                                        <div class="col-md-6">{{letterfornamechange.mothersnameaspermarksheet}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Last Name As Per Marksheet :</div>
-                                        <div class="col-md-6">{{letterfornamechange.lastnameaspermarksheet}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">First Name As Per Passpoart :</div>
-                                        <div class="col-md-6">{{letterfornamechange.firstnameasperpassport}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Fathers Name As Per Passpoart :</div>
-                                        <div class="col-md-6">{{letterfornamechange.fathersnameasperpassport}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Last Name As Per Passpoart :</div>
-                                        <div class="col-md-6">{{letterfornamechange.lastnameasperpassport}}</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6"
-                                    *ngIf="letterfornamechange.extension == 'pdf' || letterfornamechange.extension == 'PDF'">
-                                    <div class="col-md-6" style="margin-top: 2%;">
-                                        <mat-card class="example-card">
-                                            <mat-card-header>
-                                                <p>{{letterfornamechange.name}}</p>
-                                            </mat-card-header>
-                                            <img mat-card-image
-                                                src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                                (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension)">
-                                        </mat-card>
-                                    </div>
-                                </div>
-                                <div class="col-md-6"
-                                    *ngIf="letterfornamechange.extension != 'pdf' && letterfornamechange.extension != 'PDF'">
-                                    <div class="col-md-6" style="margin-top: 2%;">
-                                        <mat-card class="example-card">
-                                            <mat-card-header>
-                                                <p>{{letterfornamechange.name}}</p>
-                                            </mat-card-header>
-                                            <img mat-card-image src="http://{{letterfornamechange.filePath}}"
-                                                (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension)">
-                                        </mat-card>
-                                    </div>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card> -->
-
-                    <p-card header="Letter For Name Change">
-                        <div class="card">
-                            <div class="row" *ngFor="let letterfornamechange of letterfornamechange_data">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">First Name As Per Marksheet :</div>
-                                        <div class="col-md-6">{{letterfornamechange.firstnameaspermarksheet}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Fathers Name As Per Marksheet :</div>
-                                        <div class="col-md-6">{{letterfornamechange.fathersnameaspermarksheet}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Mothers Name As Per Marksheet :</div>
-                                        <div class="col-md-6">{{letterfornamechange.mothersnameaspermarksheet}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Last Name As Per Marksheet :</div>
-                                        <div class="col-md-6">{{letterfornamechange.lastnameaspermarksheet}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">First Name As Per Passpoart :</div>
-                                        <div class="col-md-6">{{letterfornamechange.firstnameasperpassport}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Fathers Name As Per Passpoart :</div>
-                                        <div class="col-md-6">{{letterfornamechange.fathersnameasperpassport}}</div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">Last Name As Per Passpoart :</div>
-                                        <div class="col-md-6">{{letterfornamechange.lastnameasperpassport}}</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6"
-                                    *ngIf="letterfornamechange.extension == 'pdf' || letterfornamechange.extension == 'PDF'">
-                                    <div class="col-md-6" style="margin-top: 2%;">
-                                        <mat-card class="example-card">
-                                            <mat-card-header>
-                                                <p>{{letterfornamechange.name}}</p>
-                                            </mat-card-header>
-                                            <img mat-card-image
-                                                src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                                (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension)">
-                                        </mat-card>
-                                    </div>
-                                </div>
-                                <div class="col-md-6"
-                                    *ngIf="letterfornamechange.extension != 'pdf' && letterfornamechange.extension != 'PDF'">
-                                    <div class="col-md-6" style="margin-top: 2%;">
-                                        <mat-card class="example-card">
-                                            <mat-card-header>
-                                                <p>{{letterfornamechange.name}}</p>
-                                            </mat-card-header>
-                                            <img mat-card-image src="http://{{letterfornamechange.filePath}}"
-                                                (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension)">
-                                        </mat-card>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </p-card>
-                </div>
-            </div>
-            <br>
+                    </div>
+                </p-accordionTab>
+
+                <!-- letter for name change -->
+                <p-accordionTab header="Letter For Name Change" *ngIf="letterfornamechange_data.length > 0">
+                    <div class="card w-100">
+                        <div class="card-body row" *ngFor="let letterfornamechange of letterfornamechange_data">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">First Name As Per Marksheet :</div>
+                                    <div class="col-md-6">{{letterfornamechange.firstnameaspermarksheet}}</div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">Fathers Name As Per Marksheet :</div>
+                                    <div class="col-md-6">{{letterfornamechange.fathersnameaspermarksheet}}</div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">Mothers Name As Per Marksheet :</div>
+                                    <div class="col-md-6">{{letterfornamechange.mothersnameaspermarksheet}}</div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">Last Name As Per Marksheet :</div>
+                                    <div class="col-md-6">{{letterfornamechange.lastnameaspermarksheet}}</div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">First Name As Per Passpoart :</div>
+                                    <div class="col-md-6">{{letterfornamechange.firstnameasperpassport}}</div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">Fathers Name As Per Passpoart :</div>
+                                    <div class="col-md-6">{{letterfornamechange.fathersnameasperpassport}}</div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">Last Name As Per Passpoart :</div>
+                                    <div class="col-md-6">{{letterfornamechange.lastnameasperpassport}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <!-- pdf -->
+                                        <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                            *ngIf="letterfornamechange.extension == 'pdf' || letterfornamechange.extension == 'PDF'">
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    <div class="col-md-12">{{letterfornamechange.name}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body text-secondary">
+                                                <img class="card-img-top"
+                                                    src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
+                                                    (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension)">
+                                            </div>
+                                        </div>
+                                        <!-- img -->
+                                        <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                            *ngIf="letterfornamechange.extension != 'pdf' && letterfornamechange.extension != 'PDF'">
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    <div class="col-md-12">{{letterfornamechange.name}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body text-secondary">
+                                                <img class="card-img-top" src="http://{{letterfornamechange.filePath}}"
+                                                    (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
 
             <!-- purpose table -->
-            <div>
-                <!-- <mat-card>
-                    <mat-card-header class="custom-header">
-                        <h4>Purpose Information</h4>
-                    </mat-card-header>
-                    <br>
-                    <mat-card-content>
-                        <p-table [value]="preViewData" selectionMode="single" dataKey="code"
-                            [tableStyle]="{'min-width': '50rem'}">
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th>Purpose</th>
-                                    <th>Email</th>
-                                    <th>Name</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-preView>
-                                <tr [pSelectableRow]="preView">
-                                    <td>{{preView.type}}</td>
-                                    <td>{{preView.email}}{{preView.other_email}}{{preView.emailAsWes}}</td>
-                                    <td *ngIf="preView.type == 'Visa' || preView.type == 'Others'">
-                                        {{preView.name}}</td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </mat-card-content>
-                </mat-card> -->
-
+            <div style="padding-top: 2%;">
                 <p-card header="Purpose Information">
                     <div class="card">
                         <p-table [value]="preViewData" selectionMode="single" dataKey="code"
@@ -832,15 +415,23 @@
                                 <tr>
                                     <th>Purpose</th>
                                     <th>Email</th>
-                                    <th>Name</th>
+                                    <th>View</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-preView>
                                 <tr [pSelectableRow]="preView">
                                     <td>{{preView.type}}</td>
-                                    <td>{{preView.email}}{{preView.other_email}}{{preView.emailAsWes}}</td>
-                                    <td *ngIf="preView.type == 'Visa' || preView.type == 'Others'">
-                                        {{preView.name}}</td>
+                                    <td>
+                                        <span
+                                            *ngIf="preView.type != 'Educational credential evaluators WES'">{{preView.email}}{{preView.other_email}}</span>
+                                        <span
+                                            *ngIf="preView.type == 'Educational credential evaluators WES'">{{preView.emailAsWes}}</span>
+                                    </td>
+                                    <td>
+                                        <a (click)="viewPurpose()">
+                                            <i class="pi pi-eye" pTooltip="View" tooltipPosition="top"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -849,7 +440,7 @@
             </div>
             <br>
 
-            <!-- view cart button -->
+            <!-- preview button -->
             <div style="display: flex; justify-content: center;">
                 <p-button label="VIEW CART" styleClass="p-button-success" (click)="viewCart()"></p-button>
             </div>

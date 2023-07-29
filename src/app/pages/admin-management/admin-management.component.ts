@@ -6,12 +6,12 @@ import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { AdminCollegeFacultyPreviewComponent } from '../dialog/admin-college-faculty-preview/admin-college-faculty-preview.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-admin-management',
   templateUrl: './admin-management.component.html',
   styleUrls: ['./admin-management.component.css'],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, DialogService],
 })
 export class AdminManagementComponent {
   collegeData: any;
@@ -34,12 +34,15 @@ export class AdminManagementComponent {
   user_id: any;
   user_name: any;
   app_id: any;
+  ref: DynamicDialogRef;
+  header: any;
 
   constructor(
     private dialog: MatDialog,
     protected api: ApiService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -101,14 +104,25 @@ export class AdminManagementComponent {
     });
   }
 
-  viewCollegeFaculty(data: any, purpose: any) {
-    const dialogRef = this.dialog.open(AdminCollegeFacultyPreviewComponent, {
+  viewCollegeFaculty(data: any, purpose: any) {    
+    if(purpose == 'College'){
+      this.header = data.name;
+      var width = '35%'
+    }else{
+      this.header = data.degree + ' of ' + data.faculty;
+      var width = '25%'
+    }
+    this.ref = this.dialogService.open(AdminCollegeFacultyPreviewComponent, {
       data: {
         data: data,
         purpose_name: purpose,
-      }
-    }).afterClosed().subscribe(result => {
-      this.ngOnInit();
+      },
+      header: this.header,
+      width: width,
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+    });
+    this.ref.onClose.subscribe(() => {
     });
   }
 

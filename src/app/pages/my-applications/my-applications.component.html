@@ -1,6 +1,173 @@
 <p-card header="My Applications">
-    <div class="card">
-        <p-table [value]="myApplicationData" [tableStyle]="{'min-width': '50rem'}">
+    <p-accordion [activeIndex]="0" *ngFor="let application of myApplicationData">
+        <p-accordionTab header="{{application.id}}">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Application Date</h5>
+                            <span class="card-text">{{application.created_at}}</span>
+                            <br><br>
+                            <h5 class="card-title">Degree</h5>
+                            <span class="card-text">{{application.applied_for}}</span>
+                            <br><br>
+                            <h5 class="card-title">Purpose</h5>
+                            <span>{{application.type}}</span>
+                            <br><br>
+                            <h5 class="card-title">Reference NO.</h5>
+                            <span>{{application.refno}}</span>
+                            <br><br>
+                            <h5 class="card-title">Email</h5>
+                            <span>{{application.email}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Status</h5>
+                            <div *ngIf="application.tracker == 'apply' && application.status == 'new'"
+                                style="color: green;">
+                                <strong>
+                                    Your documents are being checked by the department for further processing.
+                                </strong>
+                            </div>
+                            <div *ngIf="application.tracker == 'apply' && application.status == 'requested'"
+                                style="color: rgb(236, 155, 15);">
+                                <strong>
+                                    The department wants additional/updated documents/details. Your application
+                                    is on hold until additional/updated documents/details are uploaded.
+                                </strong>
+                            </div>
+                            <div *ngIf="application.tracker == 'apply' && application.status == 'changed'"
+                                style="color: green;">
+                                <strong>
+                                    We have received the additional/updated documents uploaded by you. Your
+                                    documents are being checked by the department for further processing.
+                                </strong>
+                            </div>
+                            <div *ngIf="application.tracker == 'apply' && application.status == 'reject'"
+                                style="color: red;">
+                                <strong>
+                                    Your application has been rejected. Kindly contact support staff for further
+                                    clarification.
+                                </strong>
+                            </div>
+                            <div *ngIf="application.tracker == 'verified' && application.status == 'accept'"
+                                style="color: green;">
+                                <strong>
+                                    Your documents have been approved by the department. The documents are now
+                                    in queue for being digitally signed.
+                                </strong>
+                            </div>
+                            <div *ngIf="application.tracker == 'signed' && application.status == 'accept'"
+                                style="color: green;">
+                                <strong>
+                                    Your documents are now successfully verified & digitally signed. They will
+                                    be sent via email to the purpose selected by you.
+                                </strong>
+                            </div>
+                            <div *ngIf="application.tracker == 'done' && application.status == 'accept'"
+                                style="color: green;">
+                                <strong>
+                                    Your document have been sent digitally to the purpose selected by you. Your
+                                    application with Silver Oak University is now complete.
+                                </strong>
+                            </div>
+                            <div *ngIf="application.tracker == 'signed' && application.status == 'new'"
+                                style="color: green;">
+                                <strong>
+                                    Your document have been sent digitally to the purpose selected by you. Your
+                                    application with Silver Oak University is now complete.<br>
+                                    ALL THE BEST!!!
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Errata</h5>
+                            <div *ngIf="application.marksheetsErrata == true">
+                                <span>For Correction in Marksheets</span>
+                                &nbsp;
+                                <a>
+                                    <i class="pi pi-eye" pTooltip="Click Here" tooltipPosition="top"></i>
+                                </a>
+                                &nbsp;
+                                <br>
+                            </div>
+                            <div *ngIf="application.transcriptsErrata == true">
+                                <span>For Correction in Transcripts</span>
+                                &nbsp;
+                                <a>
+                                    <i class="pi pi-eye" pTooltip="Click Here" tooltipPosition="top"></i>
+                                </a>
+                                &nbsp;
+                            </div>
+                            <div *ngIf="application.curriculumsErrata == true">
+                                <span>For Correction in Curriculum</span>
+                                &nbsp;
+                                <a>
+                                    <i class="pi pi-eye" pTooltip="Click Here" tooltipPosition="top"></i>
+                                </a>
+                                &nbsp;
+                            </div>
+                            <div *ngIf="application.gradetopersErrata == true">
+                                <span>For Correction in Grade to Percentage Conversion Letter</span>
+                                &nbsp;
+                                <a>
+                                    <i class="pi pi-eye" pTooltip="Click Here" tooltipPosition="top"></i>
+                                </a>
+                                &nbsp;
+                            </div>
+                            <div *ngIf="application.instructionalsErrata == true">
+                                <span>For Correction in Instructional Letter</span>
+                                &nbsp;
+                                <a>
+                                    <i class="pi pi-eye" pTooltip="Click Here" tooltipPosition="top"></i>
+                                </a>
+                                &nbsp;
+                            </div>
+                            <div *ngIf="application.affiliationsErrata == true">
+                                <span>For Correction in Affiliation Letter</span>
+                                &nbsp;
+                                <a>
+                                    <i class="pi pi-eye" pTooltip="Click Here" tooltipPosition="top"></i>
+                                </a>
+                                &nbsp;
+                            </div>
+                            <div *ngIf="application.competencysErrata == true">
+                                <span>For Correction in Competency Letter</span>
+                                &nbsp;
+                                <a>
+                                    <i class="pi pi-eye" pTooltip="Click Here" tooltipPosition="top"></i>
+                                </a>
+                                &nbsp;
+                            </div>
+                            <div *ngIf="application.namechangeproofsErrata == true">
+                                <span>For Correction in Name Change Proof Letter</span>
+                                &nbsp;
+                                <a>
+                                    <i class="pi pi-eye" pTooltip="Click Here" tooltipPosition="top"></i>
+                                </a>
+                                &nbsp;
+                            </div>
+                            <div *ngIf="application.letterfornamechangesErrata == true">
+                                <span>For Correction in Letter For Name Change</span>
+                                &nbsp;
+                                <a>
+                                    <i class="pi pi-eye" pTooltip="Click Here" tooltipPosition="top"></i>
+                                </a>
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
+    <!-- <p-table [value]="myApplicationData" [tableStyle]="{'min-width': '50rem'}">
 
             <ng-template pTemplate="header">
                 <tr>
@@ -11,7 +178,6 @@
                     <th>Edit for correction</th>
                 </tr>
             </ng-template>
-            <!-- [value]="myApplicationData.id"  [value]="myApplicationData.created_at" -->
             <ng-template pTemplate="caption">
                 <div class="row">
                     <div class="col-md-2">
@@ -164,6 +330,7 @@
                     </td>
                 </tr>
             </ng-template>
-        </p-table>
-    </div>
+        </p-table> -->
+    <br>
 </p-card>
+<app-purpose [data]="app_id"></app-purpose>

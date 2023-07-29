@@ -45,9 +45,9 @@ export class DashboardComponent implements OnInit {
   }
 
   // click button GO or Apply Again navigate to attestation_page  
-  dashboardRoutes(data:any)
+  dashboardRoutes()
   {
-    this.router.navigate(['pages/dashboard/' +data]);
+    this.router.navigate(['pages/attestation_page']);
   }
 
 }

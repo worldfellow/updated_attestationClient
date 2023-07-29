@@ -65,7 +65,7 @@ export class ApiService {
     return this.httpClient.post(`${this.baseUrl}/api/auth/verify-otp-reg`, { data: data });
   }
 
-  removeToken(){
+  removeToken() {
     localStorage.removeItem("user");
   }
 
@@ -88,8 +88,8 @@ export class ApiService {
 
   //new api's========================================================================================================================================================
 
-  addUserEducationalDetails(formdata: any,degree : any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/educationalDetails`, { "formdata": formdata, "degree" : degree});
+  addUserEducationalDetails(formdata: any, degree: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/educationalDetails`, { "formdata": formdata, "degree": degree });
   }
 
   getPurposeList(purpose_name: any) {
@@ -164,8 +164,8 @@ export class ApiService {
   getFacultyLists() {
     return this.httpClient.get(`${this.baseUrl}/api/student/getFacultyLists`);
   }
-  saveUserMarkList( app_id: number,value: string, data: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`, { "app_id": app_id,"value": value, "data": data });
+  saveUserMarkList(app_id: number, value: string, data: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/saveUserMarkList`, { "app_id": app_id, "value": value, "data": data });
   }
   getExtraDocuments() {
     return this.httpClient.get(`${this.baseUrl}/api/student/getExtraDocuments`);
@@ -192,7 +192,7 @@ export class ApiService {
   }
 
   updateAllInstitute(type: any, refNo: any, formData: any, app_id: any, institute_id: any, function_type: any, admin_id: any, user_email: any, user_type: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllInstitute`, { "type": type, "refNo": refNo, "formData": formData,"app_id": app_id, "institute_id": institute_id, "function_type": function_type, "admin_id": admin_id, "user_email": user_email, "user_type": user_type });
+    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllInstitute`, { "type": type, "refNo": refNo, "formData": formData, "app_id": app_id, "institute_id": institute_id, "function_type": function_type, "admin_id": admin_id, "user_email": user_email, "user_type": user_type });
   }
 
 
@@ -205,10 +205,10 @@ export class ApiService {
   }
 
   updateAllHrd(formData: any, function_type: any, degree_type: any, secondlastSem: any, lastSem: any, purpose_name: any, hrd_id: any, app_id: any, admin_id: any, admin_email: any, user_type: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllHrd`, { "formData": formData,"function_type": function_type, "degree_type": degree_type, "secondlastSem": secondlastSem, "lastSem": lastSem, "purpose_name": purpose_name, "hrd_id": hrd_id, "app_id": app_id, "admin_id": admin_id, "admin_email": admin_email, "user_type": user_type });
+    return this.httpClient.post(`${this.baseUrl}/api/student/updateAllHrd`, { "formData": formData, "function_type": function_type, "degree_type": degree_type, "secondlastSem": secondlastSem, "lastSem": lastSem, "purpose_name": purpose_name, "hrd_id": hrd_id, "app_id": app_id, "admin_id": admin_id, "admin_email": admin_email, "user_type": user_type });
   }
 
-  getHrdData( hrd_id: any, purpose_name: any, app_id: any) {
+  getHrdData(hrd_id: any, purpose_name: any, app_id: any) {
     return this.httpClient.get(`${this.baseUrl}/api/student/getHrdData?hrd_id=${hrd_id}&purpose_name=${purpose_name}&app_id=${app_id}`);
   }
 
@@ -273,38 +273,38 @@ export class ApiService {
   }
 
   resendApplication(user_id: any, app_id: any, type: any, admin_email: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/resendApplication`, { "user_id": user_id, "app_id": app_id,"type": type, "admin_email": admin_email });
+    return this.httpClient.post(`${this.baseUrl}/api/admin/resendApplication`, { "user_id": user_id, "app_id": app_id, "type": type, "admin_email": admin_email });
   }
 
   // rejectApplication(user_id: any, app_id: any, user_name: any, type: any, admin_email: any) {
   //   return this.httpClient.post(`${this.baseUrl}/api/admin/rejectApplication`, { "user_id": user_id, "app_id": app_id, "user_name": user_name, "type": type, "admin_email": admin_email });
   // }
 
-  updateNotes(notes_data: any, app_id: any, user_id: any, admin_email: any,type:any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/updateNotes`, { "notes_data": notes_data, "app_id": app_id, "user_id": user_id, "admin_email": admin_email, "type": type});
+  updateNotes(notes_data: any, app_id: any, user_id: any, admin_email: any, type: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/updateNotes`, { "notes_data": notes_data, "app_id": app_id, "user_id": user_id, "admin_email": admin_email, "type": type });
   }
 
-  getUserApplication(tracker:any,status:any,app_id:any,offset:number,limit:number,name:any,email:any,globalSearch:any,purpose_search: any){
+  getUserApplication(tracker: any, status: any, app_id: any, offset: number, limit: number, name: any, email: any, globalSearch: any, purpose_search: any) {
     return this.httpClient.get(`${this.baseUrl}/api/admin/getApplicationData?tracker=${tracker}&status=${status}&app_id=${app_id}&offset=${offset}&limit=${limit}&name=${name}&email=${email}&globalSearch=${globalSearch}&purpose_search=${purpose_search}`)
   }
-  rejectApplications(user_id:number,app_id:number,admin_email:any,type:string){
-    return this.httpClient.post(`${this.baseUrl}/api/admin/rejectApplications`,{"user_id" :user_id,"app_id" :app_id,"admin_email" : admin_email,"type":type})
+  rejectApplications(user_id: number, app_id: number, admin_email: any, type: string) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/rejectApplications`, { "user_id": user_id, "app_id": app_id, "admin_email": admin_email, "type": type })
   }
 
-  verifiedApplication(user_id:number,app_id:number,admin_email:any){
-    return this.httpClient.post(`${this.baseUrl}/api/admin/verifiedApplication`,{"user_id" :user_id,"app_id" :app_id,"admin_email" : admin_email})
+  verifiedApplication(user_id: number, app_id: number, admin_email: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/verifiedApplication`, { "user_id": user_id, "app_id": app_id, "admin_email": admin_email })
   }
 
-  getWesApplication(app_id:number,name:string,email:any,wesno:number,limit:number,offset:number){
+  getWesApplication(app_id: number, name: string, email: any, wesno: number, limit: number, offset: number) {
     return this.httpClient.get(`${this.baseUrl}/api/admin/getWesApplication?app_id=${app_id}&name=${name}&email=${email}&wesno=${wesno}&limit=${limit}&offset=${offset}`)
   }
 
-  getEmailedApplication(app_id:any,name:any,email:any,globalSearch:any,limit:number,offset:number,){
+  getEmailedApplication(app_id: any, name: any, email: any, globalSearch: any, limit: number, offset: number,) {
     return this.httpClient.get(`${this.baseUrl}/api/admin/getEmailedApplication?app_id=${app_id}&name=${name}&email=${email}&globalSearch=${globalSearch}&limit=${limit}&offset=${offset}`)
   }
 
   resendWesApplication(user_id: any, app_id: any, admin_email: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/admin/resendWesApplication`, { "user_id": user_id, "app_id": app_id,"admin_email": admin_email });
+    return this.httpClient.post(`${this.baseUrl}/api/admin/resendWesApplication`, { "user_id": user_id, "app_id": app_id, "admin_email": admin_email });
   }
 
   getRolesData() {
@@ -327,65 +327,61 @@ export class ApiService {
     return this.httpClient.get(`${this.baseUrl}/api/admin/verifyApplication?app_id=${app_id}`);
   }
 
-  getEducationalDetails() {
-    return this.httpClient.get(`${this.baseUrl}/api/student/getEducationalDetails`);
+  // checkstepper api for student.
+  checkstepper(app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper?app_id=${app_id}`);
   }
 
-    // checkstepper api for student.
-    checkstepper(app_id : any) {
-      return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper?app_id=${app_id}`);
-    }
-  
-    // checkstepper api for student on 2nd step.
-    checkstepper_inner(app_id : any) {
-      return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper_inner?app_id=${app_id}`);
-    }
-  
-  
-    getCountry() {
-      return this.httpClient.get(`${this.baseUrl}/api/student/getCountry`);
-    }
-  
-    Register(values : any) {
-      return this.httpClient.post(`${this.baseUrl}/api/student/register` ,{"values" : values});
-    }
-  
-      /* To save the Payment Issue Details */
-      savepaymentissuedata(data: any,formData: any) {
-        console.log('formData',formData)
-        return this.httpClient.post(`${this.baseUrl}/api/student/savePaymentIssueData?data=${data}`,formData);
-      }
-    
-      /* To get the Payment Issue Details */
-      getpaymentissuedata() {
-        return this.httpClient.get(`${this.baseUrl}/api/student/getPaymentIssueData`);
-      }
+  // checkstepper api for student on 2nd step.
+  checkstepper_inner(app_id: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/checkstepper_inner?app_id=${app_id}`);
+  }
+
+
+  getCountry() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getCountry`);
+  }
+
+  Register(values: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/register`, { "values": values });
+  }
+
+  /* To save the Payment Issue Details */
+  savepaymentissuedata(data: any, formData: any) {
+    console.log('formData', formData)
+    return this.httpClient.post(`${this.baseUrl}/api/student/savePaymentIssueData?data=${data}`, formData);
+  }
+
+  /* To get the Payment Issue Details */
+  getpaymentissuedata() {
+    return this.httpClient.get(`${this.baseUrl}/api/student/getPaymentIssueData`);
+  }
   /* To set userid in backend */
-  setuserId(token : any) {
-        return this.httpClient.get(`${this.baseUrl}/api/student/setUserId?token=${token}`);
-      }
+  setuserId(token: any) {
+    return this.httpClient.get(`${this.baseUrl}/api/student/setUserId?token=${token}`);
+  }
 
   getMyApplicationData() {
-      return this.httpClient.get(`${this.baseUrl}/api/student/getMyApplicationData`);
+    return this.httpClient.get(`${this.baseUrl}/api/student/getMyApplicationData`);
   }
 
-  getProfileValue(){
+  getProfileValue() {
     return this.httpClient.get(`${this.baseUrl}/api/student/getProfileValue`)
   }
 
-  updateProfile(data:any){
-    return this.httpClient.post(`${this.baseUrl}/api/student/updateProfile`, {"data" : data})
+  updateProfile(data: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/updateProfile`, { "data": data })
   }
 
-  changePassword(data:any){
-    return this.httpClient.post(`${this.baseUrl}/api/student/changePassword`, {"data" : data}) 
+  changePassword(data: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/student/changePassword`, { "data": data })
   }
 
   forgotPasswordSendEmailToUser(email: any) {
-    return this.httpClient.post(`${this.baseUrl}/api/student/forgotPasswordSendEmailToUser`, {"email": email});
+    return this.httpClient.post(`${this.baseUrl}/api/student/forgotPasswordSendEmailToUser`, { "email": email });
   }
-      /* To get WES details for checking correct or not */
-  getwesdetails(wesno : any ,email : any ,name : any , lastname : any) {    
-    return this.httpClient.post(`${this.baseUrl}/api/admin/getWes_details`,{"wesno":wesno , "email" : email , "name" : name , "lastname" : lastname})
+  /* To get WES details for checking correct or not */
+  getwesdetails(wesno: any, email: any, name: any, lastname: any) {
+    return this.httpClient.post(`${this.baseUrl}/api/admin/getWes_details`, { "wesno": wesno, "email": email, "name": name, "lastname": lastname })
   }
 }    

@@ -2,7 +2,6 @@ import { Component, ElementRef, Inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
-// import { MatDialogRef } from '@angular/material/dialog';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({

@@ -4,12 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddSubAdminComponent } from '../dialog/add-sub-admin/add-sub-admin.component';
 import { ViewSubAdminRolesComponent } from '../dialog/view-sub-admin-roles/view-sub-admin-roles.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-role-management',
   templateUrl: './role-management.component.html',
   styleUrls: ['./role-management.component.css'],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, DialogService],
 })
 export class RoleManagementComponent {
 
@@ -21,12 +21,14 @@ export class RoleManagementComponent {
   rolesLength: any;
   token: any;
   admin_email: any;
+  ref: DynamicDialogRef;
 
   constructor(
     protected api: ApiService,
     public dialog: MatDialog,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -57,14 +59,26 @@ export class RoleManagementComponent {
   }
 
   addSubAdminComponent(type: any, id: any) {
-    const dialogRef = this.dialog.open(AddSubAdminComponent, {
+    this.ref = this.dialogService.open(AddSubAdminComponent, {
       data: {
         function_type: type,
         user_id: id,
-      }
-    }).afterClosed().subscribe(result => {
-      this.ngOnInit();
+      },
+      header: 'Verify OTP',
+      width: '40%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
     });
+    this.ref.onClose.subscribe(() => {
+    });
+    // const dialogRef = this.dialog.open(AddSubAdminComponent, {
+    //   data: {
+    //     function_type: type,
+    //     user_id: id,
+    //   }
+    // }).afterClosed().subscribe(result => {
+    //   this.ngOnInit();
+    // });
   }
 
   // filterData() { }

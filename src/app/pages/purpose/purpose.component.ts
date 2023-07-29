@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddInstitutionDialogComponent } from '../dialog/add-institution-dialog/add-institution-dialog.component';
 import { AddHrdDialogComponent } from '../dialog/add-hrd-dialog/add-hrd-dialog.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-purpose',
@@ -34,6 +34,7 @@ export class PurposeComponent {
   hrdData: any;
   hrdInfo: any;
   differentCourse: boolean;
+  @Input () data: any;
 
   constructor(
     protected api: ApiService,
@@ -41,13 +42,23 @@ export class PurposeComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private router: Router,
-  ) { }
+    private route: ActivatedRoute,
+  ) {
+    // this.route.queryParams.subscribe(params => {
+    //   this.app_id = params;
+    //   console.log('<<<<<<<<<<<<<<<', this.app_id);
+    // });
+  }
 
   ngOnInit(): void {
     //get user details from localstorage
     this.token = JSON.parse(localStorage.getItem('user')!);
     this.user_id = this.token.data.user.user_id;
     this.user_type = this.token.data.user.user_type;
+    console.log('KKKKKKKKKKKKKKKKKKKKKKKKKKKK',this.data);
+    
+    this.app_id = this.route.snapshot.queryParamMap.get('app_id');
+    console.log('??????????????',this.app_id);
 
     //get dynamic data of deopdown
     this.api.getPurposeList('').subscribe((data: any) => {
@@ -59,7 +70,7 @@ export class PurposeComponent {
     //get all institute purpose data to display on page
     this.api.getInstituteData(this.app_id, '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
-        this.instituteData = data['data'];        
+        this.instituteData = data['data'];
       } else if (data['status'] == 400) {
       }
     });
@@ -197,12 +208,12 @@ export class PurposeComponent {
 
   //using this we can open AddHrdDialogComponent dialog box and send data using his type add and edit & display form for different courses.
   addDifferentCourse(type: any, purpose: any, degree: any, faculty: any, hrd_id: any) {
-    console.log('type',type);
-    console.log('purpose',purpose);
-    console.log('degree',degree);
-    console.log('faculty',faculty);
-    console.log('hrd_id',hrd_id);
-    
+    console.log('type', type);
+    console.log('purpose', purpose);
+    console.log('degree', degree);
+    console.log('faculty', faculty);
+    console.log('hrd_id', hrd_id);
+
     if (type == 'add') {
       const dialogRef = this.dialog.open(AddHrdDialogComponent, {
         data: {
@@ -229,7 +240,7 @@ export class PurposeComponent {
     }
   }
 
-  previewApplication(){
+  previewApplication() {
     this.router.navigate(['pages/previewApplication']);
   }
 }
