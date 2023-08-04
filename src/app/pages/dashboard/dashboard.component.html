@@ -1,135 +1,156 @@
-<!-- applied first time -->
-<div>
-    <marquee style="color:red ; font-size: 19px">Kindly refer to the chat-bot available at the bottom right of the page for quick assistance.</marquee>
 
-    <div class="row">
-        <div class="col-md-9">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h3>Welcome to University of Mumbai!</h3>
-                </div>
-                <div class="card-body">
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+       <!-- Apply first Time -->
+    <div> 
+        <div class="row">
+            <div class="col-md-3 pt-2">
+                <p-panel header="Attestation Application" class="apply">
+                    <div style="text-align: center;">
+                    <!-- <p-button icon="pi pi-sign-in" iconPos="right" label="Apply" class="custom-button"  styleClass="p-button-raised"></p-button> -->
+                    <button type="button" class="btn" (click)="dashboardRoutes()">Apply</button>
+                </div> 
+                </p-panel>
+            </div>
+           
+            <div class="col-md-9 pt-2">
+                <p-panel header="Welcome to University of Mumbai!">
                     <h5 class="card-title">Hi {{user_name}}!</h5>
-                    <p class="card-text">Welcome to eTranscript, a one stop contactless, faceless and paperless solution for
-                        attesting your Mumbai University Transcripts. We are here to provide online attestation services and
-                        ensure that the foreign universities / employers get genuine , verified and digitally attested
-                        documents. click on the "GO" button on the right to either start a new application, if it's your first
-                        time on this website or to continue your existing one.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h4>Attestation Application</h4>
-                </div>
-                <div class="card-body">
-                    <button (click)="dashboardRoutes()" mat-raised-button color="primary">GO</button>
-                </div>
-            </div>
-        </div>
-    </div>    
-    <br>
-    <div class="card text-center">
-        <div class="card-header">
-            <h3>Application Progress Bar</h3>
-        </div>
-        <div class="card-body">
-            <div style="margin-left:2%;"><b>Pre-Application</b></div>
-                <div>
-                    <mat-horizontal-stepper headerPosition="bottom" #stepper>
-                        <mat-step>
-                            <ng-template matStepLabel>Attestation For</ng-template>
-                        </mat-step>
-                        <mat-step>
-                            <ng-template matStepLabel>Educational Information</ng-template>
-                        </mat-step>
-                        <mat-step>
-                            <ng-template matStepLabel>Upload Marksheet</ng-template>
-                        </mat-step>
-                        <mat-step>
-                            <ng-template matStepLabel>Upload Transcript</ng-template>
-                        </mat-step>
-                        <mat-step>
-                            <ng-template matStepLabel>Purpose</ng-template>
-                        </mat-step>
-                        <mat-step>
-                            <ng-template matStepLabel>Payment</ng-template>
-                            You are now done.
-                        </mat-step>
-                    </mat-horizontal-stepper>
-                </div>
-            </div>
-        <div class="card-footer text-muted">
-            You could share this exciting news with your friends and family to make them aware of our steps towards
-            digitalisation!
-        </div>
-    </div>
-</div>
-
-<!-- after payment -->
-<div  >
-    <marquee style="color:red ; font-size: 19px">Kindly refer to the chat-bot available at the bottom right of the page for quick assistance.</marquee>
-
-    <div class="row">
-        <div class="col-md-9">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h3>Welcome to Customer Support!</h3>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Hi {{user_name}}!</h5>
-                    <p class="card-text">Welcome to eTranscript, a one stop contactless, faceless and paperless solution for attesting your Mumbai University Transcripts. 
+                    <p class="card-text" >  Welcome to eTranscript, a one stop contactless, faceless and paperless solution for attesting your Mumbai University Transcripts. 
                         We are here to provide online attestation services and ensure that the foreign universities / employers get genuine , verified and digitally attested documents.
-                        click on the "GO" button on the right to either start a new application, if it's your first time on this website or to continue your existing one.</p>
-                </div>
+                        click on the "Apply" button on the left to either start a new application, if it's your first time on this website or to continue your existing one.</p>
+                </p-panel>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h4>Attestation Application</h4>
+        <div class="row pt-4">
+            <p-panel header="Application Progress Bar">
+                <div class="row">
+                    <h4 class="card-titles">Pre-Application</h4>
                 </div>
-                <div class="card-body">
-                    <button (click)="dashboardRoutes()" mat-raised-button color="primary">Apply Again</button>
+                <div class="row pt-4" style="margin-left: 100px;">
+                    <div class="col-md-2" >
+                        <div class="hexagon">
+                            <img src="/assets/IMG/educational.png" alt="abc">
+                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                        </div>   
+                       <span class="header">EDUCATIONAL DETAILS</span>  
+                    </div> 
+                    <div class="col-md-1">
+                        <img src="/assets/IMG/links.png" class="link" alt="abc">
+                        </div>
+                    <div class="col-md-2 pt-5"> 
+                        <span class="header">UPLOAD DOUCUMENTS</span>
+                        <div class="hexagon">
+                            <img src="/assets/IMG/folder.png" alt="abc">
+                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                        </div> 
+                    </div>
+                    <div class="col-md-1">
+                        <img src="/assets/IMG/links.png" class="links" alt="abc">
+                    </div>
+                    <div class="col-md-2">
+                        <div class="hexagon">
+                            <img src="/assets/IMG/pngwing.com.png" alt="abc">
+                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                        </div> 
+                       <span class="header1">PURPOSE</span> 
+                    </div>
+                    <div class="col-md-1">
+                        <img src="/assets/IMG/links.png" class="link" alt="abc">
+                        </div>
+                    <div class="col-md-2 pt-5"> 
+                        <span class="header1">PAYMENT</span>
+                        <div class="hexagon">
+                            <img src="/assets/IMG/money.png" alt="abc">
+                            <img class="check" *ngIf="" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong"  src="/assets/IMG/cross6.png" alt="abc">
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </p-panel>
         </div>
     </div>
-    <br>
-    
-    <div class="card text-center">
-        <div class="card-header">
-            <h3>Application Progress Bar</h3>
-        </div>
-        <div class="card-body">
-            <div style="margin-left:2%;"><b>Post-Application</b></div>
-            <div>
-                <mat-horizontal-stepper headerPosition="bottom" #stepper>
-                    <mat-step>
-                        <ng-template matStepLabel>Applied</ng-template>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>Verified</ng-template>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>Signed</ng-template>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>Sent<br/> to<br/>recipient</ng-template>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>Sent<br/> to<br/>WES</ng-template>
-                        You are now done.
-                    </mat-step>
-                </mat-horizontal-stepper>
-                <span style="font-weight: bold; font-size: 18px; color : red" >Remarks :</span>
-                <span style="font-weight: bold; font-size: 16px;"></span>
+     <!--Second Time Apply  -->
+     <div *ngIf=""> 
+        <div class="row">
+            <div class="col-md-3 pt-2">
+                <p-panel header="Attestation Application" class="apply">
+                    <div style="text-align: center;">
+                    <!-- <p-button icon="pi pi-sign-in" iconPos="right" label="Apply Again" class="custom-button"  styleClass="p-button-raised"></p-button> -->
+                    <button type="button" class="btn" (click)="dashboardRoutes()">Apply Again</button>
+                </div> 
+                </p-panel>
+            </div>
+           
+            <div class="col-md-9 pt-2">
+                <p-panel header="Welcome to University of Mumbai!">
+                    <h5 class="card-title">Hi {{user_name}}!</h5>
+                    <p class="card-text" >  Welcome to eTranscript, a one stop contactless, faceless and paperless solution for attesting your Mumbai University Transcripts. 
+                        We are here to provide online attestation services and ensure that the foreign universities / employers get genuine , verified and digitally attested documents.
+                        click on the "Apply Again" button on the left to either start a new application, if it's your first time on this website or to continue your existing one.</p>
+                </p-panel>
             </div>
         </div>
-        <div class="card-footer text-muted">
-            You could share this exciting news with your friends and family to make them aware of our steps towards
-            digitalisation!
+        <div class="row pt-4">
+            <p-panel header="Application Progress Bar">
+                <div class="row">
+                    <h4 class="card-titles">Pre-Application</h4>
+                </div>
+                <div class="row pt-4" style="margin-left: 100px;">
+                    <div class="col-md-2" >
+                        <div class="hexagon">
+                            <img src="/assets/IMG/apply2.png" alt="abc">
+                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                        </div>   
+                       <span class="headers">Application Applied</span>  
+                    </div> 
+                    <div class="col-md-1">
+                        <img src="/assets/IMG/links.png" class="link" alt="abc">
+                        </div>
+                    <div class="col-md-2 pt-5"> 
+                        <span class="headers">Application Verified</span>
+                        <div class="hexagon">
+                            <img src="/assets/IMG/verified.png" alt="abc">
+                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                        </div> 
+                    </div>
+                    <div class="col-md-1">
+                        <img src="/assets/IMG/links.png" class="links" alt="abc">
+                    </div>
+                    <div class="col-md-2">
+                        <div class="hexagon">
+                            <img src="/assets/IMG/applied1.jpg" alt="abc">
+                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                        </div> 
+                       <span class="headers">Application Signed</span> 
+                    </div>
+                    <div class="col-md-1">
+                        <img src="/assets/IMG/links.png" class="link" alt="abc">
+                        </div>
+                    <div class="col-md-2 pt-5"> 
+                        <span class="headers">Application Done</span>
+                        <div class="hexagon">
+                            <img src="/assets/IMG/report-icon-14.png"  alt="abc">
+                            <img class="check" *ngIf="" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong"  src="/assets/IMG/cross6.png" alt="abc">
+                        </div>
+                    </div>
+                </div>
+            </p-panel>
         </div>
     </div>
-</div>
+</body>
+</html>

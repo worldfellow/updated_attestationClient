@@ -27,4 +27,36 @@
   cursor: pointer; /* Show pointer cursor on hover */
   
 }
+ 
+
+.pi-bell{
+  font-size: 1.6rem;
+  margin-top:10px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.pi-envelope{ 
+  font-size: 1.6rem;
+  margin-top:10px;
+  margin-right: 6px;
+  cursor: pointer; 
+}
+
+ 
+.header{
+  font-size: 1.6rem; 
+  font-weight: 600; 
+  color: rgb(60, 211, 219);
+}
+
+
+.bell{
+  color: rgb(60, 211, 219);
+}
+ 
+.p-badge{
+font-size: 1.6rem;
+}
+
 

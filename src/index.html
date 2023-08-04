@@ -40,17 +40,17 @@ inputs.map((id) => {
   addListener(input);
 });
 
-function focusNextInput(event, index) {
-  const inputLength = event.target.value.length;
-  const maxLength = parseInt(event.target.getAttribute('maxlength'));
+  function focusNextInput(event, index) {
+    const inputLength = event.target.value.length;
+    const maxLength = parseInt(event.target.getAttribute('maxlength'));
 
-  if (inputLength === maxLength) {
-    const inputs = document.getElementsByClassName('otp-input');
-    if (index < inputs.length) {
-      inputs[index].focus();
+    if (inputLength === maxLength) {
+      const inputs = document.getElementsByClassName('otp-input');
+      if (index < inputs.length) {
+        inputs[index].focus();
+      }
     }
   }
-}
 </script>
 
 </html>

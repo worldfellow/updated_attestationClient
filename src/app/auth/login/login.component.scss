@@ -28,92 +28,45 @@
   /* Firefox */
 }
 
-.about {
-  overflow: hidden;
-  margin: auto 0;
-  padding: 0 3%;
+.bgimg{
+  background-image: url("../../../assets/IMG/gf-01.jpg");
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  background-size: 100%;
+}
+
+.bgb{
+  background-color: #1d4db67b; 
+  height: 100%; 
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
   text-decoration: none;
 }
 
-.about .logo {
-  width: 450px;
-  height: 300px;
-  margin: 0 auto;
-}
 
-.about .logo img {
-  width: 450px;
-  height: 300px;
-}
-
-.about h4, h5 {
+h4, h5 {
   text-align: center;
 }
 
-.bac {
-  position: absolute;
-  overflow: hidden;
-  height: 90vh;
-  width: 90vw;
-  background-color: #2a8e4b00;
-  border-radius: 50px;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.bac .listing-item {
-  border-radius: 50%;
-  background-color: #ffffff42;
-}
-
-.bac .listing-item:nth-of-type(6n+1) {
-  height: 100px;
-  width: 100px;
-}
-
-.bac .listing-item:nth-of-type(6n+2) {
-  height: 90px;
-  width: 90px;
-}
-
-.bac .listing-item:nth-of-type(6n+3) {
-  height: 200px;
-  width: 200px;
-}
-
-.bac .listing-item:nth-of-type(6n+4) {
-  height: 250px;
-  width: 250px;
-}
-
-.bac .listing-item:nth-of-type(6n+5) {
-  height: 125px;
-  width: 125px;
-}
-
-.bac .listing-item:nth-of-type(6n+6) {
-  height: 150px;
-  width: 150px;
-}
-
 .mcr {
-  overflow-y: hidden;
   position: relative;
-  height: 90vh;
-  width: 90vw;
-  background-color: #bef4d0;
-  border-radius: 50px;
+  height: auto;
+  width: auto;
+  background-color: #ffffff;
   margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.944) 0px 25px 50px -12px;
 }
 
 .form {
   height: auto;
   overflow-y: scroll;
-  padding: 30px 60px;
+  padding: 0px 30px;
   margin: auto 0;
   display: flex;
   flex-direction: column;
@@ -124,15 +77,6 @@ a {
 .form .label{
   width: 100%;
   text-align: left;
-}
-
-input[type=email],
-[type=password] {
-  width: 100%;
-  height: 40px;
-  border-radius: 8px;
-  border: none;
-  padding-left: 3%;
 }
 
 .eye {
@@ -221,4 +165,25 @@ button {
   .form h5 {
     display: none;
   }
+}
+
+.OTP{
+  min-width: 30vw;
+  display: flex;
+  justify-content: space-around;
+}
+
+.OTP input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border: none;
+  border-bottom: 2px solid #d2d2d2;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  padding: 0;
+}
+
+.OTP input:focus {
+  border-bottom: 2px solid deepskyblue;
+  outline: none;
 }

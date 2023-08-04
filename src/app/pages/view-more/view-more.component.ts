@@ -8,7 +8,7 @@ import { OpenImgPdfDialogComponent } from '../dialog/open-img-pdf-dialog/open-im
 import { UpdateInstructionalAffiliationComponent } from '../dialog/update-instructional-affiliation/update-instructional-affiliation.component';
 import { AddInstitutionDialogComponent } from '../dialog/add-institution-dialog/add-institution-dialog.component';
 import { AddHrdDialogComponent } from '../dialog/add-hrd-dialog/add-hrd-dialog.component';
-import { config } from 'config';
+import { environment } from '../../../environments/environment';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -43,7 +43,7 @@ export class ViewMoreComponent {
   filterText: string = "";
   instituteData: any[] = [];
   hrdData: any[] = [];
-  serverUrl = config.serverUrl;
+  serverUrl = environment.apiUrl;
   imageChangedEvent: any;
   base64Image: any;
   fileUploaded: any;

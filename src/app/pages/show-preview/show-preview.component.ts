@@ -95,35 +95,35 @@ export class ShowPreviewComponent {
   saveimage() {
     // event: any ,type: any ,coursename : any ,collegename : any , collegeid : any,faculty : any,education_type: any,patteren:any
     const fileUrl = this.dataurl(this.croppedImage, "11.jpeg")
-    if(this.type == 'marklist'){
-      this.ref = this.dialogService.open(CollegeDetailsComponent, {
-        data: {
-          fileInput: fileUrl,
-          type:  this.type
-        },
-        header: 'College Details',
-        width: '70%',
-        height: '50%',
-        contentStyle: { overflow: 'auto' },
-        baseZIndex: 10000,
-        maximizable: true
-      });
-      this.ref.onClose.subscribe(() => {
-          this.dismiss()
-      });
-    }else{
+    // if(this.type == 'marklist'){
+    //   this.ref = this.dialogService.open(CollegeDetailsComponent, {
+    //     data: {
+    //       fileInput: fileUrl,
+    //       type:  this.type
+    //     },
+    //     header: 'College Details',
+    //     width: '70%',
+    //     height: '50%',
+    //     contentStyle: { overflow: 'auto' },
+    //     baseZIndex: 10000,
+    //     maximizable: true
+    //   });
+    //   this.ref.onClose.subscribe(() => {
+    //       this.dismiss()
+    //   });
+    // }else{
       this.file = fileUrl
       const formData = new FormData();
       formData.append('file', this.file);
       formData.append('user_id', this.user_id);
       var data=[];
-      this.api.ScanData(this.collegeid,this.education_type,this.pattern,this.faculty,this.app_id,this.type,formData).subscribe( (data: any) => {
+      this.api.ScanData(this.app_id,this.type,formData).subscribe( (data: any) => {
         if (data['status'] == 200) {
-          this.dialogRef.close(data['data'][3])
+          this.dialogRef.close(data['data'][0])
         }else{
         }
       })
-    }
+    // }
   }
   dismiss(){
     this.dialogRef.close();

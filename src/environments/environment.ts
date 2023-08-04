@@ -5,6 +5,19 @@
 export const environment = {
   production: false,
   apiUrl :'http://localhost:5000/api',
+  transUploadUrl:"https://devmu.etranscript.in/api/student/upload_transcript",
+  NameChangeLetterUrl:"https://devmu.etranscript.in/api/student/upload_letterforNameChange",
+  markListUploadUrl : "https://devmu.etranscript.in/api/student/uploadUserMarkList",
+  curriculumUploadUrl: "https://devmu.etranscript.in/api/student/upload_curriculum",
+  migrationUploadUrl :"https://devmu.etranscript.in/api/student/upload_migration",
+ letterUploadUrl: "https://devmu.etranscript.in/api/student/upload_gradeToPercentLetter",
+ CompetencyletterUploadUrl :"https://devmu.etranscript.in/api/student/upload_CompetencyLetter",
+ PaymentIssueUrl :"https://devmu.etranscript.in/api/student/Upload_PaymentIssueUrl",
+ WesLetterUrl :"https://devmu.etranscript.in/api/student/WesLetterUrl",
+ migrationurl :'',
+ verificationurl :'',
+ convactionurl :'',
+ pdcurl : ''
 };
 
 /*

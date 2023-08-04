@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { config } from '../../../../config';
+import { environment } from '../../../environments/environment';
 import { ApiService } from 'src/app/api.service';
 import { ImageCroppedEvent } from "ngx-image-cropper";
 import { ImageViewComponent } from '../dailogComponents/image-view.component';
@@ -16,7 +16,7 @@ import { DialogService ,DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class PaymentIssueComponent {
   registerForm: FormGroup;
-  NameChangeLetterUrl = config.NameChangeLetterUrl;
+  NameChangeLetterUrl = environment.NameChangeLetterUrl;
   fileUploaded: File;
   imageChangedEvent: any;
   base64Image: any;

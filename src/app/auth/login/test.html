@@ -1,0 +1,51 @@
+<div class="bac">
+    <div class="listing-item tns-item"></div>
+    <div class="listing-item tns-item"></div>
+    <div class="listing-item tns-item"></div>
+    <div class="listing-item tns-item"></div>
+    <div class="listing-item tns-item"></div>
+    <div class="listing-item tns-item"></div>
+    <div class="listing-item tns-item"></div>
+    <div class="listing-item tns-item"></div>
+    <div class="listing-item tns-item"></div>
+    <div class="listing-item tns-item"></div>
+  </div>
+  <div class="row" style="position: absolute; width: 100%; height: 100%;">
+    <div class="col-md-6 about">
+      <div class="logo">
+        <img src="../../../assets/IMG/UM Logo (632 × 505 px).svg" alt="">
+      </div>
+      <h5>Welcome to Mumbai University Online Attestation ! <br>Log in with your email.</h5>
+      <br>
+      <h4>Don't have an account? <a href="">Register</a></h4>
+    </div>
+    <div class="col-md-6 form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h1>Log In</h1>
+      <h5>Welcome to Mumbai University Online Attestation !<br> Log in with your email.</h5>
+      <br>
+      <h6 class="label">Email address:</h6>
+      <input type="email" id="userName" formControlName="userName" placeholder="Enter Username">
+      <label for="">Username is required Enter a valid email address</label><br>
+      <h6 class="label">Password:</h6>
+      <div style="position: relative; width: 100%;">
+        <input type="password" id="passWord" formControlName="passWord" placeholder="Enter Password">
+        <div class="eye">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          <i class="fa fa-eye-slash" aria-hidden="true"></i>
+        </div>
+      </div>
+      <label for="">Password is required Password should have minimum 8 characters, at least 1 uppercase letter, 1
+        lowercase letter and 1 number</label><br>
+      <div class="cf">
+        <div class="rem">
+          <input type="checkbox">
+          <h6>Remember Me</h6>
+        </div>
+        <h6><a style="float: right; cursor: pointer" cFormCheckLabel for="checkOne" (click)="forgotPassword()">forgot
+            password ?</a></h6>
+      </div><br>
+      <button type="submit" (click)="onSubmit()">Login</button>
+      <br>
+      <h5 class="register">Don't have an account? <a href="">Register</a></h5>
+    </div>
+  </div>

@@ -112,7 +112,7 @@ export class CollegeDetailsComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.file);
     formData.append('user_id', this.user_id);
-    this.api.ScanData('','','','',this.app_id,this.type,formData).subscribe((data: any) => {
+    this.api.ScanData(this.app_id,this.type,formData).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.collegeName = data['data'][0];
         this.courseName = data['data'][1];

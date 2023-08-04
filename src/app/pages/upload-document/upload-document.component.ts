@@ -398,7 +398,7 @@ export class UploadDocumentComponent implements OnInit {
       formData.append('file', this.file);
       formData.append('user_id', this.user_id);
       var data=[];
-      this.api.ScanData(collegeid,education_type,patteren,faculty,this.app_id,type,formData).subscribe( (data: any) => {
+      this.api.ScanData(this.app_id,type,formData).subscribe( (data: any) => {
         if (data['status'] == 200) {
           this.base64Image = false
           this.refresh();

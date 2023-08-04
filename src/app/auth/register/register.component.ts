@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  displayNo1:boolean=true
+  displayNo1:boolean=false
   displayno2:boolean=false
   constructor() { }
 

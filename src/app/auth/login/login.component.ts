@@ -27,7 +27,7 @@ export class LoginComponent {
   id: any;
   otpForm: FormGroup;
   ref: DynamicDialogRef;
-
+  loader:boolean=false;
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
@@ -82,6 +82,7 @@ export class LoginComponent {
     return this.loginForm.controls;
   }
   onSubmit() {
+    this.loader=true;
     this.auth.login(this.loginForm.controls).subscribe({
       next: () => {
         // this.router.navigate(['pages']);
@@ -91,6 +92,7 @@ export class LoginComponent {
 
         if (this.user_type == 'student') {
           this.router.navigateByUrl('pages/dashboard');
+
           Swal.fire("Congratulation",'You Successfully Logged in','success')
         } else {
           // this.visible = true;

@@ -111,6 +111,7 @@ import {MatTableModule} from '@angular/material/table';
 import { ShowPreviewComponent } from '../pages/show-preview/show-preview.component';
 import { ChangePasswordComponent } from './dailogComponents/change-password.component'; 
 import { PasswordModule } from 'primeng/password';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
   declarations: [
@@ -247,7 +248,8 @@ import { PasswordModule } from 'primeng/password';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    PasswordModule
+    PasswordModule,
+    BadgeModule
   ],
   providers:[AuthGuard]
 })

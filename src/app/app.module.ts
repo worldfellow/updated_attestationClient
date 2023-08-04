@@ -12,6 +12,7 @@ import { PagesModule } from './pages/pages.module';
 import { OneColumnModule } from './one-column/one-column.module';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { AuthInterceptor } from './auth-interceptor';
+import { BnNgIdleModule } from 'bn-ng-idle';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { AuthInterceptor } from './auth-interceptor';
     FormsModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },BnNgIdleModule
   ],
   bootstrap: [AppComponent]
 })

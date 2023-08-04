@@ -41,8 +41,11 @@ const routes: Routes = [
   { path: '**', redirectTo: 'pages' },
 ];
 
+const config:  any = {
+  useHash: true,
+};
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,config)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { 

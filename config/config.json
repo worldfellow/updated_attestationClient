@@ -1,0 +1,23 @@
+{
+    "live": {
+    "username": "root",
+    "password": "brainvireadroot",
+    "database": "muattestation",
+    "host": "75.119.128.251",
+    "port":"3306", 
+    "dialect": "mysql",
+      "define": {
+      "underscored": true,
+      "freezeTableName": true
+    },
+    "operatorsAliases": false,
+    "timezone": "+05:30",
+    "logging": false,
+    "pool": {
+      "max": "1000",
+      "min": "0",
+      "acquire": "30000",
+      "idle": "20000"
+    }
+  }
+}

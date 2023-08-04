@@ -14,8 +14,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { LoaderComponent } from '../loader/loader.component'; 
+
 // import { AuthInterceptor } from '../auth-interceptor';
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -23,6 +26,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     VerifyOtpComponent,
     ForgotPasswordComponent,
     ResendEmailComponent,
+    LoaderComponent
   ],
   entryComponents: [
   ],

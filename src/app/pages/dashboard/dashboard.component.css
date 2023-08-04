@@ -1,19 +1,140 @@
 /* card for all 3 */
-.card
-{
-    height: 100%;
-    width: 100%;
-    padding-bottom: 2%;
-}
  
 
-.card-header
-{
-    background-color: rgb(64,220,126) !important;
+
+
+/* @keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  .blink-text {
+    color: red;
+    font-size: 19px;
+    animation: blink 1.5s infinite;
+  } */
+  
+  body{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  :host ::ng-deep .p-panel-header {
+    background-color: var(--teal-500);
+    border-color: var(--teal-500);
+    color: #ffffff;
+}
+
+:host ::ng-deep .p-panel-content {
+    border-color: var(--teal-500);
+}
+
+ 
+
+.card-text {
+  font-size: 13px;
+  font-family: Arial, sans-serif;
+  color: #333; 
+  font-weight: 500;
+}
+
+.card-title{
+  font-size : 18px
 }
 
 
-  
+.hexagon{
+  width: 100px;
+  height: 110px;
+  background-color: rgb(246, 225, 225);
+  clip-path: polygon(50% 0,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); 
+  margin-left: 20%;
+}
 
-  
-  
+
+.card-titles{
+  font-size : 18px;
+  font-weight: 700;
+  text-align: center;
+  color:var(--teal-500);
+}
+
+
+/* Define styles for the pi-check-circle class */
+.pi.pi-check-circle {
+  font-size: 1.5rem;
+  color: rgb(239, 243, 239);
+  padding-left: 38px;
+  padding-top: 6px;
+}
+
+img{
+  height: 55px;
+  width: 55px;
+  margin-top: 22px;
+  margin-left: 25px;
+}
+
+.check{
+height: 20px;
+width: 18px;  
+margin-left: 42px;
+margin-top: 8px;
+}
+
+.wrong{
+  height: 30px;
+width: 28px;  
+margin-left: 38px;
+margin-top: 3px;
+}
+
+
+.link{
+  height: 70px;
+  width: 60px;
+  transform: rotate(-30deg);
+  margin-left: 1%; 
+  margin-top: 55%;
+}
+
+
+.links{
+  height: 70px;
+  width: 60px;
+  transform: rotate(115deg);
+  margin-left: 1%; 
+  margin-top: 55%;
+}
+
+ 
+.header{
+  font-family: cursive;
+  text-decoration-line: underline;
+  color: var(--teal-500)
+}
+
+.header1{
+  font-family: cursive;
+  margin-left: 55px;
+  text-decoration-line: underline;
+  color: var(--teal-500);
+}
+
+.headers{
+  font-family: cursive;
+  text-decoration-line: underline;
+  color: var(--teal-500);
+  margin-left: 24px;
+}
+
+.btn{
+  background-color:var(--teal-500) ;
+  color: #ffffff;
+  font-weight: 500;
+  height: 50px;
+  width:130px
+}
+ 

@@ -1,83 +1,72 @@
-<div class="mcr">
-  <div class="bac">
-    <div class="listing-item tns-item"></div>
-    <div class="listing-item tns-item"></div>
-    <div class="listing-item tns-item"></div>
-    <div class="listing-item tns-item"></div>
-    <div class="listing-item tns-item"></div>
-    <div class="listing-item tns-item"></div>
-    <div class="listing-item tns-item"></div>
-    <div class="listing-item tns-item"></div>
-    <div class="listing-item tns-item"></div> 
-    <div class="listing-item tns-item"></div>
-  </div>
-  <div class="row" style="position: absolute; width: 100%; height: 100%;">
-    <div class="col-md-6 about">
-      <div class="logo">
-        <img src="../../../assets/IMG/UM Logo (632 × 505 px).svg" alt="">
-      </div>
-      <h5>Welcome to Mumbai University Online Attestation ! <br>Log in with your email.</h5>
-      <br>
-      <h4>Don't have an account? <a href="">Register</a></h4>
-    </div>
-    <div class="col-md-6 form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <h1>Log In</h1>
-      <h5>Welcome to Mumbai University Online Attestation !<br> Log in with your email.</h5>
-      <br>
-      <h6 class="label">Email address:</h6>
-      <input type="email" id="userName" formControlName="userName" placeholder="Enter Username">
-      <label for="">Username is required Enter a valid email address</label><br>
-      <h6 class="label">Password:</h6>
-      <div style="position: relative; width: 100%;">
-        <input type="password" id="passWord" formControlName="passWord" placeholder="Enter Password">
-        <div class="eye">
-          <i class="fa fa-eye" aria-hidden="true"></i>
-          <i class="fa fa-eye-slash" aria-hidden="true"></i>
+<div class="bgimg">
+  <div class="bgb">
+    <div class="mcr">
+      <div class="row" style="padding: 20px;">
+        <h6 class="col-md-4">New User ? <a href="">Register</a></h6>
+        <div class="col-md-4" style="height: 150px; overflow: hidden;">
+          <img style="height: 200px; width: 100%; margin-top: -20px;" src="../../../assets/IMG/UM Logo (632 × 505 px).svg" alt="">
         </div>
+        <h6 style="text-align: center;" class="col-md-4">English <img src="https://img.icons8.com/external-those-icons-fill-those-icons/15/external-down-arrows-those-icons-fill-those-icons-1.png" alt="external-down-arrows-those-icons-fill-those-icons-1"/></h6>
       </div>
-      <label for="">Password is required Password should have minimum 8 characters, at least 1 uppercase letter, 1
-        lowercase letter and 1 number</label><br>
-      <div class="cf">
-        <div class="rem">
-          <input type="checkbox">
-          <h6>Remember Me</h6>
+      
+      <div class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <h1>Log In</h1>
+
+        <br>
+        <h6 class="label">Email address:</h6>
+        <input type="email" class="form-control" id="userName" formControlName="userName" placeholder="Enter Username">
+        <label for="">Username is required Enter a valid email address</label><br>
+        <h6 class="label">Password:</h6>
+        <div style="position: relative; width: 100%;">
+          <input type="password" class="form-control" id="passWord" formControlName="passWord" placeholder="Enter Password">
+          <div class="eye">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+          </div>
         </div>
-        <h6><a style="float: right; cursor: pointer" cFormCheckLabel for="checkOne" (click)="forgotPassword()">forgot password ?</a></h6>
-      </div><br>
-      <button type="submit" (click)="onSubmit()">Login</button>
-      <br>
-      <h5 class="register">Don't have an account? <a href="">Register</a></h5>
+        <label for="">Password is required Password should have minimum 8 characters, at least 1 uppercase letter, 1
+          lowercase letter and 1 number</label><br>
+        <div class="cf">
+          <div class="rem">
+            <input type="checkbox">
+            <h6>Remember Me</h6>
+          </div>
+          <h6><a style="float: right; cursor: pointer" cFormCheckLabel for="checkOne" (click)="forgotPassword()">forgot
+              password ?</a></h6>
+        </div>
+        <button type="submit" (click)="onSubmit()">Login</button><br>
+        <app-loader *ngIf="loader"></app-loader>
+      </div>
     </div>
   </div>
 </div>
+
 <p-dialog header="Verify OTP" [(visible)]="visible" [style]="{width: '50vw'}">
   <div>
-    <div class="card text-center">
-      <!-- <div class="card-header" style="font-weight: bold; background-color: rgb(174, 152, 176) !important;">
-        <h1 style="font-weight: bold;">Verify OTP</h1>
-      </div> -->
-      <form [formGroup]="otpForm">
-        <div class="card-body">
-          <h2 class="card-title">Enter Your OTP</h2>
-          <div class="row box">
-            <div class="col-xs-1">
-              <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" formControlName="otp1Value">
-              <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" formControlName="otp2Value">
-              <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" formControlName="otp3Value">
-              <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" formControlName="otp4Value">
-              <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" formControlName="otp5Value">
-              <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" formControlName="otp6Value">
-            </div>
-          </div>
-          <br>
-        </div>
-        <div class="card-footer">
-          <p-button label="Cancel" (click)="cancel()"></p-button>
-          <p-button label="Verify" (click)="verify()"></p-button>
-          <p-button label="Resend OTP" (click)="resendOtp()"></p-button>
-        </div>
-      </form>
-    </div>
+    <form [formGroup]="otpForm">
+      <h2 class="card-title">Enter Your OTP</h2>
+      <br>
+      <div class="OTP">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" oninput="focusNextInput(event, 1)"
+          formControlName="otp1Value" class="otp-input">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" oninput="focusNextInput(event, 2)"
+          formControlName="otp2Value" class="otp-input">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" oninput="focusNextInput(event, 3)"
+          formControlName="otp3Value" class="otp-input">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" oninput="focusNextInput(event, 4)"
+          formControlName="otp4Value" class="otp-input">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" oninput="focusNextInput(event, 5)"
+          formControlName="otp5Value" class="otp-input">
+        <input type="text" id="otp" maxlength="1" (keypress)="numberOnly($event)" oninput="focusNextInput(event, 6)"
+          formControlName="otp6Value" class="otp-input">
+      </div>
+      <br>
+      <div style="display: flex; justify-content: space-between;">
+        <button (click)="cancel()">Cancel</button>
+        <button (click)="verify()">Verify</button>
+        <button (click)="resendOtp()">Resend OTP</button>
+      </div>
+    </form>
   </div>
 </p-dialog>
 <p-toast></p-toast>
