@@ -165,6 +165,12 @@ const routes: Routes = [{
       data: {type: ['adminPayment']}
     },
     {
+      path : 'adminPaymentIssue',
+      component : PaymentIssueComponent,
+      canActivate: [AuthGuard],
+      data: {type: ['adminPaymentIssue']}
+    },
+    {
       path : 'adminEmailTracker',
       component : EmailTrackerComponent,
       canActivate: [AuthGuard],

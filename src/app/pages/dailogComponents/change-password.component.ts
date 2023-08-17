@@ -1,4 +1,4 @@
-import { Component,OnInit, EventEmitter, Output  } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
 import * as CryptoJS from 'crypto-js';
@@ -66,60 +66,60 @@ import { MessageService } from 'primeng/api';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  value!:string;
+  value!: string;
   reactiveForm: FormGroup;
-  submitted:boolean = false;
+  submitted: boolean = false;
   @Output() changePassword = new EventEmitter<any>();
-ngOnInit(): void {
-  
-}
+  ngOnInit(): void {
 
-constructor(private formBuilder: FormBuilder, protected api: ApiService, public ref: DynamicDialogRef,private messageService: MessageService){
+  }
 
-  this.reactiveForm = this.formBuilder.group({
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    confirmPassword: new FormControl('', Validators.required),
-  }, {
-    validator: this.MustMatch('password', 'confirmPassword')
-  });
+  constructor(private formBuilder: FormBuilder, protected api: ApiService, public ref: DynamicDialogRef, private messageService: MessageService) {
+
+    this.reactiveForm = this.formBuilder.group({
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: new FormControl('', Validators.required),
+    }, {
+      validator: this.MustMatch('password', 'confirmPassword')
+    });
   }
 
 
-get f() { return this.reactiveForm.controls; } 
-MustMatch(controlName: string, matchingControlName: string) {
-return (formGroup: FormGroup) => {
-const control = formGroup.controls[controlName];
-const matchingControl = formGroup.controls[matchingControlName];
-if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
-return;
-}
- 
-if (!control.value || control.value !== matchingControl.value) {
-  matchingControl.setErrors({ mustMatch: true });
-} else {
-  matchingControl.setErrors(null);
-}
-}
-}
+  get f() { return this.reactiveForm.controls; }
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
+        return;
+      }
 
-onSubmit(){
-this.submitted = true;
-if (this.reactiveForm.invalid) {
-return;
-} 
-const password=this.reactiveForm.value.confirmPassword
-const data=CryptoJS.MD5(password).toString(); 
-
-this.api.changePassword(data).subscribe((data:any)=>{
-  if (data['status'] == 200) {
-    this.changePassword.emit(data['status']);
-    this.ref.close(data['status']);
-  }else{
-    this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Details Not Updated!' });
+      if (!control.value || control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    }
   }
-})
 
-}
+  onSubmit() {
+    this.submitted = true;
+    if (this.reactiveForm.invalid) {
+      return;
+    }
+    const password = this.reactiveForm.value.confirmPassword
+    const data = CryptoJS.MD5(password).toString();
+
+    this.api.changePassword(data).subscribe((data: any) => {
+      if (data['status'] == 200) {
+        this.changePassword.emit(data['status']);
+        this.ref.close(data['status']);
+      } else {
+        this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Details Not Updated!' });
+      }
+    })
+
+  }
 }
 
 

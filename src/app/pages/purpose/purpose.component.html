@@ -29,7 +29,7 @@
                 <mat-select id="purposeSelect" class="form-control" placeholder="Select Purpose"
                     style="background-color:  #8a7fff;color:black;height: 40px;">
                     <mat-option id="mat" *ngFor="let list of purposes"
-                        (click)="addInstitution('',list.id,list.name,'add')">{{list.name}}</mat-option>
+                        (click)="addInstitution('',list.id,list.name,'add',null)">{{list.name}}</mat-option>
                 </mat-select>
             </div>
         </div>
@@ -37,17 +37,19 @@
         <div *ngIf="hrdTrue" style="margin-left: 2%;">
             <div>
                 <div *ngIf="Bachelors == true">
-                    <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Bachelors','','')">Add
+                    <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Bachelors','','',null)">Add
                         Details for HRD For Bachelors</button>
                 </div>
                 <br>
                 <div *ngIf="Masters == true">
-                    <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Masters','','')">Add Details
+                    <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Masters','','',null)">Add
+                        Details
                         for HRD For Masters</button>
                 </div>
                 <br>
                 <div *ngIf="Phd == true">
-                    <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Phd','','')">Add Details for
+                    <button mat-raised-button color="primary" (click)="addHrd('add','HRD','Phd','','',null)">Add Details
+                        for
                         HRD For Phd</button>
                 </div>
             </div>
@@ -55,8 +57,8 @@
         <br>
         <div *ngIf="differentCourse" style="margin-left: 2%;">
             <div *ngFor="let different of hrdInfo">
-                <button mat-raised-button color="accent" style="float: left;"
-                    (click)="addDifferentCourse('add','HRD',different.degree,different.faculty,'')">{{different.faculty}}</button>
+                <button mat-raised-button color="accent" style="float: left; margin-left: 1%;"
+                    (click)="addDifferentCourse('add','HRD',different.degree,different.faculty,'',null)">&nbsp;{{different.faculty}}</button>
             </div>
         </div>
         <br>
@@ -97,14 +99,17 @@
                     </div>
                     <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="institute.email != null">
                         <div class="col-md-6">Email :</div>
-                        <div class="col-md-6">{{institute.email}}</div>
+                        <div class="col-md-6">{{institute.email}}
+                            <span *ngIf="institute.other_email != null">,{{institute.other_email}}</span>
+                        </div>
                     </div>
                     <p-divider></p-divider>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-3 d-flex align-items-center justify-content-center">
                             <a class="hoverIcon">
-                                <i class="pi pi-pencil" (click)="addInstitution('',institute.id,institute.type,'edit')">
+                                <i class="pi pi-pencil"
+                                    (click)="addInstitution('',institute.id,institute.type,'edit',institute.app_id)">
                                 </i>
                             </a>
                         </div>
@@ -144,7 +149,8 @@
                         <div class="col-md-6">Seat No For {{hrd.secondlastsem}} :</div>
                         <div class="col-md-6">{{hrd.seat_no_sem5}}</div>
                     </div>
-                    <div class="row" style="margin-top: 2%; margin-left: 2%;" *ngIf="hrd.seat_no_sem6 != null || hrd.lastsem != null">
+                    <div class="row" style="margin-top: 2%; margin-left: 2%;"
+                        *ngIf="hrd.seat_no_sem6 != null || hrd.lastsem != null">
                         <div class="col-md-6">Seat No For {{hrd.lastsem}} :</div>
                         <div class="col-md-6">{{hrd.seat_no_sem6}}</div>
                     </div>
@@ -178,7 +184,7 @@
                         <div class="col-md-3 d-flex align-items-center justify-content-center">
                             <a class="hoverIcon">
                                 <i class="pi pi-pencil"
-                                    (click)="addHrd('edit','HRD',hrd.degree,hrd.course_name,hrd.id)">
+                                    (click)="addHrd('edit','HRD',hrd.degree,hrd.course_name,hrd.id,hrd.app_id)">
                                 </i>
                             </a>
                         </div>
@@ -192,6 +198,7 @@
                     </div>
                 </div>
             </p-card>
+            <br><br>
         </div>
         <br>
         <br>

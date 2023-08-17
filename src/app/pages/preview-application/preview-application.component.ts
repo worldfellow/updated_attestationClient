@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
-import { OpenImgPdfDialogComponent } from '../dialog/open-img-pdf-dialog/open-img-pdf-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ImageViewComponent } from '../dailogComponents/image-view.component';
 
 @Component({
   selector: 'app-preview-application',
   templateUrl: './preview-application.component.html',
-  styleUrls: ['./preview-application.component.css']
+  styleUrls: ['./preview-application.component.css'],
+  providers: [DialogService]
 })
 export class PreviewApplicationComponent {
   token: any;
@@ -31,11 +32,12 @@ export class PreviewApplicationComponent {
   preViewData: any;
   allTabsOpen: boolean;
   allTabsIndices: number[];
+  ref: DynamicDialogRef;
 
   constructor(
     private router: Router,
     protected api: ApiService,
-    public dialog: MatDialog,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -88,17 +90,17 @@ export class PreviewApplicationComponent {
     this.router.navigate(['pages/purpose']);
   }
 
-  openImgPdf(fileName: any, extension: any) {
-    console.log('fileName', fileName);
-    console.log('extention', extension);
-
-    const dialogRef = this.dialog.open(OpenImgPdfDialogComponent, {
+  openImgPdf(filepath: any, extension: any, filename: any) {
+    this.ref = this.dialogService.open(ImageViewComponent, {
       data: {
-        fileName: fileName,
-        extension: extension,
-      }
-    }).afterClosed().subscribe(result => {
-      this.ngOnInit();
+        imgType: extension,
+        imgName: filepath,
+      },
+      header: filename,
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true
     });
   }
 

@@ -9,3 +9,9 @@
     color: #c81212;
     cursor: pointer;
 }
+
+.table-container {
+    /* Center the table horizontally within its parent container (body) */
+    display: flex;
+    justify-content: center;
+}

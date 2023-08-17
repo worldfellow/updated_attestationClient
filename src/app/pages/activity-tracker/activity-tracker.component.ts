@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
+
+interface PageEvent {
+  first: number;
+  rows: number;
+  page: number;
+  pageCount: number;
+}
 
 @Component({
   selector: 'app-activity-tracker',
@@ -10,40 +17,52 @@ export class ActivityTrackerComponent {
   trackerData: any;
   trackerLength: any;
   filterText: string = "";
+  first: number = 0;
+  rows: number = 10;
+  totalCount:number;
+  @ViewChild('local') local!: ElementRef;
 
   constructor(
     protected api: ApiService,
   ) { }
 
   ngOnInit(): void {
-    this.api.getActivityTrackerList('').subscribe((data: any) => {
+    this.getTrackerData(0, 10, '');
+  }
+
+  filterTable() {
+    this.getTrackerData(0, 10, this.filterText)
+  }
+
+  onPageChange(event: PageEvent) {
+    this.first = event.first;
+    this.rows = event.rows;
+    let offset = this.first
+    let limit = this.rows
+    let filterData;
+    this.filterTable();
+    if(!this.filterText){
+       filterData="";
+    }else{
+      filterData = this.filterText;
+    }
+    this.getTrackerData(offset, limit, filterData);
+  }
+
+  getTrackerData(offset: any, limit: any, globalSearch: any){
+    this.api.getActivityTrackerList('', offset, limit, globalSearch).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.trackerData = data['data'];
-        console.log('this.trackerData***********', this.trackerData.length);
-        this.trackerLength = this.trackerData.length;
+        this.totalCount = data['count'];
       } else {
         console.log('Failed to load data!');
       }
     })
   }
 
-  filterTable() {
-    console.log('lllllllllllllllllll', this.filterText);
-
-    if (this.filterText) {
-      this.trackerData = this.trackerData.filter((tracker: any) =>
-        tracker.activity.toLowerCase().includes(this.filterText.toLowerCase()) || tracker.data.toLowerCase().includes(this.filterText.toLowerCase())
-      );
-    } 
-    // else if (this.filterText.trim()) {
-    //   this.trackerData = this.trackerData.filter((tracker: any) =>
-    //     tracker.activity.toLowerCase().includes(this.filterText.toLowerCase()) || tracker.data.toLowerCase().includes(this.filterText.toLowerCase())
-    //   );
-    // } 
-    else {
-      this.trackerData = this.trackerData;
-    }
-    this.trackerLength = this.trackerData.length;
+  clear() {
+    this.local.nativeElement.value = '';
+    this.getTrackerData(0, 10, '');
   }
 
 }

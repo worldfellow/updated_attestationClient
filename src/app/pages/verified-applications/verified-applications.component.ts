@@ -119,7 +119,7 @@ export class VerifiedApplicationsComponent {
       if (data['status'] == 200) {
         this.filepath = data['data'];
 
-        this.api.getDownloadExcelBySaveAs(this.filepath).subscribe((data: any) => {
+        this.api.getDownloadBySaveAs(this.filepath).subscribe((data: any) => {
           saveAs(data, 'verifiedApplications.xlsx');
         })
       } else {

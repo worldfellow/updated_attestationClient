@@ -2,28 +2,32 @@
     <div class="card">
         <mat-tab-group>
             <mat-tab label="College Management">
-                <p-table [value]="collegeData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+                <p-table #dt1 [value]="collegeData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
                     [showCurrentPageReport]="true"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [rowsPerPageOptions]="[10, 25, 50]">
+                    [globalFilterFields]="['id', 'name']">
                     <ng-template pTemplate="caption">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="card flex flex-wrap justify-content-center">
                                     <span class="p-input-icon-left">
                                         <i class="pi pi-search"></i>
                                         <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
-                                            [(ngModel)]="filterText" (input)="filterTableCollege()"
-                                            style="width: 100%;" />
+                                            [(ngModel)]="filterText" (input)="handleFilterChange('college')"
+                                            style="width: 100%;" #local />
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <button mat-fab color="primary" (click)="addCollegeFaculty('College','add')">
-                                    <i class="fa fa-plus"></i>
-                                </button>
+                            <div class="col-md-1">
+                                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                                    (click)="clear(dt1)"></button>
                             </div>
-                            <div class="col-md-2"></div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                                <p-button pRipple label="ADD COLLEGE" icon="fa fa-plus"
+                                    styleClass="p-button-raised p-button-secondary"
+                                    (click)="addCollegeFaculty('College','add')"></p-button>
+                            </div>
                         </div>
                         <br>
                         <div class="row">
@@ -80,34 +84,38 @@
                 </p-table>
             </mat-tab>
             <mat-tab label="Field of Study">
-                <p-table [value]="facultyData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+                <p-table #dt2 [value]="facultyData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
                     [showCurrentPageReport]="true"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [rowsPerPageOptions]="[10, 25, 50]">
+                    [globalFilterFields]="['id', 'degree', 'faculty']">
                     <ng-template pTemplate="caption">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="card flex flex-wrap justify-content-center">
                                     <span class="p-input-icon-left">
                                         <i class="pi pi-search"></i>
                                         <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
-                                            [(ngModel)]="filterText" (input)="filterTableFaculty()"
-                                            style="width: 100%;" />
+                                            [(ngModel)]="filterText" (input)="handleFilterChange('faculty')"
+                                            style="width: 100%;" #local />
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <button mat-fab color="primary" (click)="addCollegeFaculty('Faculty','add')">
-                                    <i class="fa fa-plus"></i>
-                                </button>
+                            <div class="col-md-1">
+                                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                                    (click)="clear(dt2)"></button>
                             </div>
-                            <div class="col-md-2"></div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                                <p-button pRipple label="ADD FACULTY" icon="fa fa-plus"
+                                    styleClass="p-button-raised p-button-secondary"
+                                    (click)="addCollegeFaculty('Faculty','add')"></p-button>
+                            </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-12"
                                 style="display: flex; justify-content: flex-start; margin-right: auto;">
-                                <h2>Filtered college count : {{facultyLength}}</h2>
+                                <h2>Filtered faculty count : {{facultyLength}}</h2>
                             </div>
                         </div>
                     </ng-template>

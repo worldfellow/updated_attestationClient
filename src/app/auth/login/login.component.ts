@@ -28,6 +28,8 @@ export class LoginComponent {
   otpForm: FormGroup;
   ref: DynamicDialogRef;
   loader:boolean=false;
+  public showPassword: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
@@ -54,10 +56,8 @@ export class LoginComponent {
     // this.user_id = this.token.data.user.user_id;
 
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.required, Validators.email]],
-      passWord: ['', [Validators.required, Validators.pattern(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$'
-      )]]
+      userName: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      passWord: ['', [Validators.required,Validators.minLength(6)]]
     });
 
     const otpFields = this.elementRef.nativeElement.querySelectorAll('input[id^=otp]');

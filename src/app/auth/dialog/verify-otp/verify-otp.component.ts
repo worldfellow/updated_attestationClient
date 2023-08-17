@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-verify-otp',
@@ -85,7 +86,6 @@ export class VerifyOtpComponent {
   id: any;
 
   constructor(
-    // public dialogRef: MatDialogRef<VerifyOtpComponent>,
     private elementRef: ElementRef,
     private messageService: MessageService,
     private router: Router,
@@ -114,12 +114,6 @@ export class VerifyOtpComponent {
     });
   }
 
-  //close dialog box
-  // dismiss() {
-  //   console.log('Dismiss called');
-  //   this.dialogRef.close();
-  // }
-
   //user can press only numbers on keyboard
   numberOnly(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
@@ -130,7 +124,6 @@ export class VerifyOtpComponent {
   }
 
   cancel(){
-    // this.dismiss();
     this.ref.close();
     this.router.navigate(['auth/login']);
   }
@@ -147,12 +140,10 @@ export class VerifyOtpComponent {
         if (data['status'] == 200) {
           console.log('inside=============================');
           this.router.navigateByUrl('pages/adminDashboard');
-          // this.dismiss();
           this.ref.close();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
+          Swal.fire("Congratulation",'You Successfully Logged in','success')
         } else {
           console.log(' Erorrrrrrrrrrrrrrrrrrr ')
-          // this.dismiss();
           this.ref.close();
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
         }

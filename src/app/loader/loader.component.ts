@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-loader',
-  template: `
-    <p>
-      loader works!
-    </p>
+  template: ` 
     <div class="wrapper">
     <div class="box-wrap">
         <div class="box one"></div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ApiService } from 'src/app/api.service';
@@ -29,6 +29,10 @@ export class StudentManagementComponent {
   studentsLength: any;
   first: number = 0;
   rows: number = 10;
+  totalCount: number;
+  @ViewChild('name') name!: ElementRef;
+  @ViewChild('email') email!: ElementRef;
+  @ViewChild('local') local!: ElementRef;
 
   constructor(
     protected api: ApiService,
@@ -42,27 +46,12 @@ export class StudentManagementComponent {
     this.token = JSON.parse(localStorage.getItem('user')!);
     this.user_email = this.token.data.user.user_email;
 
-    this.search(null, null, null, 0, 10);
+    this.search('', '', '', 0, 10);
   }
-
-
-
-  // filterTable() {
-  //   console.log('filt',this.filterText);
-
-  //   if (this.filterText) {
-  //     this.studentsData = this.studentsData.filter((students: any) =>
-  //       students.name.toLowerCase().includes(this.filterText.toLowerCase()) || students.surname.toLowerCase().includes(this.filterText.toLowerCase()) || students.email.toLowerCase().includes(this.filterText.toLowerCase())
-  //     );
-  //     this.studentsLength = this.studentsData.length;
-  //   } else {
-  //     this.studentsData = this.studentsData;
-  //   }
-  // }
 
   filterData() {
     console.log("filterText", this.filterText);
-    this.search(null, null, this.filterText, 0, 10)
+    this.search('', '', this.filterText, 0, 10)
   }
 
   onPageChange(event: PageEvent) {
@@ -74,56 +63,30 @@ export class StudentManagementComponent {
     // this.filterData();
     let filterData;
     if (!this.filterText) {
-      filterData = "null";
+      filterData = '';
     } else {
       filterData = this.filterText;
     }
     console.log('llllllllllllllllllllllll',limit);
     console.log('oooooooooooooooooooooooo',offset);
-    this.search(null, null, filterData, offset, limit);
+    this.search('', '', filterData, offset, limit);
   }
 
   search(name: any, email: any, globalSearch: any, offset: any, limit: any) {
     console.log('LLLLLLLLLLLLLLLLLLLLLLLLL',limit);
     console.log('OOOOOOOOOOOOOOOOOOOOOOOOO',offset);
-    this.api.getStudentList(null, 'student', name, email, globalSearch, offset, limit).subscribe((data: any) => {
+    this.api.getStudentList("", 'student', name, email, globalSearch, offset, limit).subscribe((data: any) => {
       if (data['status'] == 200) {
         this.studentsData = data['data'];
-        console.log('students------------->', this.studentsData);
-        this.studentsLength = this.studentsData.length;
+        this.totalCount = data['count'];
+        console.log('data------------->', this.studentsData);
+        console.log('count------------->', this.totalCount);
+        // this.studentsLength = this.studentsData.length;
+      }else{
+        this.studentsData = data['data'];
+        this.totalCount = data['count'];
       }
     })
-
-    // if (this.name != null) {
-    //   this.studentsData = this.studentsData.filter((students: any) =>
-    //     students.name.toLowerCase().includes(this.name.toLowerCase()) || students.surname.toLowerCase().includes(this.name.toLowerCase())
-    //   );
-    //   this.studentsLength = this.studentsData.length;
-    // } else {
-    //   this.studentsData = this.studentsData;
-    // }
-
-    // if (this.email != null) {
-    //   this.studentsData = this.studentsData.filter((students: any) =>
-    //     students.email.toLowerCase().includes(this.email.toLowerCase())
-    //   );
-    //   this.studentsLength = this.studentsData.length;
-    // } else {
-    //   this.studentsData = this.studentsData;
-    // }
-
-    // if ((this.name != null && this.email != null) || (this.name != null && this.email == null) || (this.name == null && this.email != null)) {
-    //   console.log('++++++++++++++');
-    //   console.log('name--****---', this.name);
-    //   console.log('email****-----', this.email);
-
-    //   this.studentsData = this.studentsData.filter((students: any) =>
-    //     students.name.toLowerCase().includes(this.name.toLowerCase()) || students.surname.toLowerCase().includes(this.name.toLowerCase()) || students.email.toLowerCase().includes(this.email.toLowerCase())
-    //   );
-    //   this.studentsLength = this.studentsData.length;
-    // } else {
-    //   this.studentsData = this.studentsData;
-    // }
   }
 
   viewMore(user_id: any, app_id: any) {
@@ -159,5 +122,12 @@ export class StudentManagementComponent {
         this.ngOnInit();
       }
     })
+  }
+
+  clear() {
+    this.name.nativeElement.value = '';
+    this.email.nativeElement.value = '';
+    this.local.nativeElement.value = '';
+    this.search('', '', '', 0, 10);
   }
 }

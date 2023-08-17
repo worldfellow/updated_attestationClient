@@ -29,15 +29,12 @@
 }
 
 .bgimg{
-  background-image: url("../../../assets/IMG/gf-01.jpg");
-  background-repeat: no-repeat;
   height: 100vh;
   width: 100vw;
-  background-size: 100%;
 }
 
 .bgb{
-  background-color: #1d4db67b; 
+  background-color: #192b51a3; 
   height: 100%; 
   width: 100%; 
   display: flex;
@@ -113,7 +110,7 @@ button {
   border-radius: 8px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .mcr {
     height: 100vh;
     width: 100vw;
@@ -155,15 +152,6 @@ button {
 
   .register {
     text-align: center;
-  }
-}
-
-@media (min-width: 767px) {
-  .register {
-    display: none;
-  }
-  .form h5 {
-    display: none;
   }
 }
 

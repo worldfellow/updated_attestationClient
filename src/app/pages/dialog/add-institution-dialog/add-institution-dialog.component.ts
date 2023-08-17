@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Output, EventEmitter } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -13,7 +13,7 @@ export interface DialogData {
   purpose_name: any;
   function_type: any;
   student_id: any;
-  student_app_id: any;
+  app_id: any;
 }
 
 @Component({
@@ -147,7 +147,7 @@ export interface DialogData {
   </div>
 </div>
   `,
-  styles:[
+  styles: [
     `
     .col-md-4{
       font-weight: 600;
@@ -157,7 +157,7 @@ export interface DialogData {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: rgb(64,220,126) !important;
+      background-color: var(--teal-500);
     }
     
     .header-content {
@@ -183,7 +183,6 @@ export class AddInstitutionDialogComponent {
   user_type: any;
   count: any;
   Data: any;
-  app_id: any = null;
 
   //declaration of variables for data get from purpose component
   institute: any;
@@ -192,7 +191,8 @@ export class AddInstitutionDialogComponent {
   function_type: any;
   institute_id: any;
   student_id: any;
-  student_app_id: any;
+  app_id: any;
+
 
   //manage fields database wise
   refno: any;
@@ -235,6 +235,7 @@ export class AddInstitutionDialogComponent {
   user_email: any;
   formData: any;
   saveWes: boolean;
+  @Output() notesSaved = new EventEmitter<any>();
 
   constructor(
     protected api: ApiService,
@@ -275,7 +276,7 @@ export class AddInstitutionDialogComponent {
     this.institute_id = this.data.institute_id;
     this.function_type = this.data.function_type;
     this.student_id = this.data.student_id;
-    this.student_app_id = this.data.student_app_id;
+    this.app_id = this.data.app_id;
 
     //view input fields as per database values
     this.api.getPurposeList(this.purpose_name).subscribe((data: any) => {
@@ -301,10 +302,11 @@ export class AddInstitutionDialogComponent {
     //storing patchvalues while editing
     if (this.user_type == 'student') {
       if (this.function_type == 'edit') {
-        this.api.getInstituteData(this.app_id, this.purpose_name,this.institute_id).subscribe((data: any) => {
+        this.api.getInstituteData(this.app_id, this.purpose_name, this.institute_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.instituteData = data['data'][0];
-
+            console.log('<<<<<<<<<<<<<<',this.instituteData);
+            
             this.ref_numbers = this.instituteData.reference_no.split('MU-').pop();
             this.wes_name = this.instituteData.nameaswes;
             this.wes_surname = this.instituteData.lastnameaswes;
@@ -314,7 +316,9 @@ export class AddInstitutionDialogComponent {
             this.country_names = parseInt(this.instituteData.country_name, 10);
             this.contact_person_names = this.instituteData.contact_person;
             this.contact_numbers = this.instituteData.contact_number;
-            this.email_ids = this.instituteData.email;
+            this.email_ids = this.instituteData.other_email
+            ? this.instituteData.email + ',' + this.instituteData.other_email
+            : this.instituteData.email;
           } else if (data['status'] == 400) {
             console.log('Data not found!');
           }
@@ -324,9 +328,10 @@ export class AddInstitutionDialogComponent {
       }
     } else {
       if (this.function_type == 'edit') {
-        this.api.getInstituteData(this.student_app_id, this.purpose_name,this.institute_id).subscribe((data: any) => {
+        this.api.getInstituteData(this.app_id, this.purpose_name, this.institute_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.instituteData = data['data'][0];
+            console.log('@@@@@@@@@@@@@@@@',this.instituteData);
 
             this.ref_numbers = this.instituteData.reference_no.split('MU-').pop();
             this.wes_name = this.instituteData.nameaswes;
@@ -337,7 +342,9 @@ export class AddInstitutionDialogComponent {
             this.country_names = parseInt(this.instituteData.country_name, 10);
             this.contact_person_names = this.instituteData.contact_person;
             this.contact_numbers = this.instituteData.contact_number;
-            this.email_ids = this.instituteData.email;
+            this.email_ids = this.instituteData.other_email
+            ? this.instituteData.email + ',' + this.instituteData.other_email
+            : this.instituteData.email;
           } else if (data['status'] == 400) {
             console.log('Data not found!');
           }
@@ -379,7 +386,7 @@ export class AddInstitutionDialogComponent {
   }
 
   //save button
- async saveInstitution() {
+  async saveInstitution() {
     this.confirmationService.confirm({
       message: 'Are you sure want to save purpose?',
       header: 'Confirmation',
@@ -418,56 +425,32 @@ export class AddInstitutionDialogComponent {
         this.formData = this.institutionForm.value;
 
         if (this.user_type == 'student') {
-          if(this.purpose_name == "Educational credential evaluators WES"){
-            this.api.getwesdetails(this.institutionForm.controls['allRefNo'].value,this.institutionForm.controls['wesEmail'].value,this.institutionForm.controls['wesName'].value,this.institutionForm.controls['wesSurname'].value).subscribe(async(data:any) => {
-              if(data['status'] == 400){
+          if (this.purpose_name == "Educational credential evaluators WES") {
+            this.api.getwesdetails(this.institutionForm.controls['allRefNo'].value, this.institutionForm.controls['wesEmail'].value, this.institutionForm.controls['wesName'].value, this.institutionForm.controls['wesSurname'].value).subscribe(async (data: any) => {
+              if (data['status'] == 400) {
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
-              }else{
-
+              } else {
                 var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-                this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData,this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
-                  if (data['status'] == 200) {
-    
-                    this.dismiss();
-    
-                    this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-                  }
-                  else if (data['status'] == 400) {
-                    this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-                  }
+                this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+                  this.notesSaved.emit(data);
+                  this.dialogRef.close(data);
                 });
-                
               }
-             
             })
-          }else{
+          } else {
             var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData,this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
-              if (data['status'] == 200) {
-
-                this.dismiss();
-
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-              }
-              else if (data['status'] == 400) {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-              }
+            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+              this.notesSaved.emit(data);
+              this.dialogRef.close(data);
             });
           }
         } else {
-            var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData,this.student_app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
-              if (data['status'] == 200) {
+          var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+          this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
+            this.notesSaved.emit(data);
+            this.dialogRef.close(data);
+          });
 
-                this.dismiss();
-
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
-              }
-              else if (data['status'] == 400) {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
-              }
-            });
-        
         }
       },
 

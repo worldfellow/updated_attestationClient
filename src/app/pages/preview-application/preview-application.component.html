@@ -60,7 +60,7 @@
                                     </td>
                                 </table>
                                 <br>
-                                <h5 class="card-title">Education</h5>
+                                <!-- <h5 class="card-title">Education</h5>
                                 <div class="row" style="margin-top: 2%;">
                                     <div class="col-md-12" *ngFor="let college of college_data">
                                         <div><strong>Degree for attested documents : </strong>{{college.degree}}</div>
@@ -70,15 +70,15 @@
                                         <div><strong>Degree & Year : </strong>{{college.year}}</div>
                                         <br>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </p-card>
                 </div>
             </div>
 
-            <!-- marksheets -->
             <p-accordion [activeIndex]="0">
+                <!-- marksheets -->
                 <p-accordionTab header="Marksheets" *ngIf="marksheets_data.length > 0">
                     <div class="card w-100">
                         <div class="card-body row">
@@ -94,7 +94,7 @@
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(marksheets.filePath,marksheets.extension)">
+                                            (click)="openImgPdf(marksheets.filePath,marksheets.extension,marksheets.name)">
                                     </div>
                                 </div>
                                 <!-- img -->
@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top" src="http://{{marksheets.filePath}}"
-                                            (click)="openImgPdf(marksheets.filePath,marksheets.extension)">
+                                            (click)="openImgPdf(marksheets.filePath,marksheets.extension,marksheets.name)">
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(transcripts.filePath,transcripts.extension)">
+                                            (click)="openImgPdf(transcripts.filePath,transcripts.extension,transcripts.name)">
                                     </div>
                                 </div>
                                 <!-- img -->
@@ -144,7 +144,7 @@
                                     </div>
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top" src="http://{{transcripts.filePath}}"
-                                            (click)="openImgPdf(transcripts.filePath,transcripts.extension)">
+                                            (click)="openImgPdf(transcripts.filePath,transcripts.extension,transcripts.name)">
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +200,7 @@
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(curriculum.filePath,curriculum.extension)">
+                                            (click)="openImgPdf(curriculum.filePath,curriculum.extension,curriculum.name)">
                                     </div>
                                 </div>
                                 <!-- img -->
@@ -213,7 +213,7 @@
                                     </div>
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top" src="http://{{curriculum.filePath}}"
-                                            (click)="openImgPdf(curriculum.filePath,curriculum.extension)">
+                                            (click)="openImgPdf(curriculum.filePath,curriculum.extension,curriculum.name)">
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(gradtoper.filePath,gradtoper.extension)">
+                                            (click)="openImgPdf(gradtoper.filePath,gradtoper.extension,gradtoper.name)">
                                     </div>
                                 </div>
                                 <!-- img -->
@@ -250,7 +250,7 @@
                                     </div>
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top" src="http://{{gradtoper.filePath}}"
-                                            (click)="openImgPdf(gradtoper.filePath,gradtoper.extension)">
+                                            (click)="openImgPdf(gradtoper.filePath,gradtoper.extension,gradtoper.name)">
                                     </div>
                                 </div>
                             </div>
@@ -306,7 +306,7 @@
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top"
                                             src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                            (click)="openImgPdf(competency.filePath,competency.extension)">
+                                            (click)="openImgPdf(competency.filePath,competency.extension,competency.name)">
                                     </div>
                                 </div>
                                 <!-- img -->
@@ -319,7 +319,7 @@
                                     </div>
                                     <div class="card-body text-secondary">
                                         <img class="card-img-top" src="http://{{competency.filePath}}"
-                                            (click)="openImgPdf(competency.filePath,competency.extension)">
+                                            (click)="openImgPdf(competency.filePath,competency.extension,competency.name)">
                                     </div>
                                 </div>
                             </div>
@@ -381,7 +381,7 @@
                                             <div class="card-body text-secondary">
                                                 <img class="card-img-top"
                                                     src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
-                                                    (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension)">
+                                                    (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension,letterfornamechange.name)">
                                             </div>
                                         </div>
                                         <!-- img -->
@@ -394,7 +394,7 @@
                                             </div>
                                             <div class="card-body text-secondary">
                                                 <img class="card-img-top" src="http://{{letterfornamechange.filePath}}"
-                                                    (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension)">
+                                                    (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension,letterfornamechange.name)">
                                             </div>
                                         </div>
                                     </div>

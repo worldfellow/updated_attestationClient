@@ -26,10 +26,10 @@ export class ImageViewComponent implements OnInit{
     this.data = config.data
   }
 ngOnInit(){
-  console.log("data",this.data.imgName);
    this.imgType = this.data.imgType;
    this.imgName = this.data.imgName; 
    console.log("this.imgType",this.imgType); 
+   console.log("this.imgType",this.imgName); 
    this.photoURL = this.sanitizer.bypassSecurityTrustResourceUrl("http://"+this.imgName);
    
 } 

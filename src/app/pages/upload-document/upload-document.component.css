@@ -124,4 +124,56 @@ p-table td {
   /* Add your desired styles for <td> here */
   padding-left: 15px;
 }
+.tabs {
+  display: flex;
+}
 
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  background-color: #f0f0f0;
+  user-select: none;
+}
+
+.tab.active {
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.tab-content {
+  border: 1px solid #ccc;
+  border-radius: 0 0 5px 5px;
+  padding: 20px;
+}
+
+
+.pi.pi-user-edit{
+  font-size: 1.5rem; 
+  color: green;
+  cursor: pointer;
+}
+
+.pi.pi-user-edit:hover{
+  font-size: 1.8rem; 
+  color: rgb(30, 236, 30);
+}
+
+.pi.pi-trash{
+font-size: 1.5rem; 
+color: rgb(202, 65, 65);
+cursor: pointer;
+padding-left: 8px;
+}
+
+.pi.pi-trash:hover{
+font-size: 1.8rem; 
+color: rgb(241, 9, 9);
+}
+
+
+.accordian{
+  padding: 10px;
+}

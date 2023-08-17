@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminManagementDialogComponent } from '../dialog/admin-management-dialog/admin-management-dialog.component';
 import { ApiService } from 'src/app/api.service';
@@ -7,6 +7,7 @@ import { debounceTime } from 'rxjs';
 import { AdminCollegeFacultyPreviewComponent } from '../dialog/admin-college-faculty-preview/admin-college-faculty-preview.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-admin-management',
   templateUrl: './admin-management.component.html',
@@ -36,7 +37,11 @@ export class AdminManagementComponent {
   app_id: any;
   ref: DynamicDialogRef;
   header: any;
-
+  @ViewChild('dt1') dt1: Table;
+  @ViewChild('dt2') dt2: Table;
+  @ViewChild('local') local!: ElementRef;
+  length: number;
+  
   constructor(
     private dialog: MatDialog,
     protected api: ApiService,
@@ -71,26 +76,33 @@ export class AdminManagementComponent {
     })
   }
 
-  filterTableCollege() {
-    if (this.filterText) {
-      this.collegeData = this.collegeData.filter((college: any) =>
-        college.name.toLowerCase().includes(this.filterText.toLowerCase())
-      );
-      this.collegeLength = this.collegeData.length;
-    } else {
-      this.collegeData = this.collegeData;
+  handleFilterChange(type: any) {
+    if(type == 'college'){
+      this.dt1?.filterGlobal(this.filterText, 'contains');
+
+      console.log("this.dt1", this.dt1);
+      console.log("this.dt1.filteredValue>>", this.dt1.filteredValue.length)
+      // console.log("this.dt1._totalRecords>>", this.dt1._totalRecords)
+  
+      this.collegeLength = this.dt1.filteredValue.length;
+      // this.collegeLength = this.dt1._totalRecords;
+    }else{
+      this.dt2?.filterGlobal(this.filterText, 'contains');
+
+      console.log("this.dt2", this.dt2);
+      console.log("this.dt1.filteredValue>>", this.dt1.filteredValue.length)
+      // console.log("this.dt2._totalRecords>>", this.dt2._totalRecords)
+  
+      this.facultyLength = this.dt2.filteredValue.length;
+      // this.facultyLength = this.dt2._totalRecords;
     }
+
+
   }
 
-  filterTableFaculty() {
-    if (this.filterText) {
-      this.facultyData = this.facultyData.filter((faculty: any) =>
-        faculty.faculty.toLowerCase().includes(this.filterText.toLowerCase()) || faculty.degree.toLowerCase().includes(this.filterText.toLowerCase())
-      );
-      this.facultyLength = this.facultyData.length;
-    } else {
-      this.facultyData = this.facultyData;
-    }
+  clear(table: Table) {
+    table.clear();
+    this.local.nativeElement.value = '';
   }
 
   addCollegeFaculty(purpose: any, type: any) {

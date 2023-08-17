@@ -261,7 +261,7 @@
      border: none;
  }
  
- .Captcha {
+ /* .Captcha {
      width: 100%;
      display: flex;
      justify-content: space-between;
@@ -281,7 +281,7 @@
      border-radius: 8px;
      border: none;
      padding-left: 3%;
- }
+ } */
  
  .OTP{
      min-width: 30vw;

@@ -4,19 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ApiService } from 'src/app/api.service';
 import { AddDocumentByAdminComponent } from '../dialog/add-document-by-admin/add-document-by-admin.component';
-import { OpenImgPdfDialogComponent } from '../dialog/open-img-pdf-dialog/open-img-pdf-dialog.component';
+// import { OpenImgPdfDialogComponent } from '../dialog/open-img-pdf-dialog/open-img-pdf-dialog.component';
 import { UpdateInstructionalAffiliationComponent } from '../dialog/update-instructional-affiliation/update-instructional-affiliation.component';
 import { AddInstitutionDialogComponent } from '../dialog/add-institution-dialog/add-institution-dialog.component';
 import { AddHrdDialogComponent } from '../dialog/add-hrd-dialog/add-hrd-dialog.component';
 import { environment } from '../../../environments/environment';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ImageViewComponent } from '../dailogComponents/image-view.component';
 
 @Component({
   selector: 'app-view-more',
   templateUrl: './view-more.component.html',
   styleUrls: ['./view-more.component.css'],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, DialogService],
 })
 export class ViewMoreComponent {
   uploadForm: FormGroup;
@@ -54,6 +56,7 @@ export class ViewMoreComponent {
   width: number;
   studentAppId: any;
   app_id_null : any = null;
+  ref: DynamicDialogRef;
 
   constructor(
     protected api: ApiService,
@@ -62,6 +65,7 @@ export class ViewMoreComponent {
     private confirmationService: ConfirmationService,
     public dialog: MatDialog,
     private fb: FormBuilder,
+    private dialogService: DialogService,
   ) {
     // this.fileInputCtrl = new FormControl
   }
@@ -79,7 +83,7 @@ export class ViewMoreComponent {
     });
 
 
-    this.api.getStudentList(this.student_id, null, null, null, null, null, null).subscribe((data: any) => {
+    this.api.getStudentList(this.student_id, '', '', '', '', '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.studentData = data['data'][0];
         console.log('students------------->', this.studentData);
@@ -117,7 +121,7 @@ export class ViewMoreComponent {
       }
     })
 
-    this.api.getActivityTrackerList(this.student_id).subscribe((data: any) => {
+    this.api.getActivityTrackerList(this.student_id, '', '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.trackerData = data['data'];
         this.trackerLength = this.trackerData.length;
@@ -251,17 +255,17 @@ export class ViewMoreComponent {
     console.log('sssssssssssss', this.studentData);
   }
 
-  openImgPdf(fileName: any, extension: any) {
-    console.log('fileName', fileName);
-    console.log('extention', extension);
-
-    const dialogRef = this.dialog.open(OpenImgPdfDialogComponent, {
+  openImgPdf(filepath: any, extension: any, filename: any) {
+    this.ref = this.dialogService.open(ImageViewComponent, {
       data: {
-        fileName: fileName,
-        extension: extension,
-      }
-    }).afterClosed().subscribe(result => {
-      this.ngOnInit();
+        imgType: extension,
+        imgName: filepath,
+      },
+      header: filename,
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true
     });
   }
 

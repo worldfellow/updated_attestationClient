@@ -34,7 +34,7 @@ export class PurposeComponent {
   hrdData: any;
   hrdInfo: any;
   differentCourse: boolean;
-  @Input () data: any;
+  @Input() data: any;
 
   constructor(
     protected api: ApiService,
@@ -55,10 +55,6 @@ export class PurposeComponent {
     this.token = JSON.parse(localStorage.getItem('user')!);
     this.user_id = this.token.data.user.user_id;
     this.user_type = this.token.data.user.user_type;
-    console.log('KKKKKKKKKKKKKKKKKKKKKKKKKKKK',this.data);
-    
-    this.app_id = this.route.snapshot.queryParamMap.get('app_id');
-    console.log('??????????????',this.app_id);
 
     //get dynamic data of deopdown
     this.api.getPurposeList('').subscribe((data: any) => {
@@ -71,6 +67,7 @@ export class PurposeComponent {
     this.api.getInstituteData(this.app_id, '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.instituteData = data['data'];
+        console.log('!!!!!!!!!!!!!!',this.instituteData);
       } else if (data['status'] == 400) {
       }
     });
@@ -99,7 +96,7 @@ export class PurposeComponent {
   }
 
   //using this we can open AddInstitutionDialogComponent dialog box and send data using his type add and edit & display form
-  addInstitution(institute: any, id: any, name: any, type: any) {
+  addInstitution(institute: any, id: any, name: any, type: any, app_id: any) {
     if (type == 'add') {
       if (name == 'HRD') {
         this.hrdTrue = true;
@@ -113,9 +110,16 @@ export class PurposeComponent {
             purpose_id: id,
             purpose_name: name,
             function_type: type,
+            app_id: app_id,
           }
-        }).afterClosed().subscribe(result => {
-          this.ngOnInit();
+        }).afterClosed().subscribe((data: any) => {
+          if (data?.status == 200) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
+            this.ngOnInit();
+          } else if (data?.status == 400) {
+            this.messageService.add({ severity: 'danger', summary: 'Error', detail: data.message });
+          } else {
+          }
         });
       }
     } else if (type == 'edit') {
@@ -126,8 +130,14 @@ export class PurposeComponent {
           purpose_name: name,
           function_type: type,
         }
-      }).afterClosed().subscribe(result => {
-        this.ngOnInit();
+      }).afterClosed().subscribe((data: any) => {
+        if (data?.status == 200) {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
+          this.ngOnInit();
+        } else if (data?.status == 400) {
+          this.messageService.add({ severity: 'danger', summary: 'Error', detail: data.message });
+        } else {
+        }
       });
     }
   }
@@ -168,7 +178,7 @@ export class PurposeComponent {
   }
 
   //using this we can open AddHrdDialogComponent dialog box and send data using his type add and edit & display form
-  addHrd(type: any, purpose: any, degree: any, faculty: any, hrd_id: any) {
+  addHrd(type: any, purpose: any, degree: any, faculty: any, hrd_id: any, app_id: any) {
     if (type == 'add') {
       this.api.getHrdInfo(degree, '', null).subscribe((data: any) => {
         if (data['status'] == 200) {
@@ -184,6 +194,7 @@ export class PurposeComponent {
                 purpose_name: purpose,
                 degree_type: degree,
                 faculty_type: faculty,
+                app_id: app_id,
               }
             }).afterClosed().subscribe(result => {
               this.ngOnInit();
@@ -199,6 +210,7 @@ export class PurposeComponent {
           degree_type: degree,
           faculty_type: faculty,
           hrd_id: hrd_id,
+          app_id: app_id,
         }
       }).afterClosed().subscribe(result => {
         this.ngOnInit();
@@ -207,7 +219,7 @@ export class PurposeComponent {
   }
 
   //using this we can open AddHrdDialogComponent dialog box and send data using his type add and edit & display form for different courses.
-  addDifferentCourse(type: any, purpose: any, degree: any, faculty: any, hrd_id: any) {
+  addDifferentCourse(type: any, purpose: any, degree: any, faculty: any, hrd_id: any, app_id: any) {
     console.log('type', type);
     console.log('purpose', purpose);
     console.log('degree', degree);
@@ -221,6 +233,7 @@ export class PurposeComponent {
           purpose_name: purpose,
           faculty_type: faculty,
           degree_type: degree,
+          app_id: app_id,
         }
       }).afterClosed().subscribe(result => {
         this.ngOnInit();
@@ -233,6 +246,7 @@ export class PurposeComponent {
           faculty_type: faculty,
           degree_type: degree,
           hrd_id: hrd_id,
+          app_id: app_id,
         }
       }).afterClosed().subscribe(result => {
         this.ngOnInit();

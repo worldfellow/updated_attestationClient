@@ -1,6 +1,6 @@
 <p-card header="Student Management">
     <div class="card">
-        <p-table [value]="studentsData" [tableStyle]="{'min-width': '50rem'}" [showCurrentPageReport]="true">
+        <p-table #dt1 dataKey="id" [value]="studentsData" [tableStyle]="{'min-width': '50rem'}" [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
                 <div class="row">
                     <div class="col-md-2">
@@ -31,16 +31,20 @@
                             <span class="p-input-icon-left">
                                 <i class="pi pi-search"></i>
                                 <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
-                                    [(ngModel)]="filterText" (input)="filterData()" style="width: 100%;" />
+                                    [(ngModel)]="filterText" (input)="filterData()" style="width: 100%;" #local />
                             </span>
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
-                        <h2>Filtered students count : {{studentsLength}}</h2>
+                    <div class="col-md-11" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                        <h2>Filtered students count : {{totalCount}}</h2>
                     </div>
+                    <div class="col-md-1 d-flex justify-content-end align-items-center">
+                        <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                          (click)="clear()"></button>
+                      </div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -77,8 +81,13 @@
                     </td>
                 </tr>
             </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5">No Data found.</td>
+                </tr>
+            </ng-template>
         </p-table>
         <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
-            [totalRecords]="120"></p-paginator>
+            [totalRecords]="totalCount"></p-paginator>
     </div>
 </p-card>

@@ -11,7 +11,7 @@ export const environment = {
   curriculumUploadUrl: "https://devmu.etranscript.in/api/student/upload_curriculum",
   migrationUploadUrl :"https://devmu.etranscript.in/api/student/upload_migration",
  letterUploadUrl: "https://devmu.etranscript.in/api/student/upload_gradeToPercentLetter",
- CompetencyletterUploadUrl :"https://devmu.etranscript.in/api/student/upload_CompetencyLetter",
+ CompetencyletterUploadUrl :"http://localhost:5000/api/student/upload_CompetencyLetter",
  PaymentIssueUrl :"https://devmu.etranscript.in/api/student/Upload_PaymentIssueUrl",
  WesLetterUrl :"https://devmu.etranscript.in/api/student/WesLetterUrl",
  migrationurl :'',

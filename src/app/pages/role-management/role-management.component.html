@@ -1,18 +1,23 @@
 <p-card header="Role Management">
     <div class="card">
-        <p-table [value]="rolesData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+        <p-table #dt1 [value]="rolesData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
             [showCurrentPageReport]="true"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['srNo', 'name', 'email']">
             <ng-template pTemplate="caption">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="card flex flex-wrap justify-content-center">
                             <span class="p-input-icon-left">
                                 <i class="pi pi-search"></i>
                                 <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
-                                    [(ngModel)]="filterText" (input)="filterData()" style="width: 100%;" />
-                            </span>
+                                  [(ngModel)]="filterText" (input)="handleFilterChange()" style="width: 100%;" #local />
+                              </span>
                         </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="clear(dt1)"></button>
                     </div>
                     <div class="col-md-3"></div>
                     <div class="col-md-3" style="display: flex; justify-content: flex-end; margin-right: auto;">
@@ -33,7 +38,7 @@
                     <th>Full Name</th>
                     <th>Email Address</th>
                     <th>Roles</th>
-                    <th style="width: 10%;">Action</th>
+                    <th style="width: 12%;">Action</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-roles>

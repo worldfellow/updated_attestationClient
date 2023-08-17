@@ -1,134 +1,446 @@
-<div class="card-header" >
-    <h5>If you have completed the payment & still the portal is not showing your application, then fill out the below form</h5>
-</div>
-<br>
-<form [formGroup]="registerForm" >
-    <div >
-        <label>Registed Email</label><span style="color: red;">*</span>
-        <input type="text"  class="form-control" formControlName="emailCtrl" [ngClass]="{'is-invalid': registerForm.get('emailCtrl')?.invalid && (registerForm.get('emailCtrl')?.dirty || registerForm.get('emailCtrl')?.touched)}">
-        <div *ngIf="registerForm.get('emailCtrl')?.invalid && (registerForm.get('emailCtrl')?.dirty || registerForm.get('emailCtrl')?.touched)" class="invalid-feedback">
-            Email must be a valid email address
-        </div>
+<!-- student -->
+<div *ngIf="user_type == 'student'">
+  <div class="card-header">
+    <h5>If you have completed the payment & still the portal is not showing your application, then fill out the below
+      form</h5>
+  </div>
+  <br>
+  <form [formGroup]="registerForm">
+    <div>
+      <label>Registed Email</label><span style="color: red;">*</span>
+      <input type="text" class="form-control" formControlName="emailCtrl"
+        [ngClass]="{'is-invalid': registerForm.get('emailCtrl')?.invalid && (registerForm.get('emailCtrl')?.dirty || registerForm.get('emailCtrl')?.touched)}">
+      <div
+        *ngIf="registerForm.get('emailCtrl')?.invalid && (registerForm.get('emailCtrl')?.dirty || registerForm.get('emailCtrl')?.touched)"
+        class="invalid-feedback">
+        Email must be a valid email address
+      </div>
       <br>
     </div>
     <div class="form-group">
-        <label for="transaction">CCAvenue Reference No.</label><span style="color: red;">*</span>
-        <input type="number" formControlName="transactionCtrl" class="form-control" [ngClass]="{'is-invalid': registerForm.get('transactionCtrl')?.invalid && (registerForm.get('transactionCtrl')?.dirty || registerForm.get('transactionCtrl')?.touched)}" />
-        <br>
+      <label for="transaction">CCAvenue Reference No.</label><span style="color: red;">*</span>
+      <input type="number" formControlName="transactionCtrl" class="form-control"
+        [ngClass]="{'is-invalid': registerForm.get('transactionCtrl')?.invalid && (registerForm.get('transactionCtrl')?.dirty || registerForm.get('transactionCtrl')?.touched)}" />
+      <br>
     </div>
     <div class="form-group">
-        <label for="bankref">Bank Reference No.</label><span style="color: red;">*</span>
-        <input type="number" formControlName="bankrefCtrl" class="form-control"  [ngClass]="{'is-invalid': registerForm.get('bankrefCtrl')?.invalid && (registerForm.get('bankrefCtrl')?.dirty || registerForm.get('bankrefCtrl')?.touched)}"/>
-        <br>
+      <label for="bankref">Bank Reference No.</label><span style="color: red;">*</span>
+      <input type="number" formControlName="bankrefCtrl" class="form-control"
+        [ngClass]="{'is-invalid': registerForm.get('bankrefCtrl')?.invalid && (registerForm.get('bankrefCtrl')?.dirty || registerForm.get('bankrefCtrl')?.touched)}" />
+      <br>
     </div>
     <div class="form-group">
-        <mat-hint for="paymentdate" >Payment Date</mat-hint><span style="color: red;">*</span>
-        <mat-datepicker-toggle matIconSuffix [for]="picker">
-          <mat-icon matDatepickerToggleIcon>today</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <input matInput [matDatepicker]="picker" ype="paymentdate" formControlName="paymentdateCtrl" class="form-control" [ngClass]="{'is-invalid': registerForm.get('paymentdateCtrl')?.invalid && (registerForm.get('paymentdateCtrl')?.dirty || registerForm.get('paymentdateCtrl')?.touched)}">        
-        <br>
+      <mat-hint for="paymentdate">Payment Date</mat-hint><span style="color: red;">*</span>
+      <mat-datepicker-toggle matIconSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>today</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <input matInput [matDatepicker]="picker" ype="paymentdate" formControlName="paymentdateCtrl" class="form-control"
+        [max]="maxDate" [min]="minDate"
+        [ngClass]="{'is-invalid': registerForm.get('paymentdateCtrl')?.invalid && (registerForm.get('paymentdateCtrl')?.dirty || registerForm.get('paymentdateCtrl')?.touched)}">
+      <br>
     </div>
     <div class="form-group">
-        <label for="ordeid">Order No.</label><span style="color: red;">*</span>
-        <input type="number" formControlName="ordeidCtrl" class="form-control"  [ngClass]="{'is-invalid': registerForm.get('ordeidCtrl')?.invalid && (registerForm.get('ordeidCtrl')?.dirty || registerForm.get('ordeidCtrl')?.touched)}"/>
-        
-        <br>
+      <label for="ordeid">Order No.</label><span style="color: red;">*</span>
+      <input type="number" formControlName="ordeidCtrl" class="form-control"
+        [ngClass]="{'is-invalid': registerForm.get('ordeidCtrl')?.invalid && (registerForm.get('ordeidCtrl')?.dirty || registerForm.get('ordeidCtrl')?.touched)}" />
+
+      <br>
     </div>
     <div class="form-group">
-        <label for="amount">Amount(in figures)</label><span style="color: red;">*</span>
-        <input type="number" formControlName="amountCtrl" class="form-control" [ngClass]="{'is-invalid': registerForm.get('amountCtrl')?.invalid && (registerForm.get('amountCtrl')?.dirty || registerForm.get('amountCtrl')?.touched)}" />
-        
-        <br>
-    </div>
-   <div class="form-group">
-        <label for="note">Issue Description:</label><span style="color: red;">*</span>
-        <mat-form-field style="height: 150px; width: 450px;">
-            <textarea style="height: 90px;" type="note" formControlName="noteCtrl" class="form-control" matInput></textarea>
-          </mat-form-field>
-        <br>
+      <label for="amount">Amount(in figures)</label><span style="color: red;">*</span>
+      <input type="number" formControlName="amountCtrl" class="form-control"
+        [ngClass]="{'is-invalid': registerForm.get('amountCtrl')?.invalid && (registerForm.get('amountCtrl')?.dirty || registerForm.get('amountCtrl')?.touched)}" />
+
+      <br>
     </div>
     <div class="form-group">
-      <div class="row" *ngIf="base64Image">
+      <label for="note">Issue Description:</label><span style="color: red;">*</span>
+      <mat-form-field style="height: 150px; width: 450px;">
+        <textarea style="height: 90px;" type="note" formControlName="noteCtrl" class="form-control" matInput></textarea>
+      </mat-form-field>
+      <br>
+    </div>
+    <div class="form-group">
+      <!-- <div class="row" *ngIf="base64Image">
         <div class="text-center col-md-6">
           <h4 class="cropPreview">Crop</h4>
           <div class="row" style="margin-top: 15px;">
             <div class="text-center col-md-8" *ngIf="imageChangedEvent">
-              <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
-              format="png" (imageCropped)="imageCropped($event)">
+              <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" format="png"
+                (imageCropped)="imageCropped($event)">
               </image-cropper>
             </div>
           </div>
         </div>
-      </div>   
-    <input id="fileInput" class="file-upload"  accept="image/*" type='file' name="file" #fileUpload id="fileUpload"  formControlName="fileInputCtrl"
-    (change)="handleFileInput($event)"> 
-  <!-- <p-button  (click)="uploadDetails($event)" label="Upload"></p-button> -->
-  </div>
+      </div> -->
+      <input id="fileInput" class="file-upload" accept="image/*" type='file' name="file" #fileUpload id="fileUpload"
+        formControlName="fileInputCtrl" (change)="handleFileInput($event)">
+      <!-- <p-button  (click)="uploadDetails($event)" label="Upload"></p-button> -->
+    </div>
 
     <div class="form-group">
-        <button (click)="uploadDetails()" class="btn btn-primary">Submit</button>
+      <button (click)="uploadDetails()" class="btn btn-primary">Submit</button>
     </div>
-    
-</form>
 
-<div class="wrapper">
-  <table id="selectedColumn">
-    <thead>
-      <tr>
-        <th>Traking ID</th>
-        <th>Email</th>
-        <th>CCAvenue Reference No</th>
-        <th>Bank Reference No</th>
-        <th>Payment Date</th>
-        <th>Amount</th>
-        <th>Order No</th>
-        <th>Issue Description</th>
-        <th>Payment Recipt</th>
-        <th>Status</th>
-      </tr>
-    </thead>
+  </form>
+  <br>
+  <div class="card" *ngIf="issuedata.length > 0">
+    <p-table [value]="issuedata" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+      [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Traking ID</th>
+          <th>Email</th>
+          <th>CCAvenue Reference No</th>
+          <th>Bank Reference No</th>
+          <th>Payment Date</th>
+          <th>Amount</th>
+          <th>Order No</th>
+          <th>Issue Description</th>
+          <th>Payment Recipt</th>
+          <th>Status</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-issue>
+        <tr [pSelectableRow]="issue">
+          <td>{{issue.id}}</td>
+          <td>{{issue.email}}</td>
+          <td>{{issue.transaction_id}}</td>
+          <td>{{issue.bank_refno}}</td>
+          <td>{{issue.date}}</td>
+          <td>{{issue.amount}}</td>
+          <td>{{issue.order_id}}</td>
+          <td>{{issue.note}}</td>
+          <td>
+            <a>
+              <span class="pi pi-eye center-icon" pTooltip="View" tooltipPosition="top"
+                (click)="imageView(issue.filePath,issue.extension)"></span>
+            </a>
+          </td>
+          <td class="icon-text-center">
+            <a>
+              <div class="icon-container" (click)="notesData(issue.admin_notes, true)">
+                <span *ngIf="issue.tracker == 'Resolved' || issue.tracker == 'Reject'" class="pi pi-book" pTooltip="Notes" tooltipPosition="top"></span>
+                <span class="text-below-icon">
+                  <span *ngIf="issue.tracker == 'Inprocess'" style="color: orange;"><strong>{{ issue.tracker
+                      }}</strong></span>
+                  <span *ngIf="issue.tracker == 'Resolved'" style="color: green;"><strong>{{ issue.tracker
+                      }}</strong></span>
+                  <span *ngIf="issue.tracker == 'Reject'" style="color: red;"
+                    title="Reason for rejection send on your Register Mail"><strong>{{ issue.tracker }}</strong></span>
+                </span>
+              </div>
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 
-    <tbody>
-      <tr *ngFor="let student of issuedata">
-        <td>
-          {{student?.id}}
-        </td>
-        <td>
-          {{student?.email}}
-        </td>
-        <td>
-          {{student?.transaction_id}}
-        </td>
-        <td>
-          {{student?.bank_refno}}
-        </td>
-        <td>
-          {{student?.date}}
-        </td>
-        <td>
-          {{student?.amount}}
-        </td>
-        <td>
-          {{student?.order_id}}
-        </td>
-        <td>
-          {{student?.note}}
-        </td>
-        <td>
-          <i class="pi pi-eye" (click)="imageView(student.filePath,student.fileName,student.extension)"
-          style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i>
-        </td>
-        <td >
-          <span *ngIf="student?.tracker == 'Inprocess' " style="color: orange;">{{student?.tracker}}</span>  
-          <span *ngIf="student?.tracker == 'Resolved'" style="color: green;"></span>  
-          <span *ngIf="student?.tracker == 'Reject'" style="color: red;" title="Reason for rejection send on your Register Mail">{{student?.tracker}}</span>
-        </td>
-       
-      </tr>
-    </tbody>
+  <!-- <div class="wrapper">
+    <table id="selectedColumn">
+      <thead>
+        <tr>
+          <th>Traking ID</th>
+          <th>Email</th>
+          <th>CCAvenue Reference No</th>
+          <th>Bank Reference No</th>
+          <th>Payment Date</th>
+          <th>Amount</th>
+          <th>Order No</th>
+          <th>Issue Description</th>
+          <th>Payment Recipt</th>
+          <th>Status</th>
+        </tr>
+      </thead>
 
-  </table>
-  
+      <tbody>
+        <tr *ngFor="let student of issuedata">
+          <td>
+            {{student?.id}}
+          </td>
+          <td>
+            {{student?.email}}
+          </td>
+          <td>
+            {{student?.transaction_id}}
+          </td>
+          <td>
+            {{student?.bank_refno}}
+          </td>
+          <td>
+            {{student?.date}}
+          </td>
+          <td>
+            {{student?.amount}}
+          </td>
+          <td>
+            {{student?.order_id}}
+          </td>
+          <td>
+            {{student?.note}}
+          </td>
+          <td>
+            <i class="pi pi-eye" (click)="imageView(student.filePath,student.extension)"
+              style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i>
+          </td>
+          <td>
+            <span *ngIf="student?.tracker == 'Inprocess' " style="color: orange;">{{student?.tracker}}</span>
+            <span *ngIf="student?.tracker == 'Resolved'" style="color: green;"></span>
+            <span *ngIf="student?.tracker == 'Reject'" style="color: red;"
+              title="Reason for rejection send on your Register Mail">{{student?.tracker}}</span>
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div> -->
+
 </div>
+
+<!-- admin -->
+<div *ngIf="user_type == 'admin' || user_type == 'sub-admin'">
+  <p-card header="Payment Issue">
+    <div class="card">
+      <div class="card-body">
+        <p-tabView (onChange)="onTabChange($event.index)">
+          <p-tabPanel header="In Process">
+            <div class="card" *ngIf="inProcessData.length > 0">
+              <p-table #dt1 [value]="inProcessData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [globalFilterFields]="['id', 'email']">
+                <ng-template pTemplate="caption">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card flex flex-wrap justify-content-center">
+                        <span class="p-input-icon-left">
+                          <i class="pi pi-search"></i>
+                          <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
+                            [(ngModel)]="filterText" (input)="handleFilterChange('inprocess')" style="width: 100%;" #local />
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2 d-flex justify-content-end align-items-center">
+                      <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="clear(dt1,0)"></button>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                      <h4>Filtered count : {{issuselength}}</h4>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Traking ID</th>
+                    <th>Email</th>
+                    <th>CCAvenue Reference No</th>
+                    <th>Bank Reference No</th>
+                    <th style="width: 8%;">Payment Date</th>
+                    <th>Amount</th>
+                    <th>Order No</th>
+                    <th>Issue Description</th>
+                    <th>Payment Recipt</th>
+                    <th>Status</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-issue>
+                  <tr [pSelectableRow]="issue">
+                    <td>{{issue.id}}</td>
+                    <td>{{issue.email}}</td>
+                    <td>{{issue.transaction_id}}</td>
+                    <td>{{issue.bank_refno}}</td>
+                    <td>{{issue.date}}</td>
+                    <td>{{issue.amount}}</td>
+                    <td>{{issue.order_id}}</td>
+                    <td>{{issue.note}}</td>
+                    <td>
+                      <a>
+                        <span class="pi pi-eye center-icon" pTooltip="View" tooltipPosition="top"
+                          (click)="imageView(issue.filePath,issue.extension)"></span>
+                      </a>
+                    </td>
+                    <td>
+                      <button mat-button class="user-button" [matMenuTriggerFor]="menu">{{issue.tracker}}</button>
+                      <mat-menu #menu="matMenu" class="user-menu">
+                        <button mat-menu-item (click)="onChange('Inprocess',issue.admin_notes,issue.user_id,issue.id)">
+                          <span>In Process</span>
+                        </button>
+                        <button mat-menu-item (click)="onChange('Resolved',issue.admin_notes,issue.user_id,issue.id)">
+                          <span>Resolved</span>
+                        </button>
+                        <button mat-menu-item (click)="onChange('Reject',issue.admin_notes,issue.user_id,issue.id)">
+                          <span>Reject</span>
+                        </button>
+                      </mat-menu>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="inProcessData.length == 0">
+              <h3 style="color: red;">No Data Available</h3>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="Resolved">
+            <div class="card" *ngIf="resolvedData.length > 0">
+              <p-table #dt2 [value]="resolvedData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [globalFilterFields]="['id', 'email']">
+                <ng-template pTemplate="caption">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card flex flex-wrap justify-content-center">
+                        <span class="p-input-icon-left">
+                          <i class="pi pi-search"></i>
+                          <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
+                            [(ngModel)]="filterText" (input)="handleFilterChange('resolved')" style="width: 100%;" #local />
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2 d-flex justify-content-end align-items-center">
+                      <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="clear(dt1,1)"></button>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                      <h4>Filtered count : {{issuseCount}}</h4>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Traking ID</th>
+                    <th>Email</th>
+                    <th>CCAvenue Reference No</th>
+                    <th>Bank Reference No</th>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                    <th>Order No</th>
+                    <th>Issue Description</th>
+                    <th>Payment Recipt</th>
+                    <th>Status</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-issue>
+                  <tr [pSelectableRow]="issue">
+                    <td>{{issue.id}}</td>
+                    <td>{{issue.email}}</td>
+                    <td>{{issue.transaction_id}}</td>
+                    <td>{{issue.bank_refno}}</td>
+                    <td>{{issue.date}}</td>
+                    <td>{{issue.amount}}</td>
+                    <td>{{issue.order_id}}</td>
+                    <td>{{issue.note}}</td>
+                    <td>
+                      <a>
+                        <span class="pi pi-eye center-icon" pTooltip="View" tooltipPosition="top"
+                          (click)="imageView(issue.filePath,issue.extension)"></span>
+                      </a>
+                    </td>
+                    <td>
+                      <a>
+                        <span class="pi pi-book center-icon" pTooltip="Notes" tooltipPosition="top"
+                          (click)="notesData(issue.admin_notes,true)"></span>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="resolvedData.length == 0">
+              <h3 style="color: red;">No Data Available</h3>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="Reject">
+            <div class="card" *ngIf="rejectData.length > 0">
+              <p-table #dt3 [value]="rejectData" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="10"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [globalFilterFields]="['id', 'email']">
+                <ng-template pTemplate="caption">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card flex flex-wrap justify-content-center">
+                        <span class="p-input-icon-left">
+                          <i class="pi pi-search"></i>
+                          <input class="p-inputtext-lg" placeholder="Search" type="text" pInputText
+                            [(ngModel)]="filterText" (input)="handleFilterChange('reject')" style="width: 100%;" #local />
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2 d-flex justify-content-end align-items-center">
+                      <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="clear(dt1,2)"></button>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12" style="display: flex; justify-content: flex-start; margin-right: auto;">
+                      <h4>Filtered count : {{issuseCount}}</h4>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Traking ID</th>
+                    <th>Email</th>
+                    <th>CCAvenue Reference No</th>
+                    <th>Bank Reference No</th>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                    <th>Order No</th>
+                    <th>Issue Description</th>
+                    <th>Payment Recipt</th>
+                    <th>Status</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-issue>
+                  <tr [pSelectableRow]="issue">
+                    <td>{{issue.id}}</td>
+                    <td>{{issue.email}}</td>
+                    <td>{{issue.transaction_id}}</td>
+                    <td>{{issue.bank_refno}}</td>
+                    <td>{{issue.date}}</td>
+                    <td>{{issue.amount}}</td>
+                    <td>{{issue.order_id}}</td>
+                    <td>{{issue.note}}</td>
+                    <td>
+                      <a>
+                        <span class="pi pi-eye center-icon" pTooltip="View" tooltipPosition="top"
+                          (click)="imageView(issue.filePath,issue.extension)"></span>
+                      </a>
+                    </td>
+                    <td>
+                      <a>
+                        <span class="pi pi-book center-icon" pTooltip="Notes" tooltipPosition="top"
+                          (click)="notesData(issue.admin_notes,true)"></span>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="rejectData.length == 0">
+              <h3 style="color: red;">No Data Available</h3>
+            </div>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+    </div>
+  </p-card>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '25vw'}"></p-confirmDialog>

@@ -8,6 +8,8 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { ResendEmailComponent } from './auth/dialog/resend-email/resend-email.component';
 
 const routes: Routes = [
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'pages',canActivate: [AuthGuard],loadChildren: () => import('../app/pages/pages.module').then(m => m.PagesModule)
 },
   {
@@ -41,11 +43,8 @@ const routes: Routes = [
   { path: '**', redirectTo: 'pages' },
 ];
 
-const config:  any = {
-  useHash: true,
-};
 @NgModule({
-  imports: [RouterModule.forRoot(routes,config)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { 

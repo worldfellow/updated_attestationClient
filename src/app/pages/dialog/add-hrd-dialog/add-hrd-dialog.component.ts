@@ -12,7 +12,7 @@ export interface DialogData {
   faculty_type: any,
   hrd_id: any,
   student_id: any;
-  student_app_id: any;
+  app_id: any;
 }
 
 @Component({
@@ -126,7 +126,6 @@ export interface DialogData {
             <div class="col-md-8">
               <input type="text" [(ngModel)]="cgpa_no" class="form-control" (keyup)="check($event, 'cgpa')" formControlName="cgpaNo" [ngClass]="{'is-invalid': cgpaNo.invalid && (cgpaNo.dirty || cgpaNo.touched)}">
               <p>OR</p>
-              <br>
             </div>
           </div>
 
@@ -188,7 +187,7 @@ export interface DialogData {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: rgb(64,220,126) !important;
+      background-color: var(--teal-500);
     }
     
     .header-content {
@@ -207,7 +206,7 @@ export class AddHrdDialogComponent {
   degree_type: any;
   faculty_type: any;
   student_id: any;
-  student_app_id: any;
+  app_id: any;
 
   //new formcontrols declaration
   email: FormControl;
@@ -251,7 +250,6 @@ export class AddHrdDialogComponent {
   hrdData: any;
   token: any;
   user_id: any;
-  app_id: any;
   hrdInfo: any;
   user_type: any;
   user_email: any;
@@ -300,8 +298,8 @@ export class AddHrdDialogComponent {
     console.log('hrd_id++++++++++',this.hrd_id);
     this.student_id = this.data.student_id;
     console.log('student_id++++++++++',this.student_id);
-    this.student_app_id = this.data.student_app_id;
-    console.log('student_app_id------------',this.student_app_id);
+    this.app_id = this.data.app_id;
+    console.log('app_id------------',this.app_id);
 
     //save form controls values using form builder
     this.hrdForm = this.fb.group({
@@ -323,7 +321,7 @@ export class AddHrdDialogComponent {
     //storing patchvalues while editing
     if (this.function_type == 'edit') {
       if (this.user_type == 'student') {
-        this.api.getHrdData(this.hrd_id, this.purpose_name, '').subscribe((data: any) => {
+        this.api.getHrdData(this.hrd_id, this.purpose_name, this.app_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.hrdData = data['data'][0];
             this.full_name = this.hrdData.fullName;
@@ -343,7 +341,7 @@ export class AddHrdDialogComponent {
           }
         })
       } else {
-        this.api.getHrdData(this.hrd_id, this.purpose_name, this.student_app_id).subscribe((data: any) => {
+        this.api.getHrdData(this.hrd_id, this.purpose_name, this.app_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.hrdData = data['data'][0];
             this.full_name = this.hrdData.fullName;
@@ -367,7 +365,7 @@ export class AddHrdDialogComponent {
 
     //show pre-filled data of student name and his course name as well as show seat no or last sem seat nos as per annual or semester pattern 
     if (this.user_type == 'student') {
-      this.api.getHrdInfo(this.degree_type, this.faculty_type, null).subscribe((data: any) => {
+      this.api.getHrdInfo(this.degree_type, this.faculty_type, this.app_id).subscribe((data: any) => {
         if (data['status'] == 200) {
           this.hrdInfo = data['data'][0];
           console.log('this.hrdInfo', this.hrdInfo);
@@ -390,7 +388,7 @@ export class AddHrdDialogComponent {
         }
       })
     } else {
-      this.api.getHrdInfo(this.degree_type, this.faculty_type, this.student_app_id).subscribe((data: any) => {
+      this.api.getHrdInfo(this.degree_type, this.faculty_type, this.app_id).subscribe((data: any) => {
         if (data['status'] == 200) {
           this.hrdInfo = data['data'][0];
           console.log('this.hrdInfo', this.hrdInfo);
@@ -424,7 +422,7 @@ export class AddHrdDialogComponent {
     if (value == 'cgpa') {
       this.hrdForm.get('cgpiNo')?.disable();
     } else if (value == 'cgpi') {
-      this.hrdForm.get('cgpiNo')?.disable();
+      this.hrdForm.get('cgpaNo')?.disable();
     }
   }
 
@@ -459,7 +457,7 @@ export class AddHrdDialogComponent {
     //create and update purpose data
     this.formData = this.hrdForm.value;
     if (this.user_type == 'student') {
-      this.api.updateAllHrd(this.formData, this.function_type, this.degree_type, this.secondlastSem, this.lastSem, this.purpose_name, this.hrd_id, this.student_app_id, '', '', '').subscribe((data: any) => {
+      this.api.updateAllHrd(this.formData, this.function_type, this.degree_type, this.secondlastSem, this.lastSem, this.purpose_name, this.hrd_id, this.app_id, '', '', '').subscribe((data: any) => {
         if (data['status'] == 200) {
           this.dismiss();
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
@@ -468,7 +466,7 @@ export class AddHrdDialogComponent {
         }
       })
     } else {
-      this.api.updateAllHrd(this.formData,this.function_type, this.degree_type, this.secondlastSem, this.lastSem, this.purpose_name, this.hrd_id, this.student_app_id, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
+      this.api.updateAllHrd(this.formData,this.function_type, this.degree_type, this.secondlastSem, this.lastSem, this.purpose_name, this.hrd_id, this.app_id, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
         if (data['status'] == 200) {
           this.dismiss();
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });

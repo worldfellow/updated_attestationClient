@@ -41,7 +41,9 @@ export class SidenavComponent implements OnInit {
     this.token = JSON.parse(localStorage.getItem('user')!)
     this.user_name = this.token.data.user.user_name;
     this.user_type = this.token.data.user.user_type;
-    this.user_roles = this.token.data.user.roles;    
+    this.user_roles = this.token.data.user.roles;  
+    console.log('????????????????????????????????????',this.user_roles);
+      
 
     if(this.user_type == 'student'){
       this.navData = navbarData.studentMenu;

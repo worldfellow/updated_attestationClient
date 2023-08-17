@@ -9,7 +9,7 @@
 </head>
 <body>
        <!-- Apply first Time -->
-    <div> 
+    <div *ngIf="paymentDetails == false"> 
         <div class="row">
             <div class="col-md-3 pt-2">
                 <p-panel header="Attestation Application" class="apply">
@@ -38,8 +38,8 @@
                     <div class="col-md-2" >
                         <div class="hexagon">
                             <img src="/assets/IMG/educational.png" alt="abc">
-                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
-                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                            <img class="check" *ngIf="educationDetails == true" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="educationDetails == false" src="/assets/IMG/cross6.png" alt="abc">
                         </div>   
                        <span class="header">EDUCATIONAL DETAILS</span>  
                     </div> 
@@ -50,8 +50,8 @@
                         <span class="header">UPLOAD DOUCUMENTS</span>
                         <div class="hexagon">
                             <img src="/assets/IMG/folder.png" alt="abc">
-                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
-                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                            <img class="check" *ngIf="documentDetails == true"  src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="documentDetails == false"  src="/assets/IMG/cross6.png" alt="abc">
                         </div> 
                     </div>
                     <div class="col-md-1">
@@ -60,8 +60,8 @@
                     <div class="col-md-2">
                         <div class="hexagon">
                             <img src="/assets/IMG/pngwing.com.png" alt="abc">
-                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
-                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                            <img class="check" *ngIf="purposeDetails == true" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="purposeDetails == false"  src="/assets/IMG/cross6.png" alt="abc">
                         </div> 
                        <span class="header1">PURPOSE</span> 
                     </div>
@@ -72,8 +72,8 @@
                         <span class="header1">PAYMENT</span>
                         <div class="hexagon">
                             <img src="/assets/IMG/money.png" alt="abc">
-                            <img class="check" *ngIf="" src="/assets/IMG/check4.png" alt="abc">
-                            <img class="wrong"  src="/assets/IMG/cross6.png" alt="abc">
+                            <img class="check" *ngIf="paymentDetails" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="paymentDetails == false" src="/assets/IMG/cross6.png" alt="abc">
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
         </div>
     </div>
      <!--Second Time Apply  -->
-     <div *ngIf=""> 
+     <div *ngIf="paymentDetails == true"> 
         <div class="row">
             <div class="col-md-3 pt-2">
                 <p-panel header="Attestation Application" class="apply">
@@ -104,14 +104,14 @@
         <div class="row pt-4">
             <p-panel header="Application Progress Bar">
                 <div class="row">
-                    <h4 class="card-titles">Pre-Application</h4>
+                    <h4 class="card-titles">Post-Application</h4>
                 </div>
                 <div class="row pt-4" style="margin-left: 100px;">
                     <div class="col-md-2" >
                         <div class="hexagon">
                             <img src="/assets/IMG/apply2.png" alt="abc">
-                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
-                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                            <img class="check" *ngIf="applied == true" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="applied != true" src="/assets/IMG/cross6.png" alt="abc">
                         </div>   
                        <span class="headers">Application Applied</span>  
                     </div> 
@@ -122,8 +122,8 @@
                         <span class="headers">Application Verified</span>
                         <div class="hexagon">
                             <img src="/assets/IMG/verified.png" alt="abc">
-                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
-                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                            <img class="check" *ngIf="verified == true" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="verified != true" src="/assets/IMG/cross6.png" alt="abc">
                         </div> 
                     </div>
                     <div class="col-md-1">
@@ -132,8 +132,8 @@
                     <div class="col-md-2">
                         <div class="hexagon">
                             <img src="/assets/IMG/applied1.jpg" alt="abc">
-                            <img class="check" src="/assets/IMG/check4.png" alt="abc">
-                            <img class="wrong" *ngIf="" src="/assets/IMG/cross6.png" alt="abc">
+                            <img class="check" *ngIf="signed == true" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="signed != true" src="/assets/IMG/cross6.png" alt="abc">
                         </div> 
                        <span class="headers">Application Signed</span> 
                     </div>
@@ -144,8 +144,8 @@
                         <span class="headers">Application Done</span>
                         <div class="hexagon">
                             <img src="/assets/IMG/report-icon-14.png"  alt="abc">
-                            <img class="check" *ngIf="" src="/assets/IMG/check4.png" alt="abc">
-                            <img class="wrong"  src="/assets/IMG/cross6.png" alt="abc">
+                            <img class="check" *ngIf="done == true" src="/assets/IMG/check4.png" alt="abc">
+                            <img class="wrong" *ngIf="done != true" src="/assets/IMG/cross6.png" alt="abc">
                         </div>
                     </div>
                 </div>

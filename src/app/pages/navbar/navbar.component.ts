@@ -73,7 +73,7 @@ export class NavbarComponent implements OnInit {
       this.notificationList = data.data;
 
       this.notificationCount = 0; // Initialize the count to zero before counting.
-      for (let i = 0; i < this.notificationList.length; i++) {
+      for (let i = 0; i < this.notificationList?.length; i++) {
         const read = this.notificationList[i].read;
         if (read == "false") {
           this.notificationCount++;

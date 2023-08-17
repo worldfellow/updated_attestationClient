@@ -62,7 +62,6 @@ import { AddHrdDialogComponent } from './dialog/add-hrd-dialog/add-hrd-dialog.co
 import { CartComponent } from './cart/cart.component';
 import { TableModule } from 'primeng/table';
 import { PreviewApplicationComponent } from './preview-application/preview-application.component';
-import { OpenImgPdfDialogComponent } from './dialog/open-img-pdf-dialog/open-img-pdf-dialog.component';
 import { DividerModule } from 'primeng/divider';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { ButtonModule } from 'primeng/button';
@@ -112,6 +111,15 @@ import { ShowPreviewComponent } from '../pages/show-preview/show-preview.compone
 import { ChangePasswordComponent } from './dailogComponents/change-password.component'; 
 import { PasswordModule } from 'primeng/password';
 import { BadgeModule } from 'primeng/badge';
+import { PaymentNotesComponent } from './dialog/payment-notes/payment-notes.component';
+import { LettersFormComponent } from './dailogComponents/letters-form.component';
+// import { TranslateLoader, TranslateModule } from '@ngx-translate/core'; 
+// import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+// import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+// export function HttpLoaderFactory(http: HttpClient) {
+//   return new TranslateHttpLoader(http);
+// }
 
 @NgModule({
   declarations: [
@@ -146,7 +154,6 @@ import { BadgeModule } from 'primeng/badge';
     AddHrdDialogComponent,
     CartComponent,
     PreviewApplicationComponent,
-    OpenImgPdfDialogComponent,
     AdminDashboardComponent,
     MyApplicationsComponent,
     StudentManagementComponent,
@@ -173,6 +180,8 @@ import { BadgeModule } from 'primeng/badge';
     ViewSubAdminRolesComponent,
     ShowPreviewComponent,
     ChangePasswordComponent, 
+    PaymentNotesComponent,
+    LettersFormComponent
   ],
   imports: [
     CommonModule, 
@@ -249,7 +258,15 @@ import { BadgeModule } from 'primeng/badge';
     MatNativeDateModule,
     MatTableModule,
     PasswordModule,
-    BadgeModule
+    BadgeModule,
+    // HttpClientModule,
+    // TranslateModule.forRoot({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: HttpLoaderFactory,
+    //     deps: [HttpClient]
+    //   }
+    // }),
   ],
   providers:[AuthGuard]
 })

@@ -32,7 +32,7 @@ import { ActivatedRoute } from '@angular/router';
   <br><br>
   <div class="row">
   <div class="col-md-3">
-  <p-dropdown [style]="{'width':'15rem'}" [options]="semYear" class="p-inputtext-sm" [virtualScroll]="true" [(ngModel)]="patteren"
+  <p-dropdown [style]="{'width':'15rem'}" [options]="semYear" class="p-inputtext-sm" [virtualScroll]="true" [(ngModel)]="whichduration"
   [virtualScrollItemSize]="38" optionLabel="name" [editable] = true formControlName="semYearCtrl"
   [showClear]="true" placeholder="Select Semester/Year">
   </p-dropdown> 
@@ -66,11 +66,14 @@ export class CollegeDetailsComponent implements OnInit {
   courseId: number;
   collegeName: any ='';
   courseName: any= '';
-  patteren: any;
+  whichduration: any;
   app_id: any;
   documentId: any;
   type: any;
   file_name: any;
+  pattern: any;
+  degree: any;
+  faculty: any;
 
   constructor(protected api: ApiService, public ref: DynamicDialogRef, private fb: FormBuilder, public config: DynamicDialogConfig,private messageService: MessageService,private route : ActivatedRoute) {
     this.data = config.data;
@@ -112,18 +115,21 @@ export class CollegeDetailsComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.file);
     formData.append('user_id', this.user_id);
-    this.api.ScanData(this.app_id,this.type,formData).subscribe((data: any) => {
+    this.api.ScanData(this.app_id,this.type,null,null,null,null,formData).subscribe((data: any) => {
+      console.log('datadatadatadata' , data)
       if (data['status'] == 200) {
-        this.collegeName = data['data'][0];
-        this.courseName = data['data'][1];
-        this.patteren = data['data'][2];
-        this.documentId = data['data'][3];
-        this.file_name = data['data'][4];
+        var data = data['data'][0];
+        this.courseName = data.courseName;
+        this.whichduration = data.whichduration;
+        this.file_name = data.file_name;
+        this.pattern = data.pattern;
+        this.degree = data.degree;
+        this.faculty = data.faculty;
         this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Uploaded Successfully!' });
          this.CollegeDetails.patchValue({
-          collegeNameCtrl: this.collegeName[0],
-          semYearCtrl : this.patteren[0],
-          courseNameCtrl : this.courseName[0]
+          collegeNameCtrl: this.collegeName,
+          semYearCtrl : this.whichduration,
+          courseNameCtrl : this.courseName
          })
       }else if(data['status'] == 401){
         this.ref.close(401)
@@ -159,10 +165,11 @@ export class CollegeDetailsComponent implements OnInit {
 
   saveCollegeDetails() {
     var data=[];
-    data.push({'collegeId' : this.CollegeDetails.controls['collegeNameCtrl'].value['id'] , 'faculty' :this.CollegeDetails.controls['courseNameCtrl'].value['faculty']
-    , 'degree' : this.CollegeDetails.controls['courseNameCtrl'].value['degree'],'patteren' : this.CollegeDetails.controls['semYearCtrl'].value,'user_id' : this.user_id , "file_name" : this.file_name})
-
+    data.push({'collegeId' : this.CollegeDetails.controls['collegeNameCtrl'].value['id'] , 'faculty' :this.CollegeDetails.controls['courseNameCtrl'].value['faculty'] ?  this.CollegeDetails.controls['courseNameCtrl'].value['faculty'] : this.faculty
+    , 'degree' : this.CollegeDetails.controls['courseNameCtrl'].value['degree'] ? this.CollegeDetails.controls['courseNameCtrl'].value['degree'] : this.degree,'whichduration' : this.CollegeDetails.controls['semYearCtrl'].value,'user_id' : this.user_id , "file_name" : this.file_name , 'pattern' : this.pattern})
+    console.log('data' , data)
     this.api.saveUserMarkList(this.app_id,this.type,data).subscribe( (data: any) => {
+      console.log('datadatadatadata',data)
       if (data['status'] == 200) {
         this.ref.close();
       }else if(data['status'] == 401){

@@ -7,6 +7,7 @@
                     <p-table
                     #dt1 
                     dataKey="id" 
+                    [value]="emailActivityData"
                     [showCurrentPageReport]="true" 
                     [tableStyle]="{ 'min-width': '75rem' }"
                     >
@@ -15,41 +16,43 @@
                             <div class="col-md-4 pt-2" style="width:32%">
                                 <div class="card flex flex-wrap justify-content-center">
                                 <span class="p-input-icon-left">
-                                  <i class="pi pi-search" style="color: rgb(243, 191, 24);"></i> 
-                                  <input  class="p-inputtext-sm" pInputText type="text"    placeholder="Search Keywords" #globalSearch  style="width: 100%;"/> 
+                                  <i class="pi pi-search" style="color: rgb(107, 241, 34);"></i> 
+                                  <input  class="p-inputtext-sm" pInputText type="text" [(ngModel)]="filterText" (input)="filterData()"   placeholder="Search Keywords" #globalSearch  style="width: 100%;"/> 
                                 </span> 
                               </div>
-                              </div>
+                              </div> 
                               <div class="col-md-2">
-                                <button pButton label="Clear"   style="color: rgb(243, 191, 24)" class="p-button-outlined" 
+                                <button pButton label="Clear" (click)="clear()"  style="color: rgb(30, 238, 131);height: 42px;margin-top: 9px;" class="p-button-outlined" 
                                 icon="pi pi-filter-slash"  ></button> 
                               </div>
                          </div>
-                        <p class="pt-2">Total Student Count :  </p>
+                        <p class="pt-2">Total Email Count : {{this.emailActivityCount}} </p>
                       </ng-template> 
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width:10%">Email ID</th>
-                            <th style="width:10%">Subject</th>
-                            <th style="width:10%">Status</th>
-                            <th style="width:10%">Opens Count</th> 
-                            <th style="width:10%">Clicks Count</th> 
+                            <th style="width:15%">Subject</th>
+                            <th style="width:5%">Status</th>
+                            <th style="width:5%">Emailed Date</th>
+                            <th style="width:5%">Opens Count</th> 
+                            <th style="width:5%">Clicks Count</th> 
                         </tr>
                       </ng-template> 
-                    <ng-template pTemplate="body"> 
-                        <tr>
-                            <td>  </td>
-                            <td>  </td>
-                            <td>  </td>
-                            <td>  </td>
-                            <td>  </td>
+                    <ng-template pTemplate="body" let-EmailActivityData> 
+                        <tr [pSelectableRow]="EmailActivityData">
+                            <td> {{EmailActivityData.email}} </td>
+                            <td> {{EmailActivityData.subject}} </td>
+                            <td> {{EmailActivityData.status}} </td>
+                            <td> {{EmailActivityData.created_at}}</td>
+                            <td> {{EmailActivityData.opens_count}} </td>
+                            <td> {{EmailActivityData.clicks_count}} </td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
                       No Data Found.
                     </ng-template> 
                 </p-table>
-        <p-paginator [first]="first" [rows]="rows" [totalRecords]="100" ></p-paginator>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="emailActivityCount" ></p-paginator>
             </div>
                 </p-tabPanel>
                 <p-tabPanel header="Attested Email"> 

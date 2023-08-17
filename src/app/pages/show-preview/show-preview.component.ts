@@ -93,37 +93,39 @@ export class ShowPreviewComponent {
     return new File([blob], name, { type: blob.type });
   }
   saveimage() {
-    // event: any ,type: any ,coursename : any ,collegename : any , collegeid : any,faculty : any,education_type: any,patteren:any
+    console.log('saveimagesaveimage')
     const fileUrl = this.dataurl(this.croppedImage, "11.jpeg")
-    // if(this.type == 'marklist'){
-    //   this.ref = this.dialogService.open(CollegeDetailsComponent, {
-    //     data: {
-    //       fileInput: fileUrl,
-    //       type:  this.type
-    //     },
-    //     header: 'College Details',
-    //     width: '70%',
-    //     height: '50%',
-    //     contentStyle: { overflow: 'auto' },
-    //     baseZIndex: 10000,
-    //     maximizable: true
-    //   });
-    //   this.ref.onClose.subscribe(() => {
-    //       this.dismiss()
-    //   });
-    // }else{
+    if(this.type == 'marklist'){
+      this.ref = this.dialogService.open(CollegeDetailsComponent, {
+        data: {
+          fileInput: fileUrl,
+          type:  this.type
+        },
+        header: 'College Details',
+        width: '70%',
+        height: '50%',
+        contentStyle: { overflow: 'auto' },
+        baseZIndex: 10000,
+        maximizable: true
+      });
+      this.ref.onClose.subscribe(() => {
+          this.dismiss()
+      });
+    }else{
       this.file = fileUrl
       const formData = new FormData();
       formData.append('file', this.file);
       formData.append('user_id', this.user_id);
       var data=[];
-      this.api.ScanData(this.app_id,this.type,formData).subscribe( (data: any) => {
+      data.push( this.type, this.collegeid, this.education_type, this.pattern, this.faculty)
+      this.api.ScanData(this.app_id,this.type,this.collegeid, this.education_type, this.pattern, this.faculty,formData).subscribe( (data: any) => {
         if (data['status'] == 200) {
+          console.log('datadata',data)
           this.dialogRef.close(data['data'][0])
         }else{
         }
       })
-    // }
+    }
   }
   dismiss(){
     this.dialogRef.close();

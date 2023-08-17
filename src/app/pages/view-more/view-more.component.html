@@ -174,7 +174,7 @@
                         <br>
                         <div class="card-body">
                             <!-- marksheets -->
-                            <div class="row" *ngIf="marksheetsData.length > 0">
+                            <!-- <div class="row" *ngIf="marksheetsData.length > 0">
                                 <div class="col-md-12">
                                     <mat-accordion>
                                         <mat-expansion-panel (opened)="panelOpenState = true"
@@ -309,10 +309,45 @@
                                         </mat-expansion-panel>
                                     </mat-accordion>
                                 </div>
-                            </div>
+                            </div> -->
+                            <p-accordionTab header="Marksheets" *ngIf="marksheetsData.length > 0">
+                                <div class="card w-100">
+                                    <div class="card-body row">
+                                        <div class="col-md-3" *ngFor="let marksheets of marksheetsData">
+                                            <!-- pdf -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="marksheets.extension == 'pdf' || marksheets.extension == 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{marksheets.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top"
+                                                        src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
+                                                        (click)="openImgPdf(marksheets.filePath,marksheets.extension,marksheets.name)">
+                                                </div>
+                                            </div>
+                                            <!-- img -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="marksheets.extension != 'pdf' || marksheets.extension != 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{marksheets.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top" src="http://{{marksheets.filePath}}"
+                                                        (click)="openImgPdf(marksheets.filePath,marksheets.extension,marksheets.name)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
 
                             <!-- transcripts -->
-                            <div class="row" *ngIf="transcriptsData.length > 0">
+                            <!-- <div class="row" *ngIf="transcriptsData.length > 0">
                                 <div class="col-md-12">
                                     <mat-accordion>
                                         <mat-expansion-panel (opened)="panelOpenState = true"
@@ -441,10 +476,45 @@
                                         </mat-expansion-panel>
                                     </mat-accordion>
                                 </div>
-                            </div>
+                            </div> -->
+                            <p-accordionTab header="Transcripts" *ngIf="transcriptsData.length > 0">
+                                <div class="card w-100">
+                                    <div class="card-body row">
+                                        <div class="col-md-3" *ngFor="let transcripts of transcriptsData">
+                                            <!-- pdf -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="transcripts.extension == 'pdf' || transcripts.extension == 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{transcripts.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top"
+                                                        src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
+                                                        (click)="openImgPdf(transcripts.filePath,transcripts.extension,transcripts.name)">
+                                                </div>
+                                            </div>
+                                            <!-- img -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="transcripts.extension != 'pdf' && transcripts.extension != 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{transcripts.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top" src="http://{{transcripts.filePath}}"
+                                                        (click)="openImgPdf(transcripts.filePath,transcripts.extension,transcripts.name)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
 
                             <!-- curriculum -->
-                            <div class="row" *ngIf="curriculumData.length > 0">
+                            <!-- <div class="row" *ngIf="curriculumData.length > 0">
                                 <div class="col-md-12">
                                     <mat-accordion>
                                         <mat-expansion-panel (opened)="panelOpenState = true"
@@ -573,10 +643,45 @@
                                         </mat-expansion-panel>
                                     </mat-accordion>
                                 </div>
-                            </div>
+                            </div> -->
+                            <p-accordionTab header="Curriculum" *ngIf="curriculumData.length > 0">
+                                <div class="card w-100">
+                                    <div class="card-body row">
+                                        <div class="col-md-3" *ngFor="let curriculum of curriculumData">
+                                            <!-- pdf -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="curriculum.extension == 'pdf' || curriculum.extension == 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{curriculum.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top"
+                                                        src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
+                                                        (click)="openImgPdf(curriculum.filePath,curriculum.extension,curriculum.name)">
+                                                </div>
+                                            </div>
+                                            <!-- img -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="curriculum.extension != 'pdf' && curriculum.extension != 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{curriculum.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top" src="http://{{curriculum.filePath}}"
+                                                        (click)="openImgPdf(curriculum.filePath,curriculum.extension,curriculum.name)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
 
                             <!-- Grad to per -->
-                            <div class="row" *ngIf="gradtoperData.length > 0">
+                            <!-- <div class="row" *ngIf="gradtoperData.length > 0">
                                 <div class="col-md-12">
                                     <mat-accordion>
                                         <mat-expansion-panel (opened)="panelOpenState = true"
@@ -705,10 +810,45 @@
                                         </mat-expansion-panel>
                                     </mat-accordion>
                                 </div>
-                            </div>
+                            </div> -->
+                            <p-accordionTab header="Grade to Percentage" *ngIf="gradtoperData.length > 0">
+                                <div class="card w-100">
+                                    <div class="card-body row">
+                                        <div class="col-md-3" *ngFor="let gradtoper of gradtoperData">
+                                            <!-- pdf -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="gradtoper.extension == 'pdf' || gradtoper.extension == 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{gradtoper.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top"
+                                                        src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
+                                                        (click)="openImgPdf(gradtoper.filePath,gradtoper.extension,gradtoper.name)">
+                                                </div>
+                                            </div>
+                                            <!-- img -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="gradtoper.extension != 'pdf' && gradtoper.extension != 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{gradtoper.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top" src="http://{{gradtoper.filePath}}"
+                                                        (click)="openImgPdf(gradtoper.filePath,gradtoper.extension,gradtoper.name)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
 
                             <!-- competency -->
-                            <div class="row" *ngIf="competencyData.length > 0">
+                            <!-- <div class="row" *ngIf="competencyData.length > 0">
                                 <div class="col-md-12">
                                     <mat-accordion>
                                         <mat-expansion-panel (opened)="panelOpenState = true"
@@ -837,10 +977,45 @@
                                         </mat-expansion-panel>
                                     </mat-accordion>
                                 </div>
-                            </div>
+                            </div> -->
+                            <p-accordionTab header="Competency Letter" *ngIf="competencyData.length > 0">
+                                <div class="card w-100">
+                                    <div class="card-body row">
+                                        <div class="col-md-3" *ngFor="let competency of competencyData">
+                                            <!-- pdf -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="competency.extension == 'pdf' || competency.extension == 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{competency.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top"
+                                                        src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
+                                                        (click)="openImgPdf(competency.filePath,competency.extension,competency.name)">
+                                                </div>
+                                            </div>
+                                            <!-- img -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="competency.extension != 'pdf' && competency.extension != 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{competency.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top" src="http://{{competency.filePath}}"
+                                                        (click)="openImgPdf(competency.filePath,competency.extension,competency.name)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
 
                             <!-- name change proof -->
-                            <div class="row" *ngIf="namechangeproofData.length > 0">
+                            <!-- <div class="row" *ngIf="namechangeproofData.length > 0">
                                 <div class="col-md-12">
                                     <mat-accordion>
                                         <mat-expansion-panel (opened)="panelOpenState = true"
@@ -950,7 +1125,42 @@
                                         </mat-expansion-panel>
                                     </mat-accordion>
                                 </div>
-                            </div>
+                            </div> -->
+                            <p-accordionTab header="Name Change Proof" *ngIf="namechangeproofData.length > 0">
+                                <div class="card w-100">
+                                    <div class="card-body row">
+                                        <div class="col-md-3" *ngFor="let namechangeproof of namechangeproofData">
+                                            <!-- pdf -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="namechangeproof.extension == 'pdf' || namechangeproof.extension == 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{namechangeproof.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top"
+                                                        src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
+                                                        (click)="openImgPdf(namechangeproof.filePath,namechangeproof.extension,namechangeproof.name)">
+                                                </div>
+                                            </div>
+                                            <!-- img -->
+                                            <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                *ngIf="namechangeproof.extension != 'pdf' && namechangeproof.extension != 'PDF'">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-md-12">{{namechangeproof.name}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-secondary">
+                                                    <img class="card-img-top" src="http://{{namechangeproof.filePath}}"
+                                                        (click)="openImgPdf(namechangeproof.filePath,namechangeproof.extension,namechangeproof.name)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
                         </div>
                     </div>
                 </mat-tab>
@@ -1203,7 +1413,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="row" *ngFor="let letterfornamechange of letterfornamechangeData">
+                            <!-- <div class="row" *ngFor="let letterfornamechange of letterfornamechangeData">
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-6">First Name As Per Marksheet :</div>
@@ -1338,6 +1548,89 @@
                                                     style="display: flex; align-items: center; justify-content: center;">
                                                     <i class="fa fa-info-circle"
                                                         style="color: blue; font-size: 24px;"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="card w-100">
+                                <div class="card-body row" *ngFor="let letterfornamechange of letterfornamechangeData">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6">First Name As Per Marksheet :</div>
+                                            <div class="col-md-6">{{letterfornamechange.firstnameaspermarksheet}}
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">Fathers Name As Per Marksheet :</div>
+                                            <div class="col-md-6">{{letterfornamechange.fathersnameaspermarksheet}}
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">Mothers Name As Per Marksheet :</div>
+                                            <div class="col-md-6">{{letterfornamechange.mothersnameaspermarksheet}}
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">Last Name As Per Marksheet :</div>
+                                            <div class="col-md-6">{{letterfornamechange.lastnameaspermarksheet}}
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">First Name As Per Passpoart :</div>
+                                            <div class="col-md-6">{{letterfornamechange.firstnameasperpassport}}
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">Fathers Name As Per Passpoart :</div>
+                                            <div class="col-md-6">{{letterfornamechange.fathersnameasperpassport}}
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">Last Name As Per Passpoart :</div>
+                                            <div class="col-md-6">{{letterfornamechange.lastnameasperpassport}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <!-- pdf -->
+                                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                    *ngIf="letterfornamechange.extension == 'pdf' || letterfornamechange.extension == 'PDF'">
+                                                    <div class="card-header">
+                                                        <div class="row">
+                                                            <div class="col-md-12">{{letterfornamechange.name}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body text-secondary">
+                                                        <img class="card-img-top"
+                                                            src="https://mu.admissiondesk.org/uiserver/front_assets/img/pdf1.png"
+                                                            (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension,letterfornamechange.name)">
+                                                    </div>
+                                                </div>
+                                                <!-- img -->
+                                                <div class="card border-secondary mb-3" style="max-width: 18rem;"
+                                                    *ngIf="letterfornamechange.extension != 'pdf' && letterfornamechange.extension != 'PDF'">
+                                                    <div class="card-header">
+                                                        <div class="row">
+                                                            <div class="col-md-12">{{letterfornamechange.name}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body text-secondary">
+                                                        <img class="card-img-top"
+                                                            src="http://{{letterfornamechange.filePath}}"
+                                                            (click)="openImgPdf(letterfornamechange.filePath,letterfornamechange.extension,letterfornamechange.name)">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

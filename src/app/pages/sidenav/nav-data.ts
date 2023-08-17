@@ -80,6 +80,11 @@ export const navbarData = {
             label: 'Payments',
         },
         {
+            routeLink: 'adminPaymentIssue',
+            icon: 'fa fa-money-check',
+            label: 'Payment Issue',
+        },
+        {
             routeLink: 'adminEmailTracker',
             icon: 'fa fa-envelope-open-text',
             label: 'Email Tracker',
