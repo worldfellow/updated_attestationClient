@@ -95,7 +95,7 @@ export class CollegeDetailsComponent implements OnInit {
 
     this.getData_SemYear();
 
-    this.ScanData();
+    // this.ScanData();
     
   }
 
@@ -110,34 +110,34 @@ export class CollegeDetailsComponent implements OnInit {
       }
     });
   }     
-  ScanData(){
-    this.file = this.data.fileInput
-    const formData = new FormData();
-    formData.append('file', this.file);
-    formData.append('user_id', this.user_id);
-    this.api.ScanData(this.app_id,this.type,null,null,null,null,formData).subscribe((data: any) => {
-      console.log('datadatadatadata' , data)
-      if (data['status'] == 200) {
-        var data = data['data'][0];
-        this.courseName = data.courseName;
-        this.whichduration = data.whichduration;
-        this.file_name = data.file_name;
-        this.pattern = data.pattern;
-        this.degree = data.degree;
-        this.faculty = data.faculty;
-        this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Uploaded Successfully!' });
-         this.CollegeDetails.patchValue({
-          collegeNameCtrl: this.collegeName,
-          semYearCtrl : this.whichduration,
-          courseNameCtrl : this.courseName
-         })
-      }else if(data['status'] == 401){
-        this.ref.close(401)
-      }else{
-        this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Kindly Upload Proper Documents which are visible' });
-      }
-    })
-  }
+  // ScanData(){
+  //   this.file = this.data.fileInput
+  //   const formData = new FormData();
+  //   formData.append('file', this.file);
+  //   formData.append('user_id', this.user_id);
+  //   this.api.ScanData(this.app_id,this.type,null,null,null,null,formData).subscribe((data: any) => {
+  //     console.log('datadatadatadata' , data)
+  //     if (data['status'] == 200) {
+  //       var data = data['data'][0];
+  //       this.courseName = data.courseName;
+  //       this.whichduration = data.whichduration;
+  //       this.file_name = data.file_name;
+  //       this.pattern = data.pattern;
+  //       this.degree = data.degree;
+  //       this.faculty = data.faculty;
+  //       this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Uploaded Successfully!' });
+  //        this.CollegeDetails.patchValue({
+  //         collegeNameCtrl: this.collegeName,
+  //         semYearCtrl : this.whichduration,
+  //         courseNameCtrl : this.courseName
+  //        })
+  //     }else if(data['status'] == 401){
+  //       this.ref.close(401)
+  //     }else{
+  //       this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Kindly Upload Proper Documents which are visible' });
+  //     }
+  //   })
+  // }
   getData_CourseList(){
     this.api.getFacultyLists().subscribe((data: any) => {
       if ((data) as any['data'] != undefined) {

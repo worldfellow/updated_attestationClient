@@ -22,12 +22,12 @@ import { LettersFormComponent } from '../dailogComponents/letters-form.component
   selector: 'app-upload-document',
   templateUrl: './upload-document.component.html',
   styleUrls: ['./upload-document.component.css'],
-  providers: [ConfirmationService, MessageService, DialogService]
+  providers: [ConfirmationService, MessageService, DialogService],
 })
 export class UploadDocumentComponent implements OnInit {
-  @ViewChild('tabGroup') tabGroup : any;
-  @Output() selectedTabChange:EventEmitter<number> 
-  
+  @ViewChild('tabGroup') tabGroup: any;
+  @Output() selectedTabChange: EventEmitter<number>;
+
   selectedTab: string = 'educationalDetails_marksheet'; // Initialize to the default tab
   selectedTab_educationalDetails: string = 'educationalDetails';
   selectedTab_instructionalField: string = 'instructionalField';
@@ -35,20 +35,20 @@ export class UploadDocumentComponent implements OnInit {
   selectedTab_curriculum: string = 'curriculum';
   selectedTab_gradToPer: string = 'CompetencyLetter';
   selectedTab_CompetencyLetter: string = 'LetterforNameChange';
-  selectedTab_LetterforNameChange: string = 'NameChangeProof';// Initialize to the default tab
+  selectedTab_LetterforNameChange: string = 'NameChangeProof'; // Initialize to the default tab
 
   selectTab(tabName: string) {
-      this.selectedTab = tabName;
+    this.selectedTab = tabName;
   }
 
   ref: DynamicDialogRef;
   position: string;
   status: string;
   user_id: any;
-  transcriptdata:  any;
+  transcriptdata: any;
   user_name: any;
   token: any;
-  readonly: boolean = true;
+  readonly: boolean = false;
   updateButton: boolean = false;
   file_name = [];
   curr_college: any;
@@ -64,13 +64,13 @@ export class UploadDocumentComponent implements OnInit {
   namechangeletterdetails: any;
   selectedCollege: any;
   app_id_namechange: any;
-  division: any[] = [];  
-  name = "Angular " + VERSION.major;
+  division: any[] = [];
+  name = 'Angular ' + VERSION.major;
   isReady: boolean;
   imageChangedEvent: any;
   base64Image: any;
   ocrResult: string;
-  croppedImage: any = "";
+  croppedImage: any = '';
   isScanning: boolean;
   // file : any;
   croppedFile: any;
@@ -85,32 +85,32 @@ export class UploadDocumentComponent implements OnInit {
   width: number;
   marksheets: any = [];
   transcripts: any = [];
- 
+
   LetterforNameChangeform: FormGroup = new FormGroup({
-    firstNameMarksheetCtrl: new FormControl('',Validators.required),
-    fatherNameMarksheetCtrl: new FormControl('',Validators.required),
-    motherNameMarksheetCtrl: new FormControl('',Validators.required),
-    lastNameMarksheetCtrl: new FormControl('',Validators.required),
-    firstNamePassportCtrl: new FormControl('',Validators.required),
-    fatherNamePassportCtrl: new FormControl('',Validators.required),
-    lastNamePassportCtrl: new FormControl('',Validators.required),
-    fileInputCtrl: new FormControl('',Validators.required),
-  })
+    firstNameMarksheetCtrl: new FormControl('', Validators.required),
+    fatherNameMarksheetCtrl: new FormControl('', Validators.required),
+    motherNameMarksheetCtrl: new FormControl('', Validators.required),
+    lastNameMarksheetCtrl: new FormControl('', Validators.required),
+    firstNamePassportCtrl: new FormControl('', Validators.required),
+    fatherNamePassportCtrl: new FormControl('', Validators.required),
+    lastNamePassportCtrl: new FormControl('', Validators.required),
+    fileInputCtrl: new FormControl('', Validators.required),
+  });
   app_id: any;
-  collegeData: any =[];
+  collegeData: any = [];
   collegeDatad: any;
   collegeCount: any;
   transcriptDisplay: any;
   uniqueCollegeName: any;
-  extraData: any; 
+  extraData: any;
   gradtoper: any;
-  instructionalField:any;
-  affiliation:any;
-  educationalDetails:any;
-  CompetencyLetter:any;
-  curriculum:any
-  gradToPer:any;
-  LetterforNameChange:any;
+  instructionalField: any;
+  affiliation: any;
+  educationalDetails: any;
+  CompetencyLetter: any;
+  curriculum: any;
+  gradToPer: any;
+  LetterforNameChange: any;
   curriculumData: any = [];
   tabcheck1: any;
   tabcheck2: any;
@@ -122,89 +122,118 @@ export class UploadDocumentComponent implements OnInit {
   tabcheck8: any;
   stepper: any;
   id: any;
-  letterDetails:any;
-  insDegree:any;
-  affDegree:any;
-  bachelorsIns:any;
-  mastersIns:any;
-  phdIns:any;
+  letterDetails: any;
+  insDegree: any;
+  affDegree: any;
+  bachelorsIns: any;
+  mastersIns: any;
+  phdIns: any;
   selectedDegree: string = '';
-  insData:any;
-  bachelorsAff:any;
-  mastersAff:any;
-  phdAff:any;
+  insData: any;
+  bachelorsAff: any;
+  mastersAff: any;
+  phdAff: any;
+  thesisPhd: any;
+  topicChangePhd: any;
+  phd: any;
+  convocationDisplay: any;
+  convocationData:any;
 
-  constructor(private confirmationService: ConfirmationService, private fb: FormBuilder, private cdr: ChangeDetectorRef, protected api: ApiService, private messageService: MessageService, private dialogService: DialogService, private authService: AuthService,private route : ActivatedRoute,public dialog: MatDialog,) {
+  constructor(
+    private confirmationService: ConfirmationService,
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    protected api: ApiService,
+    private messageService: MessageService,
+    private dialogService: DialogService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    public dialog: MatDialog
+  ) {
     this.initialize();
 
-    this.api.getAppliedUserDetail().subscribe((data : any) =>{
-      if(data['status'] == 200){
-        const userApplied = (data as any)['data']; 
+    this.api.getAppliedUserDetail().subscribe((data: any) => {
+      if (data['status'] == 200) {
+        const userApplied = (data as any)['data'];
         this.instructionalField = userApplied.instructionalField;
         this.affiliation = userApplied.affiliation;
-        this.educationalDetails = userApplied.educationalDetails; 
+        this.educationalDetails = userApplied.educationalDetails;
         this.CompetencyLetter = userApplied.CompetencyLetter;
         this.curriculum = userApplied.curriculum;
         this.gradToPer = userApplied.gradToPer;
         this.LetterforNameChange = userApplied.LetterforNameChange;
+        this.phd = userApplied.isphd;
       }
-     
-    }) 
+    });
   }
 
   ngOnInit() {
     this.app_id = this.route.snapshot.queryParamMap.get('app_id');
-    this.token = JSON.parse(localStorage.getItem('user')!)
+    this.token = JSON.parse(localStorage.getItem('user')!);
     this.user_id = this.token.data.user.user_id;
     this.uploadForm = this.fb.group({
       fileInputCtrl: ['', Validators.required],
-      collegeId : ['']
+      collegeId: [''],
     });
 
-    this.api.getAppliedUserDetail().subscribe((data : any) =>{
-      console.log('**********************' , data)
-      const userApplied = (data as any)['data']; 
+    this.api.getAppliedUserDetail().subscribe((data: any) => {
+      console.log('**********************', data);
+      const userApplied = (data as any)['data'];
       this.instructionalField = userApplied.instructionalField;
       this.affiliation = userApplied.affiliation;
-      this.educationalDetails = userApplied.educationalDetails; 
+      this.educationalDetails = userApplied.educationalDetails;
       this.CompetencyLetter = userApplied.CompetencyLetter;
       this.curriculum = userApplied.curriculum;
       this.gradToPer = userApplied.gradToPer;
       this.LetterforNameChange = userApplied.LetterforNameChange;
-    }) 
+      this.phd = userApplied.isphd;
+    });
 
-    this.token = JSON.parse(localStorage.getItem('user')!)
+    this.token = JSON.parse(localStorage.getItem('user')!);
     this.user_id = this.token.data.user.user_id;
-    this.api.getNameChangeData().subscribe(data => {
-      this.namechangeletterdetails = (data as any)['data'];
-      if(this.namechangeletterdetails){
-        this.file_name = (data as any)['filename'];
-        this.app_id_namechange =this.namechangeletterdetails ? this.namechangeletterdetails.app_id : null
-        this.LetterforNameChangeform.patchValue({
-          firstNameMarksheetCtrl: this.namechangeletterdetails.firstnameaspermarksheet,
-          fatherNameMarksheetCtrl: this.namechangeletterdetails.fathersnameaspermarksheet,
-          motherNameMarksheetCtrl: this.namechangeletterdetails.mothersnameaspermarksheet,
-          lastNameMarksheetCtrl: this.namechangeletterdetails.lastnameaspermarksheet,
-          firstNamePassportCtrl: this.namechangeletterdetails.firstnameasperpassport,
-          fatherNamePassportCtrl: this.namechangeletterdetails.fathersnameasperpassport,
-          lastNamePassportCtrl: this.namechangeletterdetails.lastnameasperpassport
-        })
-      }
-    })
+    this.getNameChangeData();
+    // this.api.getNameChangeData().subscribe((data) => {
+    //     console.log( "aaaaaaaaaaaaaaa");
+    //   this.namechangeletterdetails = (data as any)['data'];
+    //   if (this.namechangeletterdetails) {
+    //             console.log('bbbbbbbbbbbbbbbbb');
+    //     this.file_name = (data as any)['filename'];
+    //     console.log("*ngf=file_name",this.file_name);
+    //     this.app_id_namechange = this.namechangeletterdetails
+    //       ? this.namechangeletterdetails.app_id
+    //       : null;
+    //     this.LetterforNameChangeform.patchValue({
+    //       firstNameMarksheetCtrl:
+    //         this.namechangeletterdetails.firstnameaspermarksheet,
+    //       fatherNameMarksheetCtrl:
+    //         this.namechangeletterdetails.fathersnameaspermarksheet,
+    //       motherNameMarksheetCtrl:
+    //         this.namechangeletterdetails.mothersnameaspermarksheet,
+    //       lastNameMarksheetCtrl:
+    //         this.namechangeletterdetails.lastnameaspermarksheet,
+    //       firstNamePassportCtrl:
+    //         this.namechangeletterdetails.firstnameasperpassport,
+    //       fatherNamePassportCtrl:
+    //         this.namechangeletterdetails.fathersnameasperpassport,
+    //       lastNamePassportCtrl:
+    //         this.namechangeletterdetails.lastnameasperpassport,
+    //     });
+    //   }
+    // });
     this.api.getFacultyLists().subscribe((data: any) => {
-      if ((data) as any['data'] != undefined) {
-        const datacourse: any[] = data['data']
+      if ((data as any['data']) != undefined) {
+        const datacourse: any[] = data['data'];
         datacourse.forEach((element: any) => {
-          this.collegeCourse.push(element)
-        })
+          this.collegeCourse.push(element);
+        });
       }
-    })
+    });
 
     this.division = [
       { name: 'Distinction' },
       { name: 'First Class' },
       { name: 'Second Class' },
-      { name: 'Third Class' }
+      { name: 'Third Class' },
     ];
 
     this.api.getCollegeLists().subscribe((data: any) => {
@@ -214,156 +243,238 @@ export class UploadDocumentComponent implements OnInit {
           this.collegeList.push(element);
         });
       }
-    });  
+    });
     this.getLettersDetails();
-    this.refresh()
+    this.refresh();
     this.checkStepper();
   }
 
   /** Get Data of Instructional and Affiliation letter forms through Api */
-  getLettersDetails() { 
-    this.api.getletterDetails().subscribe((data: any) => { 
-      this.letterDetails = data   
-      this.insDegree = Object.keys(data?.dataInstructional).filter((key) => Object.keys(data?.dataInstructional[key]).length > 0); 
-      this.affDegree = Object.keys(data?.dataAffiliation).filter((key) => Object.keys(data?.dataAffiliation[key]).length > 0); 
-      this.bachelorsIns = data?.dataInstructional?.bachelors[0]?.instructionalDetails; 
-      this.mastersIns = data?.dataInstructional?.masters[0]?.instructionalDetails;
-      this.phdIns = data?.dataInstructional?.phd[0]?.instructionalDetails;   
-      this.bachelorsAff = data?.dataAffiliation?.bachelors[0]?.affiliationDetails; 
+  getLettersDetails() {
+    this.api.getletterDetails().subscribe((data: any) => {
+      this.letterDetails = data;
+      this.insDegree = Object.keys(data?.dataInstructional).filter(
+        (key) => Object.keys(data?.dataInstructional[key]).length > 0
+      );
+      this.affDegree = Object.keys(data?.dataAffiliation).filter(
+        (key) => Object.keys(data?.dataAffiliation[key]).length > 0
+      );
+      this.bachelorsIns =
+        data?.dataInstructional?.bachelors[0]?.instructionalDetails;
+      this.mastersIns =
+        data?.dataInstructional?.masters[0]?.instructionalDetails;
+      this.phdIns = data?.dataInstructional?.phd[0]?.instructionalDetails;
+      this.bachelorsAff =
+        data?.dataAffiliation?.bachelors[0]?.affiliationDetails;
       this.mastersAff = data?.dataAffiliation?.masters[0]?.affiliationDetails;
-      this.phdAff = data?.dataAffiliation?.phd[0]?.affiliationDetails;  
-      
+      this.phdAff = data?.dataAffiliation?.phd[0]?.affiliationDetails;
+
       this.cdr.detectChanges(); // Manually trigger change detection after updating properties
-  });
+    });
   }
 
- 
-  uploadfun(event : any){
+  getNameChangeData() {
+    this.api.getNameChangeData().subscribe((data) => {
+      this.namechangeletterdetails = (data as any)['data'];
+      if (this.namechangeletterdetails?.firstnameaspermarksheet) {
+        this.file_name = (data as any)['filename'];
+        this.app_id_namechange = this.namechangeletterdetails
+          ? this.namechangeletterdetails.app_id
+          : null;
+        this.LetterforNameChangeform.patchValue({
+          firstNameMarksheetCtrl:
+            this.namechangeletterdetails.firstnameaspermarksheet,
+          fatherNameMarksheetCtrl:
+            this.namechangeletterdetails.fathersnameaspermarksheet,
+          motherNameMarksheetCtrl:
+            this.namechangeletterdetails.mothersnameaspermarksheet,
+          lastNameMarksheetCtrl:
+            this.namechangeletterdetails.lastnameaspermarksheet,
+          firstNamePassportCtrl:
+            this.namechangeletterdetails.firstnameasperpassport,
+          fatherNamePassportCtrl:
+            this.namechangeletterdetails.fathersnameasperpassport,
+          lastNamePassportCtrl:
+            this.namechangeletterdetails.lastnameasperpassport,
+        });
+      }
+    });
+  }
+
+  uploadfun(event: any) {
     if (event.files && event.files[0]) {
       const reader = new FileReader();
       this.imageChangedEvent = event;
       this.croppedImage = event.files[0];
       this.base64Image = event.files[0];
       reader.readAsDataURL(event.files[0]);
-      reader.onload = (event: any) => {
-      };
+      reader.onload = (event: any) => {};
     }
-
-
 
     this.base64Image = event.files[0];
     this.imageChangedEvent = event;
-  
   }
-  async initialize(): Promise<void> {
-  }
+  async initialize(): Promise<void> {}
 
-  handleFileInput(event: any , type : any , course_name  : any , college  : any , collegeid : any, faculty : any,education_type : any ,pattern : any): void {
+  handleFileInput(
+    event: any,
+    type: any,
+    course_name: any,
+    college: any,
+    collegeid: any,
+    faculty: any,
+    education_type: any,
+    pattern: any
+  ): void {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       this.imageChangedEvent = event;
       this.fileUploaded = event.target.files[0];
       this.base64Image = event.target.files[0];
       reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event: any) => {
-      };
+      reader.onload = (event: any) => {};
     }
-    this.showEditPreview(type , course_name , college , collegeid , faculty , education_type , pattern);
+    console.log(
+      'datatatattatatta',
+      type,
+      course_name,
+      college,
+      collegeid,
+      faculty,
+      education_type,
+      pattern
+    );
+
+    this.showEditPreview(
+      type,
+      course_name,
+      college,
+      collegeid,
+      faculty,
+      education_type,
+      pattern
+    );
   }
 
-  showEditPreview(type : any ,course_name : any, college : any, collegeid : any, faculty : any, education_type : any, pattern: any){
-    const dialogRef = this.dialog.open(ShowPreviewComponent, {
-      data: {
-        user_id  : this.user_id,
-        base64Image  : this.base64Image,
-        imageChangedEvent : this.imageChangedEvent,
-        type : type,
-        course_name : course_name,
-        college  : college,
-        collegeid  : collegeid,
-        faculty : faculty,
-        education_type : education_type,
-        pattern  : pattern
-
-        
-      }
-    }).afterClosed().subscribe(result => {
-
-        this.refresh()
-        this.id = result
-    });
+  showEditPreview(
+    type: any,
+    course_name: any,
+    college: any,
+    collegeid: any,
+    faculty: any,
+    education_type: any,
+    pattern: any
+  ) {
+    const dialogRef = this.dialog
+      .open(ShowPreviewComponent, {
+        data: {
+          user_id: this.user_id,
+          base64Image: this.base64Image,
+          imageChangedEvent: this.imageChangedEvent,
+          type: type,
+          course_name: course_name,
+          college: college,
+          collegeid: collegeid,
+          faculty: faculty,
+          education_type: education_type,
+          pattern: pattern,
+        },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        this.refresh();
+        this.getNameChangeData();
+        this.id = result;
+      });
   }
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;
-    this.height = event.height
-    this.width = event.width
+    this.height = event.height;
+    this.width = event.width;
   }
-  dataurl(croppedFile: any, name: any ) {
-    const base64String = croppedFile.split(",")[1]; // Extract the base64 string from the data URI
+  dataurl(croppedFile: any, name: any) {
+    const base64String = croppedFile.split(',')[1]; // Extract the base64 string from the data URI
 
     const byteCharacters = atob(base64String);
     const byteArrays = [];
-    
+
     for (let offset = 0; offset < byteCharacters.length; offset += 512) {
       const slice = byteCharacters.slice(offset, offset + 512);
-    
+
       const byteNumbers = new Array(slice.length);
       for (let i = 0; i < slice.length; i++) {
         byteNumbers[i] = slice.charCodeAt(i);
       }
-    
+
       const byteArray = new Uint8Array(byteNumbers);
       byteArrays.push(byteArray);
     }
-    const blob = new Blob(byteArrays, { type: "image/jpeg" });
+    const blob = new Blob(byteArrays, { type: 'image/jpeg' });
     return new File([blob], name, { type: blob.type });
   }
 
-  uploadDetails(event: any ,type: any ,coursename : any ,collegename : any , collegeid : any,faculty : any,education_type: any,patteren:any) {  
-    console.log('uploadDetails')
-    const fileUrl = this.dataurl(this.croppedImage, "11.jpeg")
-    if(type == 'marklist'){
+  uploadDetails(
+    event: any,
+    type: any,
+    coursename: any,
+    collegename: any,
+    collegeid: any,
+    faculty: any,
+    education_type: any,
+    patteren: any
+  ) {
+    console.log('uploadDetails');
+    const fileUrl = this.dataurl(this.croppedImage, '11.jpeg');
+    if (type == 'marklist') {
       this.ref = this.dialogService.open(CollegeDetailsComponent, {
         data: {
           fileInput: fileUrl,
-          type:  type
+          type: type,
         },
         header: 'College Details',
         width: '70%',
         height: '50%',
         contentStyle: { overflow: 'auto' },
         baseZIndex: 10000,
-        maximizable: true
+        maximizable: true,
       });
       this.ref.onClose.subscribe(() => {
-          this.refresh();
-          this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Details Saved Successfully!' });
+        this.refresh();
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Error',
+          detail: 'Details Saved Successfully!',
+        });
       });
-    }else{
-      this.file = fileUrl
+    } else {
+      this.file = fileUrl;
       const formData = new FormData();
       formData.append('file', this.file);
       formData.append('user_id', this.user_id);
-      var data=[];
-      this.api.ScanData(this.app_id,type,null,null,null,null,formData).subscribe( (data: any) => {
-        if (data['status'] == 200) {
-          this.base64Image = false
-          this.refresh();
-          // this.ref.close();
-        }else{
-          this.refresh();
-        }
-      })
+      var data = [];
+      this.api
+        .ScanData(this.app_id, type, null, null, null, null, formData)
+        .subscribe((data: any) => {
+          if (data['status'] == 200) {
+            this.base64Image = false;
+            this.refresh();
+            // this.ref.close();
+          } else {
+            this.refresh();
+          }
+        });
     }
   }
 
-
-
   onBasicUploadAuto(event: any) {
-    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Success',
+      detail: 'File Uploaded with Auto Mode',
+    });
   }
   onUpload(event: any) {
     const reader = new FileReader();
@@ -375,65 +486,84 @@ export class UploadDocumentComponent implements OnInit {
       var yourStatus = event.originalEvent.status;
       if (yourStatus == 200) {
         this.status = 'success';
-        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded Successfully !' });
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Success',
+          detail: 'File Uploaded Successfully !',
+        });
       } else if (yourStatus == 401) {
         this.status = 'error';
-
       } else if (yourStatus == 400) {
         this.status = 'error';
       }
     }
-
   }
 
   deleteDocument(id: any, type: any) {
-    console.log("deletee");
     this.confirmationService.confirm({
       message: 'Do you want to delete this document?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.api.deleteDocument(id, type, this.user_id).subscribe((data: any) => {
-          if (data['status'] == 200) {
-            this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Data Deleted !' });
-            this.refresh();
-            this.checkStepper();
-          } else {
-          }
-        })
-
+        this.api
+          .deleteDocument(id, type, this.user_id)
+          .subscribe((data: any) => {
+            if (data['status'] == 200) {
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Error',
+                detail: 'Data Deleted !',
+              });
+              this.refresh();
+              this.getNameChangeData();
+            } else {
+            }
+          });
       },
     });
   }
 
-    /**imageView function to view the uploaded document by user itself */
-  imageView() {
+  /**imageView function to view the uploaded document by user itself */
+  imageView(filepath: any, extension: any) {
+    console.log('filepath: ', filepath);
+    console.log('extension: ', extension);
+
     this.ref = this.dialogService.open(ImageViewComponent, {
+      data: {
+        imgType: extension,
+        imgName: filepath,
+      },
       header: 'Select a Product',
       width: '70%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
-      maximizable: true
+      maximizable: true,
     });
   }
- 
 
   /**deleteInfo function to delete the form of instructional,affiliation and letterfor namechange*/
- deleteInfo(type: any,doc_id:any) {
-
+  deleteInfo(type: any, doc_id: any) {
+    console.log('type', type);
+    console.log('doc_id', doc_id);
     this.confirmationService.confirm({
       message: 'Do you want to delete this Data?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.api.deleteInfo(type,doc_id).subscribe((data: any) => {
+        this.api.deleteInfo(type, doc_id).subscribe((data: any) => {
           if (data['status'] == 200) {
-            this.messageService.add({ severity: 'info', summary: 'Error', detail: 'Data Deleted !' });
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Error',
+              detail: 'Data Deleted !',
+            });
+            this.readonly = false;
             this.getLettersDetails();
+            this.getNameChangeData();
+            // this.ngOnInit();
           } else {
           }
-        })
-
+        });
       },
     });
   }
@@ -441,41 +571,67 @@ export class UploadDocumentComponent implements OnInit {
     this.readonly = false;
     this.updateButton = true;
   }
-  saveLetter() {
-
+  saveLetter(id: string) {
     var data: any = {
-      "firstNameMarksheetCtrl": this.LetterforNameChangeform.controls['firstNameMarksheetCtrl'].value,
-      "fatherNameMarksheetCtrl": this.LetterforNameChangeform.controls['fatherNameMarksheetCtrl'].value,
-      "motherNameMarksheetCtrl": this.LetterforNameChangeform.controls['motherNameMarksheetCtrl'].value,
-      "lastNameMarksheetCtrl": this.LetterforNameChangeform.controls['lastNameMarksheetCtrl'].value,
-      "firstNamePassportCtrl": this.LetterforNameChangeform.controls['firstNamePassportCtrl'].value,
-      "fatherNamePassportCtrl": this.LetterforNameChangeform.controls['fatherNamePassportCtrl'].value,
-      "lastNamePassportCtrl": this.LetterforNameChangeform.controls['lastNamePassportCtrl'].value,
-      "id": this.id,
+      firstNameMarksheetCtrl:
+        this.LetterforNameChangeform.controls['firstNameMarksheetCtrl'].value,
+      fatherNameMarksheetCtrl:
+        this.LetterforNameChangeform.controls['fatherNameMarksheetCtrl'].value,
+      motherNameMarksheetCtrl:
+        this.LetterforNameChangeform.controls['motherNameMarksheetCtrl'].value,
+      lastNameMarksheetCtrl:
+        this.LetterforNameChangeform.controls['lastNameMarksheetCtrl'].value,
+      firstNamePassportCtrl:
+        this.LetterforNameChangeform.controls['firstNamePassportCtrl'].value,
+      fatherNamePassportCtrl:
+        this.LetterforNameChangeform.controls['fatherNamePassportCtrl'].value,
+      lastNamePassportCtrl:
+        this.LetterforNameChangeform.controls['lastNamePassportCtrl'].value,
+      id: id,
     };
+    console.log('gdfhfdh', this.LetterforNameChangeform);
     if (this.LetterforNameChangeform.valid) {
-
+      console.log('aaaaaaaaaaaaa', data);
       this.api.saveNameChangedata(data).subscribe((data: any) => {
         if (data['status'] == 200) {
-          console.log("status", data['status']);
-          this.ngOnInit()
+          console.log('status', data['status']);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Letter Data Saved Successfully!!!',
+          });
+          this.getNameChangeData();
+          this.readonly = true;
+          this.updateButton = false;
         }
-      })
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Invalid Form Fields',
+      });
+      console.log('kkkkkkkkkkkkkkkkkkkk', data);
     }
   }
 
   // upload curriculum selected college
   onCollegeChange(event: any) {
     this.selectedCollege = event.value.id;
-    console.log("aaaaaa", this.selectedCollege);
-    if (this.selectedCollege != null || this.selectedCollege != undefined || this.selectedCollege != '' || this.selectedCollege != 'undefined') {
-      this.validateUploadOne = false
+    console.log('aaaaaa', this.selectedCollege);
+    if (
+      this.selectedCollege != null ||
+      this.selectedCollege != undefined ||
+      this.selectedCollege != '' ||
+      this.selectedCollege != 'undefined'
+    ) {
+      this.validateUploadOne = false;
     }
   }
 
-  refresh(){
-    this.api.getUploadedDocuments(this.app_id).subscribe((data:any)=>{
-      if(data['status']==200){
+  refresh() {
+    this.api.getUploadedDocuments(this.app_id).subscribe((data: any) => {
+      if (data['status'] == 200) {
         this.marksheets = data['data'][0];
         this.transcripts = data['data'][1];
         this.transcriptDisplay = data['data'][2];
@@ -483,138 +639,151 @@ export class UploadDocumentComponent implements OnInit {
         this.extraData = data['data'][4];
         this.curriculumData = data['data'][5];
         this.gradtoper = data['data'][6];
-        console.log('****************************' , this.curriculumData)
+        this.thesisPhd = data['data'][7];
+        this.topicChangePhd = data['data'][8];
+        this.convocationDisplay = data['data'][9];
+        this.convocationData = data['data'][10];
+        console.log('convocationDisplay', this.convocationDisplay);
+        console.log('convocationData', this.convocationData);
       }
-  })
+    });
+  }
 
-}
+  checkStepper() {
+    this.api.checkstepper_inner(this.app_id).subscribe((response: any) => {
+      this.selectedTab = response['data'];
+      this.tabcheck1 = response['step'].tab1;
+      this.tabcheck2 = response['step'].tab2;
+      this.tabcheck3 = response['step'].tab3;
+      this.tabcheck4 = response['step'].tab4;
+      this.tabcheck5 = response['step'].tab5;
+      this.tabcheck6 = response['step'].tab6;
+      this.tabcheck7 = response['step'].tab7;
+      this.tabcheck8 = response['step'].tab8;
+    });
+  }
 
-
-checkStepper(){
-  this.api.checkstepper_inner(this.app_id).subscribe((response: any) => {
-    this.selectedTab = response['data'];
-    this.tabcheck1 =response['step'].tab1
-    this.tabcheck2 =response['step'].tab2
-    this.tabcheck3 =response['step'].tab3
-    this.tabcheck4 =response['step'].tab4
-    this.tabcheck5 =response['step'].tab5
-    this.tabcheck6 =response['step'].tab6
-    this.tabcheck7 =response['step'].tab7
-    this.tabcheck8 =response['step'].tab8
-    
-  })
-}
-
-
-myTabSelectedIndexChange(index: any) {
-}
-/**
+  myTabSelectedIndexChange(index: any) {}
+  /**
    * Competency Letter
    */
 
-uploadMoreCompetency() {
+  uploadMoreCompetency() {
+    this.ref = this.dialogService.open(CompetencyDailogComponent, {
+      header: 'Add More Document',
+      width: '50%',
+      height: '40%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+    });
+    this.ref.onClose.subscribe((data: any) => {
+      if (data !== undefined) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Document Uploaded Succesfully !',
+        });
+      } else {
+        this.messageService.add({
+          severity: 'danger',
+          summary: 'Error',
+          detail: 'Document Not Uploaded !',
+        });
+      }
+    });
+  }
 
-  this.ref = this.dialogService.open(CompetencyDailogComponent, {
-    header: 'Add More Document',
-    width: '50%',
-    height: '40%',
-    contentStyle: { overflow: 'auto' },
-    baseZIndex: 10000,
-    maximizable: true
-  })
-  this.ref.onClose
-    .subscribe(
-      (data: any) => {
-        if (data !== undefined) {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Document Uploaded Succesfully !' });
-        } else {
-          this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'Document Not Uploaded !' });
-        }
-      });
-}
-
-
-
-/**
+  /**
    * Transcripts Letter
    */
-uploadMoreTranscript() {
-  this.ref = this.dialogService.open(TranscriptDailogComponent, {
-    header: 'Add More Document',
-    width: '50%',
-    height: '40%',
-    contentStyle: { overflow: 'auto' },
-    baseZIndex: 10000,
-    maximizable: true
-  })
-  this.ref.onClose
-    .subscribe(
-      (data: any) => {
-
-        if (data !== undefined) {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Document Uploaded Succesfully !' });
-        } else {
-          this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'Document Not Uploaded !' });
-        }
-      });
-}
-
-
-/**Add Instructional and Affiliation Details */
-
-addForm(type: string) {
-  console.log("type", type);
-
-  const formName = type === 'instructional' ? 'Instructional Form' : 'Affiliation Form';
-
-  this.ref = this.dialogService.open(LettersFormComponent, {
-    data: {
-      type: type
-    },
-    header: formName,
-    width: '50%',
-    height: '49%',
-    contentStyle: { overflow: 'auto' },
-    baseZIndex: 10000,
-    maximizable: false
-  })
-  this.ref.onClose
-    .subscribe(
-      (data: any) => {
-        if (data !== undefined) {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: data });
-          this.getLettersDetails();
-        }
-      });
-}
-
-/**Edit Instructional and Affiliation Details  */
-
-editForm(type:string,data:any){
-  console.log("type", type);
-  console.log("data", data);
-  
-  const formName = type === 'instructional' ? 'Instructional Form' : 'Affiliation Form';
-
-  this.ref = this.dialogService.open(LettersFormComponent, {
-    data: {
-      type: type,
-      insData:data
-    },
-    header: formName,
-    width: '50%',
-    height: '49%',
-    contentStyle: { overflow: 'auto' },
-    baseZIndex: 10000,
-    maximizable: false
-  })
-  this.ref.onClose
-  .subscribe(
-    (data: any) => {
+  uploadMoreTranscript() {
+    this.ref = this.dialogService.open(TranscriptDailogComponent, {
+      header: 'Add More Document',
+      width: '50%',
+      height: '40%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+    });
+    this.ref.onClose.subscribe((data: any) => {
       if (data !== undefined) {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: data });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Document Uploaded Succesfully !',
+        });
+      } else {
+        this.messageService.add({
+          severity: 'danger',
+          summary: 'Error',
+          detail: 'Document Not Uploaded !',
+        });
+      }
+    });
+  }
+
+  /**Add Instructional and Affiliation Details */
+
+  addForm(type: string) {
+    console.log('type', type);
+
+    const formName =
+      type === 'instructional' ? 'Instructional Form' : 'Affiliation Form';
+
+    this.ref = this.dialogService.open(LettersFormComponent, {
+      data: {
+        type: type,
+      },
+      header: formName,
+      width: '50%',
+      height: '49%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: false,
+    });
+    this.ref.onClose.subscribe((data: any) => {
+      if (data !== undefined) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: data,
+        });
         this.getLettersDetails();
       }
     });
-}
+  }
+
+  /**Edit Instructional and Affiliation Details  */
+
+  editForm(type: string, data: any) {
+    console.log('type', type);
+    console.log('data', data);
+
+    const formName =
+      type === 'instructional' ? 'Instructional Form' : 'Affiliation Form';
+
+    this.ref = this.dialogService.open(LettersFormComponent, {
+      data: {
+        type: type,
+        insData: data,
+      },
+      header: formName,
+      width: '50%',
+      height: '49%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: false,
+    });
+    this.ref.onClose.subscribe((data: any) => {
+      if (data !== undefined) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: data,
+        });
+        this.getLettersDetails();
+      }
+    });
+  }
 }
