@@ -1,36 +1,40 @@
 <div class="bgimg">
-<img style="height: 100vh; width: 100vw; position: absolute; z-index: -1;" src="../../../assets/IMG/gf-01.jpg" alt="">
+  <img style="height: 100vh; width: 100vw; position: absolute; z-index: -1;" src="../../../assets/IMG/gf-01.jpg" alt="">
   <div class="bgb">
     <div class="mcr">
       <div class="row" style="padding: 20px;">
         <h6 class="col-md-4">New User ? <a routerLink="/register">Register</a></h6>
         <div class="col-md-4" style="height: 150px; overflow: hidden;">
-          <img style="height: 200px; width: 100%; margin-top: -20px;" src="../../../assets/IMG/UM Logo (632 × 505 px).svg" alt="">
+          <img style="height: 200px; width: 100%; margin-top: -20px;"
+            src="../../../assets/IMG/UM Logo (632 × 505 px).svg" alt="">
         </div>
-        <h6 style="text-align: center;" class="col-md-4">English <img src="https://img.icons8.com/external-those-icons-fill-those-icons/15/external-down-arrows-those-icons-fill-those-icons-1.png" alt="external-down-arrows-those-icons-fill-those-icons-1"/></h6>
+        <h6 style="text-align: center;" class="col-md-4">English <img
+            src="https://img.icons8.com/external-those-icons-fill-those-icons/15/external-down-arrows-those-icons-fill-those-icons-1.png"
+            alt="external-down-arrows-those-icons-fill-those-icons-1" /></h6>
       </div>
-      
-      <div class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <h1>Log In</h1>
 
         <br>
         <h6 class="label">Email address:</h6>
-        <input type="email" class="form-control" id="userName" formControlName="userName" placeholder="Enter Username"  [ngClass]="{'is-invalid': loginForm.get('userName')?.invalid && (loginForm.get('userName')?.dirty || loginForm.get('userName')?.touched)}">
+        <input type="email" class="form-control" id="userName" formControlName="userName" placeholder="Enter Username"
+          [ngClass]="{'is-invalid': loginForm.get('userName')?.invalid && (loginForm.get('userName')?.dirty || loginForm.get('userName')?.touched)}">
         <label for="">Username is required Enter a valid email address</label><br>
         <div
-        *ngIf="loginForm.get('userName')?.invalid && (loginForm.get('userName')?.dirty || loginForm.get('userName')?.touched)"
-        class="invalid-feedback">
-        Email must be a valid email address
-      </div><br>
+          *ngIf="loginForm.get('userName')?.invalid && (loginForm.get('userName')?.dirty || loginForm.get('userName')?.touched)"
+          class="invalid-feedback">
+          Email must be a valid email address
+        </div><br>
         <h6 class="label">Password:</h6>
         <div style="position: relative; width: 100%;">
-          <input type="password" class="form-control" id="passWord" [type]="showPassword ? 'text' : 'password'" formControlName="passWord" placeholder="Enter Password" [ngClass]="{'is-invalid': loginForm.get('passWord')?.invalid && (loginForm.get('passWord')?.dirty || loginForm.get('passWord')?.touched)}">
+          <input type="password" class="form-control" id="passWord" [type]="showPassword ? 'text' : 'passWord'"
+            formControlName="passWord" placeholder="Enter Password"
+            [ngClass]="{'is-invalid': loginForm.get('passWord')?.invalid && (loginForm.get('passWord')?.dirty || loginForm.get('passWord')?.touched)}">
           <div class="eye">
-              <i alt="show" class="far fa-eye eye-show" 
-              (click)="showPassword = !showPassword"
+            <i alt="show" class="far fa-eye eye-show" (click)="showPassword = !showPassword"
               [class.hide]="showPassword"></i>
-              <i alt="hide" class="far fa-eye-slash eye-hide" 
-              (click)="showPassword = !showPassword"
+            <i alt="hide" class="far fa-eye-slash eye-hide" (click)="showPassword = !showPassword"
               [class.hide]="!showPassword"></i>
           </div>
         </div>
@@ -38,8 +42,8 @@
           lowercase letter and 1 number</label><br>
         <div class="cf">
           <div class="rem">
-            <input type="checkbox">
-            <h6>Remember Me</h6>
+            <!-- <input type="checkbox"> -->
+            <!-- <h6>Remember Me</h6> -->
           </div>
           <h6><a style="float: right; cursor: pointer" cFormCheckLabel for="checkOne" (click)="forgotPassword()">forgot
               password ?</a></h6>
@@ -47,7 +51,7 @@
         <button type="submit" [disabled]="!loginForm.valid" (click)="onSubmit()" style="font-weight: bold;
         font-size: x-large;">Login</button><br>
         <app-loader *ngIf="loader"></app-loader>
-      </div>
+      </form>
     </div>
   </div>
 </div>

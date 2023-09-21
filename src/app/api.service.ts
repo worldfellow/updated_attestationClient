@@ -89,6 +89,8 @@ export class ApiService {
   //new api's========================================================================================================================================================
 
   addUserEducationalDetails(formdata: any, degree: any) {
+    console.log('::::::::',formdata);
+    
     return this.httpClient.post(`${this.baseUrl}/student/educationalDetails`, { "formdata": formdata, "degree": degree });
   }
 
@@ -188,6 +190,8 @@ export class ApiService {
   }
 
   getAppliedUserDetail() {
+    console.log('!!!!!!!!!!1111');
+    
     return this.httpClient.get(`${this.baseUrl}/student/getAppliedUserDetail`);
   }
 
@@ -416,5 +420,13 @@ export class ApiService {
 
   createCaptcha() {
     return this.httpClient.get(`${this.baseUrl}/student/createCaptcha`)
+  }
+  
+  verifyOtp(otp: any, email: any) {
+    return this.httpClient.post(`${this.baseUrl}/student/verifyOtp`, { "otp": otp, "email":email })
+  }
+
+  checkEmailExist(email: any) {
+    return this.httpClient.post(`${this.baseUrl}/student/checkEmailExist`, { "email":email })
   }
 }    

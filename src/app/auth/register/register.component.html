@@ -1,99 +1,229 @@
 <div class="bgimg">
-    <img style="height: 100vh; width: 100vw; position: absolute; z-index: -1;" src="../../../assets/IMG/gf-01.jpg" alt="">
+    <img style="height: 100vh; width: 100vw; position: absolute; z-index: -1;" src="../../../assets/IMG/gf-01.jpg"
+        alt="">
     <div class="bgb">
-        <div class="mcr">
-
-            <div class="row">
-                <h6 class="col-md-4">Already have an account ?<a routerLink="/login">Login</a></h6>
-                <div class="col-md-4" style="height: 150px; overflow: hidden;">
-                    <img style="height: 200px; width: 100%; margin-top: -20px;"
-                        src="../../../assets/IMG/UM Logo (632 × 505 px).svg" alt="">
+        <div class="mcr" *ngIf="registerPage">
+            <form [formGroup]="registerForm" (ngSubmit)="proceed()">
+                <div class="row">
+                    <h6 class="col-md-4">Already have an account ?<a routerLink="/login">Login</a></h6>
+                    <div class="col-md-4" style="height: 150px; overflow: hidden;">
+                        <img style="height: 200px; width: 100%; margin-top: -20px;"
+                            src="../../../assets/IMG/UM Logo (632 × 505 px).svg" alt="">
+                    </div>
+                    <h6 style="text-align: center;" class="col-md-4">English <img
+                            src="https://img.icons8.com/external-those-icons-fill-those-icons/15/external-down-arrows-those-icons-fill-those-icons-1.png"
+                            alt="external-down-arrows-those-icons-fill-those-icons-1" /></h6>
                 </div>
-                <h6 style="text-align: center;" class="col-md-4">English <img
-                        src="https://img.icons8.com/external-those-icons-fill-those-icons/15/external-down-arrows-those-icons-fill-those-icons-1.png"
-                        alt="external-down-arrows-those-icons-fill-those-icons-1" /></h6>
-            </div>
-            <h1 style="text-align: center; color: DodgerBlue;">Register</h1>
-            <br>
-            <div style="display: flex; width: 100%; justify-content: space-between;">
-                <div style="width: 45%;">
-                    <h6 for="input-name">Applicant First Name:</h6>
-                    <input class="form-control" type="text" placeholder="First Name">
+                <h1 style="text-align: center; color: DodgerBlue;">Register</h1>
+                <br>
+                <div style="display: flex; width: 100%; justify-content: space-between;">
+                    <div style="width: 45%;">
+                        <h6 for="input-name">Applicant First Name:</h6>
+                        <input class="form-control" type="text" placeholder="First Name" formControlName="nameCtrl"
+                            [ngClass]="{'is-invalid': registerForm.get('nameCtrl')?.invalid && (registerForm.get('nameCtrl')?.dirty || registerForm.get('nameCtrl')?.touched)}">
+                    </div>
+                    <div style="width: 45%;">
+                        <h6 for="input-name">Applicant Last Name:</h6>
+                        <input class="form-control" type="text" placeholder="Last Name" formControlName="surnameCtrl"
+                            [ngClass]="{'is-invalid': registerForm.get('surnameCtrl')?.invalid && (registerForm.get('surnameCtrl')?.dirty || registerForm.get('surnameCtrl')?.touched)}">
+                    </div>
                 </div>
-                <div style="width: 45%;">
-                    <h6 for="input-name">Applicant Last Name:</h6>
-                    <input class="form-control" type="text" placeholder="Last Name">
+                <br>
+                <h6 for="input-name">Gender:</h6>
+                <div class="radiobtn">
+                    <input class="ra" value="Male" type="radio" id="radio-1" formControlName="genderCtrl" />
+                    <label class="radio" for="radio-1"></label>
+                    <h6 class="lb" for="radio-1">Male</h6>
+                    <input class="ra" value="Female" type="radio" id="radio-2" formControlName="genderCtrl" />
+                    <label class="radio" for="radio-2"></label>
+                    <h6 class="lb" for="radio-2">Female</h6>
+                    <input class="ra" value="Others" type="radio" id="radio-3" formControlName="genderCtrl" />
+                    <label class="radio" for="radio-3"></label>
+                    <h6 class="lb" for="radio-3">Others</h6>
                 </div>
-            </div>
-            <br>
-            <h6 for="input-name">Gender:</h6>
-            <div class="radiobtn">
-                <input class="ra" value="Male" type="radio" id="radio-1" name="group" />
-                <label class="radio" for="radio-1"></label>
-                <h6 class="lb" for="radio-1">Male</h6>
-                <input class="ra" value="Female" type="radio" id="radio-2" name="group" />
-                <label class="radio" for="radio-2"></label>
-                <h6 class="lb" for="radio-2">Female</h6>
-                <input class="ra" value="Others" type="radio" id="radio-3" name="group" />
-                <label class="radio" for="radio-3"></label>
-                <h6 class="lb" for="radio-3">Others</h6>
-            </div>
-            <br>
-            <h6 for="input-email">Email Address:</h6>
-            <input class="form-control" type="email" placeholder="Email address">
-            <br>
-            <div style="display: flex; width: 100%; justify-content: space-between;">
-                <div style="width: 45%;">
-                    <h6 for="input-password">Password:</h6>
-                    <div style="position: relative; width: 100%;">
-                        <input class="form-control" type="password" placeholder="Enter Password">
-                        <div class="eye">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                <br>
+                <h6 for="input-email">Email Address:</h6>
+                <input class="form-control" type="email" placeholder="Email address" formControlName="emailCtrl"
+                    (keyup)="onKeyPress($event)"
+                    [ngClass]="{'is-invalid': registerForm.get('emailCtrl')?.invalid && (registerForm.get('emailCtrl')?.dirty || registerForm.get('emailCtrl')?.touched)}">
+                <br>
+                <div style="display: flex; width: 100%; justify-content: space-between;">
+                    <div style="width: 45%;">
+                        <h6 for="input-password">Password:</h6>
+                        <div style="position: relative; width: 100%;">
+                            <input class="form-control" type="password" id="passWord" placeholder="Enter Password" [type]="showPassword ? 'text' : 'passWord'"
+                                formControlName="passwordCtrl"
+                                [ngClass]="{ 'is-invalid': submitted && f['passwordCtrl'].errors }">
+                            <div class="eye">
+                                <i alt="show" class="far fa-eye eye-show" 
+                                (click)="showPassword = !showPassword"
+                                [class.hide]="showPassword"></i>
+                                <i alt="hide" class="far fa-eye-slash eye-hide" 
+                                (click)="showPassword = !showPassword"
+                                [class.hide]="!showPassword"></i>
+                            </div>
+                            <!-- <p-password [style]="{'width':'100%', 'height':'40px'}" [toggleMask]="true"
+                                formControlName="passwordCtrl" [feedback]="false" placeholder="Type Password"
+                                [ngClass]="{ 'is-invalid': submitted && f['passwordCtrl'].errors }"></p-password> -->
+                            <div *ngIf="(f['passwordCtrl'].invalid || f['passwordCtrl'].touched) && (f['passwordCtrl'].touched || submitted)"
+                                class="invalid-feedback">
+                                <div
+                                    *ngIf="f['passwordCtrl'].invalid && f['passwordCtrl'].errors?.hasOwnProperty('required')">
+                                    Password
+                                    is required</div>
+                                <div *ngIf="f['passwordCtrl']?.errors?.hasOwnProperty('minlength')">Password must be at
+                                    least 6
+                                    characters</div>
+                            </div>
+                            <div *ngIf=" !submitted && f['passwordCtrl']?.errors?.hasOwnProperty('minlength')"
+                                style="font-size: 13px; color: #de5555;">Password must be at least 6 characters
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 45%;">
+                        <h6 for="input-re-password">Confirm Password:</h6>
+                        <div style="position: relative; width: 100%;">
+                            <input class="form-control" type="password" id="passWord" placeholder="Enter Password" [type]="showConfmPassword ? 'text' : 'passWord'"
+                                formControlName="confmPasswordCtrl"
+                                [ngClass]="{ 'is-invalid': submitted && f['confmPasswordCtrl'].errors }">
+                            <div class="eye">
+                                <i alt="show" class="far fa-eye eye-show" (click)="showConfmPassword = !showConfmPassword"
+                                    [class.hide]="showConfmPassword"></i>
+                                <i alt="hide" class="far fa-eye-slash eye-hide" (click)="showConfmPassword = !showConfmPassword"
+                                    [class.hide]="!showConfmPassword"></i>
+                            </div>
+                            <!-- <p-password [style]="{'width':'100%', 'height':'40px'}" formControlName="confmPasswordCtrl"
+                                [feedback]="false" placeholder="Re-Type Password"
+                                [ngClass]="{ 'is-invalid': submitted && f['confmPasswordCtrl'].errors }"
+                                [toggleMask]="true"></p-password> -->
+                        </div>
+                        <div *ngIf="submitted && f['confmPasswordCtrl'].errors"
+                            style="font-size: 13px; color: #de5555;">
+                            <div *ngIf="f['confmPasswordCtrl'].errors['required']">Confirm Password is required</div>
+                            <div *ngIf="f['confmPasswordCtrl'].errors['mustMatch']">Passwords doesn't match</div>
+                        </div>
+                        <div *ngIf="!submitted && f['confmPasswordCtrl'].errors"
+                            style="font-size: 13px; color: #de5555;">
+                            <div *ngIf="f['confmPasswordCtrl'].errors['mustMatch']">Passwords doesn't match</div>
                         </div>
                     </div>
                 </div>
-                <div style="width: 45%;">
-                    <h6 for="input-re-password">Confirm Password:</h6>
-                    <div style="position: relative; width: 100%;">
-                        <input class="form-control" type="password" placeholder="Enter Password">
-                        <div class="eye">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                        </div>
+                <br>
+                <div style="display: flex;justify-content: space-between;">
+                    <h6 for="inputMobile">Country Code and Mobile number <span style="color:red;">*</span></h6>
+                    <div style="display: flex;">
+                        <input type="checkbox" formControlName="sameWappNoCtrl">
+                        <h6 for="" style="margin-left: 10px;">Same as WhatsApp No?</h6>
                     </div>
                 </div>
-            </div>
-            <br>
-            <div style="display: flex;justify-content: space-between;">
-                <h6 for="inputMobile">Country Code and Mobile number <span style="color:red;">*</span></h6>
-                <div style="display: flex;">
-                    <input type="checkbox">
-                    <h6 for="" style="margin-left: 10px;">Same as WhatsApp No?</h6>
+                <div class="number">
+                    <!-- <select id="country" name="country" formControlName="countryCtrl">
+                        <option *ngFor="let country of countriesList" value="{{country.phonecode}}">{{country.name}}
+                        </option>
+                    </select> -->
+                    <mat-select id="countrySelect" class="form-control" placeholder="Select Country"
+                        formControlName="countryCtrl"
+                        style="background-color:  #46d465;color:black;height: 40px; width: 20%;font-weight: bold;">
+                        <mat-option id="mat" *ngFor="let country of countriesList"
+                            value="{{country.phonecode}}">{{country.name}} (+{{ country.phonecode }})</mat-option>
+                    </mat-select>
+                    <input type="number" formControlName="mobileNoCtrl"
+                        [ngClass]="{'is-invalid': registerForm.get('mobileNoCtrl')?.invalid && (registerForm.get('mobileNoCtrl')?.dirty || registerForm.get('mobileNoCtrl')?.touched)}">
                 </div>
-            </div>
-            <div class="number">
-                <select id="country" name="country">
-                    <option>select country</option>
-                    <option value="AF">Afghanistan</option>
-                    <option value="AX">Aland Islands</option>
-                    <option value="AL">Albania</option>
-                    <option value="DZ">Algeria</option>
-                    <option value="AS">American Samoa</option><i class="fa fa-eye"></i>
-                    <option value="IN">India</option>
-                </select>
-                <input type="number">
-            </div>
-            <br><br>
-            <div class="Captcha">
-                <div></div>
-                <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/60/refresh--v1.png"
-                    alt="refresh--v1" />
-                <input type="text">
-            </div>
-            <br>
-            <div style="width: 100%; display: flex;justify-content: center;">
-                <button (click)="Register()">Proceed</button>
+                <br><br>
+                <div class="Captcha">
+                    <div class="captcha-div">{{captchaUrl}}</div>
+                    <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/60/refresh--v1.png"
+                        alt="refresh--v1" (click)="getCaptcha()" />
+                    <input type="text" formControlName="captchaCtrl"
+                        [ngClass]="{'is-invalid': registerForm.get('captchaCtrl')?.invalid && (registerForm.get('captchaCtrl')?.dirty || registerForm.get('captchaCtrl')?.touched)}">
+                </div>
+                <br>
+                <div style="width: 100%; display: flex;justify-content: center;">
+                    <button>Proceed</button>
+                </div>
+            </form>
+        </div>
+        <div class="mcr2" *ngIf="instructionPage">
+            <div class="card-body">
+                <h3 class="card-title">Please review and consider the following before continuing:</h3>
+                <br>
+                <form [formGroup]="instructionForm">
+                    <section class="example-section" [ngClass]="{'disabled-section': isSectionDisabled}">
+                        <span class="example-list-section">
+                            <mat-checkbox class="example-margin" formControlName="instructionCtrl1"
+                                [(ngModel)]="instruction1" (onChange)="onInstructionChange($event)">
+                                The colleges that I am considering for application may communicate with me by
+                                mail,
+                                email, phone or text message prior to submission of my application (you can
+                                change
+                                this
+                                response later within your account settings).
+                            </mat-checkbox>
+                        </span>
+                    </section>
+                    <br>
+                    <section class="example-section" [ngClass]="{'disabled-section': isSectionDisabled}">
+                        <span class="example-list-section">
+                            <mat-checkbox class="example-margin" formControlName="instructionCtrl2"
+                                [(ngModel)]="instruction2" (onChange)="onInstructionChange($event)">
+                                The Mumbai University may communicate with me by mail, email, phone or text
+                                message
+                                about my account and other information relevant to the admission application
+                                process
+                                (you can change this response later within your account settings).
+                            </mat-checkbox>
+                        </span>
+                    </section>
+                    <br>
+                    <section class="example-section">
+                        <span class="example-list-section">
+                            <mat-checkbox class="example-margin" formControlName="instructionCtrl3"
+                                (onChange)="onInstructionChange($event)">
+                                By checking this box, I represent that (i) I am age 13 or older and (ii) I have
+                                read,
+                                understood and agreed to the terms and conditions of the Terms of Use and
+                                Privacy
+                                Policy
+                                (unless I am over the age of 13 but under the age of 18, in which case, my
+                                parent or
+                                legal guardian has also read, understood and agreed to the terms and conditions
+                                of
+                                the
+                                Privacy Policy and Terms of Use sections).
+                            </mat-checkbox>
+                        </span>
+                    </section>
+                    <br>
+                    <section class="example-section">
+                        <span class="example-list-section">
+                            <mat-checkbox class="example-margin" formControlName="instructionCtrl4"
+                                (onChange)="onInstructionChange($event)">
+                                I accept that (I) Fees paid is not refundable And (II) All the information
+                                filled by
+                                me
+                                is true.
+                            </mat-checkbox>
+                        </span>
+                    </section>
+                    <br>
+                    <section class="example-section">
+                        <span class="example-list-section">
+                            <mat-checkbox class="example-margin" formControlName="instructionCtrl5"
+                                (onChange)="onInstructionChange($event)">
+                                The Mumbai University website uses small files stored on your computer, known as
+                                cookies, that help us remember your settings and ensure the website works
+                                properly.
+                                By
+                                continuing, I am agreeing to The Mumbai University's use of cookies.
+                            </mat-checkbox>
+                        </span>
+                    </section>
+                    <br>
+                    <div style="width: 100%; display: flex; justify-content: center;">
+                        <button (click)="Register()">Accept & Register</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -107,42 +237,40 @@
         <p>Please enter the OTP sent to your mobile number.</p>
         <br>
         <form class="OTP">
-            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 1)" />
-            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 2)" />
-            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 3)" />
-            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 4)" />
-            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 5)" />
-            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 6)" />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 1)" #otp1Value />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 2)" #otp2Value />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 3)" #otp3Value />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 4)" #otp4Value />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 5)" #otp5Value />
+            <input type="text" maxlength="1" class="otp-input" oninput="focusNextInput(event, 6)" #otp6Value />
         </form>
         <br>
         <div style="display: flex;">
-            <button>Verify</button>
+            <button
+                (click)="verifyOTP(otp1Value.value, otp2Value.value, otp3Value.value, otp4Value.value, otp5Value.value, otp6Value.value)">Verify</button>
             <button (click)="GwtnewOTP()">Gwt new OTP</button>
         </div>
     </div>
 </p-dialog>
 <p-dialog [(visible)]="displayNo2" [modal]="true" [responsive]="true">
     <p-header>
-        <h2>Verify OTP</h2>
+        <h2>Get New OTP</h2>
     </p-header>
     <div style="min-width: 30vw;">
         <label for="inputMobile">Country Code and Mobile number <span style="color:red;">*</span></label>
         <br><br>
         <div class="number">
             <select id="country" name="country">
-                <option>select country</option>
-                <option value="AF">Afghanistan</option>
-                <option value="AX">Aland Islands</option>
-                <option value="AL">Albania</option>
-                <option value="DZ">Algeria</option>
-                <option value="AS">American Samoa</option><i class="fa fa-eye"></i>
-                <option value="IN">India</option>
+                <option *ngFor="let country of countriesList" value="{{country.phonecode}}">{{country.name}}
+                </option>
             </select>
             <input type="number">
         </div>
         <br>
+
         <div style="display: flex; justify-content: center;">
             <button (click)="Register()">Proceed</button>
         </div>
     </div>
 </p-dialog>
+<p-confirmDialog [style]="{width: '70vw'}"></p-confirmDialog>

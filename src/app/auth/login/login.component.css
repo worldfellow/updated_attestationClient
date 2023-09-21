@@ -31,6 +31,3 @@
 .card-footer p-button:not(:last-child) {
   margin-right: 8px;
 }
-.hide {
-  display: none;
-}

@@ -17,6 +17,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { LoaderComponent } from '../loader/loader.component'; 
 import { RouterModule, Routes } from '@angular/router';
 import { PasswordModule } from 'primeng/password';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 // import { AuthInterceptor } from '../auth-interceptor';
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -45,7 +47,9 @@ import { PasswordModule } from 'primeng/password';
     InputTextModule,
     ConfirmDialogModule,
     RouterModule,
-    PasswordModule
+    PasswordModule,
+    MatCheckboxModule,
+    MatSelectModule,
   ],
   exports : [
     RouterModule, 

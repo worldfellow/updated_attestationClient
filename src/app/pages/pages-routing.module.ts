@@ -41,11 +41,11 @@ const routes: Routes = [{
       component : DashboardComponent,
       canActivate: [AuthGuard],
     },
-    {
-      path : '',
-      component : DashboardComponent,
-      canActivate: [AuthGuard],
-    },
+    // {
+    //   path : '',
+    //   component : DashboardComponent,
+    //   canActivate: [AuthGuard],
+    // },
     {
       path : 'attestation_page',
       component : NewAttestationComponent,

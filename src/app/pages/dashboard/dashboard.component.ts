@@ -53,6 +53,8 @@ export class DashboardComponent implements OnInit {
       this.documentDetails = data.documentDetails;
       this.purposeDetails = data.purposeDetails;
       this.paymentDetails = data.paymentDetails;
+      console.log('WWWWWWWWWWWWWWWW',this.paymentDetails);
+      
     });
   }
 

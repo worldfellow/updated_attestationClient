@@ -426,17 +426,22 @@ export class AddInstitutionDialogComponent {
 
         if (this.user_type == 'student') {
           if (this.purpose_name == "Educational credential evaluators WES") {
-            this.api.getwesdetails(this.institutionForm.controls['allRefNo'].value, this.institutionForm.controls['wesEmail'].value, this.institutionForm.controls['wesName'].value, this.institutionForm.controls['wesSurname'].value).subscribe(async (data: any) => {
-              if (data['status'] == 400) {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
-              } else {
-                var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-                this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
-                  this.notesSaved.emit(data);
-                  this.dialogRef.close(data);
-                });
-              }
-            })
+            // this.api.getwesdetails(this.institutionForm.controls['allRefNo'].value, this.institutionForm.controls['wesEmail'].value, this.institutionForm.controls['wesName'].value, this.institutionForm.controls['wesSurname'].value).subscribe(async (data: any) => {
+            //   if (data['status'] == 400) {
+            //     this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
+            //   } else {
+            //     var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+            //     this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+            //       this.notesSaved.emit(data);
+            //       this.dialogRef.close(data);
+            //     });
+            //   }
+            // })
+            var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+              this.notesSaved.emit(data);
+              this.dialogRef.close(data);
+            });
           } else {
             var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
             this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {

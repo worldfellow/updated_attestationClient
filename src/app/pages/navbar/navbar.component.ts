@@ -34,11 +34,6 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['pages/helps']);
   }
 
-  /** viewCart function to navigate to view cart components*/
-  viewCart() {
-    this.router.navigate(['pages/dashboard/cart']);
-  }
-
   /** view profile function to navigate to profile component */
   viewProfile() {
     this.router.navigate(['pages/profile']);
