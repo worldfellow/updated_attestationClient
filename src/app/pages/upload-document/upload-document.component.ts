@@ -163,6 +163,7 @@ export class UploadDocumentComponent implements OnInit {
         this.gradToPer = userApplied.gradToPer;
         this.LetterforNameChange = userApplied.LetterforNameChange;
         this.phd = userApplied.isphd;
+        this.cdr.detectChanges(); // Manually trigger change detection after updating properties
       }
     });
   }
@@ -187,6 +188,7 @@ export class UploadDocumentComponent implements OnInit {
       this.gradToPer = userApplied.gradToPer;
       this.LetterforNameChange = userApplied.LetterforNameChange;
       this.phd = userApplied.isphd;
+      this.cdr.detectChanges(); // Manually trigger change detection after updating properties
     });
 
     this.token = JSON.parse(localStorage.getItem('user')!);
@@ -643,8 +645,7 @@ export class UploadDocumentComponent implements OnInit {
         this.topicChangePhd = data['data'][8];
         this.convocationDisplay = data['data'][9];
         this.convocationData = data['data'][10];
-        console.log('convocationDisplay', this.convocationDisplay);
-        console.log('convocationData', this.convocationData);
+        this.cdr.detectChanges(); // Manually trigger change detection after updating properties
       }
     });
   }
