@@ -429,4 +429,8 @@ export class ApiService {
   checkEmailExist(email: any) {
     return this.httpClient.post(`${this.baseUrl}/student/checkEmailExist`, { "email":email })
   }
+
+  checkStudentPaid() {
+    return this.httpClient.get(`${this.baseUrl}/student/checkStudentPaid`)
+  }
 }    

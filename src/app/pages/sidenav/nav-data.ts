@@ -12,6 +12,29 @@ export const navbarData = {
             label: 'Profile',
         },
         {
+            routeLink: 'payment-issue',
+            icon: 'fa fa-wallet',
+            label: 'Payment Issue',
+        },
+        {
+            routeLink: 'helps',
+            icon: 'fa fa-handshake',
+            label: 'Help',
+        },
+    ],
+
+    paidStudentMenu : [
+        {
+            routeLink: 'dashboard',
+            icon: 'fa fa-home',
+            label: 'Dashboard',
+        },
+        {
+            routeLink: 'profile',
+            icon: 'fa fa-user',
+            label: 'Profile',
+        },
+        {
             routeLink: 'my-applications',
             icon: 'fa fa-folder-open',
             label: 'My Applications',

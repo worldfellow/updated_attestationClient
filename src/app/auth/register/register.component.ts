@@ -5,6 +5,12 @@ import { ApiService } from 'src/app/api.service';
 import Swal from 'sweetalert2';
 import { ConfirmationService } from 'primeng/api';
 
+interface AutoCompleteCompleteEvent {
+  originalEvent: Event;
+  query: string;
+}
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -38,6 +44,8 @@ export class RegisterComponent implements OnInit {
   defaultSelect: any;
   public showPassword: boolean;
   public showConfmPassword: boolean;
+  countrySelect: any;
+  mobNo: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -169,8 +177,12 @@ export class RegisterComponent implements OnInit {
   verifyCaptcha() { }
 
   Register() {
+    console.log('JJJJJJJJJJJJJ',this.countrySelect);
+    console.log('IIIIIIIIIII',this.mobNo);
+    
     if (this.instructionForm.valid) {
       this.displayNo1 = true;
+      this.displayNo2 = false;
     } else {
       Swal.fire("Ooops", 'Invalid Details!', 'error');
     }
@@ -178,7 +190,7 @@ export class RegisterComponent implements OnInit {
 
   verifyOTP(otp1Value: string, otp2Value: string, otp3Value: string, otp4Value: string, otp5Value: string, otp6Value: string) {
     this.otp = otp1Value + otp2Value + otp3Value + otp4Value + otp5Value + otp6Value;
-
+    this.displayNo1 = false;
     this.api.verifyOtp(this.otp, this.registerForm.value.emailCtrl).subscribe((data: any) => {
       if (data['status'] == 200) {
         Swal.fire("Congratulations", data.message, 'success');

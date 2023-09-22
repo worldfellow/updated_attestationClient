@@ -165,8 +165,10 @@ export class CollegeDetailsComponent implements OnInit {
 
   saveCollegeDetails() {
     var data=[];
+    console.log('aaaaaaaaa',this.CollegeDetails.controls['semYearCtrl'].value['value']);
+    
     data.push({'collegeId' : this.CollegeDetails.controls['collegeNameCtrl'].value['id'] , 'faculty' :this.CollegeDetails.controls['courseNameCtrl'].value['faculty'] ?  this.CollegeDetails.controls['courseNameCtrl'].value['faculty'] : this.faculty
-    , 'degree' : this.CollegeDetails.controls['courseNameCtrl'].value['degree'] ? this.CollegeDetails.controls['courseNameCtrl'].value['degree'] : this.degree,'whichduration' : this.CollegeDetails.controls['semYearCtrl'].value,'user_id' : this.user_id , "file_name" : this.file_name , 'pattern' : this.pattern})
+    , 'degree' : this.CollegeDetails.controls['courseNameCtrl'].value['degree'] ? this.CollegeDetails.controls['courseNameCtrl'].value['degree'] : this.degree,'whichduration' : this.CollegeDetails.controls['semYearCtrl'].value,'user_id' : this.user_id , "file_name" : this.file_name , 'pattern' : this.CollegeDetails.controls['semYearCtrl'].value['value']})
     console.log('data' , data)
     this.api.saveUserMarkList(this.app_id,this.type,data).subscribe( (data: any) => {
       console.log('datadatadatadata',data)

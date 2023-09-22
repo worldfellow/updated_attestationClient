@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit, Output } from '@angular/core';
 import { navbarData } from './nav-data';
 import { EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/api.service';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -25,6 +26,7 @@ export class SidenavComponent implements OnInit {
   user_roles: any;
 
   constructor(
+    protected api: ApiService,
     private router: Router,
   ) { }
 
@@ -46,7 +48,13 @@ export class SidenavComponent implements OnInit {
       
 
     if(this.user_type == 'student'){
-      this.navData = navbarData.studentMenu;
+      this.api.checkStudentPaid().subscribe((data:any)=>{
+        if(data['status'] == 200){
+          this.navData = navbarData.paidStudentMenu;
+        }else{
+          this.navData = navbarData.studentMenu;
+        }
+      })
       console.log('this.navData11111',this.navData);
     }else{
       this.navData = navbarData.adminMenu;

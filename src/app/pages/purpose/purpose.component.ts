@@ -76,6 +76,7 @@ export class PurposeComponent {
     this.api.getHrdData('', '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
         this.hrdData = data['data'];
+        console.log('JJJJJJJJJJJJJJJ',this.hrdData);
       }
     })
   }

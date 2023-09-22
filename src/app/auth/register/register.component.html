@@ -229,6 +229,8 @@
     </div>
 </div>
 <router-outlet></router-outlet>
+
+<!-- user will verify his otp -->
 <p-dialog [(visible)]="displayNo1" [modal]="true" [responsive]="true">
     <p-header>
         <h2>Verify OTP</h2>
@@ -248,23 +250,24 @@
         <div style="display: flex;">
             <button
                 (click)="verifyOTP(otp1Value.value, otp2Value.value, otp3Value.value, otp4Value.value, otp5Value.value, otp6Value.value)">Verify</button>
-            <button (click)="GwtnewOTP()">Gwt new OTP</button>
+            <button (click)="GwtnewOTP()">Get new OTP</button>
         </div>
     </div>
 </p-dialog>
+
+<!-- user filled country and his mobile number -->
 <p-dialog [(visible)]="displayNo2" [modal]="true" [responsive]="true">
     <p-header>
         <h2>Get New OTP</h2>
     </p-header>
     <div style="min-width: 30vw;">
-        <label for="inputMobile">Country Code and Mobile number <span style="color:red;">*</span></label>
-        <br><br>
-        <div class="number">
-            <select id="country" name="country">
-                <option *ngFor="let country of countriesList" value="{{country.phonecode}}">{{country.name}}
-                </option>
-            </select>
-            <input type="number">
+        <div class="row">
+            <div class="col-md-4">
+                <p-dropdown [options]="countriesList" [(ngModel)]="countrySelect" optionLabel="name" optionValue="phonecode"></p-dropdown>
+            </div>
+            <div class="col-md-8">
+                <input style="width: 100%;" type="text" placeholder="Enter Mobile Number" pInputText [(ngModel)]="mobNo" />
+            </div>
         </div>
         <br>
 

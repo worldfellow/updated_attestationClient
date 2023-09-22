@@ -53,6 +53,8 @@ export class PreviewApplicationComponent {
     this.api.preViewApplication().subscribe((data: any) => {
       if (data['status'] == 200) {
         this.education_details = data['data'][0].educationalDetails[0];
+        console.log('KKKKKKKKK',this.education_details);
+        
         this.college_data = data['data'][0].collegeData;
         this.marksheets_data = data['data'][0].marksheetsData;
         this.transcripts_data = data['data'][0].transcriptsData;

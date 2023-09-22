@@ -19,7 +19,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { PasswordModule } from 'primeng/password';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-
+import { DropdownModule } from 'primeng/dropdown';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 // import { AuthInterceptor } from '../auth-interceptor';
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -50,6 +51,8 @@ import { MatSelectModule } from '@angular/material/select';
     PasswordModule,
     MatCheckboxModule,
     MatSelectModule,
+    DropdownModule,
+    AutoCompleteModule,
   ],
   exports : [
     RouterModule, 
