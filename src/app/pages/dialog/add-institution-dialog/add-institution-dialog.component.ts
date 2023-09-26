@@ -34,8 +34,11 @@ export interface DialogData {
 
               <div class="row">
                 <div class="col-md-12" style ="color: red;">
-                  <p >Note :1. Document uploaded will be provided to the concerned agency/university , university does not check if your document meet their requirements.
-                    <span *ngIf = "purpose_name == 'IQAS' || purpose_name == 'ICES' || purpose_name == 'NASBA'">2. Documents will send on all email addresses</span> 
+                  <div style ="text-align: left; font-size: 20px; font-weight: bold;">Note :</div>
+                  <p >1. Document uploaded will be provided to the concerned agency/university , university does not check if your document meet their requirements.
+                    <span *ngIf = "purpose_name == 'IQAS' || purpose_name == 'ICES' || purpose_name == 'NASBA'">
+                      <p style ="text-align: left;">2. Documents will send on all email addresses</p>
+                    </span> 
                   </p>
                 </div>
               </div>
@@ -44,7 +47,7 @@ export interface DialogData {
                 <div class="col-md-4">Ref No:<span *ngIf="purpose_name == 'Further study' || purpose_name == 'Employment' || purpose_name == 'Visa'" style="color : red; font-size: 13px;">(Input the reference number of the recipient University/Agency wherein you want to send the documents)</span></div>
                 <div class="col-md-1">MU-</div>
                 <div class="col-md-7" *ngIf="purpose_name == 'Educational credential evaluators WES' || purpose_name == 'Further study' || purpose_name == 'Employment' || purpose_name == 'Visa' || purpose_name == 'Others' || purpose_name == 'ICAS' || purpose_name == 'IQAS' || purpose_name == 'NASBA' || purpose_name == 'National Committee on Accreditation'">
-                  <input type="text" [(ngModel)]="ref_numbers" class="form-control" formControlName="allRefNo" (keypress)="numberOnly($event)" minlength="7" maxlength="8" [ngClass]="{'is-invalid': allRefNo.invalid && (allRefNo.dirty || allRefNo.touched)}">
+                  <input type="text" [(ngModel)]="ref_numbers" class="form-control" formControlName="allRefNo" (keypress)="numberOnly($event)" minlength="7" maxlength="8" [ngClass]="{'is-invalid': institutionForm.get('allRefNo')?.invalid && (institutionForm.get('allRefNo')?.dirty || institutionForm.get('allRefNo')?.touched)}">
                   <mat-hint *ngIf="purpose_name == 'Educational credential evaluators WES'">Enter 7-digit numeric values.</mat-hint>
                   <mat-hint *ngIf="purpose_name == 'IQAS'">Enter 6-digit numeric values only.</mat-hint>
                   <mat-hint *ngIf="purpose_name == 'CES' || purpose_name == 'MYIEE' || purpose_name == 'ICES' || purpose_name == 'NCEES' || purpose_name == 'UK NARIC / UK ENIC / ECCTIS'">Enter alphanumeric values.</mat-hint>
@@ -52,7 +55,7 @@ export interface DialogData {
                   <br>                
                 </div>
                 <div class="col-md-7" *ngIf="purpose_name == 'CES' || purpose_name == 'MYIEE' || purpose_name == 'ICES' || purpose_name == 'NCEES' || purpose_name == 'UK NARIC / UK ENIC / ECCTIS'">
-                  <input type="text" [(ngModel)]="ref_numbers" class="form-control" formControlName="allRefNo" [ngClass]="{'is-invalid': allRefNo.invalid && (allRefNo.dirty || allRefNo.touched)}">
+                  <input type="text" [(ngModel)]="ref_numbers" class="form-control" formControlName="allRefNo" [ngClass]="{'is-invalid': institutionForm.get('allRefNo')?.invalid && (institutionForm.get('allRefNo')?.dirty || institutionForm.get('allRefNo')?.touched)}">
                   <mat-hint>Enter alphanumeric values.</mat-hint>
                   <br>
                 </div>
@@ -61,7 +64,7 @@ export interface DialogData {
               <div class="row" *ngIf="wesname" style="margin-bottom : -1px">
                   <div class="col-md-4">Name as per Wes Application/Registration:</div>
                   <div class="col-md-8">
-                    <input type="text" [(ngModel)]="wes_name" class="form-control" formControlName="wesName" pattern="^[ A-Za-z_@./#&+-]*$" [ngClass]="{'is-invalid': wesName.invalid && (wesName.dirty || wesName.touched)}">
+                    <input type="text" [(ngModel)]="wes_name" class="form-control" formControlName="wesName" pattern="^[ A-Za-z_@./#&+-]*$" [ngClass]="{'is-invalid': institutionForm.get('wesName')?.invalid && (institutionForm.get('wesName')?.dirty || institutionForm.get('wesName')?.touched)}">
                     <br>
                   </div>
               </div>
@@ -69,7 +72,7 @@ export interface DialogData {
               <div class="row" *ngIf="wessurname">
                   <div class="col-md-4">Surname as per Wes Application/Registration:</div>
                   <div class="col-md-8">
-                    <input type="text" [(ngModel)]="wes_surname" class="form-control" formControlName="wesSurname" pattern="^[ A-Za-z_@./#&+-]*$" [ngClass]="{'is-invalid': wesSurname.invalid && (wesSurname.dirty || wesSurname.touched)}">
+                    <input type="text" [(ngModel)]="wes_surname" class="form-control" formControlName="wesSurname" pattern="^[ A-Za-z_@./#&+-]*$" [ngClass]="{'is-invalid': institutionForm.get('wesSurname')?.invalid && (institutionForm.get('wesSurname')?.dirty || institutionForm.get('wesSurname')?.touched)}">
                     <br>
                   </div>
               </div>
@@ -77,7 +80,7 @@ export interface DialogData {
               <div class="row" *ngIf="wesemail">
                   <div class="col-md-4">Registered email id as per WES registration:</div>
                   <div class="col-md-8" >
-                    <input type="text" [(ngModel)]="wes_email" class="form-control" formControlName="wesEmail" [ngClass]="{'is-invalid': wesEmail.invalid && (wesEmail.dirty || wesEmail.touched)}">
+                    <input type="text" [(ngModel)]="wes_email" class="form-control" formControlName="wesEmail" [ngClass]="{'is-invalid': institutionForm.get('wesEmail')?.invalid && (institutionForm.get('wesEmail')?.dirty || institutionForm.get('wesEmail')?.touched)}">
                   </div>
               </div>
 
@@ -85,7 +88,7 @@ export interface DialogData {
                   <div class="col-md-4" *ngIf="purpose_name == 'Further study'">University Name:</div>
                   <div class="col-md-4" *ngIf="purpose_name == 'Employment'">Company Name:</div>
                   <div class="col-md-8">
-                    <input type="text" [(ngModel)]="university_compony_name" class="form-control" formControlName="allUniversityCompanyName" pattern="^[ A-Za-z_@./#&+-]*$" [ngClass]="{'is-invalid': allUniversityCompanyName.invalid && (allUniversityCompanyName.dirty || allUniversityCompanyName.touched)}">
+                    <input type="text" [(ngModel)]="university_compony_name" class="form-control" formControlName="allUniversityCompanyName" pattern="^[ A-Za-z_@./#&+-]*$" [ngClass]="{'is-invalid': institutionForm.get('allUniversityCompanyName')?.invalid && (institutionForm.get('allUniversityCompanyName')?.dirty || institutionForm.get('allUniversityCompanyName')?.touched)}">
                     <br>
                   </div>
               </div>
@@ -93,7 +96,7 @@ export interface DialogData {
               <div class="row" *ngIf="allname">
                   <div class="col-md-4">Name:</div>
                   <div class="col-md-8">
-                    <input type="text" [(ngModel)]="names" class="form-control" formControlName="allName" pattern="[A-Za-z]+$" [ngClass]="{'is-invalid': allName.invalid && (allName.dirty || allName.touched)}">
+                    <input type="text" [(ngModel)]="names" class="form-control" formControlName="allName" pattern="[A-Za-z]+$" [ngClass]="{'is-invalid': institutionForm.get('allName')?.invalid && (institutionForm.get('allName')?.dirty || institutionForm.get('allName')?.touched)}">
                     <br>
                   </div>
               </div>
@@ -101,7 +104,7 @@ export interface DialogData {
               <div class="row" *ngIf="countryname">
                 <div class="col-md-4">Country:</div>
                 <div class="col-md-8">
-                  <mat-select *ngIf="countryname" [(ngModel)]="country_names" class="form-control" name="selectedCountry" formControlName="allCountryName" >
+                  <mat-select *ngIf="countryname" [(ngModel)]="country_names" class="form-control" name="selectedCountry" placeholder="Select Country" formControlName="allCountryName">
                     <mat-option *ngFor="let country of Countries" [value]="country.id">
                       {{country.name}}
                     </mat-option>
@@ -118,7 +121,7 @@ export interface DialogData {
               <div class="row" *ngIf="conpername">
                   <div class="col-md-4">Contact Person Name:</div>
                   <div class="col-md-8">
-                    <input type="text" [(ngModel)]="contact_person_names" class="form-control" formControlName="allContactPersonName" pattern="[A-Za-z]+$" [ngClass]="{'is-invalid': allContactPersonName.invalid && (allContactPersonName.dirty || allContactPersonName.touched)}">
+                    <input type="text" [(ngModel)]="contact_person_names" class="form-control" formControlName="allContactPersonName" pattern="[A-Za-z]+$" [ngClass]="{'is-invalid': institutionForm.get('allContactPersonName')?.invalid && (institutionForm.get('allContactPersonName')?.dirty || institutionForm.get('allContactPersonName')?.touched)}">
                     <br>
                   </div>
               </div>
@@ -126,7 +129,7 @@ export interface DialogData {
               <div class="row" *ngIf="contactno">
                   <div class="col-md-4">Contact Number</div>
                   <div class="col-md-8">
-                    <input type="tel" [(ngModel)]="contact_numbers" class="form-control" (keypress)="numberOnly($event)" formControlName="allContactNo" [ngClass]="{'is-invalid': allContactNo.invalid && (allContactNo.dirty || allContactNo.touched)}"> 
+                    <input type="tel" [(ngModel)]="contact_numbers" class="form-control" (keypress)="numberOnly($event)" formControlName="allContactNo" [ngClass]="{'is-invalid': institutionForm.get('allContactNo')?.invalid && (institutionForm.get('allContactNo')?.dirty || institutionForm.get('allContactNo')?.touched)}"> 
                     <br>
                   </div>
               </div>
@@ -134,7 +137,7 @@ export interface DialogData {
               <div class="row" *ngIf="allemail">
                 <div class="col-md-4">Email:</div>
                 <div class="col-md-8">
-                  <input type="text" [(ngModel)]="email_ids" class="form-control" formControlName="allEmail" [ngClass]="{'is-invalid': allEmail.invalid && (allEmail.dirty || allEmail.touched)}">      
+                  <input type="text" [(ngModel)]="email_ids" class="form-control" formControlName="allEmail" [ngClass]="{'is-invalid': institutionForm.get('allEmail')?.invalid && (institutionForm.get('allEmail')?.dirty || institutionForm.get('allEmail')?.touched)}">      
                   <br>
                 </div>
               </div>
@@ -221,17 +224,6 @@ export class AddInstitutionDialogComponent {
   contact_numbers: any;
   email_ids: any;
 
-  //new formcontrols
-  allRefNo: FormControl;
-  wesEmail: FormControl;
-  wesName: FormControl;
-  wesSurname: FormControl;
-  allUniversityCompanyName: FormControl;
-  allName: FormControl;
-  allCountryName: FormControl;
-  allContactPersonName: FormControl;
-  allContactNo: FormControl;
-  allEmail: FormControl;
   user_email: any;
   formData: any;
   saveWes: boolean;
@@ -248,18 +240,6 @@ export class AddInstitutionDialogComponent {
   ) {
     //get list of countries
     this.Countries = this.countries.getData();
-
-    //set validations using form controls
-    this.allRefNo = new FormControl('', [Validators.required, Validators.minLength(7), Validators.maxLength(8)]);
-    this.wesEmail = new FormControl('', [Validators.required, Validators.email]);
-    this.wesName = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
-    this.wesSurname = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
-    this.allUniversityCompanyName = new FormControl('', [Validators.required, Validators.maxLength(200), Validators.minLength(3)]);
-    this.allName = new FormControl('', [Validators.required, Validators.maxLength(200), Validators.minLength(3)]);
-    this.allCountryName = new FormControl('', [Validators.required]);
-    this.allContactPersonName = new FormControl('', [Validators.required, Validators.maxLength(200), Validators.minLength(3)]);
-    this.allContactNo = new FormControl('', [Validators.required, Validators.pattern(this.mobileValidate)]);
-    this.allEmail = new FormControl('', [Validators.required, Validators.email]);
   }
 
   ngOnInit(): void {
@@ -305,8 +285,8 @@ export class AddInstitutionDialogComponent {
         this.api.getInstituteData(this.app_id, this.purpose_name, this.institute_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.instituteData = data['data'][0];
-            console.log('<<<<<<<<<<<<<<',this.instituteData);
-            
+            console.log('<<<<<<<<<<<<<<', this.instituteData);
+
             this.ref_numbers = this.instituteData.reference_no.split('MU-').pop();
             this.wes_name = this.instituteData.nameaswes;
             this.wes_surname = this.instituteData.lastnameaswes;
@@ -317,8 +297,8 @@ export class AddInstitutionDialogComponent {
             this.contact_person_names = this.instituteData.contact_person;
             this.contact_numbers = this.instituteData.contact_number;
             this.email_ids = this.instituteData.other_email
-            ? this.instituteData.email + ',' + this.instituteData.other_email
-            : this.instituteData.email;
+              ? this.instituteData.email + ',' + this.instituteData.other_email
+              : this.instituteData.email;
           } else if (data['status'] == 400) {
             console.log('Data not found!');
           }
@@ -331,7 +311,7 @@ export class AddInstitutionDialogComponent {
         this.api.getInstituteData(this.app_id, this.purpose_name, this.institute_id).subscribe((data: any) => {
           if (data['status'] == 200) {
             this.instituteData = data['data'][0];
-            console.log('@@@@@@@@@@@@@@@@',this.instituteData);
+            console.log('@@@@@@@@@@@@@@@@', this.instituteData);
 
             this.ref_numbers = this.instituteData.reference_no.split('MU-').pop();
             this.wes_name = this.instituteData.nameaswes;
@@ -343,8 +323,8 @@ export class AddInstitutionDialogComponent {
             this.contact_person_names = this.instituteData.contact_person;
             this.contact_numbers = this.instituteData.contact_number;
             this.email_ids = this.instituteData.other_email
-            ? this.instituteData.email + ',' + this.instituteData.other_email
-            : this.instituteData.email;
+              ? this.instituteData.email + ',' + this.instituteData.other_email
+              : this.instituteData.email;
           } else if (data['status'] == 400) {
             console.log('Data not found!');
           }
@@ -354,21 +334,38 @@ export class AddInstitutionDialogComponent {
       }
     }
 
-    //save form controls values using form builder
-    if (this.purpose_name) {
+    if (this.purpose_name == "Educational credential evaluators WES") {
       this.institutionForm = this.fb.group({
-        allRefNo: this.allRefNo,
-        wesEmail: this.wesEmail,
-        wesName: this.wesName,
-        wesSurname: this.wesSurname,
-        allUniversityCompanyName: this.allUniversityCompanyName,
-        allName: this.allName,
-        allCountryName: this.allCountryName,
-        allContactPersonName: this.allContactPersonName,
-        allContactNo: this.allContactNo,
-        allEmail: this.allEmail,
-      });
+        allRefNo: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(8)]],
+        wesEmail: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+        wesName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+        wesSurname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      })
+    } else if (this.purpose_name == "Further study" || this.purpose_name == "Employment") {
+      this.institutionForm = this.fb.group({
+        allRefNo: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(8)]],
+        allUniversityCompanyName: ['', [Validators.required, Validators.maxLength(200), Validators.minLength(3)]],
+        allCountryName: ['', [Validators.required]],
+        allContactPersonName: ['', [Validators.required, Validators.maxLength(200), Validators.minLength(3)]],
+        allContactNo: ['', [Validators.required, Validators.pattern(this.mobileValidate)]],
+        allEmail: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      })
+    } else if (this.purpose_name == "Visa" || this.purpose_name == "Others") {
+      this.institutionForm = this.fb.group({
+        allRefNo: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(8)]],
+        allName: ['', [Validators.required, Validators.maxLength(200), Validators.minLength(3)]],
+        allCountryName: ['', [Validators.required]],
+        allContactPersonName: ['', [Validators.required, Validators.maxLength(200), Validators.minLength(3)]],
+        allContactNo: ['', [Validators.required, Validators.pattern(this.mobileValidate)]],
+        allEmail: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      })
+    } else {
+      this.institutionForm = this.fb.group({
+        allRefNo: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(8)]],
+        allEmail: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      })
     }
+
   }
 
   //close dialog box
@@ -424,38 +421,42 @@ export class AddInstitutionDialogComponent {
         //create and update purpose data
         this.formData = this.institutionForm.value;
 
-        if (this.user_type == 'student') {
-          if (this.purpose_name == "Educational credential evaluators WES") {
-            // this.api.getwesdetails(this.institutionForm.controls['allRefNo'].value, this.institutionForm.controls['wesEmail'].value, this.institutionForm.controls['wesName'].value, this.institutionForm.controls['wesSurname'].value).subscribe(async (data: any) => {
-            //   if (data['status'] == 400) {
-            //     this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
-            //   } else {
-            //     var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-            //     this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
-            //       this.notesSaved.emit(data);
-            //       this.dialogRef.close(data);
-            //     });
-            //   }
-            // })
-            var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
-              this.notesSaved.emit(data);
-              this.dialogRef.close(data);
-            });
+        if (this.institutionForm.valid) {
+          if (this.user_type == 'student') {
+            if (this.purpose_name == "Educational credential evaluators WES") {
+              // this.api.getwesdetails(this.institutionForm.controls['allRefNo'].value, this.institutionForm.controls['wesEmail'].value, this.institutionForm.controls['wesName'].value, this.institutionForm.controls['wesSurname'].value).subscribe(async (data: any) => {
+              //   if (data['status'] == 400) {
+              //     this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
+              //   } else {
+              //     var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+              //     this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+              //       this.notesSaved.emit(data);
+              //       this.dialogRef.close(data);
+              //     });
+              //   }
+              // })
+
+              var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+              this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+                this.notesSaved.emit(data);
+                this.dialogRef.close(data);
+              });
+            } else {
+              var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
+              this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+                this.notesSaved.emit(data);
+                this.dialogRef.close(data);
+              });
+            }
           } else {
             var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, '', this.user_email, '').subscribe((data: any) => {
+            this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
               this.notesSaved.emit(data);
               this.dialogRef.close(data);
             });
           }
         } else {
-          var ref_no = "MU-" + this.institutionForm.controls['allRefNo'].value;
-          this.api.updateAllInstitute(this.purpose_name, ref_no, this.formData, this.app_id, this.institute_id, this.function_type, this.user_id, this.user_email, this.user_type).subscribe((data: any) => {
-            this.notesSaved.emit(data);
-            this.dialogRef.close(data);
-          });
-
+          // this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'Invalid Fields!' });
         }
       },
 

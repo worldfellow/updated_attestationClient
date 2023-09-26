@@ -1,0 +1,30 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": "latest"
+    },
+    "rules": {
+      "semi": ["error", "always"],        // Enforce semicolons at the end of statements.
+      "quotes": ["error", "single"],      // Enforce single quotes for string literals.
+      "no-unused-vars": "error",          // Error on unused variables.
+      "no-console": "warn",               // Warn about using console.log and similar.
+      // "camelcase": "error",               // Enforce camelCase variable and function names.
+      "prefer-const": "error",            // Prefer using const for variables that don't reassign.
+      "comma-dangle": ["error", "never"], // Disallow trailing commas in object and array literals.
+      "object-curly-spacing": ["error", "always"], // Enforce spacing in object literals.
+      "array-bracket-spacing": ["error", "always"], // Enforce spacing in array literals.
+      "no-extra-semi": "error",           // Disallow unnecessary semicolons.
+      "no-empty": "error",                // Disallow empty blocks.
+      "no-multiple-empty-lines": ["error", { "max": 2 }], // Enforce at most 2 empty lines.
+      "@typescript-eslint/no-unused-vars": "error", // Error on unused variables (TypeScript-specific).
+      "@typescript-eslint/no-explicit-any": "warn",  // Error usage of 'any' type.
+      "linebreak-style": "off",
+      "import/no-cycle": "off", // "import/prefer-default-export": "warn",
+      "max-len": ["error", { "code": 100 }],
+      "no-await-in-loop": "off"
+    }
+  }

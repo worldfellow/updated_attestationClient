@@ -166,9 +166,6 @@ export class ApiService {
   getFacultyLists() {
     return this.httpClient.get(`${this.baseUrl}/student/getFacultyLists`);
   }
-  saveUserMarkList(app_id: number, value: string, data: any) {
-    return this.httpClient.post(`${this.baseUrl}/student/saveUserMarkList`, { "app_id": app_id, "value": value, "data": data });
-  }
   getExtraDocuments() {
     return this.httpClient.get(`${this.baseUrl}/student/getExtraDocuments`);
   }

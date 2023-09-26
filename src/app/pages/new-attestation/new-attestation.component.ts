@@ -26,7 +26,7 @@ export class NewAttestationComponent implements OnInit {
   phd: any;
   user_id: any;
   formdata: any;
-  showButton: boolean;
+  showButton: boolean = false;
   firstComplete: boolean = false;
   message: any;
   appliedData: any;
@@ -80,10 +80,6 @@ export class NewAttestationComponent implements OnInit {
     })
 
     this.getUserEducation(); 
-    
-    if (this.firstForm.valid) {
-      this.showButton = true;
-    }
     this.checkStepper();
   }
 

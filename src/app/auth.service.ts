@@ -31,12 +31,17 @@ export class AuthService {
 
         return this.http.post<User>(`${environment.apiUrl}/student/login`, { email, password })
             .pipe(map(user => {
-                console.log('user',user)
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                // this.isUserLoggedIn.next(true);
-                return user;
+
+                if (user.status == 200) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('user', JSON.stringify(user));
+                    this.userSubject.next(user);
+                    // this.isUserLoggedIn.next(true);
+                    return user;
+                }else{
+                    // this.isUserLoggedIn.next(false);
+                    return null;
+                }
             }));
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
@@ -34,18 +34,20 @@ export class RegisterComponent implements OnInit {
   instruction2: boolean = true;
   isSectionDisabled: boolean = true;
   instructionData: any;
-  otp1Value: string = '';
-  otp2Value: string = '';
-  otp3Value: string = '';
-  otp4Value: string = '';
-  otp5Value: string = '';
-  otp6Value: string = '';
   otp: string;
   defaultSelect: any;
   public showPassword: boolean;
   public showConfmPassword: boolean;
   countrySelect: any;
   mobNo: any;
+  @ViewChild('captcha') captcha!: ElementRef;
+  @ViewChild('mobileNum') mobileNum!: ElementRef;
+  @ViewChild('otp1Value') otp1Value!: ElementRef;
+  @ViewChild('otp2Value') otp2Value!: ElementRef;
+  @ViewChild('otp3Value') otp3Value!: ElementRef;
+  @ViewChild('otp4Value') otp4Value!: ElementRef;
+  @ViewChild('otp5Value') otp5Value!: ElementRef;
+  @ViewChild('otp6Value') otp6Value!: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -168,13 +170,13 @@ export class RegisterComponent implements OnInit {
         })
       } else {
         Swal.fire("Ooops", 'Captcha dosent match!', 'error');
+        this.getCaptcha();
+        this.captcha.nativeElement.value = '';
       }
     } else {
       Swal.fire("Ooops", 'Invalid Details!', 'error');
     }
   }
-
-  verifyCaptcha() { }
 
   Register() {
     console.log('JJJJJJJJJJJJJ',this.countrySelect);
@@ -183,6 +185,12 @@ export class RegisterComponent implements OnInit {
     if (this.instructionForm.valid) {
       this.displayNo1 = true;
       this.displayNo2 = false;
+      this.otp1Value.nativeElement.value = '';
+      this.otp2Value.nativeElement.value = '';
+      this.otp3Value.nativeElement.value = '';
+      this.otp4Value.nativeElement.value = '';
+      this.otp5Value.nativeElement.value = '';
+      this.otp6Value.nativeElement.value = '';
     } else {
       Swal.fire("Ooops", 'Invalid Details!', 'error');
     }
@@ -193,6 +201,7 @@ export class RegisterComponent implements OnInit {
     this.displayNo1 = false;
     this.api.verifyOtp(this.otp, this.registerForm.value.emailCtrl).subscribe((data: any) => {
       if (data['status'] == 200) {
+        this.router.navigate(['/auth/login']);
         Swal.fire("Congratulations", data.message, 'success');
       } else {
         Swal.fire("Ooops", data.message, 'error');
@@ -201,20 +210,8 @@ export class RegisterComponent implements OnInit {
   }
 
   GwtnewOTP() {
-    this.displayNo2 = true
-    this.displayNo1 = false
+    this.displayNo2 = true;
+    this.displayNo1 = false;
+    this.mobileNum.nativeElement.value = '';
   }
-
-  selectCountry() {
-
-
-  }
-
-  onChange(event: any) {
-    console.log('eventeventevent', event);
-
-  }
-
-  onInstructionChange(event: any) { }
-
 }

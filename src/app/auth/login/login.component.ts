@@ -66,12 +66,10 @@ export class LoginComponent {
       field.addEventListener('input', (event: any) => {
         if (event.data !== null && index < otpFields.length - 1) {
           const nextField = otpFields[index + 1];
-          console.log('++++++++++++++',nextField);
           
           nextField.focus();
         } else if (event.inputType === 'deleteContentBackward' && index > 0) {
           const previousField = otpFields[index - 1];
-          console.log('++++++++++++++',previousField);
 
           previousField.focus();
         }
@@ -85,29 +83,29 @@ export class LoginComponent {
     this.loader=true;
     this.auth.login(this.loginForm.controls).subscribe({
       next: () => {
-        // this.router.navigate(['pages']);
-        // get return url from query parameters or default to home page
         this.token = JSON.parse(localStorage.getItem('user')!);
-        this.user_type = this.token.data.user.user_type;
-
-        if (this.user_type == 'student') {
-          this.router.navigateByUrl('pages/dashboard');
-
-          Swal.fire("Congratulation",'You Successfully Logged in','success')
-        } else {
-          // this.visible = true;
-          this.ref = this.dialogService.open(VerifyOtpComponent, {
-            // data: {
-            //   email: this.forgotPassForm.controls['email'].value,
-            // },
-            header: 'Verify OTP',
-            width: '40%',
-            contentStyle: { overflow: 'auto' },
-            baseZIndex: 10000,
-          });
-          this.ref.onClose.subscribe(() => {
-          });
+        if(this.token){
+          this.user_type = this.token.data.user.user_type;
+          
+          if (this.user_type == 'student') {
+            this.router.navigateByUrl('pages/dashboard');
+  
+            Swal.fire("Congratulation",this.token.data.message,'success')
+          } else {
+            this.ref = this.dialogService.open(VerifyOtpComponent, {
+              header: 'Verify OTP',
+              width: '40%',
+              contentStyle: { overflow: 'auto' },
+              baseZIndex: 10000,
+            });
+            this.ref.onClose.subscribe(() => {
+            });
+          }
+        }else{
+          this.loader=false;
+          Swal.fire("Oops",'Invalid Credentials!','error')
         }
+
       },
       error: error => {
         // this.alertService.error(error);
@@ -141,18 +139,13 @@ export class LoginComponent {
 
   verify() {
     this.otp = this.otpForm.controls['otp1Value'].value + this.otpForm.controls['otp2Value'].value + this.otpForm.controls['otp3Value'].value + this.otpForm.controls['otp4Value'].value + this.otpForm.controls['otp5Value'].value + this.otpForm.controls['otp6Value'].value;
-    console.log('&&&&&&&&&&&', this.otp);
-    console.log('this.getOtp', this.getOtp)
-
     if (this.getOtp == this.otp) {
       this.api.updateOtp(this.user_id, this.otp).subscribe((data: any) => {
         if (data['status'] == 200) {
-          console.log('inside=============================');
           this.router.navigateByUrl('pages/adminDashboard');
           this.visible = false;
           this.messageService.add({ severity: 'success', summary: 'Success', detail: data.message });
         } else {
-          console.log(' Erorrrrrrrrrrrrrrrrrrr ')
           this.visible = false;
           this.messageService.add({ severity: 'error', summary: 'Error', detail: data.message });
         }
