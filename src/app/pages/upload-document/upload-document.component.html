@@ -102,8 +102,8 @@
                 <input id="fileInput" class="file-upload" accept="image/*" type='file' name="file" #fileUpload
                   id="fileUpload" formControlName="fileInputCtrl"
                   (change)="handleFileInput($event,'marklist' , null, null, null, null, null, null)">
-                <p-button *ngIf="base64Image" (click)="uploadDetails($event,'marklist','','','','','','')"
-                  label="Upload"></p-button>
+                <!-- <p-button *ngIf="base64Image" (click)="uploadDetails($event,'marklist','','','','','','')"
+                  label="Upload"></p-button> -->
                 <br><br>
                 <div class="table">
                   <p-table [tableStyle]="{ 'min-width': '50rem' }">
@@ -219,7 +219,7 @@
                       <td>{{data.college}} </td>
                       <td>
                         <input id="fileInput" class="file-upload" accept="image/*" type='file' name="file" #fileUpload
-                          id="fileUpload" formControlName="fileInputCtrl"
+                          id="fileUpload"
                           (change)="handleFileInput($event,'transcript' , data.coursename,data.college,data.collegeid,data.faculty,data.education_type,data.pattern)">
                         <!-- <p-button *ngIf="base64Image"
                           (click)="uploadDetails($event,'transcript',data.coursename,data.college,data.collegeid,data.faculty,data.education_type,data.pattern)"
@@ -614,9 +614,9 @@
                           <input id="fileInput" class="file-upload" accept="image/*" type='file' name="file" #fileUpload
                             id="fileUpload" formControlName="fileInputCtrl"
                             (change)="handleFileInput($event,'curriculum' , data.coursename,data.college,data.collegeid,data.faculty,data.education_type,data.pattern)">
-                          <p-button *ngIf="base64Image"
+                          <!-- <p-button *ngIf="base64Image"
                             (click)="uploadDetails($event,'curriculum',data.coursename,data.college,data.collegeid,data.faculty,data.education_type,data.pattern)"
-                            label="Upload"></p-button>
+                            label="Upload"></p-button> -->
                         </td>
 
                       </tr>
@@ -737,24 +737,23 @@
                               <th>Actions</th> -->
                       </tr>
                       <!-- <tr class="tablecontent" *ngFor="let data of transcriptDisplay"> -->
-                      <tr class="tablecontent" *ngFor="let data of transcriptDisplay">
+                      <tr class="tablecontent" style="height:4rem" *ngFor="let data of transcriptDisplay">
                         <td> {{data.coursename}} </td>
                         <td>{{data.college}} </td>
                         <td>
                           <input id="fileInput" class="file-upload" accept="image/*" type='file' name="file" #fileUpload
                             id="fileUpload" formControlName="fileInputCtrl"
                             (change)="handleFileInput($event,'gradtoper' , data.coursename,data.college,data.collegeid,data.faculty,data.education_type,data.pattern)">
-                          <p-button
+                          <!-- <p-button
                             (click)="uploadDetails($event,'gradtoper',data.coursename,data.college,data.collegeid,data.faculty,data.education_type,data.pattern)"
-                            label="Upload"></p-button>
+                            label="Upload"></p-button> -->
                         </td>
 
                       </tr>
                     </ng-template>
                   </p-table>
                 </div>
-                <br><br>
-                <div class="table">
+                <div class="table" *ngIf="gradtoper != ''">
                   <p-table [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                       <tr>

@@ -180,14 +180,14 @@ export class UploadDocumentComponent implements OnInit {
     this.api.getAppliedUserDetail().subscribe((data: any) => {
       console.log('**********************', data);
       const userApplied = (data as any)['data'];
-      this.instructionalField = userApplied.instructionalField;
-      this.affiliation = userApplied.affiliation;
-      this.educationalDetails = userApplied.educationalDetails;
-      this.CompetencyLetter = userApplied.CompetencyLetter;
-      this.curriculum = userApplied.curriculum;
-      this.gradToPer = userApplied.gradToPer;
-      this.LetterforNameChange = userApplied.LetterforNameChange;
-      this.phd = userApplied.isphd;
+      this.instructionalField = userApplied?.instructionalField;
+      this.affiliation = userApplied?.affiliation;
+      this.educationalDetails = userApplied?.educationalDetails;
+      this.CompetencyLetter = userApplied?.CompetencyLetter;
+      this.curriculum = userApplied?.curriculum;
+      this.gradToPer = userApplied?.gradToPer;
+      this.LetterforNameChange = userApplied?.LetterforNameChange;
+      this.phd = userApplied?.isphd;
       this.cdr.detectChanges(); // Manually trigger change detection after updating properties
     });
 
@@ -645,6 +645,8 @@ export class UploadDocumentComponent implements OnInit {
         this.topicChangePhd = data['data'][8];
         this.convocationDisplay = data['data'][9];
         this.convocationData = data['data'][10];
+        console.log('this.convocationDisplay ', this.convocationDisplay);
+        
         this.cdr.detectChanges(); // Manually trigger change detection after updating properties
       }
     });

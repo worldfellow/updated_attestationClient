@@ -79,8 +79,7 @@ export class NewAttestationComponent implements OnInit {
       phd: [Validators.required]
     })
 
-    this.getUserEducation();
-    console.log(':::::::::',this.firstForm.valid);
+    this.getUserEducation(); 
     
     if (this.firstForm.valid) {
       this.showButton = true;
@@ -90,12 +89,8 @@ export class NewAttestationComponent implements OnInit {
 
   onChange(event: any) {
     this.formdata = this.firstForm.value;
-
-    console.log('this.formdata.phd', this.formdata)
-    // if((this.formdata.educationalDetails == true || this.formdata.instructionalDetails == true || this.formdata.curriculumDetails == true || this.formdata.gradToPer == true || this.formdata.affiliation == true || this.formdata.CompetencyLetter == true || this.formdata.LetterforNameChange == true) && (this.formdata.phd == true ||  this.formdata.phd == false )){
-    if ((this.formdata.educationalDetails == true)) {
+    if ((this.formdata.educationalDetails == true || this.formdata.instructionalDetails == true || this.formdata.curriculumDetails == true|| this.formdata.gradToPer == true || this.formdata.affiliation == true || this.formdata.CompetencyLetter == true || this.formdata.LetterforNameChange == true) && (this.formdata.phd == "true" ||  this.formdata.phd == "false" )) {
       this.showButton = true;
-      console.log('this.showButton', this.showButton)
     } else {
       this.showButton = false;
     }
@@ -117,8 +112,7 @@ export class NewAttestationComponent implements OnInit {
 
     })
   }
-  checktabs(event: any) {
-    // console.log("indexsdasds",event);
+  checktabs(event: any) { 
 
     // if (event.previouslySelectedIndex === 0) {
     //   // Check if step 1 is completed
