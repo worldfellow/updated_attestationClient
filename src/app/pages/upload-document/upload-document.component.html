@@ -607,7 +607,7 @@
                         <!-- <th>Actions</th> -->
                       </tr>
                       <!-- <tr class="tablecontent" *ngFor="let data of transcriptDisplay"> -->
-                      <tr class="tablecontent" *ngFor="let data of transcriptDisplay">
+                      <tr class="tablecontent" *ngFor="let data of transcriptDisplay" style="height:4rem">
                         <td> {{data.coursename}} </td>
                         <td>{{data.college}} </td>
                         <td>
@@ -623,7 +623,6 @@
                     </ng-template>
                   </p-table>
                 </div>
-                <br><br>
                 <div class="table">
                   <p-table [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
@@ -814,91 +813,96 @@
     </div>
     <p-card header="Bachelors">
       <div class="card flex justify-content-center">
-        <p-accordion class="w-full">
-          <p-accordionTab>
-            <ng-template pTemplate="header">
-              <div class="flex align-items-center">
-                <span class="vertical-align-middle">Competency Letter</span>
-              </div>
-            </ng-template>
-            <ng-template pTemplate="content">
-              <div class="row">
-                <div class="col-md-4">
-                  <p-dropdown [options]="collegeList" [virtualScroll]="true" [virtualScrollItemSize]="30"
-                    optionLabel="name" filterBy="name" [showClear]="true" placeholder="Select a CollegeName">
-                  </p-dropdown>
-                </div>
-                <div class="col-md-4">
-                  <label>Enter Number of Pages</label>
-                  <input pInputText class="p-inputtext-sm" type="number" />
-                </div>
-                <div class="col-md-4">
-                  <p-button>OK</p-button>
-                </div>
-              </div>
-              <br>
-              <div class="table">
-                <p-table [tableStyle]="{ 'min-width': '50rem' }">
-                  <ng-template pTemplate="header">
-                    <tr>
-                      <th>File Name</th>
-                      <th>College Name</th>
-                      <th>Actions</th>
-                    </tr>
-                    <tr class="tablecontent">
-                      <td>filename </td>
-                      <td>college name </td>
-                      <td style="padding-top: 5px">
-                        <p-toast></p-toast>
-                        <!-- incomplete url passed static data -->
-                        <p-fileUpload mode="basic" name="file"
-                          url="{{CompetencyletterUploadUrl}}?user_id={{user_id}}&degree_name=Bachelors_science&hiddentype=aaaaaa&clgId=4"
-                          accept="image/*" [maxFileSize]="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true"
-                          chooseLabel="Upload"></p-fileUpload>
-                        <!-- <div><i class="pi pi-eye" (click)="imageView()"
-                            style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i> 
-                            <i class="pi pi-trash" style="font-size: 1.5rem"></i>
-                          </div> -->
-                      </td>
-                    </tr>
-                  </ng-template>
-                </p-table>
-              </div>
-            </ng-template>
-          </p-accordionTab>
-          <p-accordionTab>
-            <ng-template pTemplate="header">
-              <div class="flex align-items-center">
-                <span class="vertical-align-middle">Convocation Certificate</span>
-              </div>
-            </ng-template>
-            <ng-template pTemplate="content">
-              <div class="table">
-                <p-table [tableStyle]="{ 'min-width': '50rem' }">
-                  <ng-template pTemplate="header">
-                    <tr>
-                      <th>File Name</th>
-                      <th>College Name</th>
-                      <th>Actions</th>
-                    </tr>
-                    <tr class="tablecontent">
-                      <td>filename </td>
-                      <td>college name </td>
-                      <td style="padding-top: 5px">
-                        <p-toast></p-toast>
-                        <p-fileUpload mode="basic" name="file" url="https://www.primefaces.org/cdn/api/upload.php"
-                          accept="image/*" [maxFileSize]="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true"
-                          chooseLabel="Upload"></p-fileUpload>
-                        <!-- <div><i class="pi pi-eye" (click)="imageView()"
-                          style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i> 
-                          <i class="pi pi-trash" style="font-size: 1.5rem"></i>
-                        </div> -->
-                      </td>
-                    </tr>
-                  </ng-template>
-                </p-table>
-              </div>
-            </ng-template>
+        <form class="needs-validation" [formGroup]="uploadForm" novalidate>
+
+          <div class="table">
+            <p-table [tableStyle]="{ 'min-width': '25rem' }">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Name of the Course </th>
+                  <th>Name of the College</th>
+                  <th>Actions</th>
+                </tr>
+                <!-- <tr class="tablecontent" *ngFor="let data of transcriptDisplay"> -->
+                <tr style="height:4rem" class="tablecontent" *ngFor="let data of transcriptDisplay">
+                  <td> {{data.coursename}} </td>
+                  <td>{{data.college}} </td>
+                  <td>
+                    <input id="fileInput" class="file-upload" accept="image/*" type='file' name="file" #fileUpload
+                      id="fileUpload"
+                      (change)="handleFileInput($event,'competency' , data.coursename,data.college,data.collegeid,data.faculty,data.education_type,data.pattern)">
+                    <!-- <p-button *ngIf="base64Image"
+                                      (click)="uploadDetails($event,'transcript',data.coursename,data.college,data.collegeid,data.faculty,data.education_type,data.pattern)"
+                                      label="Upload"></p-button> -->
+                  </td>
+
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+          <div class="table">
+            <p-table [tableStyle]="{ 'min-width': '25rem' }">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>File Name</th>
+                  <th>Name of the College</th>
+                  <th>Actions</th>
+                </tr>
+                <tr class="tablecontent" *ngFor="let marksheet of competencyData">
+                  <td> {{marksheet.name}} </td>
+                  <td>{{marksheet.CollegeName}} </td>
+                  <td> <i class="pi pi-eye" style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i>
+                    <i class="pi pi-trash" style="font-size: 1.5rem"
+                      (click)="deleteDocument(marksheet.id,'compentencyLetter')"></i>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </form>
+        <p-accordion [activeIndex]="0" [style]="{padding: '5px'}">
+          <p-accordionTab header="Upload Convocation" *ngIf="convocationDisplay != ''">
+            <div class="table">
+              <p-table [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Name of the Course </th>
+                    <th>Name of the College</th>
+                    <th>Actions</th>
+                  </tr>
+                  <tr style="height:4rem" class="tablecontent" *ngFor="let data of convocationDisplay">
+                    <td> {{data.education_type}} of {{data.faculty}} </td>
+                    <td>{{data.college}} </td>
+                    <td>
+                      <div>
+                        <input id="fileInput" class="file-upload" accept="image/*" type='file' name="file" #fileUpload
+                          id="fileUpload"
+                          (change)="handleFileInput($event,'convocation' , data.coursename,data.college,data.collegeid,data.faculty,data.education_type,data.pattern)">
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div class="table" *ngIf="convocationData != ''">
+              <p-table [tableStyle]="{ 'min-width': '25rem' }">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>File Name</th>
+                    <th>Name of the College</th>
+                    <th>Actions</th>
+                  </tr>
+                  <tr class="tablecontent" *ngFor="let convo of convocationData">
+                    <td> {{convo.name}} </td>
+                    <td>{{convo.CollegeName}} </td>
+                    <td> <i class="pi pi-eye" style="font-size: 1.5rem;margin-right: 20px;margin-top: 10px;"></i>
+                      <i class="pi pi-trash" style="font-size: 1.5rem"
+                        (click)="deleteDocument(convo.id,'convocation')"></i>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
           </p-accordionTab>
         </p-accordion>
       </div>

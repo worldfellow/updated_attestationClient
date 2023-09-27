@@ -85,6 +85,7 @@ export class UploadDocumentComponent implements OnInit {
   width: number;
   marksheets: any = [];
   transcripts: any = [];
+  competencyData: any = [];
 
   LetterforNameChangeform: FormGroup = new FormGroup({
     firstNameMarksheetCtrl: new FormControl('', Validators.required),
@@ -137,7 +138,7 @@ export class UploadDocumentComponent implements OnInit {
   topicChangePhd: any;
   phd: any;
   convocationDisplay: any;
-  convocationData:any;
+  convocationData: any;
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -645,8 +646,8 @@ export class UploadDocumentComponent implements OnInit {
         this.topicChangePhd = data['data'][8];
         this.convocationDisplay = data['data'][9];
         this.convocationData = data['data'][10];
-        console.log('this.convocationDisplay ', this.convocationDisplay);
-        
+        this.competencyData = data['data'][11]; 
+
         this.cdr.detectChanges(); // Manually trigger change detection after updating properties
       }
     });

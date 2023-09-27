@@ -102,7 +102,7 @@
         <app-upload-document></app-upload-document>
         <br>
         <button mat-button matStepperPrevious class="previous-custom-button" style="margin-right: 10px;">Back</button>
-        <button mat-button matStepperNext class="next-custom-button">Next</button>
+        <button mat-button matStepperNext class="next-custom-button" (click)="nextStep()">Next</button>
       </mat-step>
       <mat-step [completed]="tabcheck3">
         <ng-template matStepLabel>3rd Steps</ng-template>
