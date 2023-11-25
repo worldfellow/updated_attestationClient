@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/api.service';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NotesComponent } from '../dailogComponents/notes.component';
+import { Router } from '@angular/router';
 interface PageEvent {
   first: number;
   rows: number;
@@ -43,7 +44,7 @@ export class PendingApplicationsComponent implements OnInit {
   @ViewChild('globalSearchR') globalSearchR!: ElementRef; 
 
 
-    constructor(protected api: ApiService,private confirmationService: ConfirmationService,private dialogService: DialogService, private messageService: MessageService) {
+    constructor(protected api: ApiService,private router: Router,private confirmationService: ConfirmationService,private dialogService: DialogService, private messageService: MessageService) {
 
   }
   ngOnInit() {
@@ -156,8 +157,8 @@ verifyApplication(userId:number,appId:number){
 }
 
 /**View Errata Function it navigate to Errata process */
-viewErrata(userId:number,appId:number){
-
+viewErrata(user_id:number,app_id:number){
+ this.router.navigate(['pages/adminVerified/viewMore'], { queryParams: { user_id: user_id, app_id: app_id, viewFrom: 'pending' } })
 }
 
 

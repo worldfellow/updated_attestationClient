@@ -113,6 +113,7 @@ import { PasswordModule } from 'primeng/password';
 import { BadgeModule } from 'primeng/badge';
 import { PaymentNotesComponent } from './dialog/payment-notes/payment-notes.component';
 import { LettersFormComponent } from './dailogComponents/letters-form.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
 // import { TranslateLoader, TranslateModule } from '@ngx-translate/core'; 
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -129,7 +130,7 @@ import { LettersFormComponent } from './dailogComponents/letters-form.component'
     HelpsComponent,
     BodyComponent,
     SidenavComponent,
-    FooterComponent, 
+    FooterComponent,
     NavbarComponent,
     NewAttestationComponent,
     UploadDocumentComponent,
@@ -174,23 +175,23 @@ import { LettersFormComponent } from './dailogComponents/letters-form.component'
     ActivityTrackerComponent,
     ViewMoreComponent,
     AddDocumentByAdminComponent,
-    UpdateInstructionalAffiliationComponent, 
+    UpdateInstructionalAffiliationComponent,
     NotesComponent,
     AddSubAdminComponent,
     ViewSubAdminRolesComponent,
     ShowPreviewComponent,
-    ChangePasswordComponent, 
+    ChangePasswordComponent,
     PaymentNotesComponent,
-    LettersFormComponent
+    LettersFormComponent,
   ],
   imports: [
-    CommonModule, 
+    CommonModule,
     MessagesModule,
     MatChipsModule,
     CdkStepperModule,
     MatSidenavModule,
     PagesRoutingModule,
-    CardModule, 
+    CardModule,
     ImageCropperModule,
     DashboardModule,
     DropdownModule,
@@ -199,7 +200,7 @@ import { LettersFormComponent } from './dailogComponents/letters-form.component'
     MatMenuModule,
     ButtonModule,
     MatTabsModule,
-    MatIconModule,  
+    MatIconModule,
     MatStepperModule,
     MatCheckboxModule,
     ConfirmDialogModule,
@@ -214,7 +215,7 @@ import { LettersFormComponent } from './dailogComponents/letters-form.component'
     PdfViewerModule,
     ButtonModule,
     MatTabsModule,
-    MatIconModule,  
+    MatIconModule,
     MatStepperModule,
     MatCheckboxModule,
     ConfirmDialogModule,
@@ -234,7 +235,7 @@ import { LettersFormComponent } from './dailogComponents/letters-form.component'
     MatDialogModule,
     MatAutocompleteModule,
     ConfirmDialogModule,
-    ToastModule,  
+    ToastModule,
     TableModule,
     DividerModule,
     ButtonModule,
@@ -259,6 +260,7 @@ import { LettersFormComponent } from './dailogComponents/letters-form.component'
     MatTableModule,
     PasswordModule,
     BadgeModule,
+    InputSwitchModule,
     // HttpClientModule,
     // TranslateModule.forRoot({
     //   loader: {
@@ -268,6 +270,6 @@ import { LettersFormComponent } from './dailogComponents/letters-form.component'
     //   }
     // }),
   ],
-  providers:[AuthGuard]
+  providers: [AuthGuard],
 })
-export class PagesModule { }
+export class PagesModule {}

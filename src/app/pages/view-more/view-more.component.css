@@ -36,3 +36,8 @@ input::file-selector-button {
     border-radius: 6px;
     height: 45px; 
   }
+
+  .label{
+    padding-left: 10px;
+    padding-right: 10px;
+  }

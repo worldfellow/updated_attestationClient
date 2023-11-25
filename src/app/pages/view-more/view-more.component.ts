@@ -13,6 +13,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ImageViewComponent } from '../dailogComponents/image-view.component';
+import { NotesComponent } from '../dailogComponents/notes.component';
 
 @Component({
   selector: 'app-view-more',
@@ -57,6 +58,9 @@ export class ViewMoreComponent {
   studentAppId: any;
   app_id_null : any = null;
   ref: DynamicDialogRef;
+  checked: boolean = false;
+  completeChecked: boolean = false;
+  inCompleteChecked: boolean = false;
 
   constructor(
     protected api: ApiService,
@@ -82,6 +86,7 @@ export class ViewMoreComponent {
       console.log('>>>>>>>>>>>>>>>>' ,params['app_id'])
     });
 
+    this.getDocumentData();
 
     this.api.getStudentList(this.student_id, '', '', '', '', '', '').subscribe((data: any) => {
       if (data['status'] == 200) {
@@ -90,21 +95,7 @@ export class ViewMoreComponent {
       }
     })
 
-    this.api.getDocumentsData(this.student_id, this.student_app_id).subscribe((data: any) => {
-      if (data['status'] == 200) {
-        this.marksheetsData = data['data'][0].marksheetsData;
-        this.transcriptsData = data['data'][0].transcriptsData;
-        this.curriculumData = data['data'][0].curriculumData;
-        this.gradtoperData = data['data'][0].gradtoperData;
-        this.competencyData = data['data'][0].competencyData;
-        this.letterfornamechangeData = data['data'][0].letterfornamechangeData;
-        this.instructionalData = data['data'][0].instructionalData;
-        this.affiliationData = data['data'][0].affiliationData;
-        this.namechangeproofData = data['data'][0].namechangeproofData;
-        console.log('^^^^^^^^^^^^^^^^^^^^^', this.marksheetsData);
 
-      }
-    })
 
     //get all institute purpose data to display on page
     this.api.getInstituteData(this.student_app_id, '', '').subscribe((data: any) => {
@@ -133,6 +124,27 @@ export class ViewMoreComponent {
     this.uploadForm = this.fb.group({
       fileInputCtrl: ['', Validators.required],
     });
+  }
+
+
+  getDocumentData(){
+        this.api.getDocumentsData(this.student_id, this.student_app_id).subscribe((data: any) => {
+      if (data['status'] == 200) {
+        this.marksheetsData = data['data'][0].marksheetsData;
+        console.log(' this.marksheetsData', this.marksheetsData);
+        
+        this.transcriptsData = data['data'][0].transcriptsData;
+        this.curriculumData = data['data'][0].curriculumData;
+        this.gradtoperData = data['data'][0].gradtoperData;
+        this.competencyData = data['data'][0].competencyData;
+        this.letterfornamechangeData = data['data'][0].letterfornamechangeData;
+        this.instructionalData = data['data'][0].instructionalData;
+        console.log('this.instructionalData',this.instructionalData);
+        
+        this.affiliationData = data['data'][0].affiliationData;
+        this.namechangeproofData = data['data'][0].namechangeproofData;
+      }
+    })
   }
 
   //profile tab functions
@@ -420,6 +432,94 @@ export class ViewMoreComponent {
     } else {
       this.trackerData = this.trackerData;
     }
+  }
+
+  errataDocument(event:any,id:number,app_id:number,user_id:number,type:string){
+    if(event.checked === true){
+      this.confirmationService.confirm({
+      message: 'Are you sure want to Errata this document?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+
+      accept: () => {
+        this.ref = this.dialogService.open(NotesComponent, {
+          data: {
+            type: 'errata',
+            app_id: app_id
+          },
+          header: 'Notes Details',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: true,
+          closable: false
+        });
+        this.ref.onClose.subscribe(() => {
+          this.api.errataStudentDocument(id,app_id,user_id,type).subscribe((data: any) => {          
+            if (data['status'] == 200) {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: data['message'] });
+            } else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: data['message'] });
+            }
+          })
+        });
+      },
+
+      reject: () => {
+        this.confirmationService.close();
+         this.messageService.add({ severity: 'info', summary: 'Info', detail:'You Rejected the Errata' });
+        this.getDocumentData();
+      } 
+      });
+    }else{
+
+    }
+  }
+
+  completeIncomplete(checked:any,value:string,user_id:number,app_id:number,type:string){
+    if (value === 'complete' && checked.checked.length !== 0) {
+        this.inCompleteChecked = false;
+        this.confirmationService.confirm({
+          message: 'Are you sure want to verify this documents?',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+
+            accept: () => {
+              this.api.completeIncompleteDoc(user_id, app_id, type, value).subscribe((data: any) => {
+                if (data['status'] == 200) {
+                  this.messageService.add({severity: 'success', summary: 'Success',detail: data['message'] });
+                } else {
+                  this.messageService.add({severity: 'error',summary: 'Error',detail: data['message']});
+                }
+              });
+            },
+
+            reject: () => {
+              this.confirmationService.close();
+            },
+        })
+      } else if (value === 'inComplete' && checked.checked.length !== 0) {
+          this.completeChecked = false;
+          this.ref = this.dialogService.open(NotesComponent, {
+            data: {
+              type: 'InComplete',
+              app_id: app_id,
+            },
+            header: 'Notes Details',
+            contentStyle: { overflow: 'auto' },
+            baseZIndex: 10000,
+            maximizable: true,
+            closable: false,
+          });
+          this.ref.onClose.subscribe(() => {
+            this.api.completeIncompleteDoc(user_id, app_id, type, value).subscribe((data: any) => {
+                if (data['status'] == 200) {
+                  this.messageService.add({severity: 'success', summary: 'Success',detail: data['message'] });
+                } else {
+                  this.messageService.add({severity: 'error',summary: 'Error',detail: data['message']});
+                }
+              });
+          });
+      }
   }
 
 }
