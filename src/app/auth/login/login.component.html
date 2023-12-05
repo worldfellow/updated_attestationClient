@@ -4,8 +4,8 @@
     <div class="mcr">
       <div class="row" style="padding: 20px;">
         <h6 class="col-md-4">New User ? <a routerLink="/register">Register</a></h6>
-        <div class="col-md-4" style="height: 150px; overflow: hidden;">
-          <img style="height: 200px; width: 100%; margin-top: -20px;"
+        <div class="col-md-4" style="height: 110px; overflow: hidden;">
+          <img style="height: 200px; width: 100%; margin-top: -50px;"
             src="../../../assets/IMG/UM Logo (632 × 505 px).svg" alt="">
         </div>
         <h6 style="text-align: center;" class="col-md-4">English <img
@@ -25,7 +25,7 @@
           *ngIf="loginForm.get('userName')?.invalid && (loginForm.get('userName')?.dirty || loginForm.get('userName')?.touched)"
           class="invalid-feedback">
           Email must be a valid email address
-        </div><br>
+        </div>
         <h6 class="label">Password:</h6>
         <div style="position: relative; width: 100%;">
           <input type="password" class="form-control" id="passWord" [type]="showPassword ? 'text' : 'passWord'"
