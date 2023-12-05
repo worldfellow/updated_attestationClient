@@ -179,7 +179,6 @@ export class UploadDocumentComponent implements OnInit {
     });
 
     this.api.getAppliedUserDetail().subscribe((data: any) => {
-      console.log('**********************', data);
       const userApplied = (data as any)['data'];
       this.instructionalField = userApplied?.instructionalField;
       this.affiliation = userApplied?.affiliation;
@@ -654,7 +653,7 @@ export class UploadDocumentComponent implements OnInit {
   }
 
   checkStepper() {
-    this.api.checkstepper_inner(this.app_id).subscribe((response: any) => {
+    this.api.checkStepperInner(this.app_id).subscribe((response: any) => {
       this.selectedTab = response['data'];
       this.tabcheck1 = response['step'].tab1;
       this.tabcheck2 = response['step'].tab2;
@@ -664,6 +663,19 @@ export class UploadDocumentComponent implements OnInit {
       this.tabcheck6 = response['step'].tab6;
       this.tabcheck7 = response['step'].tab7;
       this.tabcheck8 = response['step'].tab8;
+
+
+      // If all the values are true it will redirect to Name Change Tab
+      let tabs = ['tab1', 'tab2', 'tab3' , 'tab4', 'tab5', 'tab6', 'tab7', 'tab8'];
+      let allTrue = false;
+      for (let i = 0; i < tabs.length; i++) {
+        if (response['step'][tabs[i]] === false) {
+            allTrue = true
+        }
+      }
+      if(allTrue == false){
+        this.selectedTab = 'tab9'
+      }
     });
   }
 

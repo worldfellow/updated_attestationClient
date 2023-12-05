@@ -1,8 +1,8 @@
 <mat-card>
   <div>
-    <mat-stepper (click)="checktabs(stepper.selectedIndex)" orientation="horizontal" [linear]="true" #stepper>
-      <mat-step [stepControl]="firstForm" [completed]="tabcheck1">
-        <ng-template matStepLabel>1st Steps</ng-template>
+    <mat-stepper (click)="checkTabs(stepper.selectedIndex)" orientation="horizontal" [linear]="true" #stepper>
+      <mat-step label="Educational Details">  
+        <ng-template matStepLabel>Educational Details</ng-template>
         <div class="card">
           <h3 class="card-header" style="font-weight: bold;background: #06d8f8;">Educational Details</h3>
           <div class="card-body">
@@ -95,25 +95,18 @@
             </div>
           </div>
         </div>
-      </mat-step>
-      <mat-step [completed]="tabcheck2">
-        <ng-template matStepLabel>2nd Steps
-        </ng-template>
-        <app-upload-document></app-upload-document>
-        <br>
-        <button mat-button matStepperPrevious class="previous-custom-button" style="margin-right: 10px;">Back</button>
-        <button mat-button matStepperNext class="next-custom-button" (click)="nextStep()">Next</button>
-      </mat-step>
-      <mat-step [completed]="tabcheck3">
-        <ng-template matStepLabel>3rd Steps</ng-template>
-        <app-purpose></app-purpose>
-        <button mat-button matStepperPrevious class="previous-custom-button" style="margin-right: 10px;">Back</button>
-        <button mat-button matStepperNext class="next-custom-button">Next</button>
-      </mat-step>
-      <!-- <mat-step>
-      <ng-template matStepLabel>4th Steps</ng-template>
-      <button mat-button matStepperPrevious class="previous-custom-button">Back</button>
-    </mat-step>  -->
+       </mat-step>
+    <mat-step  label="Upload Documents">   <ng-template matStepLabel>Upload Documents
+    </ng-template>
+    <app-upload-document></app-upload-document>
+    <br>
+    <button mat-button matStepperPrevious class="previous-custom-button" style="margin-right: 10px;">Back</button>
+    <button mat-button matStepperNext class="next-custom-button" (click)="nextStep()">Next</button></mat-step>
+    <mat-step label="Purpose Details">    <ng-template matStepLabel>Purpose Details</ng-template>
+      <app-purpose></app-purpose>
+      <button mat-button matStepperPrevious class="previous-custom-button" style="margin-right: 10px;">Back</button>
+      <!-- <button mat-button matStepperNext class="next-custom-button">Next</button>  -->
+    </mat-step>
     </mat-stepper>
   </div>
 </mat-card>

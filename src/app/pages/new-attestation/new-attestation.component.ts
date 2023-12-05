@@ -26,7 +26,7 @@ export class NewAttestationComponent implements OnInit {
   phd: any;
   user_id: any;
   formdata: any;
-  showButton: boolean = false;
+  showButton: boolean;
   firstComplete: boolean = false;
   message: any;
   appliedData: any;
@@ -79,13 +79,16 @@ export class NewAttestationComponent implements OnInit {
       phd: [Validators.required]
     })
 
-    this.getUserEducation(); 
+    this.getUserEducation();
+    if (this.firstForm.valid) {
+      this.showButton = true;
+    }
     this.checkStepper();
   }
 
   onChange(event: any) {
     this.formdata = this.firstForm.value;
-    if ((this.formdata.educationalDetails == true || this.formdata.instructionalDetails == true || this.formdata.curriculumDetails == true|| this.formdata.gradToPer == true || this.formdata.affiliation == true || this.formdata.CompetencyLetter == true || this.formdata.LetterforNameChange == true) && (this.formdata.phd == "true" ||  this.formdata.phd == "false" )) {
+    if ((this.formdata.educationalDetails == true)) {
       this.showButton = true;
     } else {
       this.showButton = false;
@@ -108,34 +111,23 @@ export class NewAttestationComponent implements OnInit {
 
     })
   }
-  checktabs(event: any) { 
-
-    // if (event.previouslySelectedIndex === 0) {
-    //   // Check if step 1 is completed
-    //   if (this.isStep1Completed()) {
-    //     // Mark step 2 as completed
-    //     this.stepper.selected.completed = true;
-    //   } else {
-    //     // Prevent navigation to step 2
-    //     this.stepper.selected.editable = false;
-    //   }
-    // }
+  checkTabs(event: any) {
   }
 
   checkStepper() {
-    this.api.checkstepper(this.app_id).subscribe((response: any) => {
+    this.api.checkStepper(this.app_id).subscribe((response: any) => {      
       this.tabcheck1 = response['data'].tab1
       this.tabcheck2 = response['data'].tab2
       this.tabcheck3 = response['data'].tab3
 
       if (this.tabcheck1 == true) {
-        this.stepper.selectedIndex = 1;
-      }
-      if (this.tabcheck2 == true) {
+        this.stepper.selectedIndex = 1;  
+  }
+    if (this.tabcheck2 == true) {
         this.stepper.selectedIndex = 2;
 
       }
-      if (this.tabcheck3 == true) {
+    if (this.tabcheck3 == true) {
         this.stepper.selectedIndex = 3
       }
     })
@@ -153,7 +145,7 @@ export class NewAttestationComponent implements OnInit {
   nextStep() {
     this.checkStepper();
     this.stepper.next();
-    this.router.navigateByUrl('/UploadDocumentComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigateByUrl('/UploadDocumentComponent', { skipLocationChange: true }).then(() => {
       this.router.navigate(['pages/attestation_page']);
     });
 

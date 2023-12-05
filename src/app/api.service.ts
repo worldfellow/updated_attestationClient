@@ -643,19 +643,15 @@ export class ApiService {
     );
   }
 
-  // checkstepper api for student.
-  checkstepper(app_id: any) {
-    return this.httpClient.get(
-      `${this.baseUrl}/student/checkstepper?app_id=${app_id}`
-    );
-  }
+ // checkStepper api for student.
+ checkStepper(app_id: any) {
+  return this.httpClient.get(`${this.baseUrl}/student/checkStepper?app_id=${app_id}`);
+}
 
-  // checkstepper api for student on 2nd step.
-  checkstepper_inner(app_id: any) {
-    return this.httpClient.get(
-      `${this.baseUrl}/student/checkstepper_inner?app_id=${app_id}`
-    );
-  }
+// checkStepperInner api for student on 2nd step.
+checkStepperInner(app_id: any) {
+  return this.httpClient.get(`${this.baseUrl}/student/checkStepperInner?app_id=${app_id}`);
+}
 
   getCountry() {
     return this.httpClient.get(`${this.baseUrl}/student/getCountry`);

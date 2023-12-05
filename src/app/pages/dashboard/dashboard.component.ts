@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   educationDetails: boolean;
   documentDetails: boolean;
   purposeDetails: boolean;
-  paymentDetails: boolean;
+  paymentDetails: boolean= false;
   applied: boolean;
   verified: boolean;
   signed: boolean;
@@ -49,11 +49,10 @@ export class DashboardComponent implements OnInit {
   /**progressbar function to get the status of pre-Application */
   progressBar() {
     this.api.getPreApplication().subscribe((data: any) => {
-      this.educationDetails = data.educationDetails;
+            this.educationDetails = data.educationDetails;
       this.documentDetails = data.documentDetails;
       this.purposeDetails = data.purposeDetails;
       this.paymentDetails = data.paymentDetails;
-      console.log('WWWWWWWWWWWWWWWW',this.paymentDetails);
       
     });
   }
